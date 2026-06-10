@@ -4,7 +4,7 @@ public struct OutCountView: View {
     private let outs: Int
 
     public init(outs: Int) {
-        self.outs = min(max(outs, 0), 2)
+        self.outs = min(max(outs, 0), 3)
     }
 
     public var body: some View {
