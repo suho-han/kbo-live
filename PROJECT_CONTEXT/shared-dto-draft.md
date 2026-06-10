@@ -7,7 +7,9 @@
 업데이트 메모 (2026-06-10):
 - `Packages/KboLiveCore/Sources/KboLiveCore/DTO/GameDTO.swift`에 초안 DTO 구현 반영
 - `Packages/KboLiveCore/Sources/KboLiveCore/Mappers/GameDTOMapper.swift`에 blank-to-nil 및 ISO startTime 파싱 초안 반영
-- `Packages/KboLiveCore/Tests/KboLiveCoreTests/Fixtures/today-games-response.json` fixture 추가
+- `Packages/KboLiveCore/Sources/KboLiveCore/Projections/`에 widget / live activity / menu bar용 projection 모델 추가
+- `Packages/KboLiveCore/Sources/KboLiveCore/Mappers/`에 projection mapper 초안 추가
+- `Packages/KboLiveCore/Tests/KboLiveCoreTests/Fixtures/today-games-response.json` fixture 및 projection 테스트 추가
 
 ## 1. 목표
 

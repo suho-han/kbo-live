@@ -5,10 +5,11 @@
 개발 환경: 로컬 Mac + Xcode 16 이상 가정
 
 업데이트 메모 (2026-06-10):
-- `Packages/KboLiveCore` 최소 Swift Package scaffold 생성 완료
+- `Packages/KboLiveCore` 최소 DTO/domain/mapper/test scaffold 생성 완료
 - `TodayGamesResponseDTO`, `GameDetailResponseDTO`, `GameDTO` 및 하위 DTO 초안 코드 작성 완료
 - `GameDTO -> Game` mapper 초안 작성 완료
-- fixture 기반 decode/mapper 테스트 파일 추가 완료
+- widget / live activity / menu bar용 shared projection(`WidgetGameSnapshot`, `ActivityGameState`, `MenuBarGameSummary`) 및 mapper 초안 추가 완료
+- fixture 기반 decode/mapper/projection 테스트 파일 추가 완료
 - 단, 현재 Linux 호스트에는 Swift toolchain이 없어 `swift test` 실행 검증은 아직 미완료
 
 ## 1. 목표

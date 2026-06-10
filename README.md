@@ -31,6 +31,7 @@ Packages/         # Swift shared package scaffold
 - `/health`, `/games/today`, `/games/:gameId`, `/debug/source/today`
 - polling / dump / fixture 저장 흐름
 - `Packages/KboLiveCore` 최소 DTO/domain/mapper/test scaffold
+- widget / live activity / menu bar projection 모델 및 mapper 초안
 
 ## 빠른 시작
 
