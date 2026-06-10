@@ -6,7 +6,7 @@ public enum GameDTOMapper {
             id: dto.gameId,
             date: dto.date,
             venue: nilIfBlank(dto.venue),
-            startTime: ISO8601DateFormatter.kbo.date(from: dto.startTime ?? ""),
+            startTime: parseStartTime(dto.startTime),
             status: GameStatus(rawValue: dto.status.rawValue) ?? .unknown,
             awayTeam: Team(id: dto.awayTeam.id, name: dto.awayTeam.name),
             homeTeam: Team(id: dto.homeTeam.id, name: dto.homeTeam.name),
@@ -33,10 +33,22 @@ public enum GameDTOMapper {
         let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
         return trimmed.isEmpty ? nil : trimmed
     }
+
+    static func parseStartTime(_ value: String?) -> Date? {
+        guard let value = nilIfBlank(value) else { return nil }
+        return ISO8601DateFormatter.kboBasic.date(from: value)
+            ?? ISO8601DateFormatter.kboExtended.date(from: value)
+    }
 }
 
 private extension ISO8601DateFormatter {
-    static let kbo: ISO8601DateFormatter = {
+    static let kboBasic: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withFullDate, .withTime, .withTimeZone]
+        return formatter
+    }()
+
+    static let kboExtended: ISO8601DateFormatter = {
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withInternetDateTime]
         return formatter

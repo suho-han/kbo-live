@@ -31,6 +31,11 @@ enum GameProjectionFormatter {
         let parts = [statusLabel(for: game.status), inningText, outsText]
             .compactMap { $0 }
             .filter { $0.isEmpty == false }
+            .reduce(into: [String]()) { partialResult, part in
+                if partialResult.contains(part) == false {
+                    partialResult.append(part)
+                }
+            }
 
         return parts.isEmpty ? nil : parts.joined(separator: " · ")
     }

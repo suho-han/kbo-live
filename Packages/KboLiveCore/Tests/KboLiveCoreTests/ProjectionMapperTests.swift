@@ -52,6 +52,50 @@ struct ProjectionMapperTests {
         #expect(state.shortRecentPlay == "오스틴의 좌중간 담장을 때리는 아주 긴 적…")
     }
 
+    @Test func deduplicatesMenuBarStatusTokensWhenLiveHasNoInning() {
+        let game = Game(
+            id: "live-no-inning",
+            date: "20260610",
+            venue: "잠실",
+            startTime: nil,
+            status: .live,
+            awayTeam: Team(id: "LG", name: "LG"),
+            homeTeam: Team(id: "OB", name: "두산"),
+            score: Score(away: 4, home: 3),
+            inning: nil,
+            count: CountState(balls: 1, strikes: 2, outs: 2),
+            bases: BasesState(first: true, second: false, third: false),
+            current: nil,
+            probablePitchers: ProbablePitchers(away: nil, home: nil),
+            recentPlay: nil,
+            sourceMeta: SourceMeta(rawStatusCode: nil, rawTopBottomCode: nil, fetchedAt: "2026-06-10T10:05:00.000Z")
+        )
+
+        #expect(GameProjectionFormatter.menuBarSecondaryText(for: game) == "LIVE · 2사")
+    }
+
+    @Test func deduplicatesMenuBarStatusTokensWhenDelayed() {
+        let game = Game(
+            id: "delayed",
+            date: "20260610",
+            venue: "잠실",
+            startTime: nil,
+            status: .delayed,
+            awayTeam: Team(id: "LG", name: "LG"),
+            homeTeam: Team(id: "OB", name: "두산"),
+            score: Score(away: 0, home: 0),
+            inning: nil,
+            count: nil,
+            bases: nil,
+            current: nil,
+            probablePitchers: ProbablePitchers(away: nil, home: nil),
+            recentPlay: nil,
+            sourceMeta: SourceMeta(rawStatusCode: nil, rawTopBottomCode: nil, fetchedAt: "2026-06-10T10:05:00.000Z")
+        )
+
+        #expect(GameProjectionFormatter.menuBarSecondaryText(for: game) == "지연")
+    }
+
     private func loadFixtureResponse() throws -> TodayGamesResponseDTO {
         let data = try FixtureLoader.loadData(named: "today-games-response")
         return try JSONDecoder().decode(TodayGamesResponseDTO.self, from: data)

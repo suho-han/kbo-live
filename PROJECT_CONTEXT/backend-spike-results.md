@@ -44,6 +44,7 @@ KBO 공식 웹서비스를 직접 앱에서 때리지 않고, 중간 backend/BFF
 실제 확인된 점:
 - 2026-06-10 기준 5경기 normalized 응답 반환 확인
 - scheduled 경기에서 기본 score/status/venue/startTime 필드 확인
+- `startTime` normalized 형식은 현재 `YYYYMMDDTHH:mm:ss+09:00` (예: `20260610T18:30:00+09:00`) 확인
 - polling script 2회 실행 시
   - 첫 tick: `initial snapshot`
   - 둘째 tick: `changedGames: 0`

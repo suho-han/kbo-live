@@ -38,4 +38,28 @@ struct TodayGamesResponseDTOTests {
         #expect(mapped.inning?.number == 7)
         #expect(mapped.inning?.half == .bottom)
     }
+
+    @Test func parsesExtendedIsoStartTimeIntoDate() {
+        let dto = GameDTO(
+            gameId: "extended-iso",
+            date: "20260610",
+            venue: "잠실",
+            startTime: "2026-06-10T18:30:00+09:00",
+            status: .scheduled,
+            awayTeam: TeamDTO(id: "LG", name: "LG"),
+            homeTeam: TeamDTO(id: "OB", name: "두산"),
+            score: ScoreDTO(away: 0, home: 0),
+            inning: nil,
+            count: nil,
+            bases: nil,
+            current: nil,
+            probablePitchers: ProbablePitchersDTO(away: nil, home: nil),
+            recentPlay: nil,
+            sourceMeta: SourceMetaDTO(rawStatusCode: nil, rawTopBottomCode: nil, fetchedAt: "2026-06-10T10:05:00.000Z")
+        )
+
+        let mapped = GameDTOMapper.map(dto)
+
+        #expect(mapped.startTime != nil)
+    }
 }
