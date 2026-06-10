@@ -19,9 +19,10 @@
 이 문서는 아직 코드가 없는 상태에서 시작하는 MVP 구현 계획이다.
 
 현재 저장소 상태:
-- `/home/suhohan/kbo-live` 는 현재 git repo가 아님
-- Xcode project가 아직 없음
-- 실제 데이터 소스는 별도 확정 전
+- `/home/suhohan/kbo-live` 는 현재 git repo임
+- `backend-spike/` 와 `Packages/KboLiveCore`, `Packages/KboLiveDesignSystem` 초안이 이미 존재함
+- Xcode project / 실제 Apple target은 아직 없음
+- 현재 Linux 호스트에는 Swift toolchain이 없어 Apple 타깃 build 검증은 Mac에서 진행해야 함
 
 ---
 
