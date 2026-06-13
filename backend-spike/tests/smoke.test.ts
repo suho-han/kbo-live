@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { mapBases } from '../src/mappers/baseMapper.js'
 import { mapStatus } from '../src/mappers/statusMapper.js'
 import { summarizeGameChanges } from '../src/utils/gameSnapshot.js'
+import { toKboDate } from '../src/utils/date.js'
 import type { NormalizedGame } from '../src/models/normalizedGame.js'
 
 describe('backend-spike smoke', () => {
@@ -33,6 +34,11 @@ describe('backend-spike smoke', () => {
       }
     ])
   })
+
+  it('normalizes requested dates into KBO date format', () => {
+    expect(toKboDate('2026-06-01')).toBe('20260601')
+    expect(toKboDate('20260601')).toBe('20260601')
+  })
 })
 
 function buildGame(overrides: Partial<NormalizedGame> = {}): NormalizedGame {
@@ -51,6 +57,10 @@ function buildGame(overrides: Partial<NormalizedGame> = {}): NormalizedGame {
     current: { batter: null, pitcher: null },
     probablePitchers: { away: null, home: null },
     recentPlay: null,
+    teamRecords: null,
+    boxScore: null,
+    lineupPreview: null,
+    analysis: null,
     sourceMeta: {
       rawStatusCode: '1',
       rawTopBottomCode: 'T',

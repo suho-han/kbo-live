@@ -39,9 +39,46 @@ export interface NormalizedGame {
     home: string | null
   }
   recentPlay: string | null
+  teamRecords: {
+    away: TeamRecordSummary | null
+    home: TeamRecordSummary | null
+  } | null
+  boxScore: {
+    away: TeamBoxScore
+    home: TeamBoxScore
+    linescore: Array<{
+      inning: number
+      away: number | null
+      home: number | null
+    }>
+  } | null
+  lineupPreview: {
+    away: string[]
+    home: string[]
+  } | null
+  analysis: {
+    awaySummary: string | null
+    homeSummary: string | null
+    keyPoints: string[]
+  } | null
   sourceMeta: {
     rawStatusCode: string | null
     rawTopBottomCode: string | null
     fetchedAt: string
   }
+}
+
+export interface TeamRecordSummary {
+  wins: number
+  losses: number
+  draws: number
+  rank: number | null
+  streak: string | null
+}
+
+export interface TeamBoxScore {
+  runs: number
+  hits: number | null
+  errors: number | null
+  walks: number | null
 }

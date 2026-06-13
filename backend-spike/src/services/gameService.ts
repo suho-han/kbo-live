@@ -10,7 +10,7 @@ export async function getTodayGames(date?: string) {
   ])
 
   return {
-    date: gameDate.NOW_G_DT,
+    date: kboDate,
     games: gameList.game.map(mapGame)
   }
 }

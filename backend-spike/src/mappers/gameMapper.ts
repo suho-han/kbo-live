@@ -54,6 +54,24 @@ export function mapGame(raw: RawKboGame): NormalizedGame {
       home: raw.B_PIT_P_NM?.trim() ?? null
     },
     recentPlay: null,
+    teamRecords: null,
+    boxScore: {
+      away: {
+        runs: toNumber(raw.T_SCORE_CN),
+        hits: null,
+        errors: null,
+        walks: null
+      },
+      home: {
+        runs: toNumber(raw.B_SCORE_CN),
+        hits: null,
+        errors: null,
+        walks: null
+      },
+      linescore: []
+    },
+    lineupPreview: null,
+    analysis: null,
     sourceMeta: {
       rawStatusCode: raw.GAME_STATE_SC ?? null,
       rawTopBottomCode: raw.GAME_TB_SC ?? null,
