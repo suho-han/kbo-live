@@ -22,6 +22,7 @@ Package.resolved
 # Local env
 .env
 .env.*
+.connect/
 
 # Python
 __pycache__/

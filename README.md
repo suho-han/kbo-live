@@ -20,11 +20,11 @@ Packages/         # Swift shared package scaffold
 ## 현재 상태
 
 문서화 완료:
-- 앱 초기 계획
-- Xcode/SwiftUI 구조
+- 현재 프로젝트 구조
 - backend spike 계획/결과
-- Swift app bootstrap 파일 구조
+- 데이터 소스 조사
 - shared DTO 초안
+- SwiftUI 컴포넌트 구조
 
 구현 완료:
 - `backend-spike/` 최소 실행 가능 scaffold
@@ -52,11 +52,38 @@ cd Packages/KboLiveCore
 swift test
 ```
 
+### Xcode project
+프로젝트 파일은 `project.yml`에서 생성합니다.
+
+```bash
+/private/tmp/XcodeGen/.build/release/xcodegen generate
+open KboLiveApp.xcodeproj
+```
+
+참고:
+- 루트에 `KboLive.xcworkspace`도 같이 두었지만, 현재 샌드박스의 `xcodebuild -workspace` 검증은 통과하지 못했습니다.
+- 실제 빌드 검증은 `KboLiveApp.xcodeproj` 기준으로 수행했습니다.
+
+현재 포함 타깃:
+- `KboLiveiOS`
+- `KboLivemacOS`
+- `KboLiveWidgetExtension`
+
+macOS 앱 기본 동작:
+- `KBO_LIVE_BASE_URL`을 지정하지 않으면 샘플 경기 데이터로 실행됩니다.
+- 실데이터 백엔드에 연결하려면 예: `KBO_LIVE_BASE_URL=http://127.0.0.1:3000`
+
+로컬 검증에 사용한 명령:
+```bash
+env HOME=$PWD/.xcode/home CFFIXED_USER_HOME=$PWD/.xcode/home XDG_CACHE_HOME=$PWD/.xcode/home/Library/Caches \
+  xcodebuild -scheme KboLivemacOS -project KboLiveApp.xcodeproj -destination 'platform=macOS' -derivedDataPath .xcode/DerivedData build
+
+env HOME=$PWD/.xcode/home CFFIXED_USER_HOME=$PWD/.xcode/home XDG_CACHE_HOME=$PWD/.xcode/home/Library/Caches \
+  xcodebuild -scheme KboLiveiOS -project KboLiveApp.xcodeproj -destination 'generic/platform=iOS' -derivedDataPath .xcode/DerivedData CODE_SIGNING_ALLOWED=NO build
+```
+
 ## 참고 문서
-- `PROJECT_CONTEXT/kbo-live-app-initial-plan.md`
+- `PROJECT_CONTEXT/README.md`
 - `PROJECT_CONTEXT/xcode-project-structure.md`
-- `PROJECT_CONTEXT/swiftui-component-structure.md`
-- `PROJECT_CONTEXT/backend-spike-plan.md`
+- `PROJECT_CONTEXT/forward-development-roadmap.md`
 - `PROJECT_CONTEXT/backend-spike-results.md`
-- `PROJECT_CONTEXT/swift-app-bootstrap-files.md`
-- `PROJECT_CONTEXT/shared-dto-draft.md`

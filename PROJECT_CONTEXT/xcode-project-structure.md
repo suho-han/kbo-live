@@ -1,483 +1,233 @@
-# KBO Live Xcode Project Structure
+# KBO Live Project Structure
 
-작성일: 2026-06-10
-상태: Draft v0.1
-개발 환경: 로컬 Mac + Xcode
+작성일: 2026-06-13  
+상태: Current
 
-## 1. 목표
+이 문서는 현재 `kbo-live` 저장소의 실제 구조와 개발 진입점을 정리한 기준 문서다.
 
-로컬 Mac에서 iPhone 앱, Widget, Live Activity, macOS 메뉴바 앱을 한 워크스페이스 안에서 함께 개발할 수 있는 멀티타깃 구조를 정의한다.
+## 1. 현재 목표
 
-핵심 원칙:
-- Apple 플랫폼 기능은 네이티브로 구현
-- 공유 가능한 로직은 최대한 Core로 분리
-- UI 타깃과 데이터/도메인 로직을 분리
-- 초기 MVP에서 과도한 모듈 분할은 피함
+- iOS에서 오늘 경기와 라이브 상태를 보여주는 앱 기반 유지
+- macOS Menu Bar 앱 기반 유지
+- Widget / Live Activity 타깃 유지
+- KBO 데이터 수집용 backend spike 유지
+- Core / DesignSystem / Features 계층 분리 유지
 
----
-
-## 2. 권장 워크스페이스 구성
+## 2. 저장소 루트
 
 ```text
-kbo-live/
-├── KboLive.xcworkspace
-├── KboLiveApp/
-│   ├── KboLiveApp.xcodeproj
-│   ├── KboLiveiOS/
-│   ├── KboLivemacOS/
-│   ├── KboLiveWidgetExtension/
-│   └── KboLiveActivityExtension/
-├── Packages/
-│   ├── KboLiveCore/
-│   ├── KboLiveDesignSystem/
-│   └── KboLiveFeatureSupport/
-└── PROJECT_CONTEXT/
+AGENTS.md
+README.md
+project.yml
+KboLiveApp/
+KboLiveApp.xcodeproj/
+KboLive.xcworkspace/
+Packages/
+PROJECT_CONTEXT/
+backend-spike/
+scripts/
 ```
 
-### 판단
-- 앱 타깃은 Xcode project에서 관리
-- 공유 로직은 Swift Package로 분리
-- 초기에는 package 수를 최소화
-- 추후 복잡해지면 feature 단위 package 추가 가능
+역할:
 
----
+- `project.yml`
+  - XcodeGen으로 실제 프로젝트를 생성하는 단일 정의 파일
+- `KboLiveApp/`
+  - iOS, macOS, Widget 타깃용 앱 소스
+- `KboLiveApp.xcodeproj/`
+  - 현재 빌드 검증에 사용한 실제 프로젝트
+- `KboLive.xcworkspace/`
+  - 루트 워크스페이스
+  - 현재 샌드박스에서는 `xcodebuild -workspace` 검증이 안정적이지 않음
+- `Packages/`
+  - Core, DesignSystem, Features Swift 패키지
+- `backend-spike/`
+  - KBO 데이터 수집/정규화 스파이크
 
-## 3. 타깃 구성
+## 3. 현재 앱 연결 방식
 
-## 3.1 iOS App Target
-이름 예시:
+현재 app target은 local package dependency를 직접 연결하지 않고, 각 package의 source directory를 Xcode target source로 직접 포함한다.
+
+이유:
+
+- 현재 샌드박스 환경에서 local Swift package resolution이 불안정했다.
+- 빌드 검증을 우선 통과시키기 위해 source 직접 포함 방식으로 고정했다.
+- package 구조 자체는 유지하므로, 나중에 dependency 방식으로 다시 전환할 수 있다.
+
+의존 방향:
+
+```text
+KboLiveCore
+  -> domain / dto / mapper / repository / polling / projections
+
+KboLiveDesignSystem
+  -> reusable SwiftUI tokens / themes / components
+
+KboLiveFeatures
+  -> screen-level UI and view model
+
+KboLiveApp targets
+  -> compose Core + DesignSystem + Features + platform entrypoints
+```
+
+## 4. Xcode 타깃
+
+`project.yml` 기준 현재 타깃:
+
 - `KboLiveiOS`
-
-역할:
-- 경기 리스트
-- 경기 상세
-- 즐겨찾기 관리
-- Live Activity 시작/종료 진입점
-- Widget 설정 진입
-- 앱 foreground polling
-
-포함 범위:
-- SwiftUI App entry
-- Navigation
-- 화면 조립
-- 상태 컨테이너
-- App lifecycle
-
-비포함 범위:
-- 공통 모델 정의
-- 공통 API 파싱 로직
-- 점수 계산/표현 공통 로직
-
-이런 것은 Core로 이동
-
----
-
-## 3.2 Widget Extension Target
-이름 예시:
-- `KboLiveWidgets`
-
-역할:
-- Small widget
-- Medium widget
-- Timeline provider
-- Widget configuration
-
-의존성:
-- `KboLiveCore`
-- `KboLiveDesignSystem`
-
-주의:
-- widget은 제한된 실행 환경을 가짐
-- 지나치게 복잡한 네트워크 로직을 넣지 않음
-- 공통 snapshot/timeline 모델은 별도 mapper로 단순화
-
----
-
-## 3.3 Live Activity Extension Target
-이름 예시:
-- `KboLiveLiveActivity`
-
-역할:
-- Lock Screen layout
-- Dynamic Island compact/minimal/expanded layout
-- Activity attributes 정의
-- content state UI 정의
-
-의존성:
-- `KboLiveCore`
-- `KboLiveDesignSystem`
-
-주의:
-- ActivityKit state는 매우 작고 명확해야 함
-- 전체 Game 모델을 Activity state에 그대로 넣지 않음
-- 표시 전용 경량 state 구조체를 별도로 둠
-
----
-
-## 3.4 macOS App Target
-이름 예시:
+  - iOS app
+  - bundle id: `com.suhohan.kbo-live.ios`
+  - Live Activities 활성화
 - `KboLivemacOS`
+  - macOS app
+  - bundle id: `com.suhohan.kbo-live.macos`
+  - `MenuBarExtra` 기반 엔트리 포함
+- `KboLiveWidgetExtension`
+  - iOS widget extension
+  - bundle id: `com.suhohan.kbo-live.widget`
+  - Today widget + Live Activity widget 포함
 
-역할:
-- MenuBarExtra
-- 상단 바 ticker
-- 드롭다운 경기 목록
-- 즐겨찾기 경기 우선 표시
-- 설정 진입
+배포 타깃:
 
-의존성:
-- `KboLiveCore`
-- `KboLiveDesignSystem`
+- iOS 18.0
+- macOS 15.0
 
-주의:
-- 메뉴바 텍스트는 매우 짧아야 함
-- 상태 요약 포맷터를 별도로 두는 것이 좋음
+공통 설정:
 
----
+- Swift 6.0
+- `MARKETING_VERSION = 0.1.0`
+- `CURRENT_PROJECT_VERSION = 1`
 
-## 4. Swift Package 구성
+## 5. KboLiveApp 구조
 
-초기에는 아래 3개면 충분하다.
+```text
+KboLiveApp/
+  Shared/
+  iOS/
+  macOS/
+  Widget/
+```
 
-## 4.1 KboLiveCore
-역할:
-- 도메인 모델
-- API 클라이언트
-- DTO
+주요 파일:
+
+- `KboLiveApp/Shared/AppRuntime.swift`
+- `KboLiveApp/Shared/KboLiveHomeRootView.swift`
+- `KboLiveApp/Shared/SampleGameFactory.swift`
+- `KboLiveApp/iOS/KboLiveiOSApp.swift`
+- `KboLiveApp/macOS/KboLivemacOSApp.swift`
+- `KboLiveApp/macOS/MenuBarDashboardView.swift`
+- `KboLiveApp/Widget/KboLiveWidgetBundle.swift`
+- `KboLiveApp/Widget/TodayGameWidget.swift`
+- `KboLiveApp/Widget/LiveGameActivityWidget.swift`
+
+## 6. Swift Packages
+
+### `Packages/KboLiveCore`
+
+책임:
+
+- API client
+- DTO / domain
+- mapper
 - repository
-- polling/service
-- formatter
-- 공통 유틸리티
+- polling service
+- widget / live activity / menu bar projection
+- today games 정렬/필터 공용 규칙
 
-권장 디렉터리:
+핵심 포인트:
 
-```text
-Packages/KboLiveCore/
-├── Package.swift
-├── Sources/
-│   └── KboLiveCore/
-│       ├── Domain/
-│       ├── DTO/
-│       ├── API/
-│       ├── Repository/
-│       ├── Services/
-│       ├── Formatting/
-│       └── Utils/
-└── Tests/
-    └── KboLiveCoreTests/
+- `TodayGames.orderedGames(filter:)` 공용 정렬/필터 제공
+- 상태 우선순위: `live -> scheduled -> delayed -> final -> cancelled -> unknown`
+- `scheduled` 필터는 `delayed` 포함
+- `final` 필터는 `cancelled` 포함
+
+### `Packages/KboLiveDesignSystem`
+
+책임:
+
+- 팀 색상 체계
+- typography / spacing / radius / shadow 토큰
+- 재사용 가능한 SwiftUI primitive/component
+
+### `Packages/KboLiveFeatures`
+
+책임:
+
+- 화면 단위 feature 조합
+- 화면 상태와 UI 로직을 묶는 view model
+
+현재 포함 기능:
+
+- `TodayGamesView`
+- `TodayGamesViewModel`
+
+핵심 포인트:
+
+- `ObservableObject` + `@Published` 기반
+- 로딩 / 리프레시 / 에러 / 필터 상태 관리
+- 경기 정렬은 `KboLiveCore` 공용 규칙 재사용
+
+## 7. Backend Spike
+
+`backend-spike/`는 프로덕션 백엔드가 아니라 데이터 수집과 정규화 검증용 실험 영역이다.
+
+현재 범위:
+
+- Fastify 서버
+- KBO source 호출
+- fixture dump
+- polling 로그 저장
+- `today`, `game detail`, `debug source` endpoint
+
+## 8. 개발 진입점
+
+현재 가장 안전한 진입점:
+
+1. `project.yml`에서 프로젝트 재생성
+2. `KboLiveApp.xcodeproj` 오픈
+3. 원하는 스킴 빌드
+
+재생성:
+
+```bash
+/private/tmp/XcodeGen/.build/release/xcodegen generate
 ```
 
-### 포함 예시
-- `Game`
-- `Team`
-- `InningState`
-- `BasesState`
-- `GameStatus`
-- `KboAPIClient`
-- `GameRepository`
-- `LiveGamePollingService`
-- `ScoreboardFormatter`
+오픈:
 
----
-
-## 4.2 KboLiveDesignSystem
-역할:
-- 컬러 토큰
-- 타이포 토큰
-- 공통 badge/button/card 스타일
-- 팀 색상 매핑
-- 공통 UI primitive
-
-권장 디렉터리:
-
-```text
-Packages/KboLiveDesignSystem/
-├── Package.swift
-├── Sources/
-│   └── KboLiveDesignSystem/
-│       ├── Tokens/
-│       ├── Theme/
-│       ├── Components/
-│       └── Helpers/
-└── Tests/
-    └── KboLiveDesignSystemTests/
+```bash
+open KboLiveApp.xcodeproj
 ```
 
-### 포함 예시
-- `KboColorToken`
-- `TeamColorPalette`
-- `LiveBadgeView`
-- `ScoreDigitStyle`
-- `BaseDiamondPrimitive`
+검증된 빌드:
 
----
+```bash
+env HOME=$PWD/.xcode/home CFFIXED_USER_HOME=$PWD/.xcode/home XDG_CACHE_HOME=$PWD/.xcode/home/Library/Caches \
+  xcodebuild -scheme KboLivemacOS -project KboLiveApp.xcodeproj -destination 'platform=macOS' -derivedDataPath .xcode/DerivedData build
 
-## 4.3 KboLiveFeatureSupport
-역할:
-- 화면 공통 view model helper
-- feature별 mapper
-- widget/live activity 변환기
-- 앱/타깃 사이 glue code
+env HOME=$PWD/.xcode/home CFFIXED_USER_HOME=$PWD/.xcode/home XDG_CACHE_HOME=$PWD/.xcode/home/Library/Caches \
+  xcodebuild -scheme KboLiveiOS -project KboLiveApp.xcodeproj -destination 'generic/platform=iOS' -derivedDataPath .xcode/DerivedData CODE_SIGNING_ALLOWED=NO build
 
-이 패키지는 선택이다.
-초기에는 iOS/macOS target 내부에 둬도 되지만, 공통 화면 지원 로직이 늘어나면 분리하는 것이 좋다.
-
----
-
-## 5. 권장 소스 구조
-
-## 5.1 iOS App 내부
-
-```text
-KboLiveApp/KboLiveiOS/
-├── App/
-│   ├── KboLiveiOSApp.swift
-│   ├── AppContainer.swift
-│   └── AppRouter.swift
-├── Features/
-│   ├── Home/
-│   ├── GameDetail/
-│   ├── Favorites/
-│   ├── Settings/
-│   └── LiveActivityControl/
-├── Shared/
-│   ├── Components/
-│   ├── Screens/
-│   └── Extensions/
-└── Resources/
+env HOME=$PWD/.xcode/home CFFIXED_USER_HOME=$PWD/.xcode/home XDG_CACHE_HOME=$PWD/.xcode/home/Library/Caches \
+  xcodebuild -scheme KboLiveWidgetExtension -project KboLiveApp.xcodeproj -destination 'generic/platform=iOS' -derivedDataPath .xcode/DerivedData CODE_SIGNING_ALLOWED=NO build
 ```
 
-### 화면 단위 구조 예시
+최근 확인 상태:
 
-```text
-Features/Home/
-├── HomeView.swift
-├── HomeViewModel.swift
-├── HomeSection.swift
-├── HomeFilterBar.swift
-└── Components/
-    ├── HomeGameCardA.swift
-    ├── HomeGameCardB.swift
-    └── HomeStatusStrip.swift
-```
+- `KboLivemacOS`: build succeeded
+- `KboLiveiOS`: build succeeded
+- `KboLiveWidgetExtension`: build succeeded
 
----
+## 9. 현재 제약
 
-## 5.2 macOS App 내부
+- 루트 `KboLive.xcworkspace`는 존재하지만, 현재 샌드박스에서는 `xcodebuild -workspace KboLive.xcworkspace` 검증이 안정적이지 않았다.
+- app target은 package dependency 방식이 아니라 source 직접 포함 방식이다.
+- `KboLiveFeatures`는 아직 Today Games 중심의 최소 기능만 포함한다.
 
-```text
-KboLiveApp/KboLivemacOS/
-├── App/
-├── MenuBar/
-│   ├── MenuBarRoot.swift
-│   ├── MenuBarLabelView.swift
-│   ├── MenuBarDropdownView.swift
-│   └── MenuBarGameRow.swift
-├── Settings/
-└── Resources/
-```
+## 10. 다음 확장 후보
 
----
-
-## 5.3 Widget Extension 내부
-
-```text
-KboLiveApp/KboLiveWidgetExtension/
-├── WidgetBundle.swift
-├── Providers/
-│   ├── FavoriteGameTimelineProvider.swift
-│   └── TodayGamesTimelineProvider.swift
-├── Models/
-│   └── WidgetSnapshot.swift
-└── Views/
-    ├── SmallGameWidgetView.swift
-    ├── MediumGameWidgetView.swift
-    └── WidgetEmptyStateView.swift
-```
-
----
-
-## 5.4 Live Activity Extension 내부
-
-```text
-KboLiveApp/KboLiveActivityExtension/
-├── KboLiveActivityAttributes.swift
-├── KboLiveActivityWidget.swift
-├── Models/
-│   └── ActivityGameState.swift
-└── Views/
-    ├── LockScreenGameView.swift
-    ├── DynamicIslandCompactView.swift
-    ├── DynamicIslandMinimalView.swift
-    └── DynamicIslandExpandedView.swift
-```
-
----
-
-## 6. 도메인 모델 위치 원칙
-
-아래 모델은 `KboLiveCore`에 둔다.
-
-- `Team`
-- `Game`
-- `Score`
-- `GameStatus`
-- `InningState`
-- `BasesState`
-- `OutState`
-- `CurrentMatchup`
-- `RecentPlay`
-- `FavoriteTeam`
-
-### 이유
-- iOS/macOS/widget/live activity 모두 공유 가능
-- formatter/test와 결합하기 좋음
-- 타깃별 중복 모델 생성을 줄일 수 있음
-
----
-
-## 7. 네트워크 계층 구조
-
-권장 흐름:
-
-```text
-ViewModel
-→ Repository
-→ API Client
-→ DTO Decode
-→ Domain Mapper
-→ Domain Model
-```
-
-예시 파일:
-
-```text
-KboLiveCore/API/KboAPIClient.swift
-KboLiveCore/API/KboRequestBuilder.swift
-KboLiveCore/DTO/KboGameListResponseDTO.swift
-KboLiveCore/Repository/GameRepository.swift
-KboLiveCore/Services/LiveGamePollingService.swift
-```
-
-### 원칙
-- ViewModel이 직접 URLSession 호출하지 않음
-- DTO와 Domain Model을 분리
-- HTML scraping이 필요할 경우 parser 계층을 따로 둠
-
----
-
-## 8. 환경/설정 분리
-
-초기부터 설정값을 분리하는 것이 좋다.
-
-예시:
-
-```text
-KboLiveCore/Config/
-├── AppEnvironment.swift
-├── APIEnvironment.swift
-└── FeatureFlags.swift
-```
-
-포함 값:
-- baseURL
-- polling interval
-- widget refresh policy
-- live activity update policy
-- data source provider type
-
-이렇게 해두면:
-- 공식 KBO source
-- 대체 source
-- mock source
-를 바꾸기 쉬움
-
----
-
-## 9. Preview / Mock 구조
-
-로컬 Mac 개발에서 SwiftUI Preview 생산성이 중요하므로 mock 계층을 초기에 두는 것을 권장한다.
-
-예시:
-
-```text
-KboLiveCore/Mocks/
-├── MockGameFactory.swift
-├── MockTeamFactory.swift
-└── MockRecentPlayFactory.swift
-```
-
-용도:
-- Home 카드 A/B 테스트
-- Widget snapshot 확인
-- Live Activity 레이아웃 확인
-- macOS 메뉴바 드롭다운 미리보기
-
----
-
-## 10. 테스트 구조
-
-## 우선순위 높은 테스트
-1. formatter 테스트
-2. mapper 테스트
-3. repository response parsing 테스트
-4. widget snapshot mapping 테스트
-5. live activity state mapping 테스트
-
-권장 디렉터리:
-
-```text
-Packages/KboLiveCore/Tests/KboLiveCoreTests/
-├── API/
-├── DTO/
-├── Repository/
-├── Formatting/
-└── Services/
-```
-
----
-
-## 11. 초기 생성 순서
-
-로컬 Mac에서 Xcode 작업 시작 시 순서:
-
-1. `KboLive.xcworkspace` 생성
-2. iOS App target 생성
-3. Widget Extension 추가
-4. Live Activity Extension 추가
-5. macOS App target 추가
-6. `KboLiveCore` Swift Package 연결
-7. `KboLiveDesignSystem` Swift Package 연결
-8. Home mock 화면부터 Preview 확인
-
----
-
-## 12. MVP 기준 최소 구조
-
-복잡도를 낮춘다면 초기 MVP는 아래만 먼저 만든다.
-
-```text
-KboLive.xcworkspace
-KboLiveApp.xcodeproj
-Packages/KboLiveCore
-Packages/KboLiveDesignSystem
-```
-
-그리고 타깃은:
-- iOS App
-- Widget Extension
-- Live Activity Extension
-- macOS App
-
-이 정도면 충분하다.
-`KboLiveFeatureSupport`는 필요해질 때 추가한다.
-
----
-
-## 13. 현재 추천 결론
-
-- Xcode project + Swift package 혼합 구조가 가장 적합
-- 공유 로직은 `KboLiveCore`에 집중
-- 디자인 토큰/primitive는 `KboLiveDesignSystem`으로 분리
-- iOS/macOS/widget/live activity는 얇은 UI shell로 유지
-- 로컬 Mac 개발에서는 Preview/mock 구조를 초기에 확보하는 것이 생산성에 중요함
+- 실제 API 환경을 붙이는 repository 주입 경로 확장
+- 경기 상세 화면 추가
+- widget timeline / live activity update 전략 구체화
+- macOS menu bar interaction 고도화
+- package dependency 기반 Xcode 연결 복구
