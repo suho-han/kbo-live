@@ -15,17 +15,26 @@ public struct TeamBadgeView: View {
     private let teamID: String?
     private let accentColor: Color
     private let emphasis: Emphasis
+    private let fixedWidth: CGFloat?
+    private let logoSize: CGFloat
+    private let nameWidth: CGFloat?
 
     public init(
         shortName: String,
         fullName: String? = nil,
         accentColor: Color,
-        emphasis: Emphasis = .normal
+        emphasis: Emphasis = .normal,
+        fixedWidth: CGFloat? = nil,
+        logoSize: CGFloat = 20,
+        nameWidth: CGFloat? = nil
     ) {
         self.shortName = shortName
         self.teamID = fullName
         self.accentColor = accentColor
         self.emphasis = emphasis
+        self.fixedWidth = fixedWidth
+        self.logoSize = logoSize
+        self.nameWidth = nameWidth
     }
 
     public var body: some View {
@@ -35,9 +44,11 @@ public struct TeamBadgeView: View {
             Text(shortName)
                 .font(KboTypographyToken.headline)
                 .foregroundStyle(KboTheme.primaryText)
+                .frame(width: nameWidth, alignment: .leading)
         }
         .padding(.horizontal, KboSpacingToken.small)
         .padding(.vertical, 6)
+        .frame(width: fixedWidth, alignment: fixedWidth == nil ? .leading : .center)
         .background(accentColor.opacity(emphasis == .highlighted ? 0.24 : 0.14))
         .clipShape(RoundedRectangle(cornerRadius: KboRadiusToken.pill, style: .continuous))
         .overlay {
@@ -52,11 +63,11 @@ public struct TeamBadgeView: View {
             logoImage
                 .resizable()
                 .scaledToFit()
-                .frame(width: 20, height: 20)
+                .frame(width: logoSize, height: logoSize)
         } else {
             RoundedRectangle(cornerRadius: 6, style: .continuous)
                 .fill(accentColor)
-                .frame(width: 20, height: 20)
+                .frame(width: logoSize, height: logoSize)
         }
     }
 

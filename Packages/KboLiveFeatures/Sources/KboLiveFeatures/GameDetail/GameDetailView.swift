@@ -9,6 +9,12 @@ import KboLiveDesignSystem
 public struct GameDetailView: View {
     @ObservedObject private var viewModel: GameDetailViewModel
 
+    private enum TeamBadgeLayout {
+        static let width: CGFloat = 112
+        static let nameWidth: CGFloat = 42
+        static let logoSize: CGFloat = 22
+    }
+
     public init(viewModel: GameDetailViewModel) {
         _viewModel = ObservedObject(wrappedValue: viewModel)
     }
@@ -171,8 +177,16 @@ public struct GameDetailView: View {
             }
 
             HStack(spacing: 14) {
-                teamResultPanel(team: game.awayTeam, score: game.score.away, box: game.boxScore?.away, record: game.teamRecords?.away)
-                teamResultPanel(team: game.homeTeam, score: game.score.home, box: game.boxScore?.home, record: game.teamRecords?.home)
+                teamResultPanel(
+                    team: game.awayTeam,
+                    record: game.teamRecords?.away,
+                    headToHeadText: headToHeadText(score: game.score.away, opponentScore: game.score.home)
+                )
+                teamResultPanel(
+                    team: game.homeTeam,
+                    record: game.teamRecords?.home,
+                    headToHeadText: headToHeadText(score: game.score.home, opponentScore: game.score.away)
+                )
             }
 
             keyPointCard(points: game.analysis?.keyPoints ?? [])
@@ -228,7 +242,10 @@ public struct GameDetailView: View {
                 shortName: team.name,
                 fullName: team.id,
                 accentColor: TeamColorResolver.color(forTeamID: team.id),
-                emphasis: .highlighted
+                emphasis: .highlighted,
+                fixedWidth: TeamBadgeLayout.width,
+                logoSize: TeamBadgeLayout.logoSize,
+                nameWidth: TeamBadgeLayout.nameWidth
             )
 
             Text("\(score)")
@@ -331,7 +348,10 @@ public struct GameDetailView: View {
                 shortName: team.name,
                 fullName: team.id,
                 accentColor: TeamColorResolver.color(forTeamID: team.id),
-                emphasis: .highlighted
+                emphasis: .highlighted,
+                fixedWidth: TeamBadgeLayout.width,
+                logoSize: TeamBadgeLayout.logoSize,
+                nameWidth: TeamBadgeLayout.nameWidth
             )
 
             metricPill(title: "예상 선발", value: pitcher ?? "-")
@@ -347,29 +367,26 @@ public struct GameDetailView: View {
         .miniCard()
     }
 
-    private func teamResultPanel(team: Team, score: Int, box: TeamBoxScore?, record: TeamRecordSummary?) -> some View {
+    private func teamResultPanel(team: Team, record: TeamRecordSummary?, headToHeadText: String) -> some View {
         VStack(alignment: .leading, spacing: 14) {
-            HStack {
+            HStack(alignment: .center) {
                 TeamBadgeView(
                     shortName: team.name,
                     fullName: team.id,
                     accentColor: TeamColorResolver.color(forTeamID: team.id),
-                    emphasis: .highlighted
+                    emphasis: .highlighted,
+                    fixedWidth: TeamBadgeLayout.width,
+                    logoSize: TeamBadgeLayout.logoSize,
+                    nameWidth: TeamBadgeLayout.nameWidth
                 )
                 Spacer()
-                Text("\(score)")
-                    .font(.system(size: 42, weight: .black, design: .rounded))
-                    .monospacedDigit()
-                    .foregroundStyle(KboTheme.primaryText)
+                Text(record?.rank.map { "\($0)위" } ?? "시즌")
+                    .font(KboTypographyToken.caption)
+                    .fontWeight(.bold)
+                    .foregroundStyle(KboTheme.secondaryText)
             }
 
-            HStack(spacing: 10) {
-                statCell("H", box?.hits)
-                statCell("E", box?.errors)
-                statCell("BB", box?.walks)
-            }
-
-            Text(recordText(record))
+            Text("\(seasonRecordText(record)) · \(headToHeadText)")
                 .font(KboTypographyToken.caption)
                 .foregroundStyle(KboTheme.secondaryText)
         }
@@ -405,7 +422,7 @@ public struct GameDetailView: View {
                 .foregroundStyle(KboTheme.primaryText)
 
             ScrollView(.horizontal, showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 10) {
+                VStack(alignment: .center, spacing: 10) {
                     linescoreRow(label: "팀", values: boxScore.linescore.map { "\($0.inning)" }, trailing: ["R", "H", "E"])
                     linescoreRow(
                         label: game.awayTeam.name,
@@ -426,7 +443,9 @@ public struct GameDetailView: View {
                         ]
                     )
                 }
+                .frame(maxWidth: .infinity, alignment: .center)
             }
+            .frame(maxWidth: .infinity, alignment: .center)
         }
         .miniCard()
     }
@@ -436,7 +455,7 @@ public struct GameDetailView: View {
             Text(label)
                 .font(KboTypographyToken.caption)
                 .foregroundStyle(KboTheme.primaryText)
-                .frame(width: 58, alignment: .leading)
+                .frame(width: 58, alignment: .center)
 
             ForEach(Array(values.enumerated()), id: \.offset) { _, value in
                 Text(value)
@@ -695,6 +714,23 @@ public struct GameDetailView: View {
             parts.append(streak)
         }
         return parts.joined(separator: " · ")
+    }
+
+    private func seasonRecordText(_ record: TeamRecordSummary?) -> String {
+        guard let record else { return "-" }
+        return "\(record.wins)승 \(record.losses)패 \(record.draws)무"
+    }
+
+    private func headToHeadText(score: Int, opponentScore: Int) -> String {
+        if score > opponentScore {
+            return "상대전적 1승 0패"
+        }
+
+        if score < opponentScore {
+            return "상대전적 0승 1패"
+        }
+
+        return "상대전적 0승 0패"
     }
 
     private func scoreText(_ value: Int?) -> String {

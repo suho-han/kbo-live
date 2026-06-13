@@ -18,7 +18,7 @@ public struct TodayGamesView: View {
         NavigationStack {
             content
                 .background(backgroundView)
-                .navigationTitle("나의 팀")
+                .navigationTitle("크보 라이브")
                 .toolbar {
                     ToolbarItem(placement: .primaryAction) {
                         Button("새로고침") {
@@ -227,6 +227,13 @@ private struct FeaturedGameCardView: View {
     let game: Game
     let favoriteTeamID: String?
 
+    private enum Layout {
+        static let badgeWidth: CGFloat = 132
+        static let nameWidth: CGFloat = 54
+        static let scoreWidth: CGFloat = 48
+        static let logoSize: CGFloat = 24
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
             HStack(alignment: .top) {
@@ -286,20 +293,33 @@ private struct FeaturedGameCardView: View {
                 shortName: team.name,
                 fullName: team.id,
                 accentColor: TeamColorResolver.color(forTeamID: team.id),
-                emphasis: isFavorite ? .highlighted : .normal
+                emphasis: isFavorite ? .highlighted : .normal,
+                fixedWidth: Layout.badgeWidth,
+                logoSize: Layout.logoSize,
+                nameWidth: Layout.nameWidth
             )
 
             Text("\(score)")
                 .font(.system(size: 34, weight: .black, design: .rounded))
+                .monospacedDigit()
                 .foregroundStyle(KboTheme.primaryText)
+                .frame(width: Layout.scoreWidth, alignment: .center)
         }
-        .frame(maxWidth: .infinity)
+        .frame(width: Layout.badgeWidth, alignment: .center)
     }
 }
 
 private struct TodayGameCardView: View {
     let game: Game
     let favoriteTeamID: String?
+
+    private enum Layout {
+        static let teamColumnWidth: CGFloat = 200
+        static let badgeWidth: CGFloat = 132
+        static let nameWidth: CGFloat = 54
+        static let scoreWidth: CGFloat = 44
+        static let logoSize: CGFloat = 24
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -311,7 +331,7 @@ private struct TodayGameCardView: View {
 
                 Spacer(minLength: 12)
 
-                if let inningText = statusText {
+                if let inningText = rightStatusText {
                     InningStateView(text: inningText)
                 }
             }
@@ -378,11 +398,16 @@ private struct TodayGameCardView: View {
                 shortName: team.name,
                 fullName: team.id,
                 accentColor: TeamColorResolver.color(forTeamID: team.id),
-                emphasis: team.id == favoriteTeamID ? .highlighted : .normal
+                emphasis: team.id == favoriteTeamID ? .highlighted : .normal,
+                fixedWidth: Layout.badgeWidth,
+                logoSize: Layout.logoSize,
+                nameWidth: Layout.nameWidth
             )
 
             ScoreDigitsView(score: score, mode: .scoreboardCompact)
+                .frame(width: Layout.scoreWidth, alignment: .trailing)
         }
+        .frame(width: Layout.teamColumnWidth, alignment: .leading)
     }
 
     @ViewBuilder
@@ -402,15 +427,12 @@ private struct TodayGameCardView: View {
                     )
                 }
             }
-        } else if let startTime = game.startTime {
-            Text(startTime, format: .dateTime.hour().minute())
-                .font(KboTypographyToken.caption)
-                .foregroundStyle(KboTheme.secondaryText)
         }
     }
 
-    private var statusText: String? {
-        GameProjectionFormatter.inningText(for: game)
+    private var rightStatusText: String? {
+        guard game.status == .live else { return nil }
+        return GameProjectionFormatter.inningText(for: game)
     }
 
     private var statusBadgeText: String {
