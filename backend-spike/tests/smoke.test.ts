@@ -1,10 +1,13 @@
 import { describe, expect, it } from 'vitest'
 
 import { mapBases } from '../src/mappers/baseMapper.js'
+import { mapGame } from '../src/mappers/gameMapper.js'
+import { mapScheduleGames } from '../src/mappers/scheduleMapper.js'
 import { mapStatus } from '../src/mappers/statusMapper.js'
 import { summarizeGameChanges } from '../src/utils/gameSnapshot.js'
 import { toKboDate } from '../src/utils/date.js'
 import type { NormalizedGame } from '../src/models/normalizedGame.js'
+import { TEST_KOREA_ROLLOVER_INSTANT, TEST_NEXT_DATE } from './testConfig.js'
 
 describe('backend-spike smoke', () => {
   it('maps bases from occupied runners', () => {
@@ -39,6 +42,91 @@ describe('backend-spike smoke', () => {
     expect(toKboDate('2026-06-01')).toBe('20260601')
     expect(toKboDate('20260601')).toBe('20260601')
   })
+
+  it('uses the Korea date for default KBO date normalization', () => {
+    expect(toKboDate(undefined, TEST_KOREA_ROLLOVER_INSTANT)).toBe(TEST_NEXT_DATE)
+  })
+
+  it('extracts game center metadata from KBO schedule rows', () => {
+    const games = mapScheduleGames({
+      rows: [{
+        row: [
+          { Text: '06.10(수)', Class: 'day' },
+          { Text: '<b>18:30</b>', Class: 'time' },
+          { Text: '<span>SSG</span><em><span>vs</span></em><span>LG</span>', Class: 'play' },
+          { Text: "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260610&gameId=20260610SKLG0&section=START_PIT'>프리뷰</a>", Class: 'relay' },
+          { Text: '', Class: null },
+          { Text: 'SPO-2T', Class: null },
+          { Text: '', Class: null },
+          { Text: '잠실', Class: null },
+          { Text: '-', Class: null }
+        ]
+      }]
+    })
+
+    expect(games).toEqual([{
+      gameId: '20260610SKLG0',
+      date: '20260610',
+      awayTeam: {
+        id: 'SK',
+        name: 'SSG'
+      },
+      homeTeam: {
+        id: 'LG',
+        name: 'LG'
+      },
+      startTime: '20260610T18:30:00+09:00',
+      venue: '잠실',
+      broadcastChannels: ['SPO-2T'],
+      note: null,
+      links: {
+        gameCenter: 'https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260610&gameId=20260610SKLG0&section=START_PIT',
+        preview: 'https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260610&gameId=20260610SKLG0&section=START_PIT',
+        review: null,
+        highlight: null
+      }
+    }])
+  })
+
+  it('enriches normalized games with schedule metadata', () => {
+    const game = mapGame({
+      G_ID: '20260610SKLG0',
+      G_DT: '20260610',
+      G_TM: null,
+      S_NM: null,
+      AWAY_ID: 'SK',
+      HOME_ID: 'LG',
+      AWAY_NM: 'SSG',
+      HOME_NM: 'LG',
+      GAME_STATE_SC: '1'
+    }, {
+      gameId: '20260610SKLG0',
+      date: '20260610',
+      awayTeam: {
+        id: 'SK',
+        name: 'SSG'
+      },
+      homeTeam: {
+        id: 'LG',
+        name: 'LG'
+      },
+      startTime: '20260610T18:30:00+09:00',
+      venue: '잠실',
+      broadcastChannels: ['SPO-2T'],
+      note: null,
+      links: {
+        gameCenter: 'https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260610&gameId=20260610SKLG0&section=START_PIT',
+        preview: 'https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260610&gameId=20260610SKLG0&section=START_PIT',
+        review: null,
+        highlight: null
+      }
+    })
+
+    expect(game.startTime).toBe('20260610T18:30:00+09:00')
+    expect(game.venue).toBe('잠실')
+    expect(game.broadcastChannels).toEqual(['SPO-2T'])
+    expect(game.homepageLinks.preview).toContain('section=START_PIT')
+  })
 })
 
 function buildGame(overrides: Partial<NormalizedGame> = {}): NormalizedGame {
@@ -47,6 +135,13 @@ function buildGame(overrides: Partial<NormalizedGame> = {}): NormalizedGame {
     date: '20260610',
     venue: '잠실',
     startTime: '2026-06-10T18:30:00+09:00',
+    broadcastChannels: [],
+    homepageLinks: {
+      gameCenter: null,
+      preview: null,
+      review: null,
+      highlight: null
+    },
     status: 'live',
     awayTeam: { id: 'SK', name: 'SSG' },
     homeTeam: { id: 'LG', name: 'LG' },

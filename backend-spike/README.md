@@ -15,6 +15,19 @@ npm install
 npm run dev
 ```
 
+## 검증
+
+```bash
+npm test
+npm run typecheck
+```
+
+`npm test`에는 실제 KBO endpoint를 호출하는 live smoke 테스트가 포함됩니다. 기본 검증 날짜는 테스트 설정의 `TEST_DATE`이며, 다른 날짜를 보려면 아래처럼 지정합니다.
+
+```bash
+TEST_DATE=YYYYMMDD npm test
+```
+
 ## 주요 엔드포인트
 - `GET /health`
 - `GET /games/today?date=YYYY-MM-DD`
@@ -57,6 +70,20 @@ npm run dump -- --date 2026-06-10 --write
 옵션:
 - `--out-dir <path>`: dump 저장 경로 override
 - `--write`: stdout 출력과 함께 fixture 파일 저장
+
+### 3) 2026년 6월 완료 경기 raw dump
+
+완료 경기 검증용 raw dump는 날짜별로 저장합니다.
+
+```bash
+npm run dump -- --date 2026-06-13 --write --out-dir fixtures/202606-completed/20260613
+```
+
+현재 저장 기준:
+- `fixtures/202606-completed/<YYYYMMDD>/latest.json`
+- 대상 날짜: 2026-06-02~2026-06-07, 2026-06-09~2026-06-13
+
+Swift 테스트 fixture(`Packages/KboLiveCore/Tests/.../today-games-response.json`)는 앱 DTO 안정성 검증용으로 유지합니다.
 
 ## 검증 팁
 - 경기 전 시간대에는 `changedGames: 0`이 정상일 수 있음

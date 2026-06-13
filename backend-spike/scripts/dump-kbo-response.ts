@@ -3,6 +3,7 @@ import path from 'node:path'
 
 import { fetchKboGameDate, fetchKboGameList, fetchKboScheduleList } from '../src/clients/kboClient.js'
 import { mapGame } from '../src/mappers/gameMapper.js'
+import { indexScheduleGames, mapScheduleGames } from '../src/mappers/scheduleMapper.js'
 import { toPollingView } from '../src/utils/gameSnapshot.js'
 import { toKboDate } from '../src/utils/date.js'
 
@@ -45,13 +46,16 @@ const [gameDate, gameList, scheduleList] = await Promise.all([
   fetchKboScheduleList(seasonId, gameMonth)
 ])
 
-const normalized = gameList.game.map(mapGame)
+const scheduleByGameId = indexScheduleGames(scheduleList)
+const scheduleGames = mapScheduleGames(scheduleList).filter((game) => game.date === date)
+const normalized = gameList.game.map((game) => mapGame(game, scheduleByGameId.get(game.G_ID)))
 const payload = {
   requestedDate: date,
   fetchedAt,
   gameDate,
   gameList,
   scheduleList,
+  scheduleGames,
   normalizedGames: normalized,
   pollingView: normalized.map(toPollingView)
 }

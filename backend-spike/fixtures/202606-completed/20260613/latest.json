@@ -1,344 +1,344 @@
 {
-  "requestedDate": "20260610",
-  "fetchedAt": "2026-06-10T02:18:09.824Z",
+  "requestedDate": "20260613",
+  "fetchedAt": "2026-06-13T17:55:44.422Z",
   "gameDate": {
-    "BEFORE_G_DT": "20260609",
-    "NOW_G_DT": "20260610",
-    "NOW_G_DT_TEXT": "2026.06.10(수)",
-    "AFTER_G_DT": "20260611",
+    "BEFORE_G_DT": "20260612",
+    "NOW_G_DT": "20260613",
+    "NOW_G_DT_TEXT": "2026.06.13(토)",
+    "AFTER_G_DT": "20260614",
     "code": "100",
     "msg": "성공"
   },
   "gameList": {
     "game": [
       {
-        "G_ID": "20260610SKLG0",
-        "G_DT": "20260610",
-        "G_TM": "18:30",
+        "G_ID": "20260613LTLG0",
+        "G_DT": "20260613",
+        "G_TM": "17:00",
         "S_NM": "잠실",
-        "AWAY_ID": "SK",
+        "AWAY_ID": "LT",
         "HOME_ID": "LG",
-        "AWAY_NM": "SSG",
+        "AWAY_NM": "롯데",
         "HOME_NM": "LG",
-        "T_PIT_P_NM": "최민준 ",
-        "B_PIT_P_NM": "웰스 ",
-        "GAME_STATE_SC": "1",
-        "GAME_INN_NO": null,
-        "GAME_TB_SC": null,
-        "T_SCORE_CN": "0",
-        "B_SCORE_CN": "0",
-        "STRIKE_CN": null,
-        "BALL_CN": null,
-        "OUT_CN": null,
-        "B1_BAT_ORDER_NO": null,
-        "B2_BAT_ORDER_NO": null,
-        "B3_BAT_ORDER_NO": null,
-        "T_P_NM": "",
-        "B_P_NM": "",
+        "T_PIT_P_NM": "이민석 ",
+        "B_PIT_P_NM": "김진수 ",
+        "GAME_STATE_SC": "3",
+        "GAME_INN_NO": 9,
+        "GAME_TB_SC": "T",
+        "T_SCORE_CN": "3",
+        "B_SCORE_CN": "5",
+        "STRIKE_CN": 1,
+        "BALL_CN": 3,
+        "OUT_CN": 3,
+        "B1_BAT_ORDER_NO": 7,
+        "B2_BAT_ORDER_NO": 0,
+        "B3_BAT_ORDER_NO": 0,
+        "T_P_NM": "유강남",
+        "B_P_NM": "손주영",
         "LE_ID": 1,
         "SR_ID": 0,
         "SEASON_ID": 2026,
-        "G_DT_TXT": "2026년 6월 10일",
+        "G_DT_TXT": "2026년 6월 13일",
         "HEADER_NO": 0,
-        "T_PIT_P_ID": 68856,
-        "B_PIT_P_ID": 55348,
-        "W_PIT_P_ID": null,
-        "W_PIT_P_NM": "",
-        "SV_PIT_P_ID": null,
-        "SV_PIT_P_NM": "",
-        "L_PIT_P_ID": null,
-        "L_PIT_P_NM": "",
+        "T_PIT_P_ID": 52530,
+        "B_PIT_P_ID": 51154,
+        "W_PIT_P_ID": 75867,
+        "W_PIT_P_NM": "김진성",
+        "SV_PIT_P_ID": 67143,
+        "SV_PIT_P_NM": "손주영",
+        "L_PIT_P_ID": 52530,
+        "L_PIT_P_NM": "이민석",
         "T_D_PIT_P_ID": null,
         "T_D_PIT_P_NM": "",
         "B_D_PIT_P_ID": null,
         "B_D_PIT_P_NM": "",
         "CANCEL_SC_ID": "0",
         "CANCEL_SC_NM": "정상경기",
-        "GAME_TB_SC_NM": null,
-        "GAME_RESULT_CK": 0,
+        "GAME_TB_SC_NM": "초",
+        "GAME_RESULT_CK": 1,
         "TV_IF": "SPO-2T",
         "VS_GAME_CN": 8,
-        "T_P_ID": null,
-        "B_P_ID": null,
+        "T_P_ID": 61102,
+        "B_P_ID": 67143,
         "GAME_SC_ID": 0,
         "GAME_SC_NM": "정규경기",
-        "IE_ENTRY_CK": 0,
+        "IE_ENTRY_CK": 1,
         "START_PIT_CK": 1,
         "T_GROUP_SC": null,
-        "T_RANK_NO": 8,
+        "T_RANK_NO": 9,
         "B_GROUP_SC": null,
         "B_RANK_NO": 1,
         "ROUND_SC": null,
         "DETAIL_SC": null,
         "GAME_NO": null,
-        "LINEUP_CK": 0,
-        "VOD_CK": 0,
+        "LINEUP_CK": 31,
+        "VOD_CK": 1,
         "KBOT_SE": 0,
-        "SCORE_CK": "0",
+        "SCORE_CK": "1",
         "CHECK_SWING_CK": false
       },
       {
-        "G_ID": "20260610OBLT0",
-        "G_DT": "20260610",
-        "G_TM": "18:30",
-        "S_NM": "사직",
-        "AWAY_ID": "OB",
-        "HOME_ID": "LT",
-        "AWAY_NM": "두산",
-        "HOME_NM": "롯데",
-        "T_PIT_P_NM": "잭로그 ",
-        "B_PIT_P_NM": "김진욱 ",
-        "GAME_STATE_SC": "1",
-        "GAME_INN_NO": null,
-        "GAME_TB_SC": null,
-        "T_SCORE_CN": "0",
-        "B_SCORE_CN": "0",
-        "STRIKE_CN": null,
-        "BALL_CN": null,
-        "OUT_CN": null,
-        "B1_BAT_ORDER_NO": null,
-        "B2_BAT_ORDER_NO": null,
-        "B3_BAT_ORDER_NO": null,
-        "T_P_NM": "",
-        "B_P_NM": "",
+        "G_ID": "20260613SKSS0",
+        "G_DT": "20260613",
+        "G_TM": "17:00",
+        "S_NM": "대구",
+        "AWAY_ID": "SK",
+        "HOME_ID": "SS",
+        "AWAY_NM": "SSG",
+        "HOME_NM": "삼성",
+        "T_PIT_P_NM": "베니지아노 ",
+        "B_PIT_P_NM": "후라도 ",
+        "GAME_STATE_SC": "3",
+        "GAME_INN_NO": 9,
+        "GAME_TB_SC": "T",
+        "T_SCORE_CN": "6",
+        "B_SCORE_CN": "7",
+        "STRIKE_CN": 0,
+        "BALL_CN": 0,
+        "OUT_CN": 3,
+        "B1_BAT_ORDER_NO": 0,
+        "B2_BAT_ORDER_NO": 0,
+        "B3_BAT_ORDER_NO": 0,
+        "T_P_NM": "에레디아",
+        "B_P_NM": "김재윤",
         "LE_ID": 1,
         "SR_ID": 0,
         "SEASON_ID": 2026,
-        "G_DT_TXT": "2026년 6월 10일",
+        "G_DT_TXT": "2026년 6월 13일",
         "HEADER_NO": 0,
-        "T_PIT_P_ID": 55239,
-        "B_PIT_P_ID": 51516,
-        "W_PIT_P_ID": null,
-        "W_PIT_P_NM": "",
-        "SV_PIT_P_ID": null,
-        "SV_PIT_P_NM": "",
-        "L_PIT_P_ID": null,
-        "L_PIT_P_NM": "",
+        "T_PIT_P_ID": 56841,
+        "B_PIT_P_ID": 53375,
+        "W_PIT_P_ID": 67421,
+        "W_PIT_P_NM": "최지광",
+        "SV_PIT_P_ID": 65062,
+        "SV_PIT_P_NM": "김재윤",
+        "L_PIT_P_ID": 68043,
+        "L_PIT_P_NM": "김민",
         "T_D_PIT_P_ID": null,
         "T_D_PIT_P_NM": "",
         "B_D_PIT_P_ID": null,
         "B_D_PIT_P_NM": "",
         "CANCEL_SC_ID": "0",
         "CANCEL_SC_NM": "정상경기",
-        "GAME_TB_SC_NM": null,
-        "GAME_RESULT_CK": 0,
-        "TV_IF": "MS-T",
-        "VS_GAME_CN": 8,
-        "T_P_ID": null,
-        "B_P_ID": null,
+        "GAME_TB_SC_NM": "초",
+        "GAME_RESULT_CK": 1,
+        "TV_IF": "SPO-T",
+        "VS_GAME_CN": 7,
+        "T_P_ID": 53827,
+        "B_P_ID": 65062,
         "GAME_SC_ID": 0,
         "GAME_SC_NM": "정규경기",
-        "IE_ENTRY_CK": 0,
+        "IE_ENTRY_CK": 1,
+        "START_PIT_CK": 1,
+        "T_GROUP_SC": null,
+        "T_RANK_NO": 8,
+        "B_GROUP_SC": null,
+        "B_RANK_NO": 3,
+        "ROUND_SC": null,
+        "DETAIL_SC": null,
+        "GAME_NO": null,
+        "LINEUP_CK": 36,
+        "VOD_CK": 1,
+        "KBOT_SE": 0,
+        "SCORE_CK": "1",
+        "CHECK_SWING_CK": false
+      },
+      {
+        "G_ID": "20260613OBHT0",
+        "G_DT": "20260613",
+        "G_TM": "17:00",
+        "S_NM": "광주",
+        "AWAY_ID": "OB",
+        "HOME_ID": "HT",
+        "AWAY_NM": "두산",
+        "HOME_NM": "KIA",
+        "T_PIT_P_NM": "벤자민 ",
+        "B_PIT_P_NM": "네일 ",
+        "GAME_STATE_SC": "3",
+        "GAME_INN_NO": 9,
+        "GAME_TB_SC": "T",
+        "T_SCORE_CN": "1",
+        "B_SCORE_CN": "2",
+        "STRIKE_CN": 3,
+        "BALL_CN": 1,
+        "OUT_CN": 3,
+        "B1_BAT_ORDER_NO": 0,
+        "B2_BAT_ORDER_NO": 0,
+        "B3_BAT_ORDER_NO": 0,
+        "T_P_NM": "이유찬",
+        "B_P_NM": "성영탁",
+        "LE_ID": 1,
+        "SR_ID": 0,
+        "SEASON_ID": 2026,
+        "G_DT_TXT": "2026년 6월 13일",
+        "HEADER_NO": 0,
+        "T_PIT_P_ID": 52043,
+        "B_PIT_P_ID": 54640,
+        "W_PIT_P_ID": 54640,
+        "W_PIT_P_NM": "네일",
+        "SV_PIT_P_ID": 54610,
+        "SV_PIT_P_NM": "성영탁",
+        "L_PIT_P_ID": 52043,
+        "L_PIT_P_NM": "벤자민",
+        "T_D_PIT_P_ID": null,
+        "T_D_PIT_P_NM": "",
+        "B_D_PIT_P_ID": null,
+        "B_D_PIT_P_NM": "",
+        "CANCEL_SC_ID": "0",
+        "CANCEL_SC_NM": "정상경기",
+        "GAME_TB_SC_NM": "초",
+        "GAME_RESULT_CK": 1,
+        "TV_IF": "KN-T",
+        "VS_GAME_CN": 8,
+        "T_P_ID": 67207,
+        "B_P_ID": 54610,
+        "GAME_SC_ID": 0,
+        "GAME_SC_NM": "정규경기",
+        "IE_ENTRY_CK": 1,
         "START_PIT_CK": 1,
         "T_GROUP_SC": null,
         "T_RANK_NO": 6,
         "B_GROUP_SC": null,
-        "B_RANK_NO": 9,
+        "B_RANK_NO": 4,
         "ROUND_SC": null,
         "DETAIL_SC": null,
         "GAME_NO": null,
-        "LINEUP_CK": 0,
-        "VOD_CK": 0,
+        "LINEUP_CK": 36,
+        "VOD_CK": 1,
         "KBOT_SE": 0,
-        "SCORE_CK": "0",
+        "SCORE_CK": "1",
         "CHECK_SWING_CK": false
       },
       {
-        "G_ID": "20260610SSKT0",
-        "G_DT": "20260610",
-        "G_TM": "18:30",
+        "G_ID": "20260613NCKT0",
+        "G_DT": "20260613",
+        "G_TM": "17:00",
         "S_NM": "수원",
-        "AWAY_ID": "SS",
+        "AWAY_ID": "NC",
         "HOME_ID": "KT",
-        "AWAY_NM": "삼성",
+        "AWAY_NM": "NC",
         "HOME_NM": "KT",
-        "T_PIT_P_NM": "원태인 ",
-        "B_PIT_P_NM": "사우어 ",
-        "GAME_STATE_SC": "1",
-        "GAME_INN_NO": null,
-        "GAME_TB_SC": null,
-        "T_SCORE_CN": "0",
-        "B_SCORE_CN": "0",
-        "STRIKE_CN": null,
-        "BALL_CN": null,
-        "OUT_CN": null,
-        "B1_BAT_ORDER_NO": null,
-        "B2_BAT_ORDER_NO": null,
-        "B3_BAT_ORDER_NO": null,
-        "T_P_NM": "",
-        "B_P_NM": "",
+        "T_PIT_P_NM": "토다 ",
+        "B_PIT_P_NM": "오원석 ",
+        "GAME_STATE_SC": "3",
+        "GAME_INN_NO": 9,
+        "GAME_TB_SC": "T",
+        "T_SCORE_CN": "9",
+        "B_SCORE_CN": "11",
+        "STRIKE_CN": 0,
+        "BALL_CN": 1,
+        "OUT_CN": 3,
+        "B1_BAT_ORDER_NO": 0,
+        "B2_BAT_ORDER_NO": 6,
+        "B3_BAT_ORDER_NO": 0,
+        "T_P_NM": "도태훈",
+        "B_P_NM": "박영현",
         "LE_ID": 1,
         "SR_ID": 0,
         "SEASON_ID": 2026,
-        "G_DT_TXT": "2026년 6월 10일",
+        "G_DT_TXT": "2026년 6월 13일",
         "HEADER_NO": 0,
-        "T_PIT_P_ID": 69446,
-        "B_PIT_P_ID": 56032,
-        "W_PIT_P_ID": null,
-        "W_PIT_P_NM": "",
-        "SV_PIT_P_ID": null,
-        "SV_PIT_P_NM": "",
-        "L_PIT_P_ID": null,
-        "L_PIT_P_NM": "",
+        "T_PIT_P_ID": 56911,
+        "B_PIT_P_ID": 50859,
+        "W_PIT_P_ID": 61666,
+        "W_PIT_P_NM": "한승혁",
+        "SV_PIT_P_ID": 52060,
+        "SV_PIT_P_NM": "박영현",
+        "L_PIT_P_ID": 51948,
+        "L_PIT_P_NM": "이용준",
         "T_D_PIT_P_ID": null,
         "T_D_PIT_P_NM": "",
         "B_D_PIT_P_ID": null,
         "B_D_PIT_P_NM": "",
         "CANCEL_SC_ID": "0",
         "CANCEL_SC_NM": "정상경기",
-        "GAME_TB_SC_NM": null,
-        "GAME_RESULT_CK": 0,
-        "TV_IF": "SPO-T",
-        "VS_GAME_CN": 7,
-        "T_P_ID": null,
-        "B_P_ID": null,
+        "GAME_TB_SC_NM": "초",
+        "GAME_RESULT_CK": 1,
+        "TV_IF": "SS-T",
+        "VS_GAME_CN": 8,
+        "T_P_ID": 66965,
+        "B_P_ID": 52060,
         "GAME_SC_ID": 0,
         "GAME_SC_NM": "정규경기",
-        "IE_ENTRY_CK": 0,
+        "IE_ENTRY_CK": 1,
         "START_PIT_CK": 1,
         "T_GROUP_SC": null,
-        "T_RANK_NO": 3,
+        "T_RANK_NO": 7,
         "B_GROUP_SC": null,
         "B_RANK_NO": 2,
         "ROUND_SC": null,
         "DETAIL_SC": null,
         "GAME_NO": null,
-        "LINEUP_CK": 0,
-        "VOD_CK": 0,
+        "LINEUP_CK": 48,
+        "VOD_CK": 1,
         "KBOT_SE": 0,
-        "SCORE_CK": "0",
+        "SCORE_CK": "1",
         "CHECK_SWING_CK": false
       },
       {
-        "G_ID": "20260610HTHH0",
-        "G_DT": "20260610",
-        "G_TM": "18:30",
-        "S_NM": "대전",
-        "AWAY_ID": "HT",
-        "HOME_ID": "HH",
-        "AWAY_NM": "KIA",
-        "HOME_NM": "한화",
-        "T_PIT_P_NM": "시라카와 ",
-        "B_PIT_P_NM": "화이트 ",
-        "GAME_STATE_SC": "1",
-        "GAME_INN_NO": null,
-        "GAME_TB_SC": null,
-        "T_SCORE_CN": "0",
-        "B_SCORE_CN": "0",
-        "STRIKE_CN": null,
-        "BALL_CN": null,
-        "OUT_CN": null,
-        "B1_BAT_ORDER_NO": null,
-        "B2_BAT_ORDER_NO": null,
-        "B3_BAT_ORDER_NO": null,
-        "T_P_NM": "",
-        "B_P_NM": "",
-        "LE_ID": 1,
-        "SR_ID": 0,
-        "SEASON_ID": 2026,
-        "G_DT_TXT": "2026년 6월 10일",
-        "HEADER_NO": 0,
-        "T_PIT_P_ID": 54843,
-        "B_PIT_P_ID": 56724,
-        "W_PIT_P_ID": null,
-        "W_PIT_P_NM": "",
-        "SV_PIT_P_ID": null,
-        "SV_PIT_P_NM": "",
-        "L_PIT_P_ID": null,
-        "L_PIT_P_NM": "",
-        "T_D_PIT_P_ID": null,
-        "T_D_PIT_P_NM": "",
-        "B_D_PIT_P_ID": null,
-        "B_D_PIT_P_NM": "",
-        "CANCEL_SC_ID": "0",
-        "CANCEL_SC_NM": "정상경기",
-        "GAME_TB_SC_NM": null,
-        "GAME_RESULT_CK": 0,
-        "TV_IF": "KN-T",
-        "VS_GAME_CN": 8,
-        "T_P_ID": null,
-        "B_P_ID": null,
-        "GAME_SC_ID": 0,
-        "GAME_SC_NM": "정규경기",
-        "IE_ENTRY_CK": 0,
-        "START_PIT_CK": 1,
-        "T_GROUP_SC": null,
-        "T_RANK_NO": 4,
-        "B_GROUP_SC": null,
-        "B_RANK_NO": 5,
-        "ROUND_SC": null,
-        "DETAIL_SC": null,
-        "GAME_NO": null,
-        "LINEUP_CK": 0,
-        "VOD_CK": 0,
-        "KBOT_SE": 0,
-        "SCORE_CK": "0",
-        "CHECK_SWING_CK": false
-      },
-      {
-        "G_ID": "20260610NCWO0",
-        "G_DT": "20260610",
-        "G_TM": "18:30",
+        "G_ID": "20260613HHWO0",
+        "G_DT": "20260613",
+        "G_TM": "17:00",
         "S_NM": "고척",
-        "AWAY_ID": "NC",
+        "AWAY_ID": "HH",
         "HOME_ID": "WO",
-        "AWAY_NM": "NC",
+        "AWAY_NM": "한화",
         "HOME_NM": "키움",
-        "T_PIT_P_NM": "구창모 ",
-        "B_PIT_P_NM": "하영민 ",
-        "GAME_STATE_SC": "1",
-        "GAME_INN_NO": null,
-        "GAME_TB_SC": null,
-        "T_SCORE_CN": "0",
-        "B_SCORE_CN": "0",
-        "STRIKE_CN": null,
-        "BALL_CN": null,
-        "OUT_CN": null,
-        "B1_BAT_ORDER_NO": null,
-        "B2_BAT_ORDER_NO": null,
-        "B3_BAT_ORDER_NO": null,
-        "T_P_NM": "",
-        "B_P_NM": "",
+        "T_PIT_P_NM": "박준영 ",
+        "B_PIT_P_NM": "알칸타라 ",
+        "GAME_STATE_SC": "3",
+        "GAME_INN_NO": 9,
+        "GAME_TB_SC": "T",
+        "T_SCORE_CN": "1",
+        "B_SCORE_CN": "3",
+        "STRIKE_CN": 3,
+        "BALL_CN": 2,
+        "OUT_CN": 3,
+        "B1_BAT_ORDER_NO": 7,
+        "B2_BAT_ORDER_NO": 0,
+        "B3_BAT_ORDER_NO": 0,
+        "T_P_NM": "박정현",
+        "B_P_NM": "유토",
         "LE_ID": 1,
         "SR_ID": 0,
         "SEASON_ID": 2026,
-        "G_DT_TXT": "2026년 6월 10일",
+        "G_DT_TXT": "2026년 6월 13일",
         "HEADER_NO": 0,
-        "T_PIT_P_ID": 65933,
-        "B_PIT_P_ID": 64350,
-        "W_PIT_P_ID": null,
-        "W_PIT_P_NM": "",
-        "SV_PIT_P_ID": null,
-        "SV_PIT_P_NM": "",
-        "L_PIT_P_ID": null,
-        "L_PIT_P_NM": "",
+        "T_PIT_P_ID": 56709,
+        "B_PIT_P_ID": 69045,
+        "W_PIT_P_ID": 69045,
+        "W_PIT_P_NM": "알칸타라",
+        "SV_PIT_P_ID": 56348,
+        "SV_PIT_P_NM": "유토",
+        "L_PIT_P_ID": 56709,
+        "L_PIT_P_NM": "박준영",
         "T_D_PIT_P_ID": null,
         "T_D_PIT_P_NM": "",
         "B_D_PIT_P_ID": null,
         "B_D_PIT_P_NM": "",
         "CANCEL_SC_ID": "0",
         "CANCEL_SC_NM": "정상경기",
-        "GAME_TB_SC_NM": null,
-        "GAME_RESULT_CK": 0,
-        "TV_IF": "SS-T",
-        "VS_GAME_CN": 8,
-        "T_P_ID": null,
-        "B_P_ID": null,
+        "GAME_TB_SC_NM": "초",
+        "GAME_RESULT_CK": 1,
+        "TV_IF": "MS-T",
+        "VS_GAME_CN": 7,
+        "T_P_ID": 50709,
+        "B_P_ID": 56348,
         "GAME_SC_ID": 0,
         "GAME_SC_NM": "정규경기",
-        "IE_ENTRY_CK": 0,
+        "IE_ENTRY_CK": 1,
         "START_PIT_CK": 1,
         "T_GROUP_SC": null,
-        "T_RANK_NO": 7,
+        "T_RANK_NO": 5,
         "B_GROUP_SC": null,
         "B_RANK_NO": 10,
         "ROUND_SC": null,
         "DETAIL_SC": null,
         "GAME_NO": null,
-        "LINEUP_CK": 0,
-        "VOD_CK": 0,
+        "LINEUP_CK": 30,
+        "VOD_CK": 1,
         "KBOT_SE": 0,
-        "SCORE_CK": "0",
+        "SCORE_CK": "1",
         "CHECK_SWING_CK": false
       }
     ],
@@ -3266,7 +3266,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<span>SSG</span><em><span>vs</span></em><span>LG</span>",
+            "Text": "<span>SSG</span><em><span class=\"lose\">6</span><span>vs</span><span class=\"win\">8</span></em><span>LG</span>",
             "Class": "play",
             "Scope": null,
             "RowSpan": null,
@@ -3275,7 +3275,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260610&gameId=20260610SKLG0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260610&gameId=20260610SKLG0&section=REVIEW' class='btn2 mr5' id='btnReview'>리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -3284,7 +3284,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260610&gameId=20260610SKLG0&section=HIGHLIGHT' class='btn2' id='btnHighlight' style='width:65px;'>하이라이트</a>",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -3347,7 +3347,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<span>두산</span><em><span>vs</span></em><span>롯데</span>",
+            "Text": "<span>두산</span><em><span class=\"lose\">1</span><span>vs</span><span class=\"win\">3</span></em><span>롯데</span>",
             "Class": "play",
             "Scope": null,
             "RowSpan": null,
@@ -3356,7 +3356,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260610&gameId=20260610OBLT0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260610&gameId=20260610OBLT0&section=REVIEW' class='btn2 mr5' id='btnReview'>리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -3365,7 +3365,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260610&gameId=20260610OBLT0&section=HIGHLIGHT' class='btn2' id='btnHighlight' style='width:65px;'>하이라이트</a>",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -3428,7 +3428,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<span>삼성</span><em><span>vs</span></em><span>KT</span>",
+            "Text": "<span>삼성</span><em><span class=\"lose\">3</span><span>vs</span><span class=\"win\">4</span></em><span>KT</span>",
             "Class": "play",
             "Scope": null,
             "RowSpan": null,
@@ -3437,7 +3437,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260610&gameId=20260610SSKT0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260610&gameId=20260610SSKT0&section=REVIEW' class='btn2 mr5' id='btnReview'>리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -3446,7 +3446,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260610&gameId=20260610SSKT0&section=HIGHLIGHT' class='btn2' id='btnHighlight' style='width:65px;'>하이라이트</a>",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -3509,7 +3509,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<span>KIA</span><em><span>vs</span></em><span>한화</span>",
+            "Text": "<span>KIA</span><em><span class=\"lose\">3</span><span>vs</span><span class=\"win\">4</span></em><span>한화</span>",
             "Class": "play",
             "Scope": null,
             "RowSpan": null,
@@ -3518,7 +3518,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260610&gameId=20260610HTHH0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260610&gameId=20260610HTHH0&section=REVIEW' class='btn2 mr5' id='btnReview'>리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -3527,7 +3527,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260610&gameId=20260610HTHH0&section=HIGHLIGHT' class='btn2' id='btnHighlight' style='width:65px;'>하이라이트</a>",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -3590,7 +3590,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<span>NC</span><em><span>vs</span></em><span>키움</span>",
+            "Text": "<span>NC</span><em><span class=\"win\">4</span><span>vs</span><span class=\"lose\">2</span></em><span>키움</span>",
             "Class": "play",
             "Scope": null,
             "RowSpan": null,
@@ -3599,7 +3599,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260610&gameId=20260610NCWO0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260610&gameId=20260610NCWO0&section=REVIEW' class='btn2 mr5' id='btnReview'>리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -3608,7 +3608,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260610&gameId=20260610NCWO0&section=HIGHLIGHT' class='btn2' id='btnHighlight' style='width:65px;'>하이라이트</a>",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -3680,7 +3680,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<span>SSG</span><em><span>vs</span></em><span>LG</span>",
+            "Text": "<span>SSG</span><em><span class=\"lose\">1</span><span>vs</span><span class=\"win\">15</span></em><span>LG</span>",
             "Class": "play",
             "Scope": null,
             "RowSpan": null,
@@ -3689,7 +3689,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260611&gameId=20260611SKLG0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260611&gameId=20260611SKLG0&section=REVIEW' class='btn2 mr5' id='btnReview'>리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -3698,7 +3698,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260611&gameId=20260611SKLG0&section=HIGHLIGHT' class='btn2' id='btnHighlight' style='width:65px;'>하이라이트</a>",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -3761,7 +3761,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<span>두산</span><em><span>vs</span></em><span>롯데</span>",
+            "Text": "<span>두산</span><em><span class=\"win\">12</span><span>vs</span><span class=\"lose\">7</span></em><span>롯데</span>",
             "Class": "play",
             "Scope": null,
             "RowSpan": null,
@@ -3770,7 +3770,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260611&gameId=20260611OBLT0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260611&gameId=20260611OBLT0&section=REVIEW' class='btn2 mr5' id='btnReview'>리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -3779,7 +3779,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260611&gameId=20260611OBLT0&section=HIGHLIGHT' class='btn2' id='btnHighlight' style='width:65px;'>하이라이트</a>",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -3842,7 +3842,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<span>삼성</span><em><span>vs</span></em><span>KT</span>",
+            "Text": "<span>삼성</span><em><span class=\"win\">8</span><span>vs</span><span class=\"lose\">1</span></em><span>KT</span>",
             "Class": "play",
             "Scope": null,
             "RowSpan": null,
@@ -3851,7 +3851,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260611&gameId=20260611SSKT0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260611&gameId=20260611SSKT0&section=REVIEW' class='btn2 mr5' id='btnReview'>리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -3860,7 +3860,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260611&gameId=20260611SSKT0&section=HIGHLIGHT' class='btn2' id='btnHighlight' style='width:65px;'>하이라이트</a>",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -3923,7 +3923,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<span>KIA</span><em><span>vs</span></em><span>한화</span>",
+            "Text": "<span>KIA</span><em><span class=\"lose\">1</span><span>vs</span><span class=\"win\">5</span></em><span>한화</span>",
             "Class": "play",
             "Scope": null,
             "RowSpan": null,
@@ -3932,7 +3932,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260611&gameId=20260611HTHH0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260611&gameId=20260611HTHH0&section=REVIEW' class='btn2 mr5' id='btnReview'>리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -3941,7 +3941,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260611&gameId=20260611HTHH0&section=HIGHLIGHT' class='btn2' id='btnHighlight' style='width:65px;'>하이라이트</a>",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -4004,7 +4004,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<span>NC</span><em><span>vs</span></em><span>키움</span>",
+            "Text": "<span>NC</span><em><span class=\"win\">3</span><span>vs</span><span class=\"lose\">2</span></em><span>키움</span>",
             "Class": "play",
             "Scope": null,
             "RowSpan": null,
@@ -4013,7 +4013,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260611&gameId=20260611NCWO0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260611&gameId=20260611NCWO0&section=REVIEW' class='btn2 mr5' id='btnReview'>리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -4022,7 +4022,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260611&gameId=20260611NCWO0&section=HIGHLIGHT' class='btn2' id='btnHighlight' style='width:65px;'>하이라이트</a>",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -4094,7 +4094,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<span>롯데</span><em><span>vs</span></em><span>LG</span>",
+            "Text": "<span>롯데</span><em><span class=\"win\">16</span><span>vs</span><span class=\"lose\">5</span></em><span>LG</span>",
             "Class": "play",
             "Scope": null,
             "RowSpan": null,
@@ -4103,7 +4103,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260612&gameId=20260612LTLG0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260612&gameId=20260612LTLG0&section=REVIEW' class='btn2 mr5' id='btnReview'>리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -4112,7 +4112,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260612&gameId=20260612LTLG0&section=HIGHLIGHT' class='btn2' id='btnHighlight' style='width:65px;'>하이라이트</a>",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -4175,7 +4175,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<span>SSG</span><em><span>vs</span></em><span>삼성</span>",
+            "Text": "<span>SSG</span><em><span class=\"win\">5</span><span>vs</span><span class=\"lose\">3</span></em><span>삼성</span>",
             "Class": "play",
             "Scope": null,
             "RowSpan": null,
@@ -4184,7 +4184,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260612&gameId=20260612SKSS0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260612&gameId=20260612SKSS0&section=REVIEW' class='btn2 mr5' id='btnReview'>리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -4193,7 +4193,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260612&gameId=20260612SKSS0&section=HIGHLIGHT' class='btn2' id='btnHighlight' style='width:65px;'>하이라이트</a>",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -4256,7 +4256,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<span>두산</span><em><span>vs</span></em><span>KIA</span>",
+            "Text": "<span>두산</span><em><span class=\"win\">4</span><span>vs</span><span class=\"lose\">2</span></em><span>KIA</span>",
             "Class": "play",
             "Scope": null,
             "RowSpan": null,
@@ -4265,7 +4265,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260612&gameId=20260612OBHT0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260612&gameId=20260612OBHT0&section=REVIEW' class='btn2 mr5' id='btnReview'>리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -4274,7 +4274,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260612&gameId=20260612OBHT0&section=HIGHLIGHT' class='btn2' id='btnHighlight' style='width:65px;'>하이라이트</a>",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -4337,7 +4337,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<span>NC</span><em><span>vs</span></em><span>KT</span>",
+            "Text": "<span>NC</span><em><span class=\"lose\">2</span><span>vs</span><span class=\"win\">3</span></em><span>KT</span>",
             "Class": "play",
             "Scope": null,
             "RowSpan": null,
@@ -4346,7 +4346,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260612&gameId=20260612NCKT0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260612&gameId=20260612NCKT0&section=REVIEW' class='btn2 mr5' id='btnReview'>리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -4355,7 +4355,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260612&gameId=20260612NCKT0&section=HIGHLIGHT' class='btn2' id='btnHighlight' style='width:65px;'>하이라이트</a>",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -4418,7 +4418,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<span>한화</span><em><span>vs</span></em><span>키움</span>",
+            "Text": "<span>한화</span><em><span class=\"lose\">3</span><span>vs</span><span class=\"win\">4</span></em><span>키움</span>",
             "Class": "play",
             "Scope": null,
             "RowSpan": null,
@@ -4427,7 +4427,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260612&gameId=20260612HHWO0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260612&gameId=20260612HHWO0&section=REVIEW' class='btn2 mr5' id='btnReview'>리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -4436,7 +4436,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260612&gameId=20260612HHWO0&section=HIGHLIGHT' class='btn2' id='btnHighlight' style='width:65px;'>하이라이트</a>",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -4508,7 +4508,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<span>롯데</span><em><span>vs</span></em><span>LG</span>",
+            "Text": "<span>롯데</span><em><span class=\"lose\">3</span><span>vs</span><span class=\"win\">5</span></em><span>LG</span>",
             "Class": "play",
             "Scope": null,
             "RowSpan": null,
@@ -4517,7 +4517,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613LTLG0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613LTLG0&section=REVIEW' class='btn2 mr5' id='btnReview'>리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -4526,7 +4526,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613LTLG0&section=HIGHLIGHT' class='btn2' id='btnHighlight' style='width:65px;'>하이라이트</a>",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -4589,7 +4589,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<span>SSG</span><em><span>vs</span></em><span>삼성</span>",
+            "Text": "<span>SSG</span><em><span class=\"lose\">6</span><span>vs</span><span class=\"win\">7</span></em><span>삼성</span>",
             "Class": "play",
             "Scope": null,
             "RowSpan": null,
@@ -4598,7 +4598,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613SKSS0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613SKSS0&section=REVIEW' class='btn2 mr5' id='btnReview'>리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -4607,7 +4607,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613SKSS0&section=HIGHLIGHT' class='btn2' id='btnHighlight' style='width:65px;'>하이라이트</a>",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -4670,7 +4670,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<span>두산</span><em><span>vs</span></em><span>KIA</span>",
+            "Text": "<span>두산</span><em><span class=\"lose\">1</span><span>vs</span><span class=\"win\">2</span></em><span>KIA</span>",
             "Class": "play",
             "Scope": null,
             "RowSpan": null,
@@ -4679,7 +4679,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613OBHT0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613OBHT0&section=REVIEW' class='btn2 mr5' id='btnReview'>리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -4688,7 +4688,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613OBHT0&section=HIGHLIGHT' class='btn2' id='btnHighlight' style='width:65px;'>하이라이트</a>",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -4751,7 +4751,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<span>NC</span><em><span>vs</span></em><span>KT</span>",
+            "Text": "<span>NC</span><em><span class=\"lose\">9</span><span>vs</span><span class=\"win\">11</span></em><span>KT</span>",
             "Class": "play",
             "Scope": null,
             "RowSpan": null,
@@ -4760,7 +4760,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613NCKT0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613NCKT0&section=REVIEW' class='btn2 mr5' id='btnReview'>리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -4769,7 +4769,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613NCKT0&section=HIGHLIGHT' class='btn2' id='btnHighlight' style='width:65px;'>하이라이트</a>",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -4832,7 +4832,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<span>한화</span><em><span>vs</span></em><span>키움</span>",
+            "Text": "<span>한화</span><em><span class=\"lose\">1</span><span>vs</span><span class=\"win\">3</span></em><span>키움</span>",
             "Class": "play",
             "Scope": null,
             "RowSpan": null,
@@ -4841,7 +4841,7 @@
             "TypeObj": null
           },
           {
-            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613HHWO0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613HHWO0&section=REVIEW' class='btn2 mr5' id='btnReview'>리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -4850,7 +4850,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613HHWO0&section=HIGHLIGHT' class='btn2' id='btnHighlight' style='width:65px;'>하이라이트</a>",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -5363,7 +5363,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "SPO-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -5444,7 +5444,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "MS-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -5525,7 +5525,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "SPO-2T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -5606,7 +5606,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "SS-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -5687,7 +5687,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "KN-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -5777,7 +5777,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "SPO-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -5858,7 +5858,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "MS-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -5939,7 +5939,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "SPO-2T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -6020,7 +6020,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "SS-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -6101,7 +6101,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "KN-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -6173,7 +6173,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260618&gameId=20260618KTOB0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -6191,7 +6191,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "MS-T<br />SPO-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -6254,7 +6254,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260618&gameId=20260618WOSS0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -6272,7 +6272,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "KN-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -6335,7 +6335,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260618&gameId=20260618LTSK0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -6353,7 +6353,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "SPO-2T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -6416,7 +6416,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260618&gameId=20260618LGHT0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -6434,7 +6434,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "S-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -6497,7 +6497,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260618&gameId=20260618HHNC0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -6515,7 +6515,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "SS-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -6587,7 +6587,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260619&gameId=20260619OBLG0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -6605,7 +6605,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "SPO-2T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -6668,7 +6668,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260619&gameId=20260619HTKT0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -6686,7 +6686,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "KN-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -6749,7 +6749,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260619&gameId=20260619SKNC0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -6767,7 +6767,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "SPO-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -6830,7 +6830,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260619&gameId=20260619SSHH0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -6848,7 +6848,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "SS-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -6911,7 +6911,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260619&gameId=20260619LTWO0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -6929,7 +6929,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "MS-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -7001,7 +7001,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260620&gameId=20260620OBLG0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -7019,7 +7019,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "SPO-2T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -7082,7 +7082,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260620&gameId=20260620HTKT0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -7100,7 +7100,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "KN-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -7163,7 +7163,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260620&gameId=20260620SKNC0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -7181,7 +7181,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "SPO-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -7244,7 +7244,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260620&gameId=20260620SSHH0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -7262,7 +7262,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "SS-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -7325,7 +7325,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260620&gameId=20260620LTWO0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -7343,7 +7343,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "MS-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -7415,7 +7415,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260621&gameId=20260621LTWO0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -7433,7 +7433,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "S-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -7496,7 +7496,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260621&gameId=20260621OBLG0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -7514,7 +7514,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "KN-T<br />SPO-2T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -7577,7 +7577,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260621&gameId=20260621HTKT0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -7595,7 +7595,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "SS-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -7658,7 +7658,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260621&gameId=20260621SKNC0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -7676,7 +7676,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "MS-T<br />SPO-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -7739,7 +7739,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "<a href='/Schedule/GameCenter/Main.aspx?gameDate=20260621&gameId=20260621SSHH0&section=START_PIT' class='btn2' id='btnPreView'>프리뷰</a>",
             "Class": "relay",
             "Scope": null,
             "RowSpan": null,
@@ -7757,7 +7757,7 @@
             "TypeObj": null
           },
           {
-            "Text": "",
+            "Text": "M-T",
             "Class": null,
             "Scope": null,
             "RowSpan": null,
@@ -10712,311 +10712,598 @@
     "code": null,
     "msg": null
   },
+  "scheduleGames": [
+    {
+      "gameId": "20260613LTLG0",
+      "date": "20260613",
+      "startTime": "20260613T17:00:00+09:00",
+      "venue": "잠실",
+      "broadcastChannels": [
+        "SPO-2T"
+      ],
+      "note": null,
+      "links": {
+        "gameCenter": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613LTLG0&section=REVIEW",
+        "preview": null,
+        "review": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613LTLG0&section=REVIEW",
+        "highlight": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613LTLG0&section=HIGHLIGHT"
+      }
+    },
+    {
+      "gameId": "20260613SKSS0",
+      "date": "20260613",
+      "startTime": "20260613T17:00:00+09:00",
+      "venue": "대구",
+      "broadcastChannels": [
+        "SPO-T"
+      ],
+      "note": null,
+      "links": {
+        "gameCenter": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613SKSS0&section=REVIEW",
+        "preview": null,
+        "review": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613SKSS0&section=REVIEW",
+        "highlight": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613SKSS0&section=HIGHLIGHT"
+      }
+    },
+    {
+      "gameId": "20260613OBHT0",
+      "date": "20260613",
+      "startTime": "20260613T17:00:00+09:00",
+      "venue": "광주",
+      "broadcastChannels": [
+        "KN-T"
+      ],
+      "note": null,
+      "links": {
+        "gameCenter": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613OBHT0&section=REVIEW",
+        "preview": null,
+        "review": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613OBHT0&section=REVIEW",
+        "highlight": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613OBHT0&section=HIGHLIGHT"
+      }
+    },
+    {
+      "gameId": "20260613NCKT0",
+      "date": "20260613",
+      "startTime": "20260613T17:00:00+09:00",
+      "venue": "수원",
+      "broadcastChannels": [
+        "SS-T"
+      ],
+      "note": null,
+      "links": {
+        "gameCenter": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613NCKT0&section=REVIEW",
+        "preview": null,
+        "review": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613NCKT0&section=REVIEW",
+        "highlight": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613NCKT0&section=HIGHLIGHT"
+      }
+    },
+    {
+      "gameId": "20260613HHWO0",
+      "date": "20260613",
+      "startTime": "20260613T17:00:00+09:00",
+      "venue": "고척",
+      "broadcastChannels": [
+        "MS-T"
+      ],
+      "note": null,
+      "links": {
+        "gameCenter": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613HHWO0&section=REVIEW",
+        "preview": null,
+        "review": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613HHWO0&section=REVIEW",
+        "highlight": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613HHWO0&section=HIGHLIGHT"
+      }
+    }
+  ],
   "normalizedGames": [
     {
-      "gameId": "20260610SKLG0",
-      "date": "20260610",
+      "gameId": "20260613LTLG0",
+      "date": "20260613",
       "venue": "잠실",
-      "startTime": "20260610T18:30:00+09:00",
-      "status": "scheduled",
+      "startTime": "20260613T17:00:00+09:00",
+      "broadcastChannels": [
+        "SPO-2T"
+      ],
+      "homepageLinks": {
+        "gameCenter": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613LTLG0&section=REVIEW",
+        "preview": null,
+        "review": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613LTLG0&section=REVIEW",
+        "highlight": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613LTLG0&section=HIGHLIGHT"
+      },
+      "status": "final",
       "awayTeam": {
-        "id": "SK",
-        "name": "SSG"
+        "id": "LT",
+        "name": "롯데"
       },
       "homeTeam": {
         "id": "LG",
         "name": "LG"
       },
       "score": {
-        "away": 0,
-        "home": 0
+        "away": 3,
+        "home": 5
       },
-      "inning": null,
-      "count": null,
+      "inning": {
+        "number": 9,
+        "half": "top"
+      },
+      "count": {
+        "balls": 3,
+        "strikes": 1,
+        "outs": 3
+      },
+      "bases": {
+        "first": true,
+        "second": false,
+        "third": false
+      },
+      "current": {
+        "batter": "유강남",
+        "pitcher": "손주영"
+      },
+      "probablePitchers": {
+        "away": "이민석",
+        "home": "김진수"
+      },
+      "recentPlay": null,
+      "teamRecords": null,
+      "boxScore": {
+        "away": {
+          "runs": 3,
+          "hits": null,
+          "errors": null,
+          "walks": null
+        },
+        "home": {
+          "runs": 5,
+          "hits": null,
+          "errors": null,
+          "walks": null
+        },
+        "linescore": []
+      },
+      "lineupPreview": null,
+      "analysis": null,
+      "sourceMeta": {
+        "rawStatusCode": "3",
+        "rawTopBottomCode": "T",
+        "fetchedAt": "2026-06-13T17:55:44.664Z"
+      }
+    },
+    {
+      "gameId": "20260613SKSS0",
+      "date": "20260613",
+      "venue": "대구",
+      "startTime": "20260613T17:00:00+09:00",
+      "broadcastChannels": [
+        "SPO-T"
+      ],
+      "homepageLinks": {
+        "gameCenter": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613SKSS0&section=REVIEW",
+        "preview": null,
+        "review": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613SKSS0&section=REVIEW",
+        "highlight": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613SKSS0&section=HIGHLIGHT"
+      },
+      "status": "final",
+      "awayTeam": {
+        "id": "SK",
+        "name": "SSG"
+      },
+      "homeTeam": {
+        "id": "SS",
+        "name": "삼성"
+      },
+      "score": {
+        "away": 6,
+        "home": 7
+      },
+      "inning": {
+        "number": 9,
+        "half": "top"
+      },
+      "count": {
+        "balls": 0,
+        "strikes": 0,
+        "outs": 3
+      },
       "bases": {
         "first": false,
         "second": false,
         "third": false
       },
       "current": {
-        "batter": "",
-        "pitcher": ""
+        "batter": "에레디아",
+        "pitcher": "김재윤"
       },
       "probablePitchers": {
-        "away": "최민준",
-        "home": "웰스"
+        "away": "베니지아노",
+        "home": "후라도"
       },
       "recentPlay": null,
+      "teamRecords": null,
+      "boxScore": {
+        "away": {
+          "runs": 6,
+          "hits": null,
+          "errors": null,
+          "walks": null
+        },
+        "home": {
+          "runs": 7,
+          "hits": null,
+          "errors": null,
+          "walks": null
+        },
+        "linescore": []
+      },
+      "lineupPreview": null,
+      "analysis": null,
       "sourceMeta": {
-        "rawStatusCode": "1",
-        "rawTopBottomCode": null,
-        "fetchedAt": "2026-06-10T02:18:10.131Z"
+        "rawStatusCode": "3",
+        "rawTopBottomCode": "T",
+        "fetchedAt": "2026-06-13T17:55:44.664Z"
       }
     },
     {
-      "gameId": "20260610OBLT0",
-      "date": "20260610",
-      "venue": "사직",
-      "startTime": "20260610T18:30:00+09:00",
-      "status": "scheduled",
+      "gameId": "20260613OBHT0",
+      "date": "20260613",
+      "venue": "광주",
+      "startTime": "20260613T17:00:00+09:00",
+      "broadcastChannels": [
+        "KN-T"
+      ],
+      "homepageLinks": {
+        "gameCenter": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613OBHT0&section=REVIEW",
+        "preview": null,
+        "review": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613OBHT0&section=REVIEW",
+        "highlight": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613OBHT0&section=HIGHLIGHT"
+      },
+      "status": "final",
       "awayTeam": {
         "id": "OB",
         "name": "두산"
       },
       "homeTeam": {
-        "id": "LT",
-        "name": "롯데"
+        "id": "HT",
+        "name": "KIA"
       },
       "score": {
-        "away": 0,
-        "home": 0
+        "away": 1,
+        "home": 2
       },
-      "inning": null,
-      "count": null,
+      "inning": {
+        "number": 9,
+        "half": "top"
+      },
+      "count": {
+        "balls": 1,
+        "strikes": 3,
+        "outs": 3
+      },
       "bases": {
         "first": false,
         "second": false,
         "third": false
       },
       "current": {
-        "batter": "",
-        "pitcher": ""
+        "batter": "이유찬",
+        "pitcher": "성영탁"
       },
       "probablePitchers": {
-        "away": "잭로그",
-        "home": "김진욱"
+        "away": "벤자민",
+        "home": "네일"
       },
       "recentPlay": null,
+      "teamRecords": null,
+      "boxScore": {
+        "away": {
+          "runs": 1,
+          "hits": null,
+          "errors": null,
+          "walks": null
+        },
+        "home": {
+          "runs": 2,
+          "hits": null,
+          "errors": null,
+          "walks": null
+        },
+        "linescore": []
+      },
+      "lineupPreview": null,
+      "analysis": null,
       "sourceMeta": {
-        "rawStatusCode": "1",
-        "rawTopBottomCode": null,
-        "fetchedAt": "2026-06-10T02:18:10.131Z"
+        "rawStatusCode": "3",
+        "rawTopBottomCode": "T",
+        "fetchedAt": "2026-06-13T17:55:44.664Z"
       }
     },
     {
-      "gameId": "20260610SSKT0",
-      "date": "20260610",
+      "gameId": "20260613NCKT0",
+      "date": "20260613",
       "venue": "수원",
-      "startTime": "20260610T18:30:00+09:00",
-      "status": "scheduled",
+      "startTime": "20260613T17:00:00+09:00",
+      "broadcastChannels": [
+        "SS-T"
+      ],
+      "homepageLinks": {
+        "gameCenter": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613NCKT0&section=REVIEW",
+        "preview": null,
+        "review": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613NCKT0&section=REVIEW",
+        "highlight": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613NCKT0&section=HIGHLIGHT"
+      },
+      "status": "final",
       "awayTeam": {
-        "id": "SS",
-        "name": "삼성"
+        "id": "NC",
+        "name": "NC"
       },
       "homeTeam": {
         "id": "KT",
         "name": "KT"
       },
       "score": {
-        "away": 0,
-        "home": 0
+        "away": 9,
+        "home": 11
       },
-      "inning": null,
-      "count": null,
+      "inning": {
+        "number": 9,
+        "half": "top"
+      },
+      "count": {
+        "balls": 1,
+        "strikes": 0,
+        "outs": 3
+      },
       "bases": {
         "first": false,
-        "second": false,
+        "second": true,
         "third": false
       },
       "current": {
-        "batter": "",
-        "pitcher": ""
+        "batter": "도태훈",
+        "pitcher": "박영현"
       },
       "probablePitchers": {
-        "away": "원태인",
-        "home": "사우어"
+        "away": "토다",
+        "home": "오원석"
       },
       "recentPlay": null,
+      "teamRecords": null,
+      "boxScore": {
+        "away": {
+          "runs": 9,
+          "hits": null,
+          "errors": null,
+          "walks": null
+        },
+        "home": {
+          "runs": 11,
+          "hits": null,
+          "errors": null,
+          "walks": null
+        },
+        "linescore": []
+      },
+      "lineupPreview": null,
+      "analysis": null,
       "sourceMeta": {
-        "rawStatusCode": "1",
-        "rawTopBottomCode": null,
-        "fetchedAt": "2026-06-10T02:18:10.131Z"
+        "rawStatusCode": "3",
+        "rawTopBottomCode": "T",
+        "fetchedAt": "2026-06-13T17:55:44.664Z"
       }
     },
     {
-      "gameId": "20260610HTHH0",
-      "date": "20260610",
-      "venue": "대전",
-      "startTime": "20260610T18:30:00+09:00",
-      "status": "scheduled",
-      "awayTeam": {
-        "id": "HT",
-        "name": "KIA"
+      "gameId": "20260613HHWO0",
+      "date": "20260613",
+      "venue": "고척",
+      "startTime": "20260613T17:00:00+09:00",
+      "broadcastChannels": [
+        "MS-T"
+      ],
+      "homepageLinks": {
+        "gameCenter": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613HHWO0&section=REVIEW",
+        "preview": null,
+        "review": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613HHWO0&section=REVIEW",
+        "highlight": "https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameDate=20260613&gameId=20260613HHWO0&section=HIGHLIGHT"
       },
-      "homeTeam": {
+      "status": "final",
+      "awayTeam": {
         "id": "HH",
         "name": "한화"
-      },
-      "score": {
-        "away": 0,
-        "home": 0
-      },
-      "inning": null,
-      "count": null,
-      "bases": {
-        "first": false,
-        "second": false,
-        "third": false
-      },
-      "current": {
-        "batter": "",
-        "pitcher": ""
-      },
-      "probablePitchers": {
-        "away": "시라카와",
-        "home": "화이트"
-      },
-      "recentPlay": null,
-      "sourceMeta": {
-        "rawStatusCode": "1",
-        "rawTopBottomCode": null,
-        "fetchedAt": "2026-06-10T02:18:10.131Z"
-      }
-    },
-    {
-      "gameId": "20260610NCWO0",
-      "date": "20260610",
-      "venue": "고척",
-      "startTime": "20260610T18:30:00+09:00",
-      "status": "scheduled",
-      "awayTeam": {
-        "id": "NC",
-        "name": "NC"
       },
       "homeTeam": {
         "id": "WO",
         "name": "키움"
       },
       "score": {
-        "away": 0,
-        "home": 0
+        "away": 1,
+        "home": 3
       },
-      "inning": null,
-      "count": null,
+      "inning": {
+        "number": 9,
+        "half": "top"
+      },
+      "count": {
+        "balls": 2,
+        "strikes": 3,
+        "outs": 3
+      },
       "bases": {
-        "first": false,
+        "first": true,
         "second": false,
         "third": false
       },
       "current": {
-        "batter": "",
-        "pitcher": ""
+        "batter": "박정현",
+        "pitcher": "유토"
       },
       "probablePitchers": {
-        "away": "구창모",
-        "home": "하영민"
+        "away": "박준영",
+        "home": "알칸타라"
       },
       "recentPlay": null,
+      "teamRecords": null,
+      "boxScore": {
+        "away": {
+          "runs": 1,
+          "hits": null,
+          "errors": null,
+          "walks": null
+        },
+        "home": {
+          "runs": 3,
+          "hits": null,
+          "errors": null,
+          "walks": null
+        },
+        "linescore": []
+      },
+      "lineupPreview": null,
+      "analysis": null,
       "sourceMeta": {
-        "rawStatusCode": "1",
-        "rawTopBottomCode": null,
-        "fetchedAt": "2026-06-10T02:18:10.131Z"
+        "rawStatusCode": "3",
+        "rawTopBottomCode": "T",
+        "fetchedAt": "2026-06-13T17:55:44.664Z"
       }
     }
   ],
   "pollingView": [
     {
-      "gameId": "20260610SKLG0",
-      "matchup": "SSG @ LG",
-      "status": "scheduled",
+      "gameId": "20260613LTLG0",
+      "matchup": "롯데 @ LG",
+      "status": "final",
       "score": {
-        "away": 0,
-        "home": 0
+        "away": 3,
+        "home": 5
       },
-      "inning": null,
-      "count": null,
+      "inning": {
+        "number": 9,
+        "half": "top"
+      },
+      "count": {
+        "balls": 3,
+        "strikes": 1,
+        "outs": 3
+      },
       "bases": {
-        "first": false,
+        "first": true,
         "second": false,
         "third": false
       },
       "current": {
-        "batter": "",
-        "pitcher": ""
+        "batter": "유강남",
+        "pitcher": "손주영"
       },
       "recentPlay": null
     },
     {
-      "gameId": "20260610OBLT0",
-      "matchup": "두산 @ 롯데",
-      "status": "scheduled",
+      "gameId": "20260613SKSS0",
+      "matchup": "SSG @ 삼성",
+      "status": "final",
       "score": {
-        "away": 0,
-        "home": 0
+        "away": 6,
+        "home": 7
       },
-      "inning": null,
-      "count": null,
+      "inning": {
+        "number": 9,
+        "half": "top"
+      },
+      "count": {
+        "balls": 0,
+        "strikes": 0,
+        "outs": 3
+      },
       "bases": {
         "first": false,
         "second": false,
         "third": false
       },
       "current": {
-        "batter": "",
-        "pitcher": ""
+        "batter": "에레디아",
+        "pitcher": "김재윤"
       },
       "recentPlay": null
     },
     {
-      "gameId": "20260610SSKT0",
-      "matchup": "삼성 @ KT",
-      "status": "scheduled",
+      "gameId": "20260613OBHT0",
+      "matchup": "두산 @ KIA",
+      "status": "final",
       "score": {
-        "away": 0,
-        "home": 0
+        "away": 1,
+        "home": 2
       },
-      "inning": null,
-      "count": null,
+      "inning": {
+        "number": 9,
+        "half": "top"
+      },
+      "count": {
+        "balls": 1,
+        "strikes": 3,
+        "outs": 3
+      },
       "bases": {
         "first": false,
         "second": false,
         "third": false
       },
       "current": {
-        "batter": "",
-        "pitcher": ""
+        "batter": "이유찬",
+        "pitcher": "성영탁"
       },
       "recentPlay": null
     },
     {
-      "gameId": "20260610HTHH0",
-      "matchup": "KIA @ 한화",
-      "status": "scheduled",
+      "gameId": "20260613NCKT0",
+      "matchup": "NC @ KT",
+      "status": "final",
       "score": {
-        "away": 0,
-        "home": 0
+        "away": 9,
+        "home": 11
       },
-      "inning": null,
-      "count": null,
+      "inning": {
+        "number": 9,
+        "half": "top"
+      },
+      "count": {
+        "balls": 1,
+        "strikes": 0,
+        "outs": 3
+      },
       "bases": {
         "first": false,
-        "second": false,
+        "second": true,
         "third": false
       },
       "current": {
-        "batter": "",
-        "pitcher": ""
+        "batter": "도태훈",
+        "pitcher": "박영현"
       },
       "recentPlay": null
     },
     {
-      "gameId": "20260610NCWO0",
-      "matchup": "NC @ 키움",
-      "status": "scheduled",
+      "gameId": "20260613HHWO0",
+      "matchup": "한화 @ 키움",
+      "status": "final",
       "score": {
-        "away": 0,
-        "home": 0
+        "away": 1,
+        "home": 3
       },
-      "inning": null,
-      "count": null,
+      "inning": {
+        "number": 9,
+        "half": "top"
+      },
+      "count": {
+        "balls": 2,
+        "strikes": 3,
+        "outs": 3
+      },
       "bases": {
-        "first": false,
+        "first": true,
         "second": false,
         "third": false
       },
       "current": {
-        "batter": "",
-        "pitcher": ""
+        "batter": "박정현",
+        "pitcher": "유토"
       },
       "recentPlay": null
     }

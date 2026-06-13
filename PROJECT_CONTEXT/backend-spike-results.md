@@ -1,7 +1,8 @@
 # KBO Live Backend Spike Results
 
 작성일: 2026-06-10
-상태: Working v0.1
+업데이트: 2026-06-14
+상태: Working v0.2
 
 ## 1. 목적
 
@@ -25,9 +26,11 @@ KBO 공식 웹서비스를 직접 앱에서 때리지 않고, 중간 backend/BFF
 - 브라우저 유사 headers
 - raw DTO schema
 - normalized game mapper
+- monthly schedule metadata mapper
+- month-level schedule + game merge
 - polling script
 - dump script
-- smoke tests
+- smoke / fixture / live / route tests
 
 ---
 
@@ -39,23 +42,26 @@ KBO 공식 웹서비스를 직접 앱에서 때리지 않고, 중간 backend/BFF
 - `npm run build` 성공
 - `npm run test` 성공
 - `/health` 응답 성공
-- `/games/today?date=2026-06-10` 응답 성공
+- `/games/today?date=2026-06-14` 응답 성공
 
 실제 확인된 점:
 - 2026-06-10 기준 5경기 normalized 응답 반환 확인
+- 2026-06-14 요청에서 6월 전체 schedule 기준 90경기 로드 확인
+- 날짜별 `GetKboGameList` 응답과 월별 `GetKboGameSchedule` 응답을 병합해 종료/예정/진행 경기를 함께 반환
 - scheduled 경기에서 기본 score/status/venue/startTime 필드 확인
+- schedule metadata 기준 `broadcastChannels`, `homepageLinks`, `venue`, `startTime` 보강 확인
 - `startTime` normalized 형식은 현재 `YYYYMMDDTHH:mm:ss+09:00` (예: `20260610T18:30:00+09:00`) 확인
+- KBO source 오류는 `KboSourceError`로 감싸 route 계층에서 처리 가능
 - polling script 2회 실행 시
   - 첫 tick: `initial snapshot`
   - 둘째 tick: `changedGames: 0`
 - fixture/log 저장 경로 정상 생성 확인
 
-생성 확인된 산출물 예:
-- `backend-spike/logs/polling/20260610/events.ndjson`
-- `backend-spike/fixtures/20260610/latest-normalized.json`
-- `backend-spike/fixtures/20260610/latest-raw.json`
-- `backend-spike/fixtures/20260610/changes/*.json`
-- `backend-spike/fixtures/20260610/dump/latest.json`
+현재 fixture 기준:
+- `backend-spike/fixtures/202606-completed/<YYYYMMDD>/latest.json`
+- 2026-06-02 ~ 2026-06-07
+- 2026-06-09 ~ 2026-06-13
+- `backend-spike/logs/polling/<YYYYMMDD>/events.ndjson`
 
 ---
 
@@ -75,6 +81,8 @@ KBO 공식 웹서비스를 직접 앱에서 때리지 않고, 중간 backend/BFF
 - `bases`
 - `current`
 - `probablePitchers`
+- `broadcastChannels`
+- `homepageLinks`
 - `sourceMeta`
 
 아직 약한 필드:
@@ -103,7 +111,7 @@ KBO 공식 웹서비스를 직접 앱에서 때리지 않고, 중간 backend/BFF
 - 장기 polling 시 차단/rate limit 여부 미확정
 
 ### 3) 상세 API 계약 미완성
-- `/games/:gameId`는 현재 today list filter 수준
+- `/games/:gameId`는 현재 month-level list filter 수준
 - 추후 상세 linescore / play-by-play source 탐색 필요 가능성 있음
 
 ---

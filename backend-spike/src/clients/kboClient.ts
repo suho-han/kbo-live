@@ -7,6 +7,18 @@ type KboEndpoint = 'GetKboGameDate' | 'GetKboGameList' | 'GetScheduleList'
 
 const BASE_URL = 'https://www.koreabaseball.com/ws'
 
+export class KboSourceError extends Error {
+  readonly endpoint: KboEndpoint
+  readonly statusCode?: number
+
+  constructor(endpoint: KboEndpoint, message: string, options: { statusCode?: number, cause?: unknown } = {}) {
+    super(`${endpoint}: ${message}`, { cause: options.cause })
+    this.name = 'KboSourceError'
+    this.endpoint = endpoint
+    this.statusCode = options.statusCode
+  }
+}
+
 async function postForm<T>(endpoint: KboEndpoint, path: string, payload: Record<string, string>, referer?: string): Promise<T> {
   const response = await fetch(`${BASE_URL}/${path}`, {
     method: 'POST',
@@ -17,11 +29,21 @@ async function postForm<T>(endpoint: KboEndpoint, path: string, payload: Record<
   const text = await response.text()
   const trimmed = text.trim()
 
-  if (trimmed.startsWith('<!DOCTYPE html') || trimmed.startsWith('<html') || trimmed.includes('<title>에러')) {
-    throw new Error(`${endpoint} returned HTML error page`)
+  if (!response.ok) {
+    throw new KboSourceError(endpoint, `HTTP ${response.status}`, {
+      statusCode: response.status
+    })
   }
 
-  return JSON.parse(trimmed) as T
+  if (trimmed.startsWith('<!DOCTYPE html') || trimmed.startsWith('<html') || trimmed.includes('<title>에러')) {
+    throw new KboSourceError(endpoint, 'returned HTML error page')
+  }
+
+  try {
+    return JSON.parse(trimmed) as T
+  } catch (error) {
+    throw new KboSourceError(endpoint, 'returned invalid JSON', { cause: error })
+  }
 }
 
 export async function fetchKboGameDate(date: string) {
@@ -31,7 +53,11 @@ export async function fetchKboGameDate(date: string) {
     date
   })
 
-  return rawKboGameDateResponseSchema.parse(json)
+  try {
+    return rawKboGameDateResponseSchema.parse(json)
+  } catch (error) {
+    throw new KboSourceError('GetKboGameDate', 'response did not match expected schema', { cause: error })
+  }
 }
 
 export async function fetchKboGameList(date: string) {
@@ -41,7 +67,11 @@ export async function fetchKboGameList(date: string) {
     date
   })
 
-  return rawKboGameListResponseSchema.parse(json)
+  try {
+    return rawKboGameListResponseSchema.parse(json)
+  } catch (error) {
+    throw new KboSourceError('GetKboGameList', 'response did not match expected schema', { cause: error })
+  }
 }
 
 export async function fetchKboScheduleList(seasonId: string, gameMonth: string) {
@@ -53,5 +83,9 @@ export async function fetchKboScheduleList(seasonId: string, gameMonth: string) 
     teamId: ''
   }, 'https://www.koreabaseball.com/Schedule/Schedule.aspx')
 
-  return rawKboScheduleListResponseSchema.parse(json)
+  try {
+    return rawKboScheduleListResponseSchema.parse(json)
+  } catch (error) {
+    throw new KboSourceError('GetScheduleList', 'response did not match expected schema', { cause: error })
+  }
 }

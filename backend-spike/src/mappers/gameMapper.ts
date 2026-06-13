@@ -2,6 +2,7 @@ import { mapBases } from './baseMapper.js'
 import { mapStatus } from './statusMapper.js'
 import type { RawKboGame } from '../dto/kboGameList.dto.js'
 import type { NormalizedGame } from '../models/normalizedGame.js'
+import type { ScheduleGameInfo } from './scheduleMapper.js'
 
 function toNumber(value: string | number | null | undefined): number {
   const num = Number(value ?? 0)
@@ -14,15 +15,27 @@ function mapHalf(value: string | null | undefined): 'top' | 'bottom' | null {
   return null
 }
 
-export function mapGame(raw: RawKboGame): NormalizedGame {
+function trimToNull(value: string | null | undefined): string | null {
+  const trimmed = value?.trim()
+  return trimmed ? trimmed : null
+}
+
+export function mapGame(raw: RawKboGame, scheduleInfo?: ScheduleGameInfo): NormalizedGame {
   const half = mapHalf(raw.GAME_TB_SC)
   const inningNumber = toNumber(raw.GAME_INN_NO)
 
   return {
     gameId: raw.G_ID,
     date: String(raw.G_DT ?? ''),
-    venue: raw.S_NM ?? null,
-    startTime: raw.G_DT && raw.G_TM ? `${raw.G_DT}T${raw.G_TM}:00+09:00` : null,
+    venue: trimToNull(raw.S_NM) ?? scheduleInfo?.venue ?? null,
+    startTime: raw.G_DT && raw.G_TM ? `${raw.G_DT}T${raw.G_TM}:00+09:00` : scheduleInfo?.startTime ?? null,
+    broadcastChannels: scheduleInfo?.broadcastChannels ?? [],
+    homepageLinks: scheduleInfo?.links ?? {
+      gameCenter: null,
+      preview: null,
+      review: null,
+      highlight: null
+    },
     status: mapStatus(raw),
     awayTeam: {
       id: raw.AWAY_ID ?? '',
@@ -75,6 +88,56 @@ export function mapGame(raw: RawKboGame): NormalizedGame {
     sourceMeta: {
       rawStatusCode: raw.GAME_STATE_SC ?? null,
       rawTopBottomCode: raw.GAME_TB_SC ?? null,
+      fetchedAt: new Date().toISOString()
+    }
+  }
+}
+
+export function mapScheduledGame(scheduleInfo: ScheduleGameInfo): NormalizedGame {
+  return {
+    gameId: scheduleInfo.gameId,
+    date: scheduleInfo.date,
+    venue: scheduleInfo.venue,
+    startTime: scheduleInfo.startTime,
+    broadcastChannels: scheduleInfo.broadcastChannels,
+    homepageLinks: scheduleInfo.links,
+    status: 'scheduled',
+    awayTeam: scheduleInfo.awayTeam,
+    homeTeam: scheduleInfo.homeTeam,
+    score: {
+      away: 0,
+      home: 0
+    },
+    inning: null,
+    count: null,
+    bases: null,
+    current: null,
+    probablePitchers: {
+      away: null,
+      home: null
+    },
+    recentPlay: null,
+    teamRecords: null,
+    boxScore: {
+      away: {
+        runs: 0,
+        hits: null,
+        errors: null,
+        walks: null
+      },
+      home: {
+        runs: 0,
+        hits: null,
+        errors: null,
+        walks: null
+      },
+      linescore: []
+    },
+    lineupPreview: null,
+    analysis: null,
+    sourceMeta: {
+      rawStatusCode: null,
+      rawTopBottomCode: null,
       fetchedAt: new Date().toISOString()
     }
   }

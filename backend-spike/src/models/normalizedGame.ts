@@ -3,6 +3,13 @@ export interface NormalizedGame {
   date: string
   venue: string | null
   startTime: string | null
+  broadcastChannels: string[]
+  homepageLinks: {
+    gameCenter: string | null
+    preview: string | null
+    review: string | null
+    highlight: string | null
+  }
   status: 'scheduled' | 'live' | 'final' | 'delayed' | 'cancelled' | 'unknown'
   awayTeam: {
     id: string

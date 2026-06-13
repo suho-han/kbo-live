@@ -1,8 +1,9 @@
 import { appendFile, mkdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 
-import { fetchKboGameList } from '../src/clients/kboClient.js'
+import { fetchKboGameList, fetchKboScheduleList } from '../src/clients/kboClient.js'
 import { mapGame } from '../src/mappers/gameMapper.js'
+import { indexScheduleGames } from '../src/mappers/scheduleMapper.js'
 import type { NormalizedGame } from '../src/models/normalizedGame.js'
 import { summarizeGameChanges, toPollingView } from '../src/utils/gameSnapshot.js'
 import { toKboDate } from '../src/utils/date.js'
@@ -45,6 +46,8 @@ const fixturesDir = readArg('fixtures-dir', path.resolve('fixtures', date))!
 const saveRaw = readBooleanArg('save-raw')
 const saveSnapshots = !readBooleanArg('no-save-snapshots')
 const captureOnChange = !readBooleanArg('no-capture-on-change')
+const scheduleList = await fetchKboScheduleList(date.slice(0, 4), date.slice(4, 6))
+const scheduleByGameId = indexScheduleGames(scheduleList)
 
 let previousGames: NormalizedGame[] = []
 let runCount = 0
@@ -52,7 +55,7 @@ let runCount = 0
 async function tick() {
   const fetchedAt = new Date()
   const raw = await fetchKboGameList(date)
-  const normalized = raw.game.map(mapGame)
+  const normalized = raw.game.map((game) => mapGame(game, scheduleByGameId.get(game.G_ID)))
   const changes = summarizeGameChanges(previousGames, normalized)
   const timestamp = timestampForFile(fetchedAt)
 
@@ -88,7 +91,8 @@ async function tick() {
     await writeJson(path.join(fixturesDir, 'latest-raw.json'), {
       fetchedAt: fetchedAt.toISOString(),
       date,
-      gameList: raw
+      gameList: raw,
+      scheduleList
     })
   }
 
