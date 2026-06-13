@@ -1,0 +1,102 @@
+name: KboLiveApp
+options:
+  bundleIdPrefix: com.suhohan
+  deploymentTarget:
+    iOS: "18.0"
+    macOS: "15.0"
+settings:
+  base:
+    SWIFT_VERSION: 6.0
+    MARKETING_VERSION: 0.1.0
+    CURRENT_PROJECT_VERSION: 1
+    GENERATE_INFOPLIST_FILE: YES
+targets:
+  KboLiveiOS:
+    type: application
+    platform: iOS
+    sources:
+      - path: Packages/KboLiveCore/Sources/KboLiveCore
+      - path: Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem
+      - path: Packages/KboLiveFeatures/Sources/KboLiveFeatures
+      - path: KboLiveApp/Shared
+      - path: KboLiveApp/iOS
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.suhohan.kbo-live.ios
+        PRODUCT_NAME: KboLive
+        INFOPLIST_KEY_CFBundleDisplayName: KboLive
+        INFOPLIST_KEY_NSSupportsLiveActivities: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+  KboLivemacOS:
+    type: application
+    platform: macOS
+    sources:
+      - path: Packages/KboLiveCore/Sources/KboLiveCore
+      - path: Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem
+      - path: Packages/KboLiveFeatures/Sources/KboLiveFeatures
+      - path: KboLiveApp/Shared
+      - path: KboLiveApp/macOS
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.suhohan.kbo-live.macos
+        PRODUCT_NAME: KboLive
+        INFOPLIST_KEY_CFBundleDisplayName: KboLive
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.sports
+        INFOPLIST_KEY_NSPrincipalClass: NSApplication
+  KboLiveWidgetExtension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: Packages/KboLiveCore/Sources/KboLiveCore
+      - path: Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem
+      - path: KboLiveApp/Shared/SampleGameFactory.swift
+      - path: KboLiveApp/Widget
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.suhohan.kbo-live.widget
+        PRODUCT_NAME: KboLiveWidget
+        INFOPLIST_KEY_CFBundleDisplayName: KboLiveWidget
+        INFOPLIST_KEY_NSExtensionPointIdentifier: com.apple.widgetkit-extension
+        INFOPLIST_KEY_NSExtensionPrincipalClass: ""
+        SKIP_INSTALL: YES
+    dependencies:
+      - target: KboLiveiOS
+schemes:
+  KboLiveiOS:
+    preActions:
+      - name: Clean Before Run
+        settingsTarget: KboLiveiOS
+        script: |
+          rm -rf "${BUILD_DIR}"
+    build:
+      targets:
+        KboLiveiOS: all
+        KboLiveWidgetExtension: all
+    run:
+      config: Debug
+  KboLivemacOS:
+    preActions:
+      - name: Clean Before Run
+        settingsTarget: KboLivemacOS
+        script: |
+          rm -rf "${BUILD_DIR}"
+    build:
+      targets:
+        KboLivemacOS: all
+    run:
+      config: Debug
+  KboLiveWidgetExtension:
+    build:
+      targets:
+        KboLiveWidgetExtension: all

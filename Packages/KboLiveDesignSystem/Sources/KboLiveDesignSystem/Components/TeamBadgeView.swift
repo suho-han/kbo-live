@@ -1,4 +1,9 @@
 import SwiftUI
+#if canImport(AppKit)
+import AppKit
+#elseif canImport(UIKit)
+import UIKit
+#endif
 
 public struct TeamBadgeView: View {
     public enum Emphasis: Sendable {
@@ -7,7 +12,7 @@ public struct TeamBadgeView: View {
     }
 
     private let shortName: String
-    private let fullName: String?
+    private let teamID: String?
     private let accentColor: Color
     private let emphasis: Emphasis
 
@@ -18,28 +23,18 @@ public struct TeamBadgeView: View {
         emphasis: Emphasis = .normal
     ) {
         self.shortName = shortName
-        self.fullName = fullName
+        self.teamID = fullName
         self.accentColor = accentColor
         self.emphasis = emphasis
     }
 
     public var body: some View {
         HStack(spacing: KboSpacingToken.small) {
-            Circle()
-                .fill(accentColor)
-                .frame(width: 10, height: 10)
+            teamLogoView
 
-            VStack(alignment: .leading, spacing: 2) {
-                Text(shortName)
-                    .font(KboTypographyToken.headline)
-                    .foregroundStyle(KboTheme.primaryText)
-
-                if let fullName, fullName.isEmpty == false {
-                    Text(fullName)
-                        .font(KboTypographyToken.caption)
-                        .foregroundStyle(KboTheme.secondaryText)
-                }
-            }
+            Text(shortName)
+                .font(KboTypographyToken.headline)
+                .foregroundStyle(KboTheme.primaryText)
         }
         .padding(.horizontal, KboSpacingToken.small)
         .padding(.vertical, 6)
@@ -49,5 +44,58 @@ public struct TeamBadgeView: View {
             RoundedRectangle(cornerRadius: KboRadiusToken.pill, style: .continuous)
                 .stroke(accentColor.opacity(0.5), lineWidth: emphasis == .highlighted ? 1.5 : 1)
         }
+    }
+
+    @ViewBuilder
+    private var teamLogoView: some View {
+        if let logoImage = teamLogoImage {
+            logoImage
+                .resizable()
+                .scaledToFit()
+                .frame(width: 20, height: 20)
+        } else {
+            RoundedRectangle(cornerRadius: 6, style: .continuous)
+                .fill(accentColor)
+                .frame(width: 20, height: 20)
+        }
+    }
+
+    private var teamLogoImage: Image? {
+        guard let teamID else { return nil }
+
+        if let logoImage = loadPlatformImage(named: teamID) {
+            return logoImage
+        }
+
+        return nil
+    }
+
+    private func loadPlatformImage(named teamID: String) -> Image? {
+#if canImport(AppKit)
+        if let image = NSImage(named: teamID) {
+            return Image(nsImage: image)
+        }
+#elseif canImport(UIKit)
+        if let image = UIImage(named: teamID) {
+            return Image(uiImage: image)
+        }
+#endif
+
+        let logoURL = Bundle.main.url(forResource: teamID, withExtension: "png")
+        ?? Bundle.main.url(forResource: teamID, withExtension: "png", subdirectory: "TeamLogos")
+
+        guard let logoURL else { return nil }
+
+#if canImport(AppKit)
+        if let image = NSImage(contentsOf: logoURL) {
+            return Image(nsImage: image)
+        }
+#elseif canImport(UIKit)
+        if let image = UIImage(contentsOfFile: logoURL.path()) {
+            return Image(uiImage: image)
+        }
+#endif
+
+        return nil
     }
 }
