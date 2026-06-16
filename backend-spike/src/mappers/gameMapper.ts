@@ -20,9 +20,73 @@ function trimToNull(value: string | null | undefined): string | null {
   return trimmed ? trimmed : null
 }
 
+function mapInningText(number: number, half: 'top' | 'bottom' | null): string | null {
+  if (!half || number <= 0) return null
+  return `${number}회${half === 'top' ? '초' : '말'}`
+}
+
+function mapBaseText(bases: NormalizedGame['bases']): string | null {
+  if (!bases) return null
+
+  const occupied = [
+    bases.first ? '1' : null,
+    bases.second ? '2' : null,
+    bases.third ? '3' : null
+  ].filter(Boolean)
+
+  return occupied.length > 0 ? `${occupied.join(',')}루` : '주자 없음'
+}
+
+function mapRecentPlay(raw: RawKboGame, game: {
+  status: NormalizedGame['status']
+  inning: NormalizedGame['inning']
+  count: NormalizedGame['count']
+  bases: NormalizedGame['bases']
+  current: NonNullable<NormalizedGame['current']>
+}): string | null {
+  const sourceText = [
+    raw.RECENT_PLAY_TEXT,
+    raw.RECENT_PLAY,
+    raw.LAST_PLAY_TEXT,
+    raw.LAST_PLAY,
+    raw.LIVE_TEXT,
+    raw.GAME_TEXT
+  ].map(trimToNull).find(Boolean)
+
+  if (sourceText) return sourceText
+  if (game.status !== 'live') return null
+
+  const inning = mapInningText(game.inning?.number ?? 0, game.inning?.half ?? null)
+  const baseText = mapBaseText(game.bases)
+  const countText = game.count ? `카운트 ${game.count.balls}-${game.count.strikes}, ${game.count.outs}아웃` : null
+
+  const parts = [
+    inning && game.current.batter ? `${inning} ${game.current.batter} 타석` : inning,
+    game.current.pitcher ? `투수 ${game.current.pitcher}` : null,
+    countText,
+    baseText
+  ].filter(Boolean)
+
+  return parts.length > 0 ? parts.join(', ') : null
+}
+
 export function mapGame(raw: RawKboGame, scheduleInfo?: ScheduleGameInfo): NormalizedGame {
   const half = mapHalf(raw.GAME_TB_SC)
   const inningNumber = toNumber(raw.GAME_INN_NO)
+  const status = mapStatus(raw)
+  const inning: NormalizedGame['inning'] = half && inningNumber > 0 ? { number: inningNumber, half } : null
+  const count: NormalizedGame['count'] = raw.BALL_CN != null || raw.STRIKE_CN != null || raw.OUT_CN != null
+    ? {
+        balls: toNumber(raw.BALL_CN),
+        strikes: toNumber(raw.STRIKE_CN),
+        outs: toNumber(raw.OUT_CN)
+      }
+    : null
+  const bases = mapBases(raw)
+  const current: NonNullable<NormalizedGame['current']> = {
+    batter: trimToNull(raw.T_P_NM),
+    pitcher: trimToNull(raw.B_P_NM)
+  }
 
   return {
     gameId: raw.G_ID,
@@ -36,7 +100,7 @@ export function mapGame(raw: RawKboGame, scheduleInfo?: ScheduleGameInfo): Norma
       review: null,
       highlight: null
     },
-    status: mapStatus(raw),
+    status,
     awayTeam: {
       id: raw.AWAY_ID ?? '',
       name: raw.AWAY_NM ?? ''
@@ -49,24 +113,15 @@ export function mapGame(raw: RawKboGame, scheduleInfo?: ScheduleGameInfo): Norma
       away: toNumber(raw.T_SCORE_CN),
       home: toNumber(raw.B_SCORE_CN)
     },
-    inning: half && inningNumber > 0 ? { number: inningNumber, half } : null,
-    count: raw.BALL_CN != null || raw.STRIKE_CN != null || raw.OUT_CN != null
-      ? {
-          balls: toNumber(raw.BALL_CN),
-          strikes: toNumber(raw.STRIKE_CN),
-          outs: toNumber(raw.OUT_CN)
-        }
-      : null,
-    bases: mapBases(raw),
-    current: {
-      batter: raw.T_P_NM ?? null,
-      pitcher: raw.B_P_NM ?? null
-    },
+    inning,
+    count,
+    bases,
+    current,
     probablePitchers: {
-      away: raw.T_PIT_P_NM?.trim() ?? null,
-      home: raw.B_PIT_P_NM?.trim() ?? null
+      away: trimToNull(raw.T_PIT_P_NM),
+      home: trimToNull(raw.B_PIT_P_NM)
     },
-    recentPlay: null,
+    recentPlay: mapRecentPlay(raw, { status, inning, count, bases, current }),
     teamRecords: null,
     boxScore: {
       away: {

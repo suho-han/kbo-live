@@ -15,6 +15,24 @@ npm install
 npm run dev
 ```
 
+진행 중 경기 UI 테스트용 단일 live fixture를 반환하려면:
+
+```bash
+KBO_USE_TEST_LIVE_GAME=1 npm run dev
+```
+
+이 모드에서 `/games/today`는 실제 KBO source를 호출하지 않고 `status: "live"` 경기 1개를 반환합니다.
+
+운영 전환 준비용 cache 환경변수:
+
+```bash
+KBO_CACHE_TTL_GAME_IDLE_SEC=60
+KBO_CACHE_TTL_GAME_LIVE_SEC=5
+KBO_CACHE_STALE_IF_ERROR_SEC=600
+```
+
+`/games/today`와 `/v1/games/today`는 같은 날짜 요청을 짧게 cache하고, 동일 date에 대한 동시 요청은 하나의 KBO source 요청으로 deduplicate합니다. source 오류가 발생해도 stale window 안의 cache가 있으면 stale 응답을 반환합니다.
+
 ## 검증
 
 ```bash
@@ -30,8 +48,13 @@ TEST_DATE=YYYYMMDD npm test
 
 ## 주요 엔드포인트
 - `GET /health`
+- `GET /ready`
+- `GET /v1/health`
+- `GET /v1/ready`
 - `GET /games/today?date=YYYY-MM-DD`
 - `GET /games/:gameId?date=YYYY-MM-DD`
+- `GET /v1/games/today?date=YYYY-MM-DD`
+- `GET /v1/games/:gameId?date=YYYY-MM-DD`
 - `GET /debug/source/today?date=YYYY-MM-DD`
 
 ## 스크립트
@@ -57,6 +80,18 @@ npm run poll -- --date 2026-06-10 --interval 15 --iterations 20 --save-raw
 - `--save-raw`: raw source snapshot도 저장
 - `--no-save-snapshots`: per-tick snapshot 파일 저장 비활성화
 - `--no-capture-on-change`: change fixture 저장 비활성화
+
+repo root wrapper:
+
+```bash
+../scripts/run-kbo-live-fixture-capture.sh 20260616
+```
+
+기본값:
+- 30초 간격
+- 480회 실행
+- raw snapshot 저장
+- `fixtures/live-<YYYYMMDD>/`에 최신 fixture 저장
 
 ### 2) 원천 응답 단건 dump + fixture 저장
 ```bash
@@ -89,9 +124,10 @@ Swift 테스트 fixture(`Packages/KboLiveCore/Tests/.../today-games-response.jso
 - 경기 전 시간대에는 `changedGames: 0`이 정상일 수 있음
 - 실제 live 검증은 경기 중 `events.ndjson`과 `changes/*.json`을 비교하면 됨
 - `current`, `bases`, `count`, `inning` 변화가 잘 잡히는지 우선 확인
+- `recentPlay`는 KBO source 문장 후보 필드가 있으면 우선 사용하고, 없으면 live 상황 요약 fallback을 생성함
+- API 오류 응답은 `{ "error": { "code": "...", "message": "...", "statusCode": 400 } }` 형태로 표준화함
 
 ## 주의
 - 현재는 spike scaffold 단계
 - 실제 live polling 안정성/필드 매핑은 추가 검증 필요
 - KBO endpoint는 브라우저 유사 헤더가 필요할 수 있음
-- `recentPlay`는 아직 미매핑

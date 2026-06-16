@@ -1,7 +1,7 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { fetchKboGameDate, fetchKboGameList, fetchKboScheduleList } from '../src/clients/kboClient.js'
-import { getGameById, getTodayGames, getTodayGamesRaw } from '../src/services/gameService.js'
+import { clearGameServiceCacheForTests, getGameById, getTodayGames, getTodayGamesRaw } from '../src/services/gameService.js'
 import { TEST_DATE, TEST_GAME_ID, TEST_INPUT_DATE, TEST_MONTH, TEST_NEXT_DATE, TEST_SEASON, TEST_START_TIME } from './testConfig.js'
 
 vi.mock('../src/clients/kboClient.js', () => ({
@@ -17,6 +17,11 @@ const mockScheduleList = vi.mocked(fetchKboScheduleList)
 describe('gameService', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    clearGameServiceCacheForTests()
+    delete process.env.KBO_USE_TEST_LIVE_GAME
+    delete process.env.KBO_CACHE_TTL_GAME_IDLE_SEC
+    delete process.env.KBO_CACHE_TTL_GAME_LIVE_SEC
+    delete process.env.KBO_CACHE_STALE_IF_ERROR_SEC
     mockGameDate.mockResolvedValue({
       BEFORE_G_DT: '20260612',
       NOW_G_DT: TEST_DATE,
@@ -57,6 +62,14 @@ describe('gameService', () => {
     })
   })
 
+  afterEach(() => {
+    clearGameServiceCacheForTests()
+    delete process.env.KBO_USE_TEST_LIVE_GAME
+    delete process.env.KBO_CACHE_TTL_GAME_IDLE_SEC
+    delete process.env.KBO_CACHE_TTL_GAME_LIVE_SEC
+    delete process.env.KBO_CACHE_STALE_IF_ERROR_SEC
+  })
+
   it('loads source endpoints in KBO date format and enriches games with schedule metadata', async () => {
     const result = await getTodayGames(TEST_INPUT_DATE)
 
@@ -69,6 +82,89 @@ describe('gameService', () => {
     expect(result.games[0].startTime).toBe(TEST_START_TIME)
     expect(result.games[0].broadcastChannels).toEqual(['SPO-2T'])
     expect(result.games[0].homepageLinks.review).toContain('section=REVIEW')
+  })
+
+  it('returns a single live fixture game when test live mode is enabled', async () => {
+    process.env.KBO_USE_TEST_LIVE_GAME = '1'
+
+    const result = await getTodayGames(TEST_INPUT_DATE)
+
+    expect(mockGameDate).not.toHaveBeenCalled()
+    expect(mockGameList).not.toHaveBeenCalled()
+    expect(mockScheduleList).not.toHaveBeenCalled()
+    expect(result.date).toBe(TEST_DATE)
+    expect(result.games).toHaveLength(1)
+    expect(result.games[0]).toMatchObject({
+      gameId: `${TEST_DATE}LTHH0`,
+      status: 'live',
+      score: {
+        away: 12,
+        home: 9
+      },
+      inning: {
+        number: 7,
+        half: 'bottom'
+      }
+    })
+  })
+
+  it('serves repeated today requests from cache while the cache is fresh', async () => {
+    process.env.KBO_CACHE_TTL_GAME_IDLE_SEC = '60'
+
+    const first = await getTodayGames(TEST_INPUT_DATE)
+    const second = await getTodayGames(TEST_INPUT_DATE)
+
+    expect(second).toEqual(first)
+    expect(mockGameDate).toHaveBeenCalledTimes(1)
+    expect(mockScheduleList).toHaveBeenCalledTimes(1)
+    expect(mockGameList).toHaveBeenCalledTimes(1)
+  })
+
+  it('deduplicates concurrent today requests for the same date', async () => {
+    let resolveSchedule: (value: Awaited<ReturnType<typeof fetchKboScheduleList>>) => void = () => {}
+    const pendingSchedule = new Promise<Awaited<ReturnType<typeof fetchKboScheduleList>>>((resolve) => {
+      resolveSchedule = resolve
+    })
+    mockScheduleList.mockReturnValue(pendingSchedule)
+
+    const first = getTodayGames(TEST_INPUT_DATE)
+    const second = getTodayGames(TEST_INPUT_DATE)
+
+    resolveSchedule({
+      rows: [{
+        row: [
+          { Text: '06.13(토)', Class: 'day' },
+          { Text: '<b>17:00</b>', Class: 'time' },
+          { Text: '<span>롯데</span><em><span>vs</span></em><span>LG</span>', Class: 'play' },
+          { Text: `<a href='/Schedule/GameCenter/Main.aspx?gameDate=${TEST_DATE}&gameId=${TEST_GAME_ID}&section=REVIEW'>리뷰</a>`, Class: 'relay' },
+          { Text: '', Class: null },
+          { Text: 'SPO-2T', Class: null },
+          { Text: '', Class: null },
+          { Text: '잠실', Class: null },
+          { Text: '-', Class: null }
+        ]
+      }]
+    })
+
+    const [firstResult, secondResult] = await Promise.all([first, second])
+
+    expect(secondResult).toEqual(firstResult)
+    expect(mockGameDate).toHaveBeenCalledTimes(1)
+    expect(mockScheduleList).toHaveBeenCalledTimes(1)
+    expect(mockGameList).toHaveBeenCalledTimes(1)
+  })
+
+  it('returns stale cached games when the source fails inside the stale window', async () => {
+    process.env.KBO_CACHE_TTL_GAME_IDLE_SEC = '0'
+    process.env.KBO_CACHE_STALE_IF_ERROR_SEC = '600'
+    const cached = await getTodayGames(TEST_INPUT_DATE)
+
+    mockGameDate.mockRejectedValue(new Error('source down'))
+
+    const fallback = await getTodayGames(TEST_INPUT_DATE)
+
+    expect(fallback).toEqual(cached)
+    expect(mockGameDate).toHaveBeenCalledTimes(2)
   })
 
   it('loads every scheduled date in the month instead of only the requested date', async () => {

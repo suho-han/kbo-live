@@ -1,8 +1,45 @@
 import { fetchKboGameDate, fetchKboGameList, fetchKboScheduleList } from '../clients/kboClient.js'
+import { makeTestLiveGame } from '../fixtures/testLiveGame.js'
 import { mapGame, mapScheduledGame } from '../mappers/gameMapper.js'
 import { mapScheduleGames } from '../mappers/scheduleMapper.js'
 import { toKboDate } from '../utils/date.js'
 import type { NormalizedGame } from '../models/normalizedGame.js'
+
+interface TodayGamesResult {
+  date: string
+  games: NormalizedGame[]
+}
+
+interface TodayGamesCacheEntry {
+  value: TodayGamesResult
+  expiresAt: number
+  staleUntil: number
+}
+
+const todayGamesCache = new Map<string, TodayGamesCacheEntry>()
+const todayGamesInFlight = new Map<string, Promise<TodayGamesResult>>()
+
+function envNumber(name: string, fallback: number): number {
+  const value = process.env[name]
+  if (value === undefined) {
+    return fallback
+  }
+
+  const parsed = Number(value)
+  return Number.isFinite(parsed) && parsed >= 0 ? parsed : fallback
+}
+
+function gameCacheTtlSeconds(games: NormalizedGame[]): number {
+  if (games.some((game) => game.status === 'live')) {
+    return envNumber('KBO_CACHE_TTL_GAME_LIVE_SEC', 5)
+  }
+
+  return envNumber('KBO_CACHE_TTL_GAME_IDLE_SEC', 60)
+}
+
+function staleIfErrorSeconds(): number {
+  return envNumber('KBO_CACHE_STALE_IF_ERROR_SEC', 600)
+}
 
 async function loadMonthGames(kboDate: string) {
   const [gameDate, scheduleList] = await Promise.all([
@@ -52,12 +89,57 @@ async function loadMonthGames(kboDate: string) {
 
 export async function getTodayGames(date?: string) {
   const kboDate = toKboDate(date)
-  const { games } = await loadMonthGames(kboDate)
 
-  return {
-    date: kboDate,
-    games
+  if (process.env.KBO_USE_TEST_LIVE_GAME === '1') {
+    return {
+      date: kboDate,
+      games: [makeTestLiveGame(kboDate)]
+    }
   }
+
+  const now = Date.now()
+  const cached = todayGamesCache.get(kboDate)
+  if (cached && cached.expiresAt > now) {
+    return cached.value
+  }
+
+  const inFlight = todayGamesInFlight.get(kboDate)
+  if (inFlight) {
+    return inFlight
+  }
+
+  const request = (async (): Promise<TodayGamesResult> => {
+    try {
+      const { games } = await loadMonthGames(kboDate)
+      const value = {
+        date: kboDate,
+        games
+      }
+      const cacheTtlMs = gameCacheTtlSeconds(games) * 1000
+      const staleTtlMs = staleIfErrorSeconds() * 1000
+      const writtenAt = Date.now()
+
+      todayGamesCache.set(kboDate, {
+        value,
+        expiresAt: writtenAt + cacheTtlMs,
+        staleUntil: writtenAt + cacheTtlMs + staleTtlMs
+      })
+
+      return value
+    } catch (error) {
+      const stale = todayGamesCache.get(kboDate)
+      if (stale && stale.staleUntil > Date.now()) {
+        return stale.value
+      }
+
+      throw error
+    } finally {
+      todayGamesInFlight.delete(kboDate)
+    }
+  })()
+
+  todayGamesInFlight.set(kboDate, request)
+  return request
 }
 
 export async function getGameById(gameId: string, date?: string) {
@@ -70,6 +152,21 @@ export async function getGameById(gameId: string, date?: string) {
 
 export async function getTodayGamesRaw(date?: string) {
   const kboDate = toKboDate(date)
+
+  if (process.env.KBO_USE_TEST_LIVE_GAME === '1') {
+    const game = makeTestLiveGame(kboDate)
+
+    return {
+      requestedDate: kboDate,
+      gameDate: null,
+      gameList: { game: [] },
+      gameLists: [],
+      scheduleList: { rows: [] },
+      scheduleGames: [],
+      normalizedGames: [game]
+    }
+  }
+
   const { gameDate, scheduleList, scheduleGames, gameLists, games } = await loadMonthGames(kboDate)
   const requestedGameList = gameLists.find((entry) => entry.date === kboDate)?.gameList ?? { game: [] }
 
@@ -82,4 +179,9 @@ export async function getTodayGamesRaw(date?: string) {
     scheduleGames,
     normalizedGames: games
   }
+}
+
+export function clearGameServiceCacheForTests() {
+  todayGamesCache.clear()
+  todayGamesInFlight.clear()
 }

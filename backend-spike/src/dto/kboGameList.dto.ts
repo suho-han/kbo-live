@@ -23,7 +23,13 @@ export const rawKboGameSchema = z.object({
   B2_BAT_ORDER_NO: z.union([z.string(), z.number()]).optional().nullable(),
   B3_BAT_ORDER_NO: z.union([z.string(), z.number()]).optional().nullable(),
   T_P_NM: z.string().optional().nullable(),
-  B_P_NM: z.string().optional().nullable()
+  B_P_NM: z.string().optional().nullable(),
+  RECENT_PLAY: z.string().optional().nullable(),
+  RECENT_PLAY_TEXT: z.string().optional().nullable(),
+  LAST_PLAY: z.string().optional().nullable(),
+  LAST_PLAY_TEXT: z.string().optional().nullable(),
+  LIVE_TEXT: z.string().optional().nullable(),
+  GAME_TEXT: z.string().optional().nullable()
 }).passthrough()
 
 export const rawKboGameListResponseSchema = z.object({

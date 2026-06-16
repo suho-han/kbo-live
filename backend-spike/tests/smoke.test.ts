@@ -22,6 +22,25 @@ describe('backend-spike smoke', () => {
     expect(mapStatus({ GAME_STATE_SC: '1', GAME_INN_NO: null } as never)).toBe('scheduled')
   })
 
+  it('maps status code 1 as live when live-only fields are present', () => {
+    expect(mapStatus({
+      GAME_STATE_SC: '1',
+      GAME_INN_NO: null,
+      GAME_TB_SC: 'T',
+      T_SCORE_CN: 1,
+      B_SCORE_CN: 0,
+      BALL_CN: 0,
+      STRIKE_CN: 0,
+      OUT_CN: 0
+    } as never)).toBe('live')
+  })
+
+  it('maps cancelled and delayed status codes explicitly', () => {
+    expect(mapStatus({ GAME_STATE_SC: '5' } as never)).toBe('cancelled')
+    expect(mapStatus({ GAME_STATE_SC: '6' } as never)).toBe('delayed')
+    expect(mapStatus({ GAME_STATE_SC: '7' } as never)).toBe('delayed')
+  })
+
   it('summarizes meaningful live changes between polling ticks', () => {
     const previous = [buildGame({ score: { away: 1, home: 0 }, inning: { number: 3, half: 'top' }, count: { balls: 1, strikes: 1, outs: 1 } })]
     const current = [buildGame({ score: { away: 2, home: 0 }, inning: { number: 3, half: 'top' }, count: { balls: 0, strikes: 0, outs: 2 } })]
@@ -126,6 +145,66 @@ describe('backend-spike smoke', () => {
     expect(game.venue).toBe('잠실')
     expect(game.broadcastChannels).toEqual(['SPO-2T'])
     expect(game.homepageLinks.preview).toContain('section=START_PIT')
+  })
+
+  it('maps source recent play text when KBO provides it', () => {
+    const game = mapGame({
+      G_ID: '20260610SKLG0',
+      G_DT: '20260610',
+      G_TM: '18:30',
+      AWAY_ID: 'SK',
+      HOME_ID: 'LG',
+      AWAY_NM: 'SSG',
+      HOME_NM: 'LG',
+      GAME_STATE_SC: '2',
+      RECENT_PLAY_TEXT: '문보경 좌전 적시타'
+    })
+
+    expect(game.recentPlay).toBe('문보경 좌전 적시타')
+  })
+
+  it('builds a live situation recent play fallback from game list fields', () => {
+    const game = mapGame({
+      G_ID: '20260610SKLG0',
+      G_DT: '20260610',
+      G_TM: '18:30',
+      AWAY_ID: 'SK',
+      HOME_ID: 'LG',
+      AWAY_NM: 'SSG',
+      HOME_NM: 'LG',
+      GAME_STATE_SC: '2',
+      GAME_INN_NO: 5,
+      GAME_TB_SC: 'T',
+      BALL_CN: 1,
+      STRIKE_CN: 2,
+      OUT_CN: 1,
+      B1_BAT_ORDER_NO: 4,
+      B2_BAT_ORDER_NO: 0,
+      B3_BAT_ORDER_NO: 7,
+      T_P_NM: ' 최정 ',
+      B_P_NM: ' 임찬규 '
+    })
+
+    expect(game.recentPlay).toBe('5회초 최정 타석, 투수 임찬규, 카운트 1-2, 1아웃, 1,3루')
+  })
+
+  it('does not build a fallback recent play for completed games', () => {
+    const game = mapGame({
+      G_ID: '20260610SKLG0',
+      G_DT: '20260610',
+      G_TM: '18:30',
+      AWAY_ID: 'SK',
+      HOME_ID: 'LG',
+      AWAY_NM: 'SSG',
+      HOME_NM: 'LG',
+      GAME_STATE_SC: '3',
+      GAME_INN_NO: 9,
+      GAME_TB_SC: 'B',
+      T_P_NM: '오지환',
+      B_P_NM: '김광현'
+    })
+
+    expect(game.recentPlay).toBeNull()
   })
 })
 

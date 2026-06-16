@@ -41,6 +41,17 @@ describe('games routes', () => {
     await server.close()
   })
 
+  it('returns today games through the v1 route', async () => {
+    const server = buildServer()
+
+    const response = await server.inject(`/v1/games/today?date=${TEST_INPUT_DATE}`)
+
+    expect(response.statusCode).toBe(200)
+    expect(JSON.parse(response.body)).toEqual({ date: TEST_DATE, games: [] })
+    expect(mockTodayGames).toHaveBeenCalledWith(TEST_INPUT_DATE)
+    await server.close()
+  })
+
   it('returns game detail by id', async () => {
     const server = buildServer()
 
@@ -49,6 +60,39 @@ describe('games routes', () => {
     expect(response.statusCode).toBe(200)
     expect(JSON.parse(response.body)).toEqual({ date: TEST_DATE, game: null })
     expect(mockGameById).toHaveBeenCalledWith(TEST_GAME_ID, TEST_INPUT_DATE)
+    await server.close()
+  })
+
+  it('returns game detail through the v1 route', async () => {
+    const server = buildServer()
+
+    const response = await server.inject(`/v1/games/${TEST_GAME_ID}?date=${TEST_INPUT_DATE}`)
+
+    expect(response.statusCode).toBe(200)
+    expect(JSON.parse(response.body)).toEqual({ date: TEST_DATE, game: null })
+    expect(mockGameById).toHaveBeenCalledWith(TEST_GAME_ID, TEST_INPUT_DATE)
+    await server.close()
+  })
+
+  it('returns health and readiness payloads through v1 operational routes', async () => {
+    const server = buildServer()
+
+    const health = await server.inject('/v1/health')
+    const readiness = await server.inject('/v1/ready')
+
+    expect(health.statusCode).toBe(200)
+    expect(JSON.parse(health.body)).toMatchObject({
+      ok: true,
+      source: 'kbo-official-spike'
+    })
+    expect(readiness.statusCode).toBe(200)
+    expect(JSON.parse(readiness.body)).toMatchObject({
+      ok: true,
+      source: 'kbo-official-spike',
+      checks: {
+        config: true
+      }
+    })
     await server.close()
   })
 
@@ -71,8 +115,28 @@ describe('games routes', () => {
 
     expect(response.statusCode).toBe(400)
     expect(JSON.parse(response.body)).toEqual({
-      error: 'Bad Request',
-      message: 'invalid date format: 2026'
+      error: {
+        code: 'INVALID_DATE',
+        message: 'invalid date format: 2026',
+        statusCode: 400
+      }
+    })
+    await server.close()
+  })
+
+  it('maps unexpected errors to the normalized error shape', async () => {
+    mockTodayGames.mockRejectedValue(new Error('source unavailable'))
+    const server = buildServer()
+
+    const response = await server.inject('/games/today')
+
+    expect(response.statusCode).toBe(500)
+    expect(JSON.parse(response.body)).toEqual({
+      error: {
+        code: 'INTERNAL_ERROR',
+        message: 'source unavailable',
+        statusCode: 500
+      }
     })
     await server.close()
   })
