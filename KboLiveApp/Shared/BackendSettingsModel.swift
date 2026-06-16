@@ -7,9 +7,7 @@ import KboLiveCore
 final class BackendSettingsModel: ObservableObject {
     enum BackendPreset: String, CaseIterable, Identifiable {
         case local
-        case staging
         case production
-        case custom
 
         var id: String { rawValue }
 
@@ -17,12 +15,8 @@ final class BackendSettingsModel: ObservableObject {
             switch self {
             case .local:
                 return "Local"
-            case .staging:
-                return "Staging"
             case .production:
                 return "Production"
-            case .custom:
-                return "Custom"
             }
         }
 
@@ -30,12 +24,8 @@ final class BackendSettingsModel: ObservableObject {
             switch self {
             case .local:
                 return "현재 Mac에서 실행 중인 packaged backend"
-            case .staging:
-                return "검증용 원격 backend"
             case .production:
                 return "운영 backend"
-            case .custom:
-                return "직접 입력한 Backend URL"
             }
         }
     }
@@ -54,14 +44,13 @@ final class BackendSettingsModel: ObservableObject {
     private let defaults: UserDefaults
     private let baseURLKey = KboLiveEnvironment.backendBaseURLDefaultsKey
     private let presetKey = "kbo-live.backend-preset"
-    private let stagingBaseURLKey = "kbo-live.backend-staging-base-url"
     private let productionBaseURLKey = "kbo-live.backend-production-base-url"
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         let storedPreset = defaults.string(forKey: presetKey).flatMap(BackendPreset.init(rawValue:)) ?? .local
         let resolvedPreset = Self.baseURLString(for: storedPreset, defaults: defaults) == nil ? .local : storedPreset
-        self.selectedPreset = Self.environmentBaseURLString == nil ? resolvedPreset : .custom
+        self.selectedPreset = resolvedPreset
         self.baseURLText = Self.environmentBaseURLString
             ?? Self.baseURLString(for: resolvedPreset, defaults: defaults)
             ?? defaults.string(forKey: baseURLKey)
@@ -89,7 +78,7 @@ final class BackendSettingsModel: ObservableObject {
     }
 
     func hasConfiguredBaseURL(for preset: BackendPreset) -> Bool {
-        preset == .custom || Self.baseURLString(for: preset, defaults: defaults) != nil
+        Self.baseURLString(for: preset, defaults: defaults) != nil
     }
 
     func baseURLDescription(for preset: BackendPreset) -> String {
@@ -103,10 +92,6 @@ final class BackendSettingsModel: ObservableObject {
 
         selectedPreset = preset
         validationState = .idle
-
-        guard preset != .custom else {
-            return
-        }
 
         baseURLText = Self.baseURLString(for: preset, defaults: defaults) ?? ""
     }
@@ -128,10 +113,8 @@ final class BackendSettingsModel: ObservableObject {
         defaults.set(selectedPreset.rawValue, forKey: presetKey)
 
         switch selectedPreset {
-        case .local, .custom:
+        case .local:
             break
-        case .staging:
-            defaults.set(baseURLText, forKey: stagingBaseURLKey)
         case .production:
             defaults.set(baseURLText, forKey: productionBaseURLKey)
         }
@@ -187,15 +170,15 @@ final class BackendSettingsModel: ObservableObject {
         switch preset {
         case .local:
             return defaultBaseURLString
-        case .staging:
-            return environmentBaseURLString(named: "KBO_LIVE_STAGING_BASE_URL")
-                ?? defaults.string(forKey: "kbo-live.backend-staging-base-url")
         case .production:
             return environmentBaseURLString(named: "KBO_LIVE_PRODUCTION_BASE_URL")
                 ?? defaults.string(forKey: "kbo-live.backend-production-base-url")
-        case .custom:
-            return defaults.string(forKey: KboLiveEnvironment.backendBaseURLDefaultsKey)
+                ?? productionBaseURLString
         }
+    }
+
+    private static var productionBaseURLString: String {
+        KboLiveEnvironment.productionBaseURL.absoluteString.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
     }
 
     private static var environmentBaseURLString: String? {

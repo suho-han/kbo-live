@@ -8,9 +8,7 @@ struct BackendSettingsView: View {
         Form {
             Section {
                 presetButton(.local)
-                presetButton(.staging)
                 presetButton(.production)
-                presetButton(.custom)
 
                 if settings.isEnvironmentOverridden {
                     Text("KBO_LIVE_BASE_URL 환경변수가 우선 적용 중입니다.")
@@ -20,7 +18,7 @@ struct BackendSettingsView: View {
             } header: {
                 Text("환경")
             } footer: {
-                Text("Staging/Production URL은 KBO_LIVE_STAGING_BASE_URL, KBO_LIVE_PRODUCTION_BASE_URL 또는 해당 preset 저장값으로 설정됩니다.")
+                Text("Production URL은 기본값 또는 KBO_LIVE_PRODUCTION_BASE_URL 환경변수로 설정됩니다.")
             }
 
             Section {
