@@ -4,6 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 BACKEND_DIR="${ROOT_DIR}/backend-spike"
 OUTPUT_DIR="${ROOT_DIR}/.build/kbo-live-backend-macos"
+TEMP_OUTPUT_DIR="${ROOT_DIR}/.build/kbo-live-backend-macos.tmp"
 
 if ! command -v node >/dev/null 2>&1; then
   echo "node is required to run the packaged backend." >&2
@@ -13,15 +14,15 @@ fi
 cd "${BACKEND_DIR}"
 npm run build
 
-rm -rf "${OUTPUT_DIR}"
-mkdir -p "${OUTPUT_DIR}"
+rm -rf "${TEMP_OUTPUT_DIR}"
+mkdir -p "${TEMP_OUTPUT_DIR}"
 
-cp -R "${BACKEND_DIR}/dist" "${OUTPUT_DIR}/dist"
-cp "${BACKEND_DIR}/package.json" "${OUTPUT_DIR}/package.json"
-cp "${BACKEND_DIR}/package-lock.json" "${OUTPUT_DIR}/package-lock.json"
-cp -R "${BACKEND_DIR}/node_modules" "${OUTPUT_DIR}/node_modules"
+cp -R "${BACKEND_DIR}/dist" "${TEMP_OUTPUT_DIR}/dist"
+cp "${BACKEND_DIR}/package.json" "${TEMP_OUTPUT_DIR}/package.json"
+cp "${BACKEND_DIR}/package-lock.json" "${TEMP_OUTPUT_DIR}/package-lock.json"
+cp -R "${BACKEND_DIR}/node_modules" "${TEMP_OUTPUT_DIR}/node_modules"
 
-cat > "${OUTPUT_DIR}/run-backend.command" <<'SCRIPT'
+cat > "${TEMP_OUTPUT_DIR}/run-backend.command" <<'SCRIPT'
 #!/usr/bin/env bash
 set -euo pipefail
 
@@ -40,9 +41,9 @@ export PORT="${PORT:-3000}"
 exec node "${DIR}/dist/src/index.js"
 SCRIPT
 
-chmod +x "${OUTPUT_DIR}/run-backend.command"
+chmod +x "${TEMP_OUTPUT_DIR}/run-backend.command"
 
-cat > "${OUTPUT_DIR}/README.txt" <<'TEXT'
+cat > "${TEMP_OUTPUT_DIR}/README.txt" <<'TEXT'
 KBO Live Backend macOS bundle
 
 Run:
@@ -58,5 +59,8 @@ Health check:
 Requirement:
   Node.js 22+
 TEXT
+
+rm -rf "${OUTPUT_DIR}"
+mv "${TEMP_OUTPUT_DIR}" "${OUTPUT_DIR}"
 
 echo "Packaged backend: ${OUTPUT_DIR}"
