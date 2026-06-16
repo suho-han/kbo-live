@@ -41,106 +41,26 @@ public struct KboGlassPanel<Content: View>: View {
     @ViewBuilder
     private var panelBackground: some View {
         if reduceTransparency {
-            shape.fill(opaqueSurface)
+            shape.fill(KboGlassToken.opaqueSurface(for: style))
         } else {
-            shape.fill(material)
-            shape.fill(tintGradient)
+            shape.fill(KboGlassToken.material(for: style))
+            shape.fill(KboGlassToken.tintGradient(for: style))
         }
-    }
-
-    private var material: Material {
-        switch style {
-        case .card:
-            return .thinMaterial
-        case .elevated:
-            return .regularMaterial
-        case .control, .navigation:
-            return .ultraThinMaterial
-        }
-    }
-
-    private var opaqueSurface: Color {
-        switch style {
-        case .card:
-            return KboSurfaceToken.card
-        case .elevated:
-            return KboSurfaceToken.elevated
-        case .control:
-            return KboSurfaceToken.card.opacity(0.96)
-        case .navigation:
-            return KboSurfaceToken.elevated.opacity(0.98)
-        }
-    }
-
-    private var tintGradient: LinearGradient {
-        let colors: [Color]
-        switch style {
-        case .card:
-            colors = [
-                KboSurfaceToken.glassControl,
-                KboSurfaceToken.card.opacity(0.62)
-            ]
-        case .elevated:
-            colors = [
-                Color.white.opacity(0.16),
-                KboSurfaceToken.elevated.opacity(0.72)
-            ]
-        case .control:
-            colors = [
-                KboSemanticColorToken.accentBlue.opacity(0.12),
-                KboSurfaceToken.glassControl
-            ]
-        case .navigation:
-            colors = [
-                Color.white.opacity(0.18),
-                KboSurfaceToken.glassNavigation
-            ]
-        }
-
-        return LinearGradient(
-            colors: colors,
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
-        )
     }
 
     private var borderColor: Color {
-        switch style {
-        case .card:
-            return KboSurfaceToken.cardBorder
-        case .elevated, .control, .navigation:
-            return KboSurfaceToken.glassBorder
-        }
+        KboGlassToken.borderColor(for: style)
     }
 
     private var shadowColor: Color {
-        switch style {
-        case .card:
-            return Color.black.opacity(0.14)
-        case .elevated:
-            return Color.black.opacity(0.20)
-        case .control, .navigation:
-            return Color.black.opacity(0.12)
-        }
+        KboGlassToken.shadowColor(for: style)
     }
 
     private var shadowRadius: CGFloat {
-        switch style {
-        case .card, .control:
-            return 10
-        case .elevated:
-            return 18
-        case .navigation:
-            return 14
-        }
+        KboGlassToken.shadowRadius(for: style)
     }
 
     private var shadowY: CGFloat {
-        switch style {
-        case .card, .control:
-            return 6
-        case .elevated, .navigation:
-            return 10
-        }
+        KboGlassToken.shadowY(for: style)
     }
 }

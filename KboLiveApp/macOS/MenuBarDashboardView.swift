@@ -176,7 +176,7 @@ struct MenuBarDashboardView: View {
 
     private var headerSubtitle: String {
         if let selectedTeam = viewModel.selectedTeam {
-            return fullTeamName(for: selectedTeam)
+            return selectedTeam.koreanFullName
         }
 
         return "응원팀 미선택"
@@ -208,7 +208,7 @@ struct MenuBarDashboardView: View {
             .foregroundStyle(color)
 #else
         Text(String(score))
-            .font(.system(size: 13, weight: .bold, design: .rounded))
+            .font(.system(size: 13, weight: .bold))
             .monospacedDigit()
             .foregroundStyle(color)
 #endif
@@ -325,7 +325,7 @@ struct MenuBarDashboardView: View {
                 .frame(width: 22, height: 22)
         } else {
             Text(teamMarkText(for: team.id))
-                .font(.system(size: 9, weight: .black, design: .rounded))
+                .font(.system(size: 9, weight: .black))
                 .foregroundStyle(.white)
                 .frame(width: 20, height: 20)
                 .background(teamColor(for: team.id))
@@ -475,33 +475,6 @@ struct MenuBarDashboardView: View {
             return "취소"
         case .unknown:
             return "상태 확인 중"
-        }
-    }
-
-    private func fullTeamName(for team: KboTeamOption) -> String {
-        switch team.id {
-        case "LG":
-            return "LG 트윈스"
-        case "OB":
-            return "두산 베어스"
-        case "SK":
-            return "SSG 랜더스"
-        case "SS":
-            return "삼성 라이온즈"
-        case "HT":
-            return "기아 타이거즈"
-        case "KT":
-            return "KT 위즈"
-        case "LT":
-            return "롯데 자이언츠"
-        case "HH":
-            return "한화 이글스"
-        case "NC":
-            return "NC 다이노스"
-        case "WO":
-            return "키움 히어로즈"
-        default:
-            return team.name
         }
     }
 

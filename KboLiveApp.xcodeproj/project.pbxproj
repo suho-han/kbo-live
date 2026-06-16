@@ -48,6 +48,7 @@
 		2D1555F0CDBBCA2853D957C9 /* GameFeedClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A933A216D48A95FC01F1B764 /* GameFeedClient.swift */; };
 		2D1D35F0D38F01FAB9F29A86 /* KboShadowToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A63CE0FD4450245094F1948 /* KboShadowToken.swift */; };
 		30F907D292661686BB29D95A /* KboGlassPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0BCCDF39099587EFE4A5FB /* KboGlassPanel.swift */; };
+		31B9C5D2A7E14B8E9F032A65 /* KboGlassToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F8A916C3E4F61B29C75E8 /* KboGlassToken.swift */; };
 		35F55B26C36CCFC5E0731689 /* WidgetGameSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FBF395F0C0973B1F683E06 /* WidgetGameSnapshot.swift */; };
 		36000DCCFDC3F05CA6A461E5 /* InningStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52C5005821B88E6CB852256 /* InningStateView.swift */; };
 		369D406063F719C37F85069B /* KboMetricRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638123A5CA06544610145208 /* KboMetricRow.swift */; };
@@ -63,6 +64,7 @@
 		4301BFEF04E938C5B6A8D412 /* KboTypographyToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAE26336A903AAF0A3B5267 /* KboTypographyToken.swift */; };
 		45390FD6D0890EAC9106F33C /* TodayGameWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE6777EA72E07EB39F6A0C8 /* TodayGameWidget.swift */; };
 		45580104672B612459210A6E /* KboSurfaceToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9E2C23EA76E492A852B234 /* KboSurfaceToken.swift */; };
+		46D2AF91B8C745EEA032F7A6 /* KboGlassToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F8A916C3E4F61B29C75E8 /* KboGlassToken.swift */; };
 		48634D965C07B6EFBA19F654 /* KboRadiusToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30557F93ECD6E377217BB75 /* KboRadiusToken.swift */; };
 		4904E60652BB609CED16C827 /* TodayGamesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBB27567CBFEC7419A1EAF5 /* TodayGamesList.swift */; };
 		4BF4C9D7D1B23B69E55285A9 /* LiveBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977A783217C6C830D63E6805 /* LiveBadgeView.swift */; };
@@ -163,6 +165,7 @@
 		C438FB8E9398F2E47B990A9A /* WidgetGameSnapshotMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC156241B24A8F38DE0E32B8 /* WidgetGameSnapshotMapper.swift */; };
 		C44FEB7D26B41C46DE6E5582 /* KboTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59579DB8DE6E2D5FE9BEA6F5 /* KboTheme.swift */; };
 		C475DDD0F0AFA853C3217CBF /* KboMotionToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DD52C08C8040555947A491 /* KboMotionToken.swift */; };
+		C7350E9F6F9242B58D4E3A10 /* KboGlassToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F8A916C3E4F61B29C75E8 /* KboGlassToken.swift */; };
 		C591CE4C5DB0022E1042BE39 /* KboCommandBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29611A483DBC1A46C51B34FE /* KboCommandBar.swift */; };
 		C5EEBB915C1C4B0F04E3E1AE /* KboPrimaryActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554A1540C411A99F6FC3A626 /* KboPrimaryActionButton.swift */; };
 		C66965BA3D5289A471C2E354 /* KboTypographyToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAE26336A903AAF0A3B5267 /* KboTypographyToken.swift */; };
@@ -241,6 +244,7 @@
 		3F45520806D38A86D25558BC /* GameFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFeed.swift; sourceTree = "<group>"; };
 		4871B27DCDD1FA6DF5CFB331 /* LiveGameActivityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveGameActivityController.swift; sourceTree = "<group>"; };
 		4DD4549DE87B250463A5D190 /* TodayGamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayGamesView.swift; sourceTree = "<group>"; };
+		4D0F8A916C3E4F61B29C75E8 /* KboGlassToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KboGlassToken.swift; sourceTree = "<group>"; };
 		5070F61F85A0ED473884F3BB /* KboLiveHomeRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KboLiveHomeRootView.swift; sourceTree = "<group>"; };
 		52F837D57B975899B142B7F3 /* LiveGameActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveGameActivityAttributes.swift; sourceTree = "<group>"; };
 		554A1540C411A99F6FC3A626 /* KboPrimaryActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KboPrimaryActionButton.swift; sourceTree = "<group>"; };
@@ -589,6 +593,7 @@
 			children = (
 				E0E7F4854A1805B2F7C22149 /* KboColorToken.swift */,
 				377CB07430236523622F00C5 /* KboControlToken.swift */,
+				4D0F8A916C3E4F61B29C75E8 /* KboGlassToken.swift */,
 				D7DD52C08C8040555947A491 /* KboMotionToken.swift */,
 				D30557F93ECD6E377217BB75 /* KboRadiusToken.swift */,
 				C92618984EEFA0FFD270B27E /* KboSemanticColorToken.swift */,
@@ -756,6 +761,7 @@
 				EF290DE02547345C176965AF /* KboControlToken.swift in Sources */,
 				8E480801FECD4F9588916826 /* KboEmptyStateView.swift in Sources */,
 				30F907D292661686BB29D95A /* KboGlassPanel.swift in Sources */,
+				31B9C5D2A7E14B8E9F032A65 /* KboGlassToken.swift in Sources */,
 				5E900C6D6BDF0A8ECAE52776 /* KboLiveAPIClient.swift in Sources */,
 				698EA0A97ADAE77C41B11098 /* KboLiveEnvironment.swift in Sources */,
 				257732F9310011276A4BB95F /* KboLiveHomeRootView.swift in Sources */,
@@ -825,6 +831,7 @@
 				E9399557193DA04A7AB39E16 /* KboControlToken.swift in Sources */,
 				A6702737593962EB4F429056 /* KboEmptyStateView.swift in Sources */,
 				13534206ED7CA679F7BDE94D /* KboGlassPanel.swift in Sources */,
+				46D2AF91B8C745EEA032F7A6 /* KboGlassToken.swift in Sources */,
 				663B9A30F470D0127B96585D /* KboLiveAPIClient.swift in Sources */,
 				6119B59B1A57B2D9336A1913 /* KboLiveEnvironment.swift in Sources */,
 				E2E1A0E6890B24F1B7AE7435 /* KboLiveHomeRootView.swift in Sources */,
@@ -884,6 +891,7 @@
 				179A98DB86DA2EDE1702242A /* KboControlToken.swift in Sources */,
 				AF5065F26E82AA7935334722 /* KboEmptyStateView.swift in Sources */,
 				1535CEE978803B80CB7F8978 /* KboGlassPanel.swift in Sources */,
+				C7350E9F6F9242B58D4E3A10 /* KboGlassToken.swift in Sources */,
 				63F9EF7CDD8392871D5118BA /* KboLiveAPIClient.swift in Sources */,
 				91B73255E9287DF331323278 /* KboLiveEnvironment.swift in Sources */,
 				8C784409547ECDDCA034B677 /* KboLiveWidgetBundle.swift in Sources */,

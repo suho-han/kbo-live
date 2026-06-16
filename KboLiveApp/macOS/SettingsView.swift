@@ -11,6 +11,6 @@ struct SettingsView: View {
             settings: settings,
             onApplyBackendSettings: onApplyBackendSettings
         )
-        .frame(width: 460, height: 260)
+        .frame(width: 520, height: 430)
     }
 }

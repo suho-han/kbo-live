@@ -304,6 +304,13 @@ KBO Live에 적용:
 
 - glass와 motion이 정보를 방해하지 않게 한다.
 
+현재 fallback 정책:
+
+- `KboGlassPanel`은 `KboGlassToken`을 통해 material, tint, border, shadow 값을 중앙 관리한다.
+- Reduce Transparency가 켜진 환경에서는 glass material/tint 대신 style별 opaque surface를 사용한다.
+- Reduce Motion이 켜진 환경에서는 `KboStatusPill`의 live pulse animation을 실행하지 않는다.
+- 점수, 긴 텍스트, grid content layer에는 glass를 직접 씌우지 않고 content contrast를 우선한다.
+
 작업:
 
 - Reduce Transparency fallback

@@ -36,7 +36,7 @@ public struct KboCommandBar<LeadingAccessory: View, Actions: View>: View {
                     }
 
                     Text(title)
-                        .font(.system(size: 24, weight: .black, design: .rounded))
+                        .font(.system(size: 24, weight: .black))
                         .foregroundStyle(KboTheme.primaryText)
                         .lineLimit(1)
                         .minimumScaleFactor(0.72)

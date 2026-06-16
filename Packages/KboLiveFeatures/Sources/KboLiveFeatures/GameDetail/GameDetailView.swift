@@ -120,7 +120,7 @@ public struct GameDetailView: View {
 
                 VStack(spacing: 10) {
                     Text("VS")
-                        .font(.system(size: 20, weight: .black, design: .rounded))
+                        .font(.system(size: 20, weight: .black))
                         .foregroundStyle(KboTheme.primaryText)
                     Text(startTimeText(for: game) ?? "예정")
                         .font(KboTypographyToken.caption)
@@ -211,7 +211,7 @@ public struct GameDetailView: View {
         VStack(spacing: 16) {
             HStack {
                 Text(isFinal ? "FINAL" : GameProjectionFormatter.inningText(for: game) ?? "LIVE")
-                    .font(.system(size: 24, weight: .black, design: .rounded))
+                    .font(.system(size: 24, weight: .black))
                     .foregroundStyle(isFinal ? KboColorToken.statusFinal : KboColorToken.statusLive)
                 Spacer()
                 Text(game.venue ?? "KBO")
@@ -222,7 +222,7 @@ public struct GameDetailView: View {
             HStack(alignment: .center, spacing: 16) {
                 scoreboardTeam(team: game.awayTeam, score: game.score.away)
                 Text(":")
-                    .font(.system(size: 40, weight: .black, design: .rounded))
+                    .font(.system(size: 40, weight: .black))
                     .foregroundStyle(KboTheme.secondaryText)
                 scoreboardTeam(team: game.homeTeam, score: game.score.home)
             }
@@ -249,7 +249,7 @@ public struct GameDetailView: View {
             )
 
             Text("\(score)")
-                .font(.system(size: 58, weight: .black, design: .rounded))
+                .font(.system(size: 58, weight: .black))
                 .monospacedDigit()
                 .foregroundStyle(KboTheme.primaryText)
         }
@@ -292,7 +292,7 @@ public struct GameDetailView: View {
 
             if let inning = GameProjectionFormatter.inningText(for: game) {
                 Text(inning)
-                    .font(.system(size: 22, weight: .black, design: .rounded))
+                    .font(.system(size: 22, weight: .black))
                     .foregroundStyle(Color.white)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
@@ -523,7 +523,7 @@ public struct GameDetailView: View {
     private func detailTitle(_ title: String, subtitle: String) -> some View {
         VStack(alignment: .leading, spacing: 6) {
             Text(title)
-                .font(.system(size: 30, weight: .black, design: .rounded))
+                .font(.system(size: 30, weight: .black))
                 .foregroundStyle(KboTheme.primaryText)
             Text(subtitle)
                 .font(KboTypographyToken.body)
@@ -532,19 +532,31 @@ public struct GameDetailView: View {
     }
 
     private func statusChip(game: Game) -> some View {
-        Text(chipText(for: game))
-            .font(KboTypographyToken.caption)
-            .fontWeight(.bold)
-            .foregroundStyle(.white)
-            .padding(.horizontal, 12)
-            .padding(.vertical, 7)
-            .background(statusColor(for: game).opacity(0.85))
-            .clipShape(Capsule())
+        KboStatusPill(
+            text: chipText(for: game),
+            style: statusPillStyle(for: game),
+            showsPulse: game.status == .live
+        )
+    }
+
+    private func statusPillStyle(for game: Game) -> KboStatusPill.Style {
+        switch game.status {
+        case .live:
+            return .live
+        case .final:
+            return .final
+        case .delayed:
+            return .delayed
+        case .scheduled:
+            return .scheduled
+        case .cancelled, .unknown:
+            return .neutral
+        }
     }
 
     private func baseMarker(label: String, occupied: Bool) -> some View {
         Text(label)
-            .font(.system(size: 12, weight: .black, design: .rounded))
+            .font(.system(size: 12, weight: .black))
             .foregroundStyle(occupied ? Color.black : Color.white.opacity(0.78))
             .frame(width: 34, height: 34)
             .background(occupied ? KboColorToken.warning : Color.white.opacity(0.18))
@@ -632,9 +644,9 @@ public struct GameDetailView: View {
     private var backgroundView: some View {
         LinearGradient(
             colors: [
-                Color(red: 0.02, green: 0.06, blue: 0.08),
-                KboColorToken.backgroundPrimary,
-                Color(red: 0.08, green: 0.10, blue: 0.16)
+                KboColorToken.appBackgroundTop,
+                KboColorToken.appBackgroundPrimary,
+                KboColorToken.appBackgroundSecondary
             ],
             startPoint: .topLeading,
             endPoint: .bottomTrailing

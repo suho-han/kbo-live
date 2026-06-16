@@ -74,8 +74,7 @@ public struct TodayGamesView: View {
 
     private var commandBar: some View {
         KboCommandBar(
-            eyebrow: "KBO LIVE",
-            title: commandBarTitle,
+            title: "KBO LIVE",
             subtitle: commandBarSubtitle
         ) {
             Image(systemName: "baseball.fill")
@@ -110,7 +109,7 @@ public struct TodayGamesView: View {
 
     private var favoriteSection: some View {
         VStack(alignment: .leading, spacing: 14) {
-            sectionHeader(title: "나의 팀", subtitle: viewModel.selectedTeam?.name ?? "응원 팀을 선택하면 가장 관련 있는 경기를 먼저 보여줍니다.")
+            favoriteSectionHeader
 
             if let selectedTeam = viewModel.selectedTeam {
                 MyTeamSummaryCardView(
@@ -206,23 +205,16 @@ public struct TodayGamesView: View {
         }
     }
 
-    private var commandBarTitle: String {
-        if let selectedTeam = viewModel.selectedTeam {
-            return "\(selectedTeam.name) 중심으로 보기"
-        }
-
-        return "오늘 경기 한눈에 보기"
-    }
-
     private var commandBarSubtitle: String {
         let gameCount = viewModel.games.count
         let dateText = GameDateSection(date: viewModel.activeDateString, games: []).formattedDate
+        let teamFocusText = viewModel.selectedTeam.map { "\($0.name) 중심으로 보기 · " } ?? ""
 
         if gameCount == 0 {
-            return "\(dateText) · 편성된 경기가 없습니다."
+            return "\(teamFocusText)\(dateText) · 편성된 경기가 없습니다."
         }
 
-        return "\(dateText) · \(gameCount)경기 · 진행 중 경기를 먼저 보여줍니다."
+        return "\(teamFocusText)\(dateText) · \(gameCount)경기 · 진행 중 경기를 먼저 보여줍니다."
     }
 
     private func commandIcon(systemImage: String, title: String) -> some View {
@@ -252,6 +244,34 @@ public struct TodayGamesView: View {
             Text(subtitle)
                 .font(KboTypographyToken.footnote)
                 .foregroundStyle(KboTheme.secondaryText)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private var favoriteSectionHeader: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(alignment: .firstTextBaseline, spacing: 12) {
+                Text("나의 팀")
+                    .font(KboTypographyToken.headline)
+                    .foregroundStyle(KboTheme.primaryText)
+
+                Spacer(minLength: 12)
+
+                if let selectedTeam = viewModel.selectedTeam {
+                    Text(selectedTeam.koreanFullName)
+                        .font(.system(size: 28, weight: .black))
+                        .foregroundStyle(TeamColorResolver.color(forTeamID: selectedTeam.id))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.68)
+                }
+            }
+
+            if viewModel.selectedTeam == nil {
+                Text("응원 팀을 선택하면 가장 관련 있는 경기를 먼저 보여줍니다.")
+                    .font(KboTypographyToken.footnote)
+                    .foregroundStyle(KboTheme.secondaryText)
+                    .lineLimit(2)
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -390,9 +410,9 @@ public struct TodayGamesView: View {
     private var backgroundView: some View {
         LinearGradient(
             colors: [
-                Color(red: 0.02, green: 0.05, blue: 0.09),
-                KboColorToken.backgroundPrimary,
-                KboColorToken.backgroundSecondary
+                KboColorToken.appBackgroundTop,
+                KboColorToken.appBackgroundPrimary,
+                KboColorToken.appBackgroundSecondary
             ],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
@@ -439,11 +459,6 @@ private struct MyTeamSummaryCardView: View {
                 VStack(alignment: .leading, spacing: 9) {
                     KboMetricRow(metrics)
                         .fixedSize(horizontal: false, vertical: true)
-
-                    Text(nextGameText)
-                        .font(KboTypographyToken.caption)
-                        .foregroundStyle(KboTheme.secondaryText)
-                        .lineLimit(1)
                 }
 
                 Spacer(minLength: 0)
@@ -476,16 +491,6 @@ private struct MyTeamSummaryCardView: View {
         return "\(record.wins)승 \(record.losses)패 \(record.draws)무"
     }
 
-    private var nextGameText: String {
-        guard let game else {
-            return "오늘 편성 경기 없음 · 시즌 정보는 경기 데이터 수신 후 표시됩니다."
-        }
-
-        let opponent = game.awayTeam.id == team.id ? game.homeTeam.name : game.awayTeam.name
-        let start = game.startTime?.formatted(.dateTime.hour().minute()) ?? "시간 미정"
-        return "오늘 \(opponent)전 · \(start)"
-    }
-
     private var metrics: [KboMetricValue] {
         var values = [
             KboMetricValue(title: "순위", value: rankText, tint: accentColor),
@@ -513,18 +518,17 @@ private struct FeaturedGameCardView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
-            HStack(alignment: .top) {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("대표 경기")
-                        .font(KboTypographyToken.caption)
-                        .foregroundStyle(KboColorToken.statusLive)
-
-                    Text(GameProjectionFormatter.menuBarSecondaryText(for: game) ?? "경기 진행 상황 확인")
-                        .font(KboTypographyToken.headline)
-                        .foregroundStyle(KboTheme.primaryText)
-                }
+            HStack(alignment: .firstTextBaseline, spacing: 10) {
+                Text("대표 경기")
+                    .font(KboTypographyToken.caption)
+                    .foregroundStyle(KboColorToken.statusLive)
 
                 Spacer()
+
+                Text(gameDateTimeText)
+                    .font(KboTypographyToken.caption)
+                    .foregroundStyle(KboTheme.secondaryText)
+                    .lineLimit(1)
 
                 Image(systemName: "chevron.right")
                     .foregroundStyle(KboTheme.secondaryText)
@@ -539,7 +543,7 @@ private struct FeaturedGameCardView: View {
                 )
                 Spacer()
                 Text("VS")
-                    .font(.system(size: 14, weight: .bold, design: .rounded))
+                    .font(.system(size: 14, weight: .bold))
                     .foregroundStyle(KboTheme.secondaryText)
                 Spacer()
                 featuredTeamRow(
@@ -574,6 +578,20 @@ private struct FeaturedGameCardView: View {
         }
     }
 
+    private var gameDateTimeText: String {
+        let date = GameDateSection(date: game.date, games: []).formattedDate
+        let time = game.startTime.map { Self.cardTimeFormatter.string(from: $0) } ?? "시간 미정"
+        return "\(date) · \(time)"
+    }
+
+    private static let cardTimeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
+        formatter.dateFormat = "HH:mm"
+        return formatter
+    }()
+
     private func featuredTeamRow(team: Team, score: Int, isFavorite: Bool, showsScore: Bool) -> some View {
         VStack(spacing: 10) {
             TeamBadgeView(
@@ -588,7 +606,7 @@ private struct FeaturedGameCardView: View {
 
             if showsScore {
                 Text("\(score)")
-                    .font(.system(size: 34, weight: .black, design: .rounded))
+                    .font(.system(size: 34, weight: .black))
                     .monospacedDigit()
                     .foregroundStyle(KboTheme.primaryText)
                     .lineLimit(1)
@@ -609,7 +627,7 @@ private struct ScheduledGameRowView: View {
             teamText(game.awayTeam)
 
             Text("vs")
-                .font(.system(size: 11, weight: .black, design: .rounded))
+                .font(.system(size: 11, weight: .black))
                 .foregroundStyle(KboTheme.secondaryText)
 
             teamText(game.homeTeam)
@@ -653,7 +671,7 @@ private struct ScheduledGameRowView: View {
 
     private func teamText(_ team: Team) -> some View {
         Text(team.name)
-            .font(.system(size: 13, weight: .bold, design: .rounded))
+            .font(.system(size: 13, weight: .bold))
             .foregroundStyle(team.id == favoriteTeamID ? TeamColorResolver.color(forTeamID: team.id) : KboTheme.primaryText)
             .lineLimit(1)
             .minimumScaleFactor(0.82)

@@ -30,7 +30,7 @@ public struct KboMetricRow: View {
                         .foregroundStyle(KboTheme.secondaryText)
 
                     Text(metric.value)
-                        .font(.system(size: 13, weight: .bold, design: .rounded))
+                        .font(.system(size: 13, weight: .bold))
                         .foregroundStyle(metric.tint ?? KboTheme.primaryText)
                         .lineLimit(1)
                         .minimumScaleFactor(0.78)

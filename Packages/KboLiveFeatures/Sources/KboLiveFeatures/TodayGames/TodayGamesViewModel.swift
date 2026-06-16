@@ -94,7 +94,7 @@ public final class TodayGamesViewModel: ObservableObject {
     }
 
     public var allTeams: [KboTeamOption] {
-        KboTeamOption.all
+        KboTeamOption.sortedByStandings(games: games)
     }
 
     public var selectedTeam: KboTeamOption? {
