@@ -8,15 +8,18 @@ struct KboLiveHomeRootView: View {
     @StateObject private var liveActivityController = LiveGameActivityController()
     @ObservedObject private var settings: BackendSettingsModel
     @ObservedObject private var navigationModel: AppNavigationModel
+    @ObservedObject private var updateChecker: AppUpdateCheckModel
     @State private var isShowingSettings = false
 
     init(
         viewModel: TodayGamesViewModel? = nil,
         settings: BackendSettingsModel = BackendSettingsModel(),
-        navigationModel: AppNavigationModel = AppNavigationModel()
+        navigationModel: AppNavigationModel = AppNavigationModel(),
+        updateChecker: AppUpdateCheckModel = AppUpdateCheckModel()
     ) {
         _settings = ObservedObject(wrappedValue: settings)
         _navigationModel = ObservedObject(wrappedValue: navigationModel)
+        _updateChecker = ObservedObject(wrappedValue: updateChecker)
         if let viewModel {
             _viewModel = StateObject(wrappedValue: viewModel)
         } else {
@@ -68,6 +71,7 @@ struct KboLiveHomeRootView: View {
                     AppSettingsView(
                         viewModel: viewModel,
                         settings: settings,
+                        updateChecker: updateChecker,
                         onApplyBackendSettings: applyBackendSettings
                     )
                     .navigationTitle("설정")

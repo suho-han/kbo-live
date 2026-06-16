@@ -39,4 +39,29 @@ describe('parseKboTeamRankDaily', () => {
       }
     ])
   })
+
+  it('maps current KBO table markup without an exact summary match', () => {
+    const html = `
+      <table summary="순위, 팀명,경기,승,패,무,승률,게임차,최근10경기,연속,홈,방문" class="tData">
+        <thead><tr><th>순위</th><th>팀명</th><th>경기</th><th>승</th><th>패</th><th>무</th><th>승률</th><th>게임차</th><th>최근10경기</th><th>연속</th><th>홈</th><th>방문</th></tr></thead>
+        <tbody>
+          <tr><td>8</td><td>SSG</td><td>65</td><td>27</td><td>37</td><td>1</td><td>0.422</td><td>13.5</td><td>4승0무6패</td><td>2패</td><td>14-1-16</td><td>13-0-21</td></tr>
+        </tbody>
+      </table>`
+
+    expect(parseKboTeamRankDaily(html)).toEqual([
+      {
+        teamId: 'SK',
+        teamName: 'SSG',
+        wins: 27,
+        losses: 37,
+        draws: 1,
+        rank: 8,
+        streak: '2패',
+        winRate: '0.422',
+        recentTen: '4승0무6패',
+        gamesBack: '13.5'
+      }
+    ])
+  })
 })

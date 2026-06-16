@@ -17,6 +17,7 @@ import KboLiveFeatures
 struct AppSettingsView: View {
     @ObservedObject var viewModel: TodayGamesViewModel
     @ObservedObject var settings: BackendSettingsModel
+    @ObservedObject var updateChecker: AppUpdateCheckModel
     let onApplyBackendSettings: () -> Void
 
     var body: some View {
@@ -32,6 +33,11 @@ struct AppSettingsView: View {
             teamSettingsView
                 .tabItem {
                     Label("응원팀", systemImage: "star")
+                }
+
+            updateSettingsView
+                .tabItem {
+                    Label("업데이트", systemImage: "arrow.down.circle")
                 }
         }
     }
@@ -126,6 +132,57 @@ struct AppSettingsView: View {
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
+    }
+
+    private var updateSettingsView: some View {
+        Form {
+            Section {
+                LabeledContent("마지막 확인", value: updateChecker.lastCheckedText)
+
+                LabeledContent("상태") {
+                    updateStatusLabel
+                }
+
+                Button {
+                    Task {
+                        await updateChecker.checkForUpdates()
+                    }
+                } label: {
+                    Label("업데이트 확인", systemImage: "arrow.clockwise")
+                }
+                .disabled(updateChecker.state == .checking)
+            } header: {
+                Text("버전 업데이트")
+            }
+        }
+        .formStyle(.grouped)
+    }
+
+    @ViewBuilder
+    private var updateStatusLabel: some View {
+        switch updateChecker.state {
+        case .idle:
+            Text("미확인")
+                .foregroundStyle(.secondary)
+        case .checking:
+            ProgressView()
+                .controlSize(.small)
+        case .upToDate:
+            Label("최신 버전", systemImage: "checkmark.circle.fill")
+                .foregroundStyle(.green)
+        case .updateAvailable(let title):
+            HStack(spacing: 8) {
+                Label(title, systemImage: "arrow.down.circle.fill")
+                    .foregroundStyle(.blue)
+
+                Button("열기") {
+                    updateChecker.openReleasePage()
+                }
+            }
+        case .failed(let message):
+            Label(message, systemImage: "xmark.circle.fill")
+                .foregroundStyle(.red)
+        }
     }
 }
 

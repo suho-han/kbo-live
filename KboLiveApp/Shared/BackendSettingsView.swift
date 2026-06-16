@@ -2,6 +2,7 @@ import SwiftUI
 
 struct BackendSettingsView: View {
     @ObservedObject var settings: BackendSettingsModel
+    @State private var hasCheckedHealth = false
     let onApply: () -> Void
 
     var body: some View {
@@ -16,34 +17,13 @@ struct BackendSettingsView: View {
                         .foregroundStyle(.secondary)
                 }
             } header: {
-                Text("환경")
+                Text("환경 (준비중)")
             } footer: {
                 Text("Production URL은 기본값 또는 KBO_LIVE_PRODUCTION_BASE_URL 환경변수로 설정됩니다.")
             }
 
             Section {
-                TextField("Backend URL", text: $settings.baseURLText)
-#if os(iOS)
-                    .textInputAutocapitalization(.never)
-                    .keyboardType(.URL)
-#endif
-                    .disabled(settings.isEnvironmentOverridden)
-
-                LabeledContent("현재 환경", value: settings.selectedPresetTitle)
-            } header: {
-                Text("백엔드")
-            }
-
-            Section {
-                HStack {
-                    Button("상태 확인") {
-                        Task {
-                            await settings.checkHealth()
-                        }
-                    }
-
-                    Spacer()
-
+                LabeledContent("상태") {
                     statusLabel
                 }
 
@@ -66,6 +46,11 @@ struct BackendSettingsView: View {
             }
         }
         .formStyle(.grouped)
+        .task {
+            guard hasCheckedHealth == false else { return }
+            hasCheckedHealth = true
+            await settings.checkHealth()
+        }
     }
 
     private func presetButton(_ preset: BackendSettingsModel.BackendPreset) -> some View {

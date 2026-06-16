@@ -36,7 +36,7 @@ function toNumber(value: string): number | null {
 }
 
 export function parseKboTeamRankDaily(html: string): TeamRankEntry[] {
-  const standingsTable = html.match(/<table[^>]*summary="순위, 팀명,승,패,무,승률,승차,최근10경기,연속,홈,방문"[^>]*>[\s\S]*?<\/table>/)
+  const standingsTable = html.match(/<table[^>]*(?:summary="[^"]*최근10경기[^"]*"|class="[^"]*\btData\b[^"]*")[^>]*>[\s\S]*?<\/table>/)
   if (!standingsTable) return []
 
   const rows = [...standingsTable[0].matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)]

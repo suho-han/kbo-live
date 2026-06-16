@@ -53,9 +53,8 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.suhohan.kbo-live.macos
         PRODUCT_NAME: KboLive
-        INFOPLIST_KEY_CFBundleDisplayName: KboLive
-        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.sports
-        INFOPLIST_KEY_NSPrincipalClass: NSApplication
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: KboLiveApp/macOS/Info.plist
   KboLiveWidgetExtension:
     type: app-extension
     platform: iOS
