@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E0A286F26CA8AEE274F023 /* LiveGameActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F837D57B975899B142B7F3 /* LiveGameActivityAttributes.swift */; };
+		0112A0B8F48A1E1200A0C001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0112A0B8F48A1E1200A0C002 /* Assets.xcassets */; };
 		012DE7A72692474538915139 /* MenuBarGameSummaryMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFBA95BCA60FA7810B57CD6 /* MenuBarGameSummaryMapper.swift */; };
 		041455D8ADA28FDDF6DC3AD0 /* MockGameRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6CC9BD25065338C93F1842 /* MockGameRepository.swift */; };
 		044E3E7B3D87BB88B5335F41 /* KboSpacingToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F99D486EE9B83DC36298CDE /* KboSpacingToken.swift */; };
@@ -161,7 +162,7 @@
 		B9131E3587EB828C77AEA6C3 /* HH.png in Resources */ = {isa = PBXBuildFile; fileRef = EB9E42778130C35C55386ADC /* HH.png */; };
 		BAE6701572FE51B76997999C /* ScoreDigitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98430CCC8189B75F88B812FD /* ScoreDigitsView.swift */; };
 		BCAD006FAEAD802C136A6FD8 /* KboColorToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E7F4854A1805B2F7C22149 /* KboColorToken.swift */; };
-		BDE57F9CDAE6E417B76F420D /* KboLiveWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 88D36275489AE276CDAEA2B5 /* KboLiveWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BDE57F9CDAE6E417B76F420D /* KboLiveWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 88D36275489AE276CDAEA2B5 /* KboLiveWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C084367D62D0582223E2CD07 /* KboColorToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E7F4854A1805B2F7C22149 /* KboColorToken.swift */; };
 		C1460717A6BE0085629963E5 /* PitchCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EB6364D9E774CAD4FC5FDB /* PitchCountView.swift */; };
 		C195AC5FBCB4C38EFFBE3A9B /* BackendSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A686C354EF0ED378A734CE4C /* BackendSettingsView.swift */; };
@@ -171,12 +172,12 @@
 		C438FB8E9398F2E47B990A9A /* WidgetGameSnapshotMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC156241B24A8F38DE0E32B8 /* WidgetGameSnapshotMapper.swift */; };
 		C44FEB7D26B41C46DE6E5582 /* KboTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59579DB8DE6E2D5FE9BEA6F5 /* KboTheme.swift */; };
 		C475DDD0F0AFA853C3217CBF /* KboMotionToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DD52C08C8040555947A491 /* KboMotionToken.swift */; };
-		C7350E9F6F9242B58D4E3A10 /* KboGlassToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F8A916C3E4F61B29C75E8 /* KboGlassToken.swift */; };
 		C591CE4C5DB0022E1042BE39 /* KboCommandBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29611A483DBC1A46C51B34FE /* KboCommandBar.swift */; };
 		C5EEBB915C1C4B0F04E3E1AE /* KboPrimaryActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554A1540C411A99F6FC3A626 /* KboPrimaryActionButton.swift */; };
 		C66965BA3D5289A471C2E354 /* KboTypographyToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAE26336A903AAF0A3B5267 /* KboTypographyToken.swift */; };
 		C6A93582C4BEBAFC1A605E25 /* TeamColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52E1E0947A31920164810C7 /* TeamColorPalette.swift */; };
 		C722EF5B36D5ECD40F616514 /* ActivityGameStateMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926BDC39BB01A80C4EDB3F95 /* ActivityGameStateMapper.swift */; };
+		C7350E9F6F9242B58D4E3A10 /* KboGlassToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F8A916C3E4F61B29C75E8 /* KboGlassToken.swift */; };
 		C74A39F0326909378AAF0289 /* GameFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F45520806D38A86D25558BC /* GameFeed.swift */; };
 		C78D1E4A920F6B53AC9D0178 /* TeamStandings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9C8B2A731F0E6A55C3D9B0 /* TeamStandings.swift */; };
 		C9E47EB9EFC8965AA913A7A8 /* AppNavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CAD9358DA427001339338C /* AppNavigationModel.swift */; };
@@ -230,7 +231,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				BDE57F9CDAE6E417B76F420D /* KboLiveWidgetExtension.appex in Embed Foundation Extensions */,
+				BDE57F9CDAE6E417B76F420D /* KboLiveWidget.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -239,6 +240,7 @@
 
 /* Begin PBXFileReference section */
 		0F14CC290ED97830D3BFFAD1 /* MenuBarDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarDashboardView.swift; sourceTree = "<group>"; };
+		0112A0B8F48A1E1200A0C002 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11EB6364D9E774CAD4FC5FDB /* PitchCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchCountView.swift; sourceTree = "<group>"; };
 		124ED7DD1CE51D329E5B54AD /* OutCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutCountView.swift; sourceTree = "<group>"; };
 		170A03EF828CFD2DE490A3D9 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
@@ -248,12 +250,13 @@
 		2ACFF97E39BE078C429098F5 /* TeamColorResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamColorResolver.swift; sourceTree = "<group>"; };
 		2BFBA95BCA60FA7810B57CD6 /* MenuBarGameSummaryMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarGameSummaryMapper.swift; sourceTree = "<group>"; };
 		367EA61F763FBEE507EC308A /* KboLivemacOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KboLivemacOSApp.swift; sourceTree = "<group>"; };
-		36ADC9E8E692729D597A76EE /* KboLivemacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KboLivemacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		36ADC9E8E692729D597A76EE /* KboLiveApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KboLiveApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		377CB07430236523622F00C5 /* KboControlToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KboControlToken.swift; sourceTree = "<group>"; };
 		3F45520806D38A86D25558BC /* GameFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFeed.swift; sourceTree = "<group>"; };
 		4871B27DCDD1FA6DF5CFB331 /* LiveGameActivityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveGameActivityController.swift; sourceTree = "<group>"; };
-		4DD4549DE87B250463A5D190 /* TodayGamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayGamesView.swift; sourceTree = "<group>"; };
 		4D0F8A916C3E4F61B29C75E8 /* KboGlassToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KboGlassToken.swift; sourceTree = "<group>"; };
+		4D9C8B2A731F0E6A55C3D9B0 /* TeamStandings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamStandings.swift; sourceTree = "<group>"; };
+		4DD4549DE87B250463A5D190 /* TodayGamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayGamesView.swift; sourceTree = "<group>"; };
 		5070F61F85A0ED473884F3BB /* KboLiveHomeRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KboLiveHomeRootView.swift; sourceTree = "<group>"; };
 		52F837D57B975899B142B7F3 /* LiveGameActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveGameActivityAttributes.swift; sourceTree = "<group>"; };
 		554A1540C411A99F6FC3A626 /* KboPrimaryActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KboPrimaryActionButton.swift; sourceTree = "<group>"; };
@@ -272,7 +275,7 @@
 		858AFEDE6438D42D0ACE7705 /* GameRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRepository.swift; sourceTree = "<group>"; };
 		85B79222474193C056684971 /* KboEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KboEmptyStateView.swift; sourceTree = "<group>"; };
 		8805E55C67E4AD75C8F65B17 /* KT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KT.png; sourceTree = "<group>"; };
-		88D36275489AE276CDAEA2B5 /* KboLiveWidgetExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = KboLiveWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		88D36275489AE276CDAEA2B5 /* KboLiveWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = KboLiveWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BE6777EA72E07EB39F6A0C8 /* TodayGameWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayGameWidget.swift; sourceTree = "<group>"; };
 		8D1278DBE81ECB048C453EE2 /* AppRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRuntime.swift; sourceTree = "<group>"; };
 		9260D96448AE10F25C20DB26 /* SampleGameFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleGameFactory.swift; sourceTree = "<group>"; };
@@ -281,6 +284,7 @@
 		98430CCC8189B75F88B812FD /* ScoreDigitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreDigitsView.swift; sourceTree = "<group>"; };
 		9A6CC9BD25065338C93F1842 /* MockGameRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGameRepository.swift; sourceTree = "<group>"; };
 		9D1D5D08B71C14FE895639D7 /* SK.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SK.png; sourceTree = "<group>"; };
+		9E7A0BC58D41F263CA19E4D2 /* TeamStandingsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamStandingsDTO.swift; sourceTree = "<group>"; };
 		9EA6750E0EA4DDD3FF969124 /* KboLiveWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KboLiveWidgetBundle.swift; sourceTree = "<group>"; };
 		A2158310D98D121771C11DD5 /* GameDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailViewModel.swift; sourceTree = "<group>"; };
 		A26DF245E991A188DDF5D19D /* BaseDiamondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDiamondView.swift; sourceTree = "<group>"; };
@@ -291,6 +295,7 @@
 		AC156241B24A8F38DE0E32B8 /* WidgetGameSnapshotMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetGameSnapshotMapper.swift; sourceTree = "<group>"; };
 		B2FBF395F0C0973B1F683E06 /* WidgetGameSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetGameSnapshot.swift; sourceTree = "<group>"; };
 		B552D9873A04FC7F241B1181 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B66A73DF14E0C98A2D7F501B /* TeamStandingsDTOMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamStandingsDTOMapper.swift; sourceTree = "<group>"; };
 		B69A1866B76532FFC55C6334 /* GameDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailView.swift; sourceTree = "<group>"; };
 		C24D68EAD2FADAC6B1466068 /* LT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LT.png; sourceTree = "<group>"; };
 		C2C1B71B6B06E0A008D4EFF9 /* ActivityGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityGameState.swift; sourceTree = "<group>"; };
@@ -317,10 +322,7 @@
 		F560BB57EFA2F8B109601B05 /* TodayGamesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayGamesViewModel.swift; sourceTree = "<group>"; };
 		F9F9677C6F7731A6E3841ABE /* TeamBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamBadgeView.swift; sourceTree = "<group>"; };
 		FCD0AA2301EB0C580346526B /* GameDTOMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDTOMapper.swift; sourceTree = "<group>"; };
-		FFD4C234FBF17B418D17F3AC /* KboLiveiOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = KboLiveiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4D9C8B2A731F0E6A55C3D9B0 /* TeamStandings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamStandings.swift; sourceTree = "<group>"; };
-		9E7A0BC58D41F263CA19E4D2 /* TeamStandingsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamStandingsDTO.swift; sourceTree = "<group>"; };
-		B66A73DF14E0C98A2D7F501B /* TeamStandingsDTOMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamStandingsDTOMapper.swift; sourceTree = "<group>"; };
+		FFD4C234FBF17B418D17F3AC /* KboLiveiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KboLiveiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -440,6 +442,7 @@
 		587008BB40BD4FAE148F29D4 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				0112A0B8F48A1E1200A0C002 /* Assets.xcassets */,
 				7FE5DC9EA71E1B3B98EAEC91 /* KboLiveiOSApp.swift */,
 			);
 			name = iOS;
@@ -518,8 +521,8 @@
 			isa = PBXGroup;
 			children = (
 				FFD4C234FBF17B418D17F3AC /* KboLiveiOS.app */,
-				36ADC9E8E692729D597A76EE /* KboLivemacOS.app */,
-				88D36275489AE276CDAEA2B5 /* KboLiveWidgetExtension.appex */,
+				36ADC9E8E692729D597A76EE /* KboLiveApp.app */,
+				88D36275489AE276CDAEA2B5 /* KboLiveWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -637,7 +640,7 @@
 			packageProductDependencies = (
 			);
 			productName = KboLiveWidgetExtension;
-			productReference = 88D36275489AE276CDAEA2B5 /* KboLiveWidgetExtension.appex */;
+			productReference = 88D36275489AE276CDAEA2B5 /* KboLiveWidget.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		A0DDADF571930F291E9D229E /* KboLiveiOS */ = {
@@ -674,8 +677,8 @@
 			name = KboLivemacOS;
 			packageProductDependencies = (
 			);
-			productName = KboLivemacOS;
-			productReference = 36ADC9E8E692729D597A76EE /* KboLivemacOS.app */;
+			productName = KboLiveApp;
+			productReference = 36ADC9E8E692729D597A76EE /* KboLiveApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -685,9 +688,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1430;
-				TargetAttributes = {
-				};
+				LastUpgradeCheck = 2650;
 			};
 			buildConfigurationList = 1FDD86F768D0A96CDEAF8587 /* Build configuration list for PBXProject "KboLiveApp" */;
 			developmentRegion = en;
@@ -732,6 +733,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0112A0B8F48A1E1200A0C001 /* Assets.xcassets in Resources */,
 				DCC65A066CEA014A5696E612 /* HH.png in Resources */,
 				B032538B0C0932B48A735208 /* HT.png in Resources */,
 				D9171F6CA0738181EB337E38 /* KT.png in Resources */,
@@ -968,6 +970,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = KboLiveApp/macOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -975,7 +978,7 @@
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.suhohan.kbo-live.macos";
-				PRODUCT_NAME = KboLive;
+				PRODUCT_NAME = KboLiveApp;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -1015,9 +1018,11 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1033,6 +1038,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 6.0;
@@ -1044,28 +1050,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_KEY_CFBundleDisplayName = KboLive;
-				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = (
-					UIInterfaceOrientationPortrait,
-					UIInterfaceOrientationPortraitUpsideDown,
-					UIInterfaceOrientationLandscapeLeft,
-					UIInterfaceOrientationLandscapeRight,
-				);
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = (
-					UIInterfaceOrientationPortrait,
-					UIInterfaceOrientationLandscapeLeft,
-					UIInterfaceOrientationLandscapeRight,
-				);
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = KboLiveApp/iOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.suhohan.kbo-live.ios";
-				PRODUCT_NAME = KboLive;
+				PRODUCT_NAME = KboLiveiOS;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1076,6 +1068,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = KboLiveApp/macOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1083,7 +1076,7 @@
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.suhohan.kbo-live.macos";
-				PRODUCT_NAME = KboLive;
+				PRODUCT_NAME = KboLiveApp;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -1091,15 +1084,14 @@
 		8E43F9EC8E13E0E8FAFA68B4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_KEY_CFBundleDisplayName = KboLiveWidget;
-				INFOPLIST_KEY_NSExtensionPointIdentifier = "com.apple.widgetkit-extension";
-				INFOPLIST_KEY_NSExtensionPrincipalClass = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = KboLiveApp/Widget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.suhohan.kbo-live.widget";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.suhohan.kbo-live.ios.widget";
 				PRODUCT_NAME = KboLiveWidget;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1112,28 +1104,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_KEY_CFBundleDisplayName = KboLive;
-				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = (
-					UIInterfaceOrientationPortrait,
-					UIInterfaceOrientationPortraitUpsideDown,
-					UIInterfaceOrientationLandscapeLeft,
-					UIInterfaceOrientationLandscapeRight,
-				);
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = (
-					UIInterfaceOrientationPortrait,
-					UIInterfaceOrientationLandscapeLeft,
-					UIInterfaceOrientationLandscapeRight,
-				);
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = KboLiveApp/iOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.suhohan.kbo-live.ios";
-				PRODUCT_NAME = KboLive;
+				PRODUCT_NAME = KboLiveiOS;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1142,15 +1120,14 @@
 		AC6B59B40AF697EA0E96CDFE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_KEY_CFBundleDisplayName = KboLiveWidget;
-				INFOPLIST_KEY_NSExtensionPointIdentifier = "com.apple.widgetkit-extension";
-				INFOPLIST_KEY_NSExtensionPrincipalClass = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = KboLiveApp/Widget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.suhohan.kbo-live.widget";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.suhohan.kbo-live.ios.widget";
 				PRODUCT_NAME = KboLiveWidget;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1193,9 +1170,11 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1218,6 +1197,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 6.0;

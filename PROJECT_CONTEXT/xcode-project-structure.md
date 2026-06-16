@@ -77,15 +77,17 @@ KboLiveApp targets
 
 - `KboLiveiOS`
   - iOS app
+  - product name: `KboLiveiOS`
   - bundle id: `com.suhohan.kbo-live.ios`
   - Live Activities 활성화
 - `KboLivemacOS`
   - macOS app
+  - product name: `KboLiveApp`
   - bundle id: `com.suhohan.kbo-live.macos`
   - `MenuBarExtra` 기반 엔트리 포함
 - `KboLiveWidgetExtension`
   - iOS widget extension
-  - bundle id: `com.suhohan.kbo-live.widget`
+  - bundle id: `com.suhohan.kbo-live.ios.widget`
   - Today widget + Live Activity widget 포함
 
 배포 타깃:

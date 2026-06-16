@@ -24,22 +24,10 @@ targets:
       - target: KboLiveWidgetExtension
     settings:
       base:
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: KboLiveApp/iOS/Info.plist
         PRODUCT_BUNDLE_IDENTIFIER: com.suhohan.kbo-live.ios
-        PRODUCT_NAME: KboLive
-        INFOPLIST_KEY_CFBundleDisplayName: KboLive
-        INFOPLIST_KEY_NSSupportsLiveActivities: YES
-        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
-        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
-        INFOPLIST_KEY_UILaunchScreen_Generation: YES
-        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone:
-          - UIInterfaceOrientationPortrait
-          - UIInterfaceOrientationLandscapeLeft
-          - UIInterfaceOrientationLandscapeRight
-        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad:
-          - UIInterfaceOrientationPortrait
-          - UIInterfaceOrientationPortraitUpsideDown
-          - UIInterfaceOrientationLandscapeLeft
-          - UIInterfaceOrientationLandscapeRight
+        PRODUCT_NAME: KboLiveiOS
   KboLivemacOS:
     type: application
     platform: macOS
@@ -52,7 +40,7 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.suhohan.kbo-live.macos
-        PRODUCT_NAME: KboLive
+        PRODUCT_NAME: KboLiveApp
         GENERATE_INFOPLIST_FILE: NO
         INFOPLIST_FILE: KboLiveApp/macOS/Info.plist
   KboLiveWidgetExtension:
@@ -66,11 +54,10 @@ targets:
       - path: KboLiveApp/Widget
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.suhohan.kbo-live.widget
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: KboLiveApp/Widget/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.suhohan.kbo-live.ios.widget
         PRODUCT_NAME: KboLiveWidget
-        INFOPLIST_KEY_CFBundleDisplayName: KboLiveWidget
-        INFOPLIST_KEY_NSExtensionPointIdentifier: com.apple.widgetkit-extension
-        INFOPLIST_KEY_NSExtensionPrincipalClass: ""
         SKIP_INSTALL: YES
 schemes:
   KboLiveiOS:
