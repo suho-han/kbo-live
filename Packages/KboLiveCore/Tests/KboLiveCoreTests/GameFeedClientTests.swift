@@ -5,10 +5,8 @@ import Testing
 struct GameFeedClientTests {
     @Test func fetchTodayGamesDelegatesToRepository() async throws {
         let game = makeGame(id: "game-1")
-        let client = GameFeedClient(
-            repository: MockGameRepository(
-                todayGames: TodayGames(date: "20260610", games: [game])
-            )
+        let client = GameFeedClient.mock(
+            todayGames: TodayGames(date: "20260610", games: [game])
         )
 
         let result = try await client.fetchTodayGames(date: "2026-06-10")
@@ -19,13 +17,11 @@ struct GameFeedClientTests {
 
     @Test func fetchGameDetailUsesMockDetailById() async throws {
         let game = makeGame(id: "game-1")
-        let client = GameFeedClient(
-            repository: MockGameRepository(
-                todayGames: TodayGames(date: "20260610", games: [game]),
-                gameDetailsById: [
-                    "game-1": GameDetail(date: "20260610", game: game)
-                ]
-            )
+        let client = GameFeedClient.mock(
+            todayGames: TodayGames(date: "20260610", games: [game]),
+            gameDetailsById: [
+                "game-1": GameDetail(date: "20260610", game: game)
+            ]
         )
 
         let result = try await client.fetchGameDetail(gameId: "game-1", date: nil)
@@ -35,10 +31,8 @@ struct GameFeedClientTests {
 
     @Test func streamTodayGamesYieldsImmediately() async throws {
         let game = makeGame(id: "game-1")
-        let client = GameFeedClient(
-            repository: MockGameRepository(
-                todayGames: TodayGames(date: "20260610", games: [game])
-            ),
+        let client = GameFeedClient.mock(
+            todayGames: TodayGames(date: "20260610", games: [game]),
             pollingInterval: .seconds(60)
         )
         var iterator = client.streamTodayGames(date: nil).makeAsyncIterator()
@@ -46,6 +40,23 @@ struct GameFeedClientTests {
         let first = try await iterator.next()
 
         #expect(first?.games == [game])
+    }
+
+    @Test func liveFactoryUsesEnvironmentDefaults() {
+        let client = GameFeedClient.live()
+
+        #expect(client.pollingInterval == KboLiveEnvironment.defaultPollingInterval)
+        #expect(KboLiveEnvironment().baseURL == KboLiveEnvironment.defaultBaseURL)
+        #expect(KboLiveEnvironment().apiPathPrefix == KboLiveEnvironment.defaultAPIPathPrefix)
+    }
+
+    @Test func mockFactoryAllowsCustomPollingInterval() {
+        let client = GameFeedClient.mock(
+            todayGames: TodayGames(date: "20260610", games: []),
+            pollingInterval: .seconds(45)
+        )
+
+        #expect(client.pollingInterval == .seconds(45))
     }
 }
 

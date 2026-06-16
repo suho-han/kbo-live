@@ -7,7 +7,10 @@ public struct GameFeedClient: Sendable {
     public let repository: any GameRepository
     public let pollingInterval: Duration
 
-    public init(repository: any GameRepository, pollingInterval: Duration = .seconds(15)) {
+    public init(
+        repository: any GameRepository,
+        pollingInterval: Duration = KboLiveEnvironment.defaultPollingInterval
+    ) {
         self.repository = repository
         self.pollingInterval = pollingInterval
     }
@@ -18,6 +21,7 @@ public struct GameFeedClient: Sendable {
     ) -> GameFeedClient {
         let apiClient = URLSessionKboLiveAPIClient(
             baseURL: environment.baseURL,
+            apiPathPrefix: environment.apiPathPrefix,
             session: session
         )
         let repository = LiveGameRepository(apiClient: apiClient)
@@ -28,13 +32,32 @@ public struct GameFeedClient: Sendable {
     }
 
     public static func live(
-        baseURL: URL,
-        pollingInterval: Duration = .seconds(15),
+        baseURL: URL = KboLiveEnvironment.defaultBaseURL,
+        apiPathPrefix: String = KboLiveEnvironment.defaultAPIPathPrefix,
+        pollingInterval: Duration = KboLiveEnvironment.defaultPollingInterval,
         session: any HTTPSession = URLSession.shared
     ) -> GameFeedClient {
         live(
-            environment: KboLiveEnvironment(baseURL: baseURL, pollingInterval: pollingInterval),
+            environment: KboLiveEnvironment(
+                baseURL: baseURL,
+                apiPathPrefix: apiPathPrefix,
+                pollingInterval: pollingInterval
+            ),
             session: session
+        )
+    }
+
+    public static func mock(
+        todayGames: TodayGames,
+        gameDetailsById: [String: GameDetail] = [:],
+        pollingInterval: Duration = KboLiveEnvironment.defaultPollingInterval
+    ) -> GameFeedClient {
+        GameFeedClient(
+            repository: MockGameRepository(
+                todayGames: todayGames,
+                gameDetailsById: gameDetailsById
+            ),
+            pollingInterval: pollingInterval
         )
     }
 

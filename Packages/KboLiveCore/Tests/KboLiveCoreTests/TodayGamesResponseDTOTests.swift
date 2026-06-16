@@ -39,6 +39,28 @@ struct TodayGamesResponseDTOTests {
         #expect(mapped.inning?.half == .bottom)
     }
 
+    @Test func decodesBackendLiveContractFixture() throws {
+        let data = try FixtureLoader.loadData(named: "live-test-game-response")
+        let decoded = try JSONDecoder().decode(TodayGamesResponseDTO.self, from: data)
+        let game = try #require(decoded.games.first)
+        let mapped = GameDTOMapper.map(game)
+
+        #expect(decoded.date == "20260615")
+        #expect(mapped.id == "20260615LTHH0")
+        #expect(mapped.status == .live)
+        #expect(mapped.score.away == 12)
+        #expect(mapped.score.home == 9)
+        #expect(mapped.inning?.number == 7)
+        #expect(mapped.inning?.half == .bottom)
+        #expect(mapped.bases?.first == true)
+        #expect(mapped.bases?.second == true)
+        #expect(mapped.bases?.third == false)
+        #expect(mapped.current?.batter == "노시환")
+        #expect(mapped.teamRecords?.home?.rank == 3)
+        #expect(mapped.boxScore?.away.runs == 12)
+        #expect(mapped.recentPlay == "7회말 한화 공격, 1사 1,2루에서 노시환 타석")
+    }
+
     @Test func parsesExtendedIsoStartTimeIntoDate() {
         let dto = GameDTO(
             gameId: "extended-iso",

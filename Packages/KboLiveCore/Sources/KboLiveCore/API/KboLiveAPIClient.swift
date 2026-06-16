@@ -18,21 +18,52 @@ public enum KboLiveAPIError: Error, Sendable, Equatable {
     case invalidBaseURL
     case invalidResponse
     case unexpectedStatusCode(Int)
+    case server(statusCode: Int, code: String, message: String)
     case emptyResponse
+}
+
+extension KboLiveAPIError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .invalidBaseURL:
+            return "백엔드 URL 형식이 올바르지 않습니다."
+        case .invalidResponse:
+            return "백엔드 서버 응답을 해석할 수 없습니다."
+        case let .unexpectedStatusCode(statusCode):
+            return "백엔드 서버가 오류 상태를 반환했습니다. HTTP \(statusCode)"
+        case let .server(_, _, message):
+            return message
+        case .emptyResponse:
+            return "백엔드 서버 응답이 비어 있습니다."
+        }
+    }
+}
+
+private struct APIErrorResponseDTO: Decodable {
+    struct ErrorBody: Decodable {
+        let code: String
+        let message: String
+        let statusCode: Int?
+    }
+
+    let error: ErrorBody
 }
 
 public struct URLSessionKboLiveAPIClient: KboLiveAPIClient, Sendable {
     public let baseURL: URL
+    public let apiPathPrefix: String
 
     private let session: any HTTPSession
     private let decoder: JSONDecoder
 
     public init(
         baseURL: URL,
+        apiPathPrefix: String = KboLiveEnvironment.defaultAPIPathPrefix,
         session: any HTTPSession = URLSession.shared,
         decoder: JSONDecoder = JSONDecoder()
     ) {
         self.baseURL = baseURL
+        self.apiPathPrefix = Self.normalizedPath(apiPathPrefix)
         self.session = session
         self.decoder = decoder
     }
@@ -54,19 +85,14 @@ public struct URLSessionKboLiveAPIClient: KboLiveAPIClient, Sendable {
             throw KboLiveAPIError.invalidBaseURL
         }
 
-        let normalizedPath: String
-        if path.hasPrefix("/") {
-            normalizedPath = path
-        } else {
-            normalizedPath = "/" + path
-        }
+        let normalizedPath = Self.normalizedPath(path)
 
         let basePath = components.path.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
-        if basePath.isEmpty {
-            components.path = normalizedPath
-        } else {
-            components.path = "/" + basePath + normalizedPath
-        }
+        let prefix = apiPathPrefix.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+        let requestPath = normalizedPath.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+        let effectivePrefix = Self.shouldAppendPrefix(prefix, to: basePath) ? prefix : ""
+        let pathParts = [basePath, effectivePrefix, requestPath].filter { $0.isEmpty == false }
+        components.path = "/" + pathParts.joined(separator: "/")
 
         if let date, date.isEmpty == false {
             components.queryItems = [
@@ -84,6 +110,27 @@ public struct URLSessionKboLiveAPIClient: KboLiveAPIClient, Sendable {
         return request
     }
 
+    private static func normalizedPath(_ path: String) -> String {
+        let trimmed = path.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+        guard trimmed.isEmpty == false else {
+            return ""
+        }
+
+        return "/" + trimmed
+    }
+
+    private static func shouldAppendPrefix(_ prefix: String, to basePath: String) -> Bool {
+        guard prefix.isEmpty == false else {
+            return false
+        }
+
+        guard basePath.isEmpty == false else {
+            return true
+        }
+
+        return basePath != prefix && basePath.hasSuffix("/" + prefix) == false
+    }
+
     private func perform(_ request: URLRequest) async throws -> Data {
         let (data, response) = try await session.data(for: request)
 
@@ -92,6 +139,13 @@ public struct URLSessionKboLiveAPIClient: KboLiveAPIClient, Sendable {
         }
 
         guard (200..<300).contains(httpResponse.statusCode) else {
+            if let apiError = try? decoder.decode(APIErrorResponseDTO.self, from: data) {
+                throw KboLiveAPIError.server(
+                    statusCode: apiError.error.statusCode ?? httpResponse.statusCode,
+                    code: apiError.error.code,
+                    message: apiError.error.message
+                )
+            }
             throw KboLiveAPIError.unexpectedStatusCode(httpResponse.statusCode)
         }
 

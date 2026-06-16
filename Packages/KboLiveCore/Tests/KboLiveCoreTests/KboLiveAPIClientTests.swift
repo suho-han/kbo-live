@@ -10,7 +10,7 @@ struct KboLiveAPIClientTests {
         let session = TestHTTPSession { request in
             #expect(request.httpMethod == "GET")
             #expect(request.value(forHTTPHeaderField: "Accept") == "application/json")
-            #expect(request.url?.absoluteString == "http://localhost:3000/games/today?date=2026-06-10")
+            #expect(request.url?.absoluteString == "http://localhost:3000/v1/games/today?date=2026-06-10")
 
             let data = try FixtureLoader.loadData(named: "today-games-response")
             let response = HTTPURLResponse(url: try #require(request.url), statusCode: 200, httpVersion: nil, headerFields: nil)!
@@ -26,6 +26,65 @@ struct KboLiveAPIClientTests {
 
         #expect(response.date == "20260610")
         #expect(response.games.count == 2)
+    }
+
+    @Test func fetchTodayGamesAllowsUnversionedCompatibilityPath() async throws {
+        let session = TestHTTPSession { request in
+            #expect(request.url?.absoluteString == "http://localhost:3000/games/today?date=2026-06-10")
+
+            let data = try FixtureLoader.loadData(named: "today-games-response")
+            let response = HTTPURLResponse(url: try #require(request.url), statusCode: 200, httpVersion: nil, headerFields: nil)!
+            return (data, response)
+        }
+
+        let client = URLSessionKboLiveAPIClient(
+            baseURL: try #require(URL(string: "http://localhost:3000")),
+            apiPathPrefix: "",
+            session: session
+        )
+
+        let response = try await client.fetchTodayGames(date: "2026-06-10")
+
+        #expect(response.date == "20260610")
+    }
+
+    @Test func fetchTodayGamesDoesNotDuplicateVersionPrefixAlreadyInBaseURL() async throws {
+        let session = TestHTTPSession { request in
+            #expect(request.url?.absoluteString == "http://localhost:3000/v1/games/today?date=2026-06-10")
+
+            let data = try FixtureLoader.loadData(named: "today-games-response")
+            let response = HTTPURLResponse(url: try #require(request.url), statusCode: 200, httpVersion: nil, headerFields: nil)!
+            return (data, response)
+        }
+
+        let client = URLSessionKboLiveAPIClient(
+            baseURL: try #require(URL(string: "http://localhost:3000/v1")),
+            session: session
+        )
+
+        let response = try await client.fetchTodayGames(date: "2026-06-10")
+
+        #expect(response.date == "20260610")
+    }
+
+    @Test func fetchTodayGamesDoesNotDuplicateNestedVersionPrefixAlreadyInBaseURL() async throws {
+        let session = TestHTTPSession { request in
+            #expect(request.url?.absoluteString == "http://localhost:3000/api/v1/games/today?date=2026-06-10")
+
+            let data = try FixtureLoader.loadData(named: "today-games-response")
+            let response = HTTPURLResponse(url: try #require(request.url), statusCode: 200, httpVersion: nil, headerFields: nil)!
+            return (data, response)
+        }
+
+        let client = URLSessionKboLiveAPIClient(
+            baseURL: try #require(URL(string: "http://localhost:3000/api/v1")),
+            apiPathPrefix: "/api/v1",
+            session: session
+        )
+
+        let response = try await client.fetchTodayGames(date: "2026-06-10")
+
+        #expect(response.date == "20260610")
     }
 
     @Test func fetchGameDetailUsesGameSpecificPath() async throws {
@@ -57,7 +116,7 @@ struct KboLiveAPIClientTests {
         """
 
         let session = TestHTTPSession { request in
-            #expect(request.url?.absoluteString == "http://localhost:3000/games/20260610SKLG0?date=2026-06-10")
+            #expect(request.url?.absoluteString == "http://localhost:3000/v1/games/20260610SKLG0?date=2026-06-10")
 
             let data = Data(body.utf8)
             let response = HTTPURLResponse(url: try #require(request.url), statusCode: 200, httpVersion: nil, headerFields: nil)!
@@ -87,6 +146,35 @@ struct KboLiveAPIClientTests {
 
         await #expect(throws: KboLiveAPIError.unexpectedStatusCode(503)) {
             _ = try await client.fetchTodayGames(date: nil)
+        }
+    }
+
+    @Test func decodesNormalizedServerErrorResponse() async {
+        let body = """
+        {
+          "error": {
+            "code": "INVALID_DATE",
+            "message": "invalid date format: 2026",
+            "statusCode": 400
+          }
+        }
+        """
+        let session = TestHTTPSession { request in
+            let response = HTTPURLResponse(url: try #require(request.url), statusCode: 400, httpVersion: nil, headerFields: nil)!
+            return (Data(body.utf8), response)
+        }
+
+        let client = URLSessionKboLiveAPIClient(
+            baseURL: URL(string: "http://localhost:3000")!,
+            session: session
+        )
+
+        await #expect(throws: KboLiveAPIError.server(
+            statusCode: 400,
+            code: "INVALID_DATE",
+            message: "invalid date format: 2026"
+        )) {
+            _ = try await client.fetchTodayGames(date: "2026")
         }
     }
 }
