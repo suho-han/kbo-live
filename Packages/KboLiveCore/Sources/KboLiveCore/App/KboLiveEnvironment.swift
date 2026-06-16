@@ -1,7 +1,7 @@
 import Foundation
 
 public struct KboLiveEnvironment: Sendable, Equatable {
-    public static let defaultBaseURL = URL(string: "http://127.0.0.1:3000")!
+    public static let defaultBaseURL = URL(string: "http://127.0.0.1:17361")!
     public static let productionBaseURL = URL(string: "http://140.245.66.62:17361")!
     public static let defaultAPIPathPrefix = "/v1"
     public static let defaultPollingInterval: Duration = .seconds(15)

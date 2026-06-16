@@ -201,19 +201,26 @@ public struct TodayGamesView: View {
                 standingsFailureView(message: message)
             default:
                 KboGlassPanel(style: .card, cornerRadius: 20) {
-                    VStack(spacing: 0) {
-                        ForEach(Array(viewModel.standings.prefix(10).enumerated()), id: \.element.id) { index, standing in
-                            TeamStandingRowView(
-                                standing: standing,
-                                isFavorite: standing.team.id == viewModel.selectedTeamID
-                            )
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        VStack(spacing: 0) {
+                            TeamStandingHeaderRowView()
 
-                            if index < min(viewModel.standings.count, 10) - 1 {
-                                Divider()
-                                    .overlay(KboTheme.mutedBorder.opacity(0.6))
-                                    .padding(.leading, 52)
+                            Divider()
+                                .overlay(KboTheme.mutedBorder.opacity(0.75))
+
+                            ForEach(Array(viewModel.standings.prefix(10).enumerated()), id: \.element.id) { index, standing in
+                                TeamStandingRowView(
+                                    standing: standing,
+                                    isFavorite: standing.team.id == viewModel.selectedTeamID
+                                )
+
+                                if index < min(viewModel.standings.count, 10) - 1 {
+                                    Divider()
+                                        .overlay(KboTheme.mutedBorder.opacity(0.6))
+                                }
                             }
                         }
+                        .frame(minWidth: 808, alignment: .leading)
                     }
                     .padding(.vertical, 4)
                 }
@@ -563,53 +570,48 @@ private struct MyTeamSummaryCardView: View {
     }
 }
 
+private struct TeamStandingHeaderRowView: View {
+    var body: some View {
+        TeamStandingTableRowLayout(
+            rank: "순위",
+            team: "팀",
+            wins: "승",
+            draws: "무",
+            losses: "패",
+            gamesBack: "승차",
+            winRate: "승률",
+            battingAverage: "타율",
+            recentTen: "최근 10경기",
+            streak: "최근 흐름",
+            rankColor: KboTheme.secondaryText,
+            teamColor: KboTheme.secondaryText,
+            valueColor: KboTheme.secondaryText,
+            isHeader: true
+        )
+    }
+}
+
 private struct TeamStandingRowView: View {
     let standing: TeamStanding
     let isFavorite: Bool
 
     var body: some View {
-        HStack(spacing: 12) {
-            Text(rankText)
-                .font(.system(size: 16, weight: .black))
-                .monospacedDigit()
-                .foregroundStyle(isFavorite ? accentColor : KboTheme.primaryText)
-                .frame(width: 32, alignment: .center)
-
-            TeamBadgeView(
-                shortName: standing.team.name,
-                fullName: standing.team.id,
-                accentColor: accentColor,
-                emphasis: isFavorite ? .highlighted : .normal,
-                fixedWidth: 92,
-                logoSize: 18,
-                nameWidth: 38
-            )
-
-            VStack(alignment: .leading, spacing: 4) {
-                Text(recordText)
-                    .font(KboTypographyToken.caption)
-                    .foregroundStyle(KboTheme.primaryText)
-                    .monospacedDigit()
-
-                Text(detailText)
-                    .font(KboTypographyToken.caption)
-                    .foregroundStyle(KboTheme.secondaryText)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.8)
-            }
-
-            Spacer(minLength: 8)
-
-            if let streak = standing.streak, streak.isEmpty == false {
-                Text(streak)
-                    .font(KboTypographyToken.caption)
-                    .foregroundStyle(isFavorite ? accentColor : KboTheme.secondaryText)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.8)
-            }
-        }
-        .padding(.horizontal, 14)
-        .padding(.vertical, 10)
+        TeamStandingTableRowLayout(
+            rank: rankText,
+            team: standing.team.name,
+            wins: "\(standing.wins)",
+            draws: "\(standing.draws)",
+            losses: "\(standing.losses)",
+            gamesBack: valueText(standing.gamesBack),
+            winRate: valueText(standing.winRate),
+            battingAverage: "-",
+            recentTen: valueText(standing.recentTen),
+            streak: valueText(standing.streak),
+            rankColor: isFavorite ? accentColor : KboTheme.primaryText,
+            teamColor: isFavorite ? accentColor : KboTheme.primaryText,
+            valueColor: KboTheme.primaryText,
+            isHeader: false
+        )
         .background(isFavorite ? accentColor.opacity(0.12) : Color.clear)
     }
 
@@ -621,22 +623,64 @@ private struct TeamStandingRowView: View {
         standing.rank.map { "\($0)" } ?? "-"
     }
 
-    private var recordText: String {
-        "\(standing.wins)승 \(standing.losses)패 \(standing.draws)무"
+    private func valueText(_ value: String?) -> String {
+        guard let value, value.isEmpty == false else {
+            return "-"
+        }
+
+        return value
+    }
+}
+
+private struct TeamStandingTableRowLayout: View {
+    let rank: String
+    let team: String
+    let wins: String
+    let draws: String
+    let losses: String
+    let gamesBack: String
+    let winRate: String
+    let battingAverage: String
+    let recentTen: String
+    let streak: String
+    let rankColor: Color
+    let teamColor: Color
+    let valueColor: Color
+    let isHeader: Bool
+
+    var body: some View {
+        HStack(spacing: 12) {
+            cell(rank, width: 34, alignment: .center, color: rankColor)
+                .font(isHeader ? KboTypographyToken.caption : .system(size: 16, weight: .black))
+
+            cell(team, width: 96, alignment: .leading, color: teamColor)
+                .font(isHeader ? KboTypographyToken.caption : KboTypographyToken.body.weight(.semibold))
+
+            valueCell(wins, width: 38)
+            valueCell(draws, width: 38)
+            valueCell(losses, width: 38)
+            valueCell(gamesBack, width: 52)
+            valueCell(winRate, width: 58)
+            valueCell(battingAverage, width: 52)
+            cell(recentTen, width: 96, alignment: .center, color: isHeader ? KboTheme.secondaryText : valueColor)
+            cell(streak, width: 76, alignment: .center, color: isHeader ? KboTheme.secondaryText : valueColor)
+        }
+        .padding(.horizontal, 14)
+        .padding(.vertical, isHeader ? 9 : 10)
     }
 
-    private var detailText: String {
-        var parts: [String] = []
-        if let winRate = standing.winRate {
-            parts.append("승률 \(winRate)")
-        }
-        if let gamesBack = standing.gamesBack {
-            parts.append("승차 \(gamesBack)")
-        }
-        if let recentTen = standing.recentTen {
-            parts.append("최근 \(recentTen)")
-        }
-        return parts.isEmpty ? "시즌 기록 준비 중" : parts.joined(separator: " · ")
+    private func valueCell(_ text: String, width: CGFloat) -> some View {
+        cell(text, width: width, alignment: .trailing, color: isHeader ? KboTheme.secondaryText : valueColor)
+            .monospacedDigit()
+    }
+
+    private func cell(_ text: String, width: CGFloat, alignment: Alignment, color: Color) -> some View {
+        Text(text)
+            .font(isHeader ? KboTypographyToken.caption : KboTypographyToken.caption)
+            .foregroundStyle(color)
+            .lineLimit(1)
+            .minimumScaleFactor(0.78)
+            .frame(width: width, alignment: alignment)
     }
 }
 

@@ -292,7 +292,7 @@ struct MenuBarDashboardView: View {
     }
 
     private var backendHealthURL: URL? {
-        AppRuntime.backendBaseURL.appending(path: "health")
+        BackendSettingsModel.backendURL(baseURL: AppRuntime.backendBaseURL, path: "ready")
     }
 
     private func teamBadge(for team: Team) -> some View {

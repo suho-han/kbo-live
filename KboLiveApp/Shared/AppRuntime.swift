@@ -16,17 +16,7 @@ enum AppRuntime {
     }
 
     static var backendBaseURL: URL {
-        if let configured = ProcessInfo.processInfo.environment["KBO_LIVE_BASE_URL"],
-           let url = URL(string: configured) {
-            return url
-        }
-
-        if let stored = UserDefaults.standard.string(forKey: KboLiveEnvironment.backendBaseURLDefaultsKey),
-           let url = URL(string: stored) {
-            return url
-        }
-
-        return KboLiveEnvironment.defaultBaseURL
+        return BackendSettingsModel.resolvedBaseURL()
     }
 }
 

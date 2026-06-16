@@ -37,11 +37,13 @@ public final class TodayGamesViewModel: ObservableObject {
     private let saveSelectedTeamID: @Sendable (String?) -> Void
     private var pollingTask: Task<Void, Never>?
     private var pollingDate: String?
+    private var hasAppliedInitialFilter = false
+    private var hasUserSelectedFilter = false
 
     public convenience init(
         client: GameFeedClient,
         title: String = "오늘 경기",
-        filter: GameListFilter = .all,
+        filter: GameListFilter = .live,
         selectedTeamID: String? = nil,
         now: @escaping @Sendable () -> Date = Date.init
     ) {
@@ -68,7 +70,7 @@ public final class TodayGamesViewModel: ObservableObject {
     init(
         client: GameFeedClient,
         title: String = "오늘 경기",
-        filter: GameListFilter = .all,
+        filter: GameListFilter = .live,
         selectedTeamID: String? = nil,
         loadSelectedTeamID: @escaping @Sendable () -> String?,
         saveSelectedTeamID: @escaping @Sendable (String?) -> Void,
@@ -144,6 +146,7 @@ public final class TodayGamesViewModel: ObservableObject {
     }
 
     public func setFilter(_ filter: GameListFilter) {
+        hasUserSelectedFilter = true
         self.filter = filter
     }
 
@@ -170,6 +173,7 @@ public final class TodayGamesViewModel: ObservableObject {
             games = response.games
             responseDate = response.date
             lastUpdatedAt = now()
+            applyInitialFilterIfNeeded()
             state = .loaded
             restartPollingIfNeeded(date: effectiveRequestDate)
         } catch {
@@ -194,6 +198,7 @@ public final class TodayGamesViewModel: ObservableObject {
         standings = []
         lastUpdatedAt = nil
         responseDate = nil
+        hasAppliedInitialFilter = false
         await load(date: requestDate)
     }
 
@@ -230,8 +235,61 @@ public final class TodayGamesViewModel: ObservableObject {
             standings = response.standings
             standingsState = .loaded
         } catch {
-            standingsState = .failed(message: Self.message(for: error))
+            let fallbackStandings = standingsFromGameRecords()
+            if fallbackStandings.isEmpty {
+                standingsState = .failed(message: Self.message(for: error))
+            } else {
+                standings = fallbackStandings
+                standingsState = .loaded
+            }
         }
+    }
+
+    private func standingsFromGameRecords() -> [TeamStanding] {
+        var standingsByTeamID: [String: TeamStanding] = [:]
+
+        for game in games {
+            if let awayRecord = game.teamRecords?.away {
+                standingsByTeamID[game.awayTeam.id] = Self.standing(team: game.awayTeam, record: awayRecord)
+            }
+
+            if let homeRecord = game.teamRecords?.home {
+                standingsByTeamID[game.homeTeam.id] = Self.standing(team: game.homeTeam, record: homeRecord)
+            }
+        }
+
+        return standingsByTeamID.values.sorted { lhs, rhs in
+            let lhsRank = lhs.rank ?? Int.max
+            let rhsRank = rhs.rank ?? Int.max
+            if lhsRank != rhsRank {
+                return lhsRank < rhsRank
+            }
+
+            return lhs.team.id < rhs.team.id
+        }
+    }
+
+    private static func standing(team: Team, record: TeamRecordSummary) -> TeamStanding {
+        TeamStanding(
+            team: team,
+            wins: record.wins,
+            losses: record.losses,
+            draws: record.draws,
+            rank: record.rank,
+            streak: record.streak
+        )
+    }
+
+    private func applyInitialFilterIfNeeded() {
+        guard hasAppliedInitialFilter == false,
+              hasUserSelectedFilter == false,
+              filter == .live else {
+            return
+        }
+
+        hasAppliedInitialFilter = true
+        let hasLiveGame = games.contains { GameListFilter.live.matches($0.status) }
+        filter = hasLiveGame ? .live : .scheduled
     }
 
     private func restartPollingIfNeeded(date: String?) {

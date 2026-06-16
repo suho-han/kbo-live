@@ -48,13 +48,10 @@ final class BackendSettingsModel: ObservableObject {
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
-        let storedPreset = defaults.string(forKey: presetKey).flatMap(BackendPreset.init(rawValue:)) ?? .local
-        let resolvedPreset = Self.baseURLString(for: storedPreset, defaults: defaults) == nil ? .local : storedPreset
+        let storedPreset = defaults.string(forKey: presetKey).flatMap(BackendPreset.init(rawValue:)) ?? .production
+        let resolvedPreset = Self.resolvedPreset(from: storedPreset, defaults: defaults)
         self.selectedPreset = resolvedPreset
-        self.baseURLText = Self.environmentBaseURLString
-            ?? Self.baseURLString(for: resolvedPreset, defaults: defaults)
-            ?? defaults.string(forKey: baseURLKey)
-            ?? Self.defaultBaseURLString
+        self.baseURLText = Self.resolvedBaseURLString(defaults: defaults)
     }
 
     var isEnvironmentOverridden: Bool {
@@ -62,7 +59,7 @@ final class BackendSettingsModel: ObservableObject {
     }
 
     var effectiveBaseURL: URL {
-        Self.normalizedURL(from: baseURLText) ?? URL(string: Self.defaultBaseURLString)!
+        Self.normalizedURL(from: baseURLText) ?? Self.resolvedBaseURL(defaults: defaults)
     }
 
     var selectedPresetTitle: String {
@@ -124,8 +121,8 @@ final class BackendSettingsModel: ObservableObject {
     }
 
     func reset() {
-        selectedPreset = .local
-        baseURLText = Self.environmentBaseURLString ?? Self.defaultBaseURLString
+        selectedPreset = .production
+        baseURLText = Self.environmentBaseURLString ?? Self.productionBaseURLString
         if isEnvironmentOverridden == false {
             defaults.removeObject(forKey: baseURLKey)
             defaults.removeObject(forKey: presetKey)
@@ -162,11 +159,52 @@ final class BackendSettingsModel: ObservableObject {
         }
     }
 
-    static var defaultBaseURLString: String {
+    nonisolated static var defaultBaseURLString: String {
         KboLiveEnvironment.defaultBaseURL.absoluteString.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
     }
 
-    private static func baseURLString(for preset: BackendPreset, defaults: UserDefaults) -> String? {
+    nonisolated static func resolvedBaseURL(defaults: UserDefaults = .standard) -> URL {
+        if let url = normalizedURL(from: resolvedBaseURLString(defaults: defaults)) {
+            return url
+        }
+
+        return KboLiveEnvironment.productionBaseURL
+    }
+
+    nonisolated static func backendURL(baseURL: URL, path: String) -> URL? {
+        backendURL(
+            baseURL: baseURL,
+            path: path,
+            apiPathPrefix: KboLiveEnvironment.defaultAPIPathPrefix
+        )
+    }
+
+    nonisolated private static func resolvedBaseURLString(defaults: UserDefaults) -> String {
+        if let environmentBaseURLString {
+            return environmentBaseURLString
+        }
+
+        if let storedBaseURL = defaults.string(forKey: KboLiveEnvironment.backendBaseURLDefaultsKey),
+           isLegacyLocalBaseURL(storedBaseURL) == false {
+            return storedBaseURL
+        }
+
+        let storedPreset = defaults.string(forKey: "kbo-live.backend-preset")
+            .flatMap(BackendPreset.init(rawValue:)) ?? .production
+        let preset = resolvedPreset(from: storedPreset, defaults: defaults)
+        return baseURLString(for: preset, defaults: defaults) ?? productionBaseURLString
+    }
+
+    nonisolated private static func resolvedPreset(from storedPreset: BackendPreset, defaults: UserDefaults) -> BackendPreset {
+        if let storedBaseURL = defaults.string(forKey: KboLiveEnvironment.backendBaseURLDefaultsKey),
+           isLegacyLocalBaseURL(storedBaseURL) {
+            return .production
+        }
+
+        return baseURLString(for: storedPreset, defaults: defaults) == nil ? .production : storedPreset
+    }
+
+    nonisolated private static func baseURLString(for preset: BackendPreset, defaults: UserDefaults) -> String? {
         switch preset {
         case .local:
             return defaultBaseURLString
@@ -177,24 +215,25 @@ final class BackendSettingsModel: ObservableObject {
         }
     }
 
-    private static var productionBaseURLString: String {
+    nonisolated private static var productionBaseURLString: String {
         KboLiveEnvironment.productionBaseURL.absoluteString.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
     }
 
-    private static var environmentBaseURLString: String? {
+    nonisolated private static var environmentBaseURLString: String? {
         environmentBaseURLString(named: "KBO_LIVE_BASE_URL")
     }
 
-    private static func environmentBaseURLString(named name: String) -> String? {
+    nonisolated private static func environmentBaseURLString(named name: String) -> String? {
         guard let configured = ProcessInfo.processInfo.environment[name],
-              normalizedURL(from: configured) != nil else {
+              normalizedURL(from: configured) != nil,
+              isLegacyLocalBaseURL(configured) == false else {
             return nil
         }
 
         return configured
     }
 
-    private static func normalizedURL(from text: String) -> URL? {
+    nonisolated private static func normalizedURL(from text: String) -> URL? {
         let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard trimmed.isEmpty == false,
               let url = URL(string: trimmed),
@@ -207,7 +246,15 @@ final class BackendSettingsModel: ObservableObject {
         return url
     }
 
-    private static func backendURL(baseURL: URL, path: String, apiPathPrefix: String) -> URL? {
+    nonisolated private static func isLegacyLocalBaseURL(_ text: String) -> Bool {
+        guard let url = normalizedURL(from: text) else {
+            return false
+        }
+
+        return ["127.0.0.1", "localhost"].contains(url.host ?? "") && url.port == 3000
+    }
+
+    nonisolated private static func backendURL(baseURL: URL, path: String, apiPathPrefix: String) -> URL? {
         guard var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: false) else {
             return nil
         }
@@ -221,7 +268,7 @@ final class BackendSettingsModel: ObservableObject {
         return components.url
     }
 
-    private static func shouldAppendPrefix(_ prefix: String, to basePath: String) -> Bool {
+    nonisolated private static func shouldAppendPrefix(_ prefix: String, to basePath: String) -> Bool {
         guard prefix.isEmpty == false else {
             return false
         }

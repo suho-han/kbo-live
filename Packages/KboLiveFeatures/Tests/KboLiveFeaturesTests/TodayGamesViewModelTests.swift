@@ -19,6 +19,7 @@ struct TodayGamesViewModelTests {
                     )
                 )
             ),
+            filter: .all,
             loadSelectedTeamID: { nil },
             saveSelectedTeamID: { _ in },
             now: { Date(timeIntervalSince1970: 1_781_254_800) }
@@ -29,6 +30,52 @@ struct TodayGamesViewModelTests {
         #expect(viewModel.state == .loaded)
         #expect(viewModel.visibleGames.map(\.id) == ["live", "scheduled", "final"])
         #expect(viewModel.lastUpdatedAt == Date(timeIntervalSince1970: 1_781_254_800))
+    }
+
+    @Test func initialFilterPrefersLiveGames() async {
+        let viewModel = TodayGamesViewModel(
+            client: GameFeedClient(
+                repository: MockGameRepository(
+                    todayGames: TodayGames(
+                        date: "20260612",
+                        games: [
+                            makeGame(id: "scheduled", status: .scheduled, startHour: 19),
+                            makeGame(id: "live", status: .live, startHour: 17)
+                        ]
+                    )
+                )
+            ),
+            loadSelectedTeamID: { nil },
+            saveSelectedTeamID: { _ in }
+        )
+
+        await viewModel.load()
+
+        #expect(viewModel.filter == .live)
+        #expect(viewModel.visibleGames.map(\.id) == ["live"])
+    }
+
+    @Test func initialFilterFallsBackToScheduledWhenNoLiveGames() async {
+        let viewModel = TodayGamesViewModel(
+            client: GameFeedClient(
+                repository: MockGameRepository(
+                    todayGames: TodayGames(
+                        date: "20260612",
+                        games: [
+                            makeGame(id: "final", status: .final, startHour: 18),
+                            makeGame(id: "scheduled", status: .scheduled, startHour: 19)
+                        ]
+                    )
+                )
+            ),
+            loadSelectedTeamID: { nil },
+            saveSelectedTeamID: { _ in }
+        )
+
+        await viewModel.load()
+
+        #expect(viewModel.filter == .scheduled)
+        #expect(viewModel.visibleGames.map(\.id) == ["scheduled"])
     }
 
     @Test func setFilterNarrowsVisibleGames() async {
@@ -125,6 +172,39 @@ struct TodayGamesViewModelTests {
         #expect(viewModel.standingsState == .failed(message: "서버에 연결할 수 없습니다."))
     }
 
+    @Test func standingsFailureUsesGameRecordFallback() async {
+        let viewModel = TodayGamesViewModel(
+            client: GameFeedClient(
+                repository: StandingsFailingRepository(
+                    todayGames: TodayGames(
+                        date: "20260612",
+                        games: [
+                            makeGame(
+                                id: "fallback",
+                                status: .live,
+                                startHour: 17,
+                                teamRecords: TeamRecords(
+                                    away: TeamRecordSummary(wins: 39, losses: 24, draws: 2, rank: 2, streak: "1승"),
+                                    home: TeamRecordSummary(wins: 41, losses: 22, draws: 1, rank: 1, streak: "3승")
+                                )
+                            )
+                        ]
+                    )
+                )
+            ),
+            loadSelectedTeamID: { nil },
+            saveSelectedTeamID: { _ in }
+        )
+
+        await viewModel.load()
+
+        #expect(viewModel.state == .loaded)
+        #expect(viewModel.standingsState == .loaded)
+        #expect(viewModel.standings.map(\.team.id) == ["OB", "LG"])
+        #expect(viewModel.standings.first?.rank == 1)
+        #expect(viewModel.standings.first?.streak == "3승")
+    }
+
     @Test func loadWithoutDatePreservesExplicitRequestDate() async {
         let repository = RecordingGameRepository(
             todayGames: TodayGames(
@@ -148,7 +228,12 @@ struct TodayGamesViewModelTests {
     }
 }
 
-private func makeGame(id: String, status: GameStatus, startHour: Int) -> Game {
+private func makeGame(
+    id: String,
+    status: GameStatus,
+    startHour: Int,
+    teamRecords: TeamRecords? = nil
+) -> Game {
     let calendar = Calendar(identifier: .gregorian)
     let startTime = calendar.date(from: DateComponents(
         timeZone: TimeZone(identifier: "Asia/Seoul"),
@@ -174,6 +259,7 @@ private func makeGame(id: String, status: GameStatus, startHour: Int) -> Game {
         current: nil,
         probablePitchers: ProbablePitchers(away: nil, home: nil),
         recentPlay: nil,
+        teamRecords: teamRecords,
         sourceMeta: SourceMeta(rawStatusCode: nil, rawTopBottomCode: nil, fetchedAt: "2026-06-12T10:05:00.000Z")
     )
 }
