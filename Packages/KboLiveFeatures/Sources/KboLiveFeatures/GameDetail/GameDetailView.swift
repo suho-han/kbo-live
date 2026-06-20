@@ -57,19 +57,20 @@ public struct GameDetailView: View {
                     topLine(game: game)
 
                     switch game.status {
-                    case .scheduled, .delayed:
+                    case .scheduled:
                         scheduledAnalysisView(game: game)
                     case .live:
                         liveBallparkView(game: game)
                     case .final:
                         finalScoreboardView(game: game)
-                    case .cancelled, .unknown:
+                    case .delayed, .cancelled, .unknown:
                         unavailableView(game: game)
                     }
 
                     gameInfoGrid(game: game)
 
-                    if let recentPlay = GameProjectionFormatter.shortRecentPlay(game.recentPlay, limit: 220) {
+                    if game.status == .live,
+                       let recentPlay = GameProjectionFormatter.shortRecentPlay(game.recentPlay, limit: 220) {
                         recentPlayCard(recentPlay)
                     }
                 }

@@ -45,6 +45,8 @@ struct MenuBarDashboardView: View {
             Divider()
                 .overlay(KboTheme.mutedBorder.opacity(0.65))
 
+            backendIssueCallout
+
             HStack(spacing: Layout.controlSpacing) {
                 SettingsLink {
                     compactActionButton(title: "설정", systemImage: "gearshape")
@@ -113,6 +115,7 @@ struct MenuBarDashboardView: View {
         } label: {
             MenuBarFeaturedGameCardView(
                 game: game,
+                headline: "나의 팀 경기",
                 favoriteTeamID: viewModel.selectedTeamID
             )
         }
@@ -180,6 +183,45 @@ struct MenuBarDashboardView: View {
         }
 
         return "마지막 갱신 \(Self.lastUpdatedFormatter.string(from: lastUpdatedAt))"
+    }
+
+    @ViewBuilder
+    private var backendIssueCallout: some View {
+        if backendStatus.needsSettingsCTA {
+            SettingsLink {
+                HStack(spacing: 10) {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .font(.caption.weight(.bold))
+                        .foregroundStyle(backendStatus.color)
+
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Backend URL 확인")
+                            .font(.caption.weight(.bold))
+                            .foregroundStyle(KboTheme.primaryText)
+
+                        Text(backendStatus.helpText)
+                            .font(.caption2)
+                            .foregroundStyle(KboTheme.secondaryText)
+                            .lineLimit(2)
+                    }
+
+                    Spacer(minLength: 8)
+
+                    Image(systemName: "chevron.right")
+                        .font(.caption2.weight(.bold))
+                        .foregroundStyle(KboTheme.secondaryText)
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 10)
+                .background(backendStatus.color.opacity(0.12))
+                .clipShape(RoundedRectangle(cornerRadius: Layout.controlCornerRadius, style: .continuous))
+                .overlay {
+                    RoundedRectangle(cornerRadius: Layout.controlCornerRadius, style: .continuous)
+                        .stroke(backendStatus.color.opacity(0.35), lineWidth: 1)
+                }
+            }
+            .buttonStyle(.plain)
+        }
     }
 
     private func compactActionButton(title: String, systemImage: String) -> some View {
@@ -294,6 +336,7 @@ struct MenuBarDashboardView: View {
 
 private struct MenuBarFeaturedGameCardView: View {
     let game: Game
+    let headline: String
     let favoriteTeamID: String?
     @Environment(\.kboFontScale) private var fontScale
 
@@ -307,7 +350,7 @@ private struct MenuBarFeaturedGameCardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .firstTextBaseline, spacing: 8) {
-                Text("대표 경기")
+                Text(headline)
                     .font(KboTypographyToken.caption(scaledBy: fontScale))
                     .foregroundStyle(KboColorToken.statusLive)
 
@@ -697,6 +740,15 @@ private enum BackendServerStatus {
             return "백엔드 서버가 응답하지 않습니다."
         case .notConfigured:
             return "KBO_LIVE_BASE_URL이 설정되지 않았습니다."
+        }
+    }
+
+    var needsSettingsCTA: Bool {
+        switch self {
+        case .inactive, .notConfigured:
+            return true
+        case .checking, .active:
+            return false
         }
     }
 }

@@ -389,7 +389,12 @@ public struct TodayGamesView: View {
             }
 
             if viewModel.selectedTeam == nil {
-                Text("응원 팀을 선택하면 가장 관련 있는 경기를 먼저 보여줍니다.")
+                Text("응원팀을 고르면 오늘 화면과 메뉴바에서 먼저 보여줍니다.")
+                    .font(KboTypographyToken.footnote(scaledBy: fontScale))
+                    .foregroundStyle(KboTheme.secondaryText)
+                    .lineLimit(2)
+            } else if viewModel.favoriteGame == nil {
+                Text("오늘은 응원팀 경기가 없습니다. 리그 전체 경기로 이어서 확인하세요.")
                     .font(KboTypographyToken.footnote(scaledBy: fontScale))
                     .foregroundStyle(KboTheme.secondaryText)
                     .lineLimit(2)
@@ -510,8 +515,10 @@ public struct TodayGamesView: View {
 
     private var emptyFavoriteView: some View {
         KboEmptyStateView(
-            title: viewModel.selectedTeam == nil ? "응원 팀을 선택해 주세요." : "선택한 팀의 오늘 경기가 없습니다.",
-            message: "팀 선택은 상단 메뉴에서 언제든 바꿀 수 있습니다.",
+            title: viewModel.selectedTeam == nil ? "응원팀을 선택해 주세요." : "오늘은 응원팀 경기가 없습니다.",
+            message: viewModel.selectedTeam == nil
+                ? "응원팀을 고르면 오늘 화면과 메뉴바에서 먼저 보여줍니다."
+                : "리그 전체 경기 목록으로 이어서 확인하세요.",
             systemImage: viewModel.selectedTeam == nil ? "person.crop.circle.badge.plus" : "calendar.badge.clock",
             style: .elevated
         )
