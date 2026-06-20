@@ -1,7 +1,7 @@
 # KBO Live Production Backend Strategy
 
 작성일: 2026-06-16
-상태: Working v0.1
+상태: Working v0.2
 
 ## 1. 목적
 
@@ -152,9 +152,10 @@ production backend로 승격할 것:
 
 - 환경변수 `KBO_LIVE_BASE_URL`이 최우선이다.
 - 앱 설정의 backend preset과 저장된 Backend URL이 그 다음이다.
-- 앱 설정은 `local`, `staging`, `production`, `custom` preset을 제공한다.
+- 앱 설정은 `local`, `staging`, `production` preset을 제공한다.
 - `KBO_LIVE_STAGING_BASE_URL`, `KBO_LIVE_PRODUCTION_BASE_URL`은 staging/production preset의 초기 URL로 사용한다.
-- 기본값은 local 개발에서는 `http://127.0.0.1:3000`, production 빌드에서는 production URL이어야 한다.
+- 현재 앱 기본 local URL은 `http://127.0.0.1:17361`이고, production 빌드에서는 production URL을 기본 선택한다.
+- 별도 `custom` preset은 두지 않는다. 각 preset의 URL 입력값을 저장할 수 있으므로 임시 endpoint 검증은 선택한 preset의 URL override로 처리한다.
 
 권장 config:
 
@@ -292,6 +293,13 @@ Phase 3: app environment 전환
 - app build config별 default backend URL 분리
 - Settings UI에서 local/staging/production preset 제공
 - production URL smoke checklist 추가
+
+현재 구현 상태:
+
+- `BackendSettingsModel`은 local/staging/production preset을 제공한다.
+- `KBO_LIVE_BASE_URL`은 모든 preset보다 우선한다.
+- `KBO_LIVE_STAGING_BASE_URL`, `KBO_LIVE_PRODUCTION_BASE_URL`은 각 preset의 초기 URL로 사용한다.
+- 앱 설정에서 저장한 preset별 URL은 재시작 후에도 유지된다.
 
 Phase 4: operationalize
 

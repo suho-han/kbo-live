@@ -7,6 +7,7 @@ import KboLiveCore
 final class BackendSettingsModel: ObservableObject {
     enum BackendPreset: String, CaseIterable, Identifiable {
         case local
+        case staging
         case production
 
         var id: String { rawValue }
@@ -15,6 +16,8 @@ final class BackendSettingsModel: ObservableObject {
             switch self {
             case .local:
                 return "Local"
+            case .staging:
+                return "Staging"
             case .production:
                 return "Production"
             }
@@ -24,6 +27,8 @@ final class BackendSettingsModel: ObservableObject {
             switch self {
             case .local:
                 return "현재 Mac에서 실행 중인 packaged backend"
+            case .staging:
+                return "운영 후보 backend 검증 환경"
             case .production:
                 return "운영 backend"
             }
@@ -45,6 +50,7 @@ final class BackendSettingsModel: ObservableObject {
     private let baseURLKey = KboLiveEnvironment.backendBaseURLDefaultsKey
     private let presetKey = "kbo-live.backend-preset"
     private let localBaseURLKey = "kbo-live.backend-local-base-url"
+    private let stagingBaseURLKey = "kbo-live.backend-staging-base-url"
     private let productionBaseURLKey = "kbo-live.backend-production-base-url"
 
     init(defaults: UserDefaults = .standard) {
@@ -100,6 +106,8 @@ final class BackendSettingsModel: ObservableObject {
         switch selectedPreset {
         case .local:
             defaults.set(baseURLText, forKey: localBaseURLKey)
+        case .staging:
+            defaults.set(baseURLText, forKey: stagingBaseURLKey)
         case .production:
             defaults.set(baseURLText, forKey: productionBaseURLKey)
         }
@@ -112,9 +120,10 @@ final class BackendSettingsModel: ObservableObject {
         defaults.removeObject(forKey: baseURLKey)
         defaults.removeObject(forKey: presetKey)
         defaults.removeObject(forKey: localBaseURLKey)
+        defaults.removeObject(forKey: stagingBaseURLKey)
         defaults.removeObject(forKey: productionBaseURLKey)
         selectedPreset = Self.defaultPreset
-        baseURLText = Self.baseURLString(for: selectedPreset, defaults: defaults) ?? Self.productionBaseURLString
+        baseURLText = Self.baseURLString(for: selectedPreset, defaults: defaults) ?? Self.defaultBaseURLString(for: selectedPreset)
         validationState = .idle
     }
 
@@ -149,6 +158,10 @@ final class BackendSettingsModel: ObservableObject {
 
     nonisolated static var defaultBaseURLString: String {
         KboLiveEnvironment.defaultBaseURL.absoluteString.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+    }
+
+    nonisolated static var defaultStagingBaseURLString: String {
+        KboLiveEnvironment.stagingBaseURL.absoluteString.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
     }
 
     nonisolated static func resolvedBaseURL(defaults: UserDefaults = .standard) -> URL {
@@ -189,6 +202,10 @@ final class BackendSettingsModel: ObservableObject {
             return environmentBaseURLString
                 ?? defaults.string(forKey: "kbo-live.backend-local-base-url")
                 ?? defaultBaseURLString
+        case .staging:
+            return environmentBaseURLString(named: "KBO_LIVE_STAGING_BASE_URL")
+                ?? defaults.string(forKey: "kbo-live.backend-staging-base-url")
+                ?? defaultStagingBaseURLString
         case .production:
             return environmentBaseURLString(named: "KBO_LIVE_PRODUCTION_BASE_URL")
                 ?? defaults.string(forKey: "kbo-live.backend-production-base-url")
@@ -198,6 +215,17 @@ final class BackendSettingsModel: ObservableObject {
 
     nonisolated private static var productionBaseURLString: String {
         KboLiveEnvironment.productionBaseURL.absoluteString.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+    }
+
+    nonisolated private static func defaultBaseURLString(for preset: BackendPreset) -> String {
+        switch preset {
+        case .local:
+            return defaultBaseURLString
+        case .staging:
+            return defaultStagingBaseURLString
+        case .production:
+            return productionBaseURLString
+        }
     }
 
     nonisolated private static var defaultPreset: BackendPreset {

@@ -133,9 +133,9 @@ open KboLiveApp.xcodeproj
 - `KboLiveWidgetExtension`
 
 macOS 앱 기본 동작:
-- `KBO_LIVE_BASE_URL`을 지정하지 않으면 앱 설정 또는 `http://127.0.0.1:3000` 백엔드를 사용합니다.
+- `KBO_LIVE_BASE_URL`을 지정하지 않으면 앱 설정 또는 `http://127.0.0.1:17361` 백엔드를 사용합니다.
 - 앱의 API client는 기본적으로 `/v1` endpoint를 호출합니다.
-- iOS/macOS 앱의 설정 화면에서 `Local`, `Staging`, `Production`, `Custom` backend preset을 선택하고 Backend URL을 저장할 수 있습니다.
+- iOS/macOS 앱의 설정 화면에서 `Local`, `Staging`, `Production` backend preset을 선택하고 Backend URL을 저장할 수 있습니다.
 - `KBO_LIVE_BASE_URL` 환경변수가 있으면 앱 설정값보다 우선합니다.
 - `KBO_LIVE_STAGING_BASE_URL`, `KBO_LIVE_PRODUCTION_BASE_URL`을 지정하면 설정 화면의 Staging/Production preset 초기 URL로 사용합니다.
 
@@ -167,3 +167,5 @@ backend-spike/fixtures/live-<YYYYMMDD>/
 - `PROJECT_CONTEXT/forward-development-roadmap.md`
 - `PROJECT_CONTEXT/backend-spike-results.md`
 - `PROJECT_CONTEXT/production-backend-strategy.md`
+- `PROJECT_CONTEXT/kbo-data-quality-regression-plan.md`
+- `PROJECT_CONTEXT/app-productization-roadmap.md`

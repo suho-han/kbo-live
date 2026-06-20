@@ -51,15 +51,16 @@ struct BackendSettingsView: View {
     private var presetSection: some View {
         settingsCard {
             VStack(alignment: .leading, spacing: Layout.cardSpacing) {
-                sectionTitle("환경", subtitle: "Local은 현재 Mac의 packaged backend, Production은 운영 backend를 사용합니다.")
+                sectionTitle("환경", subtitle: "Local, Staging, Production backend를 명시적으로 전환합니다.")
 
                 VStack(spacing: KboSpacingToken.small) {
-                    presetButton(.local)
-                    presetButton(.production)
+                    ForEach(BackendSettingsModel.BackendPreset.allCases) { preset in
+                        presetButton(preset)
+                    }
                 }
 
                 if settings.hasEnvironmentBaseURL {
-                    Label("Local 기본값은 KBO_LIVE_BASE_URL 환경변수를 사용합니다. 다른 환경을 선택해도 됩니다.", systemImage: "info.circle.fill")
+                    Label("KBO_LIVE_BASE_URL 환경변수가 있으면 모든 preset보다 우선합니다.", systemImage: "info.circle.fill")
                         .font(KboTypographyToken.caption)
                         .foregroundStyle(KboSemanticColorToken.warning)
                 }
@@ -70,7 +71,7 @@ struct BackendSettingsView: View {
     private var endpointSection: some View {
         settingsCard {
             VStack(alignment: .leading, spacing: Layout.cardSpacing) {
-                sectionTitle("Backend URL", subtitle: "Production URL은 기본값 또는 KBO_LIVE_PRODUCTION_BASE_URL 환경변수로 설정됩니다.")
+                sectionTitle("Backend URL", subtitle: "Staging/Production URL은 각각 KBO_LIVE_STAGING_BASE_URL, KBO_LIVE_PRODUCTION_BASE_URL로 초기화할 수 있습니다.")
 
                 TextField("https://example.com", text: $settings.baseURLText)
                     .textFieldStyle(.plain)

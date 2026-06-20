@@ -47,6 +47,7 @@ struct GameFeedClientTests {
 
         #expect(client.pollingInterval == KboLiveEnvironment.defaultPollingInterval)
         #expect(KboLiveEnvironment().baseURL == KboLiveEnvironment.defaultBaseURL)
+        #expect(KboLiveEnvironment.stagingBaseURL.absoluteString.isEmpty == false)
         #expect(KboLiveEnvironment().apiPathPrefix == KboLiveEnvironment.defaultAPIPathPrefix)
     }
 
