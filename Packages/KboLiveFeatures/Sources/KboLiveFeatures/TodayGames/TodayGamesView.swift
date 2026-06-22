@@ -960,10 +960,14 @@ private struct FeaturedGameCardView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            HStack(alignment: .firstTextBaseline, spacing: 10) {
+            HStack(alignment: .center, spacing: 10) {
                 Text("대표 경기")
                     .font(KboTypographyToken.caption(scaledBy: fontScale))
-                    .foregroundStyle(KboColorToken.statusLive)
+                    .foregroundStyle(cardAccent)
+                    .textCase(.uppercase)
+                    .tracking(0.7)
+
+                statusPill
 
                 Spacer()
 
@@ -1002,20 +1006,13 @@ private struct FeaturedGameCardView: View {
 
             gameMetaRow
 
+            liveSituationStrip
+
             Spacer(minLength: 0)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(18)
-        .background(
-            LinearGradient(
-                colors: [
-                    Color(red: 0.63, green: 0.15, blue: 0.18).opacity(0.75),
-                    Color(red: 0.09, green: 0.10, blue: 0.22).opacity(0.95)
-                ],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-        )
+        .background(cardGradient)
         .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
         .overlay {
             RoundedRectangle(cornerRadius: 24, style: .continuous)
@@ -1023,10 +1020,90 @@ private struct FeaturedGameCardView: View {
         }
     }
 
+    private var statusPill: some View {
+        Text(statusPillText)
+            .font(KboTypographyToken.system(size: 11, weight: .black, scaledBy: fontScale))
+            .foregroundStyle(cardAccent)
+            .padding(.horizontal, 9)
+            .padding(.vertical, 5)
+            .background(cardAccent.opacity(0.16))
+            .clipShape(Capsule())
+            .overlay {
+                Capsule()
+                    .stroke(cardAccent.opacity(0.55), lineWidth: 1)
+            }
+    }
+
     private var gameDateTimeText: String {
         let date = GameDateSection(date: game.date, games: []).formattedDate
         let time = game.startTime.map { Self.cardTimeFormatter.string(from: $0) } ?? "시간 미정"
         return "\(date) · \(time)"
+    }
+
+    private var cardGradient: LinearGradient {
+        LinearGradient(
+            colors: cardGradientColors,
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+    }
+
+    private var cardGradientColors: [Color] {
+        switch game.status {
+        case .live:
+            return [
+                Color(red: 0.14, green: 0.31, blue: 0.28).opacity(0.96),
+                Color(red: 0.08, green: 0.10, blue: 0.18).opacity(0.98),
+                KboColorToken.statusLive.opacity(0.30)
+            ]
+        case .scheduled:
+            return [
+                Color(red: 0.08, green: 0.24, blue: 0.35).opacity(0.96),
+                Color(red: 0.06, green: 0.09, blue: 0.16).opacity(0.98)
+            ]
+        case .final:
+            return [
+                Color(red: 0.17, green: 0.20, blue: 0.25).opacity(0.96),
+                Color(red: 0.07, green: 0.08, blue: 0.12).opacity(0.98)
+            ]
+        case .delayed, .cancelled, .unknown:
+            return [
+                Color(red: 0.28, green: 0.21, blue: 0.10).opacity(0.92),
+                Color(red: 0.08, green: 0.08, blue: 0.12).opacity(0.98)
+            ]
+        }
+    }
+
+    private var cardAccent: Color {
+        switch game.status {
+        case .live:
+            return KboColorToken.statusLive
+        case .scheduled:
+            return KboColorToken.statusScheduled
+        case .final:
+            return KboColorToken.statusFinal
+        case .delayed:
+            return KboColorToken.statusDelayed
+        case .cancelled, .unknown:
+            return KboTheme.secondaryText
+        }
+    }
+
+    private var statusPillText: String {
+        switch game.status {
+        case .scheduled:
+            return "예정"
+        case .live:
+            return "LIVE"
+        case .final:
+            return "FINAL"
+        case .delayed:
+            return "지연"
+        case .cancelled:
+            return "취소"
+        case .unknown:
+            return "확인 중"
+        }
     }
 
     private static let cardTimeFormatter: DateFormatter = {
@@ -1085,31 +1162,68 @@ private struct FeaturedGameCardView: View {
 
     @ViewBuilder
     private var gameMetaRow: some View {
-        if game.status == .live || game.status == .final {
+        HStack(spacing: 12) {
+            if let venue = game.venue {
+                Label(venue, systemImage: "mappin.and.ellipse")
+            }
+
+            if game.status == .live || game.status == .final, let inningText = GameProjectionFormatter.inningText(for: game) {
+                Label(inningText, systemImage: game.status == .live ? "baseball.diamond.bases" : "checkmark.seal")
+            }
+
+            if game.broadcastChannels.isEmpty == false {
+                Label(game.broadcastChannels.joined(separator: ", "), systemImage: "tv")
+            }
+        }
+        .font(KboTypographyToken.caption(scaledBy: fontScale))
+        .foregroundStyle(KboTheme.secondaryText)
+        .lineLimit(1)
+    }
+
+    @ViewBuilder
+    private var liveSituationStrip: some View {
+        if game.status == .live {
             HStack(alignment: .center, spacing: 10) {
-                if let venue = game.venue {
-                    Label(venue, systemImage: "mappin.and.ellipse")
+                if let recentPlay = GameProjectionFormatter.shortRecentPlay(game.recentPlay, limit: 42) {
+                    situationChip(title: "최근", value: recentPlay, systemImage: "quote.bubble.fill")
                 }
 
-                if let inningText = GameProjectionFormatter.inningText(for: game) {
-                    Text(inningText)
-                }
-            }
-            .font(KboTypographyToken.caption(scaledBy: fontScale))
-            .foregroundStyle(KboTheme.secondaryText)
-        } else {
-            HStack(spacing: 12) {
-                if let venue = game.venue {
-                    Label(venue, systemImage: "mappin.and.ellipse")
+                if let batter = game.current?.batter?.trimmingCharacters(in: .whitespacesAndNewlines), batter.isEmpty == false {
+                    situationChip(title: "타자", value: batter, systemImage: "figure.baseball")
                 }
 
-                if game.broadcastChannels.isEmpty == false {
-                    Label(game.broadcastChannels.joined(separator: ", "), systemImage: "tv")
+                if let pitcher = game.current?.pitcher?.trimmingCharacters(in: .whitespacesAndNewlines), pitcher.isEmpty == false {
+                    situationChip(title: "투수", value: pitcher, systemImage: "baseball.fill")
                 }
             }
-            .font(KboTypographyToken.caption(scaledBy: fontScale))
-            .foregroundStyle(KboTheme.secondaryText)
-            .lineLimit(1)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .fixedSize(horizontal: false, vertical: true)
+        }
+    }
+
+    private func situationChip(title: String, value: String, systemImage: String) -> some View {
+        HStack(spacing: 6) {
+            Image(systemName: systemImage)
+                .font(KboTypographyToken.system(size: 10, weight: .bold, scaledBy: fontScale))
+                .foregroundStyle(cardAccent)
+
+            Text(title)
+                .font(KboTypographyToken.system(size: 10, weight: .black, scaledBy: fontScale))
+                .foregroundStyle(KboTheme.secondaryText)
+
+            Text(value)
+                .font(KboTypographyToken.system(size: 12, weight: .semibold, scaledBy: fontScale))
+                .foregroundStyle(KboTheme.primaryText)
+                .lineLimit(1)
+                .minimumScaleFactor(0.72)
+        }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 7)
+        .background(Color.black.opacity(0.22))
+        .clipShape(Capsule())
+        .overlay {
+            Capsule()
+                .stroke(Color.white.opacity(0.10), lineWidth: 1)
         }
     }
 
