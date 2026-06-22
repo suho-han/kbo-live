@@ -8,7 +8,7 @@
 
 MVP는 경기 목록, 상세, 메뉴바, Widget, Live Activity의 기술 기반을 확인했다. 다음 단계는 실제 사용자가 매일 켜는 야구 동반 앱으로 만들기 위한 정보 구조와 개인화 우선순위를 정하는 것이다.
 
-iOS 실제 기기 검증은 마지막에 수행한다. 먼저 macOS, shared SwiftUI feature, backend contract, 문서 기준을 정리한다.
+제품화 개발 순서는 macOS를 먼저 완료하고 iOS로 넘어간다. iOS 실제 기기 검증은 마지막에 수행한다. 먼저 macOS, shared SwiftUI feature, backend contract, 문서 기준을 정리한다.
 
 ## 2. 현재 구현 상태
 
@@ -166,6 +166,12 @@ Dedupe 기준:
 - 버튼 label은 VoiceOver에서 행동이 드러나야 한다.
 
 ## 9. 1차 제품화 Milestone 분해
+
+제품화 실행 순서:
+
+1. macOS 앱을 먼저 완료한다.
+2. macOS 메뉴바, 메인 창, packaged backend, 원격 Mac-mini smoke, 스크린샷 검증을 완료 기준으로 둔다.
+3. macOS 완료 후 iOS Widget/Live Activity 실제 기기 검증으로 넘어간다.
 
 P0:
 

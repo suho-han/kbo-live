@@ -60,10 +60,10 @@ MVP에서 제외:
 ## 3. 개발 원칙
 
 우선순위:
-1. 실제로 빌드되는 Apple target
-2. 백엔드 live 데이터와 연결되는 iOS Home
+1. macOS 앱 제품화 완료: 메뉴바/메인 창/packaged backend/원격 Mac-mini smoke/스크린샷 검증
+2. 실제로 빌드되는 Apple target 유지
 3. 작고 안정적인 shared Core API
-4. Widget/Menu Bar/Live Activity 확장
+4. iOS Home, Widget, Live Activity 실제 기기 검증
 5. live 경기 품질 개선
 
 구현 원칙:

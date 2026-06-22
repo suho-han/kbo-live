@@ -3,9 +3,10 @@
 KBO 경기를 Apple 플랫폼에서 실시간으로 보기 위한 앱/백엔드 스파이크 저장소입니다.
 
 현재 범위:
+- macOS Menu Bar 앱 제품화 우선
+- macOS packaged backend / Mac-mini 원격 검증
 - iPhone 앱 설계
 - Widget / Live Activity 설계
-- macOS Menu Bar 앱 설계
 - KBO 데이터 수집용 backend spike
 - shared Swift DTO / domain scaffold
 
