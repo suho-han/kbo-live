@@ -985,7 +985,7 @@ private struct FeaturedGameCardView: View {
                     team: game.awayTeam,
                     score: game.score.away,
                     isFavorite: game.awayTeam.id == favoriteTeamID,
-                    showsScore: game.status != .scheduled,
+                    showsScore: showsScore,
                     playerRole: playerRole(for: game.awayTeam)
                 )
 
@@ -999,14 +999,14 @@ private struct FeaturedGameCardView: View {
                     team: game.homeTeam,
                     score: game.score.home,
                     isFavorite: game.homeTeam.id == favoriteTeamID,
-                    showsScore: game.status != .scheduled,
+                    showsScore: showsScore,
                     playerRole: playerRole(for: game.homeTeam)
                 )
             }
 
             gameMetaRow
 
-            liveSituationStrip
+            stateContextStrip
 
             Spacer(minLength: 0)
         }
@@ -1145,9 +1145,10 @@ private struct FeaturedGameCardView: View {
 
     private var centerGameState: some View {
         VStack(spacing: 8) {
-            Text("VS")
-                .font(KboTypographyToken.system(size: 14, weight: .bold, scaledBy: fontScale))
-                .foregroundStyle(KboTheme.secondaryText)
+            Text(centerLabel)
+                .font(KboTypographyToken.system(size: game.status == .live ? 14 : 13, weight: .black, scaledBy: fontScale))
+                .foregroundStyle(game.status == .live ? KboTheme.secondaryText : cardAccent)
+                .lineLimit(1)
 
             if game.status == .live, game.count != nil || game.bases != nil || game.inning != nil {
                 FeaturedGameStateBlockView(
@@ -1158,6 +1159,27 @@ private struct FeaturedGameCardView: View {
             }
         }
         .frame(width: 104, alignment: .center)
+    }
+
+    private var centerLabel: String {
+        switch game.status {
+        case .scheduled:
+            return "VS"
+        case .live:
+            return "LIVE"
+        case .final:
+            return "FINAL"
+        case .delayed:
+            return "지연"
+        case .cancelled:
+            return "취소"
+        case .unknown:
+            return "확인 중"
+        }
+    }
+
+    private var showsScore: Bool {
+        game.status == .live || game.status == .final
     }
 
     @ViewBuilder
@@ -1181,24 +1203,95 @@ private struct FeaturedGameCardView: View {
     }
 
     @ViewBuilder
-    private var liveSituationStrip: some View {
-        if game.status == .live {
-            HStack(alignment: .center, spacing: 10) {
-                if let recentPlay = GameProjectionFormatter.shortRecentPlay(game.recentPlay, limit: 42) {
-                    situationChip(title: "최근", value: recentPlay, systemImage: "quote.bubble.fill")
-                }
-
-                if let batter = game.current?.batter?.trimmingCharacters(in: .whitespacesAndNewlines), batter.isEmpty == false {
-                    situationChip(title: "타자", value: batter, systemImage: "figure.baseball")
-                }
-
-                if let pitcher = game.current?.pitcher?.trimmingCharacters(in: .whitespacesAndNewlines), pitcher.isEmpty == false {
-                    situationChip(title: "투수", value: pitcher, systemImage: "baseball.fill")
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .fixedSize(horizontal: false, vertical: true)
+    private var stateContextStrip: some View {
+        switch game.status {
+        case .scheduled:
+            scheduledContextStrip
+        case .live:
+            liveContextStrip
+        case .final:
+            finalContextStrip
+        case .delayed, .cancelled, .unknown:
+            statusContextStrip
         }
+    }
+
+    private var scheduledContextStrip: some View {
+        contextChipRow {
+            if let awayPitcher = game.probablePitchers.away?.trimmingCharacters(in: .whitespacesAndNewlines), awayPitcher.isEmpty == false {
+                situationChip(title: "원정 선발", value: awayPitcher, systemImage: "figure.baseball")
+            }
+
+            if let homePitcher = game.probablePitchers.home?.trimmingCharacters(in: .whitespacesAndNewlines), homePitcher.isEmpty == false {
+                situationChip(title: "홈 선발", value: homePitcher, systemImage: "baseball.fill")
+            }
+
+            if game.probablePitchers.away == nil && game.probablePitchers.home == nil {
+                situationChip(title: "예정", value: startTimeText, systemImage: "clock.fill")
+            }
+        }
+    }
+
+    private var liveContextStrip: some View {
+        contextChipRow {
+            if let recentPlay = GameProjectionFormatter.shortRecentPlay(game.recentPlay, limit: 42) {
+                situationChip(title: "최근", value: recentPlay, systemImage: "quote.bubble.fill")
+            }
+
+            if let batter = game.current?.batter?.trimmingCharacters(in: .whitespacesAndNewlines), batter.isEmpty == false {
+                situationChip(title: "타자", value: batter, systemImage: "figure.baseball")
+            }
+
+            if let pitcher = game.current?.pitcher?.trimmingCharacters(in: .whitespacesAndNewlines), pitcher.isEmpty == false {
+                situationChip(title: "투수", value: pitcher, systemImage: "baseball.fill")
+            }
+        }
+    }
+
+    private var finalContextStrip: some View {
+        contextChipRow {
+            if let boxScore = game.boxScore {
+                situationChip(title: "안타", value: "\(boxScore.away.hits ?? 0):\(boxScore.home.hits ?? 0)", systemImage: "baseball")
+                situationChip(title: "실책", value: "\(boxScore.away.errors ?? 0):\(boxScore.home.errors ?? 0)", systemImage: "exclamationmark.triangle.fill")
+            }
+
+            if let win = game.pitcherDecisions?.win?.trimmingCharacters(in: .whitespacesAndNewlines), win.isEmpty == false {
+                situationChip(title: "승", value: win, systemImage: "checkmark.seal.fill")
+            }
+
+            if let loss = game.pitcherDecisions?.loss?.trimmingCharacters(in: .whitespacesAndNewlines), loss.isEmpty == false {
+                situationChip(title: "패", value: loss, systemImage: "xmark.seal.fill")
+            }
+
+            if game.boxScore == nil && game.pitcherDecisions == nil {
+                situationChip(title: "종료", value: GameProjectionFormatter.scoreLine(for: game), systemImage: "checkmark.seal")
+            }
+        }
+    }
+
+    private var statusContextStrip: some View {
+        contextChipRow {
+            situationChip(title: "상태", value: statusPillText, systemImage: "exclamationmark.circle.fill")
+            situationChip(title: "예정", value: startTimeText, systemImage: "clock.fill")
+        }
+    }
+
+    private func contextChipRow<Content: View>(@ViewBuilder content: () -> Content) -> some View {
+        ViewThatFits(in: .horizontal) {
+            HStack(alignment: .center, spacing: 10) {
+                content()
+            }
+
+            VStack(alignment: .leading, spacing: 8) {
+                content()
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .fixedSize(horizontal: false, vertical: true)
+    }
+
+    private var startTimeText: String {
+        game.startTime.map { Self.cardTimeFormatter.string(from: $0) } ?? "시간 미정"
     }
 
     private func situationChip(title: String, value: String, systemImage: String) -> some View {
