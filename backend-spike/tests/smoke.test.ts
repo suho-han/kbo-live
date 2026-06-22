@@ -71,6 +71,19 @@ describe('backend-spike smoke', () => {
     expect(mapStatus({ GAME_STATE_SC: '7' } as never)).toBe('delayed')
   })
 
+  it('lets explicit cancellation metadata override final-looking state codes', () => {
+    expect(mapStatus({
+      GAME_STATE_SC: '4',
+      GAME_INN_NO: 0,
+      T_SCORE_CN: '0',
+      B_SCORE_CN: '0',
+      CANCEL_SC_ID: '1',
+      CANCEL_SC_NM: '우천취소'
+    } as never)).toBe('cancelled')
+    expect(mapStatus({ GAME_STATE_SC: '4', CANCEL_SC_ID: 0, CANCEL_SC_NM: '' } as never)).toBe('final')
+    expect(mapStatus({ GAME_STATE_SC: '3', CANCEL_SC_ID: 0, CANCEL_SC_NM: '정상경기' } as never)).toBe('final')
+  })
+
   it('summarizes meaningful live changes between polling ticks', () => {
     const previous = [buildGame({ score: { away: 1, home: 0 }, inning: { number: 3, half: 'top' }, count: { balls: 1, strikes: 1, outs: 1 } })]
     const current = [buildGame({ score: { away: 2, home: 0 }, inning: { number: 3, half: 'top' }, count: { balls: 0, strikes: 0, outs: 2 } })]

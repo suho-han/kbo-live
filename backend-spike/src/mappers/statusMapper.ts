@@ -10,6 +10,8 @@ export function mapStatus(
   options: MapStatusOptions = {}
 ): 'scheduled' | 'live' | 'final' | 'delayed' | 'cancelled' | 'unknown' {
   const state = String(raw.GAME_STATE_SC ?? '').trim()
+  const cancelCode = typeof raw.CANCEL_SC_ID === 'string' ? raw.CANCEL_SC_ID.trim() : raw.CANCEL_SC_ID == null ? '' : String(raw.CANCEL_SC_ID).trim()
+  const cancelName = typeof raw.CANCEL_SC_NM === 'string' ? raw.CANCEL_SC_NM.trim() : raw.CANCEL_SC_NM == null ? '' : String(raw.CANCEL_SC_NM).trim()
   const inning = raw.GAME_INN_NO
   const hasInning = inning !== null && inning !== undefined && inning !== '' && Number(inning) > 0
   const hasScore = Number(raw.T_SCORE_CN ?? 0) > 0 || Number(raw.B_SCORE_CN ?? 0) > 0
@@ -18,6 +20,10 @@ export function mapStatus(
     || hasMeaningfulValue(raw.OUT_CN)
   const hasTopBottom = raw.GAME_TB_SC === 'T' || raw.GAME_TB_SC === 'B'
   const hasLiveSignal = hasInning || hasScore || hasCount || hasTopBottom
+
+  if ((cancelCode && cancelCode !== '0') || cancelName.includes('취소')) {
+    return 'cancelled'
+  }
 
   if (state === '1' && isBeforeScheduledStart(raw, options.now ?? new Date(), options.scheduledStartTime)) {
     return 'scheduled'
