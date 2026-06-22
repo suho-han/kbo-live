@@ -15,6 +15,47 @@ struct ProjectionMapperTests {
         #expect(snapshot.inningText == "18:30 예정")
         #expect(snapshot.baseState == BasesState(first: false, second: false, third: false))
         #expect(snapshot.recentPlay == nil)
+        #expect(snapshot.headline == "대표 경기")
+        #expect(snapshot.contextText == "18:30 예정 · 잠실")
+        #expect(snapshot.isFavoriteTeamGame == false)
+        #expect(snapshot.fallbackKind == .none)
+    }
+
+    @Test func mapsFavoriteTeamGameToPersonalizedWidgetSnapshot() throws {
+        let response = try loadFixtureResponse()
+        let game = GameDTOMapper.map(response.games[1])
+        let snapshot = WidgetGameSnapshotMapper.map(game, favoriteTeamID: "HH")
+
+        #expect(snapshot.headline == "나의 팀 경기")
+        #expect(snapshot.contextText == "한화 경기 · LIVE · 7회말 · 대전")
+        #expect(snapshot.isFavoriteTeamGame == true)
+        #expect(snapshot.fallbackKind == .none)
+    }
+
+    @Test func mapsFavoriteTeamNoGameWidgetFallback() throws {
+        let response = try loadFixtureResponse()
+        let game = GameDTOMapper.map(response.games[1])
+        let snapshot = WidgetGameSnapshotMapper.map(
+            game,
+            favoriteTeamID: "LG",
+            fallbackKind: .favoriteTeamNoGame
+        )
+
+        #expect(snapshot.headline == "응원팀 경기 없음")
+        #expect(snapshot.contextText == "LG 오늘 경기 없음 · 대표 경기")
+        #expect(snapshot.isFavoriteTeamGame == false)
+        #expect(snapshot.fallbackKind == .favoriteTeamNoGame)
+    }
+
+    @Test func mapsNoFavoriteTeamSelectedWidgetFallback() throws {
+        let response = try loadFixtureResponse()
+        let game = GameDTOMapper.map(response.games[1])
+        let snapshot = WidgetGameSnapshotMapper.map(game, fallbackKind: .favoriteTeamNotSelected)
+
+        #expect(snapshot.headline == "응원팀을 선택하세요")
+        #expect(snapshot.contextText == "대표 경기 · LIVE · 7회말 · 대전")
+        #expect(snapshot.isFavoriteTeamGame == false)
+        #expect(snapshot.fallbackKind == .favoriteTeamNotSelected)
     }
 
     @Test func mapsLiveGameToActivityState() throws {

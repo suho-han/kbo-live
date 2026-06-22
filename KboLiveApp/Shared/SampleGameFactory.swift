@@ -14,7 +14,26 @@ enum SampleGameFactory {
     }
 
     static var widgetSnapshot: WidgetGameSnapshot {
-        WidgetGameSnapshotMapper.map(representativeGame)
+        favoriteTeamWidgetSnapshot
+    }
+
+    static var favoriteTeamWidgetSnapshot: WidgetGameSnapshot {
+        WidgetGameSnapshotMapper.map(representativeGame, favoriteTeamID: "KT")
+    }
+
+    static var favoriteTeamNoGameWidgetSnapshot: WidgetGameSnapshot {
+        WidgetGameSnapshotMapper.map(
+            scheduledGame,
+            favoriteTeamID: "LG",
+            fallbackKind: .favoriteTeamNoGame
+        )
+    }
+
+    static var noFavoriteTeamSelectedWidgetSnapshot: WidgetGameSnapshot {
+        WidgetGameSnapshotMapper.map(
+            finalGame,
+            fallbackKind: .favoriteTeamNotSelected
+        )
     }
 
     static var activityState: ActivityGameState {

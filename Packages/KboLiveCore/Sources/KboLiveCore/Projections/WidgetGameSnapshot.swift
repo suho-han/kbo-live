@@ -10,6 +10,10 @@ public struct WidgetGameSnapshot: Sendable, Equatable {
     public let inningText: String?
     public let baseState: BasesState?
     public let recentPlay: String?
+    public let headline: String
+    public let contextText: String?
+    public let isFavoriteTeamGame: Bool
+    public let fallbackKind: WidgetGameSnapshotFallbackKind
 
     public init(
         gameId: String,
@@ -20,7 +24,11 @@ public struct WidgetGameSnapshot: Sendable, Equatable {
         status: GameStatus,
         inningText: String?,
         baseState: BasesState?,
-        recentPlay: String?
+        recentPlay: String?,
+        headline: String = "대표 경기",
+        contextText: String? = nil,
+        isFavoriteTeamGame: Bool = false,
+        fallbackKind: WidgetGameSnapshotFallbackKind = .none
     ) {
         self.gameId = gameId
         self.awayTeamName = awayTeamName
@@ -31,5 +39,15 @@ public struct WidgetGameSnapshot: Sendable, Equatable {
         self.inningText = inningText
         self.baseState = baseState
         self.recentPlay = recentPlay
+        self.headline = headline
+        self.contextText = contextText
+        self.isFavoriteTeamGame = isFavoriteTeamGame
+        self.fallbackKind = fallbackKind
     }
+}
+
+public enum WidgetGameSnapshotFallbackKind: String, Sendable, Equatable {
+    case none
+    case favoriteTeamNoGame
+    case favoriteTeamNotSelected
 }
