@@ -24,6 +24,8 @@
   - macOS 앱 + backend companion 패키징, 원격 테스트, 배포 전 체크리스트
 - `live-activity-verification.md`
   - iOS 실제 기기 Live Activity start/stop 검증 절차
+- `widget-live-activity-personalization-plan.md`
+  - Widget/Live Activity 개인화 범위, projection contract, preview 검증 계획
 - `mvp-stability-checklist.md`
   - backend, Swift package, Xcode target 로컬 검증 체크리스트
 - `liquid-glass-toss-design-plan.md`
