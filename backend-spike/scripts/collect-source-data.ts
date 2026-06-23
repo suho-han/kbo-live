@@ -8,6 +8,7 @@ import { getTeamStandings, getTodayGamesRaw } from '../src/services/gameService.
 import { toKboDate } from '../src/utils/date.js'
 
 type PlayerRecordKind = 'batting' | 'pitching'
+type ExtraRecordKind = 'team' | 'player' | 'league'
 
 interface CollectedDateSummary {
   date: string
@@ -33,6 +34,28 @@ interface PlayerSourceSummary {
   recordsFile?: string
 }
 
+interface ExtraRecordSource {
+  id: string
+  kind: ExtraRecordKind
+  label: string
+  url: string
+  priority: 'core' | 'context'
+}
+
+interface ExtraRecordSummary {
+  id: string
+  kind: ExtraRecordKind
+  label: string
+  url: string
+  statusCode: number
+  bodyLength: number
+  tableCount: number
+  rowCount: number
+  columns: string[]
+  htmlFile?: string
+  metadataFile?: string
+}
+
 const PLAYER_URLS: Record<PlayerRecordKind, string> = {
   batting: 'https://eng.koreabaseball.com/stats/battingLeaders.aspx',
   pitching: 'https://eng.koreabaseball.com/stats/pitchingLeaders.aspx'
@@ -42,6 +65,122 @@ const KOREAN_PLAYER_URLS: Record<PlayerRecordKind, string> = {
   batting: 'https://www.koreabaseball.com/Record/Player/HitterBasic/Basic1.aspx',
   pitching: 'https://www.koreabaseball.com/Record/Player/PitcherBasic/Basic1.aspx'
 }
+
+
+const EXTRA_RECORD_SOURCES: ExtraRecordSource[] = [
+  {
+    id: 'team-hitter-basic1',
+    kind: 'team',
+    label: '팀 타격 기본 1',
+    url: 'https://www.koreabaseball.com/Record/Team/Hitter/Basic1.aspx',
+    priority: 'core'
+  },
+  {
+    id: 'team-hitter-basic2',
+    kind: 'team',
+    label: '팀 타격 기본 2',
+    url: 'https://www.koreabaseball.com/Record/Team/Hitter/Basic2.aspx',
+    priority: 'core'
+  },
+  {
+    id: 'team-pitcher-basic1',
+    kind: 'team',
+    label: '팀 투수 기본 1',
+    url: 'https://www.koreabaseball.com/Record/Team/Pitcher/Basic1.aspx',
+    priority: 'core'
+  },
+  {
+    id: 'team-pitcher-basic2',
+    kind: 'team',
+    label: '팀 투수 기본 2',
+    url: 'https://www.koreabaseball.com/Record/Team/Pitcher/Basic2.aspx',
+    priority: 'core'
+  },
+  {
+    id: 'team-defense-basic',
+    kind: 'team',
+    label: '팀 수비',
+    url: 'https://www.koreabaseball.com/Record/Team/Defense/Basic.aspx',
+    priority: 'core'
+  },
+  {
+    id: 'team-runner-basic',
+    kind: 'team',
+    label: '팀 주루',
+    url: 'https://www.koreabaseball.com/Record/Team/Runner/Basic.aspx',
+    priority: 'context'
+  },
+  {
+    id: 'player-hitter-basic2',
+    kind: 'player',
+    label: '선수 타격 기본 2',
+    url: 'https://www.koreabaseball.com/Record/Player/HitterBasic/Basic2.aspx',
+    priority: 'core'
+  },
+  {
+    id: 'player-hitter-detail1',
+    kind: 'player',
+    label: '선수 타격 세부 1',
+    url: 'https://www.koreabaseball.com/Record/Player/HitterBasic/Detail1.aspx',
+    priority: 'core'
+  },
+  {
+    id: 'player-pitcher-basic2',
+    kind: 'player',
+    label: '선수 투수 기본 2',
+    url: 'https://www.koreabaseball.com/Record/Player/PitcherBasic/Basic2.aspx',
+    priority: 'core'
+  },
+  {
+    id: 'player-pitcher-detail1',
+    kind: 'player',
+    label: '선수 투수 세부 1',
+    url: 'https://www.koreabaseball.com/Record/Player/PitcherBasic/Detail1.aspx',
+    priority: 'core'
+  },
+  {
+    id: 'player-pitcher-detail2',
+    kind: 'player',
+    label: '선수 투수 세부 2',
+    url: 'https://www.koreabaseball.com/Record/Player/PitcherBasic/Detail2.aspx',
+    priority: 'core'
+  },
+  {
+    id: 'player-defense-basic',
+    kind: 'player',
+    label: '선수 수비',
+    url: 'https://www.koreabaseball.com/Record/Player/Defense/Basic.aspx',
+    priority: 'context'
+  },
+  {
+    id: 'player-runner-basic',
+    kind: 'player',
+    label: '선수 주루',
+    url: 'https://www.koreabaseball.com/Record/Player/Runner/Basic.aspx',
+    priority: 'context'
+  },
+  {
+    id: 'league-top5',
+    kind: 'league',
+    label: '선수 순위 TOP 5',
+    url: 'https://www.koreabaseball.com/Record/Ranking/Top5.aspx',
+    priority: 'context'
+  },
+  {
+    id: 'league-expected-weekly',
+    kind: 'league',
+    label: '주간 예상 달성 기록',
+    url: 'https://www.koreabaseball.com/Record/Expectation/WeekList.aspx',
+    priority: 'context'
+  },
+  {
+    id: 'league-crowd-team',
+    kind: 'league',
+    label: '구단별 관중 현황',
+    url: 'https://www.koreabaseball.com/Record/Crowd/GraphTeam.aspx',
+    priority: 'context'
+  }
+]
 
 function readArg(name: string, fallback?: string): string | undefined {
   const prefix = `--${name}`
@@ -138,6 +277,108 @@ async function collectDate(date: string, outDir: string, shouldWrite: boolean): 
   }
 
   return summary
+}
+
+
+function decodeBasicHtml(value: string): string {
+  return value
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+}
+
+function stripBasicTags(value: string): string {
+  return decodeBasicHtml(value.replace(/<br\s*\/?>/gi, '\n').replace(/<[^>]*>/g, '')).replace(/\s+/g, ' ').trim()
+}
+
+function collectRecordTableMetadata(html: string): { tableCount: number, rowCount: number, columns: string[] } {
+  const tables = [...html.matchAll(/<table[^>]*>([\s\S]*?)<\/table>/gi)].map((match) => match[0])
+  const rowCount = tables.reduce((count, table) => count + [...table.matchAll(/<tbody[\s\S]*?<\/tbody>/gi)]
+    .reduce((rows, tbody) => rows + [...tbody[0].matchAll(/<tr\b/gi)].length, 0), 0)
+  const firstTable = tables[0] ?? ''
+  const columns = [...firstTable.matchAll(/<th[^>]*>([\s\S]*?)<\/th>/gi)]
+    .map((match) => stripBasicTags(match[1]))
+    .filter(Boolean)
+
+  return {
+    tableCount: tables.length,
+    rowCount,
+    columns
+  }
+}
+
+function extraRecordsToCollect(): ExtraRecordSource[] {
+  const explicit = readArg('extra-records')
+  if (!explicit || explicit === 'all') {
+    return EXTRA_RECORD_SOURCES
+  }
+
+  const requested = new Set(explicit.split(',').map((value) => value.trim()).filter(Boolean))
+  return EXTRA_RECORD_SOURCES.filter((source) => requested.has(source.id) || requested.has(source.kind))
+}
+
+async function collectExtraRecordSources(outDir: string, shouldWrite: boolean): Promise<ExtraRecordSummary[]> {
+  const summaries: ExtraRecordSummary[] = []
+
+  for (const source of extraRecordsToCollect()) {
+    const response = await fetch(source.url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0',
+        Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        Referer: 'https://www.koreabaseball.com/Record/Player/HitterBasic/Basic1.aspx'
+      }
+    })
+    const body = await response.text()
+    const fetchedAt = new Date().toISOString()
+    const tableMetadata = collectRecordTableMetadata(body)
+
+    saveRawSource({
+      source: 'kbo-official-kr-records',
+      endpoint: source.id,
+      requestKey: source.url,
+      statusCode: response.status,
+      body,
+      fetchedAt
+    })
+
+    if (!response.ok) {
+      throw new Error(`${source.id} returned HTTP ${response.status}`)
+    }
+
+    const summary: ExtraRecordSummary = {
+      id: source.id,
+      kind: source.kind,
+      label: source.label,
+      url: source.url,
+      statusCode: response.status,
+      bodyLength: body.length,
+      tableCount: tableMetadata.tableCount,
+      rowCount: tableMetadata.rowCount,
+      columns: tableMetadata.columns
+    }
+
+    if (shouldWrite) {
+      const baseDir = path.join(outDir, 'extra-records', source.kind)
+      const htmlFile = path.join(baseDir, `${source.id}.html`)
+      const metadataFile = path.join(baseDir, `${source.id}.json`)
+      await mkdir(baseDir, { recursive: true })
+      await writeFile(htmlFile, body, 'utf8')
+      await writeJson(metadataFile, {
+        ...summary,
+        priority: source.priority,
+        fetchedAt
+      })
+      summary.htmlFile = path.relative(process.cwd(), htmlFile)
+      summary.metadataFile = path.relative(process.cwd(), metadataFile)
+    }
+
+    summaries.push(summary)
+  }
+
+  return summaries
 }
 
 async function fetchPlayerSource(kind: PlayerRecordKind) {
@@ -293,6 +534,7 @@ async function main() {
   const dates = parseDates()
   const shouldWrite = readBooleanArg('write')
   const includePlayerRecords = readBooleanArg('include-player-records')
+  const includeExtraRecords = readBooleanArg('include-extra-records')
   const runId = readArg('run-id', timestampForFile())!
   const outDir = readArg('out-dir', path.resolve('artifacts', 'source-collection', runId))!
   const dateSummaries: CollectedDateSummary[] = []
@@ -304,6 +546,9 @@ async function main() {
   const playerSources = includePlayerRecords
     ? await collectPlayerSource(dates[0], outDir, shouldWrite)
     : []
+  const extraRecordSources = includeExtraRecords
+    ? await collectExtraRecordSources(outDir, shouldWrite)
+    : []
 
   const manifest = {
     runId,
@@ -311,7 +556,8 @@ async function main() {
     dates,
     outDir: shouldWrite ? path.relative(process.cwd(), outDir) : null,
     gameSources: dateSummaries,
-    playerSources
+    playerSources,
+    extraRecordSources
   }
 
   console.log(JSON.stringify(manifest, null, 2))

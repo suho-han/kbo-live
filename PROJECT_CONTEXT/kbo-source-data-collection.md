@@ -24,6 +24,13 @@ cd backend-spike
 npm run collect:source -- --dates 20260614,20260621,20260622,20260623 --include-player-records --write
 ```
 
+팀/선수/리그 세부 기록 원천까지 함께 수집:
+
+```bash
+cd backend-spike
+npm run collect:source -- --dates 20260621 --include-player-records --include-extra-records --write
+```
+
 생성물:
 
 ```text
@@ -34,6 +41,12 @@ backend-spike/artifacts/source-collection/<run-id>/player-records/batting-latest
 backend-spike/artifacts/source-collection/<run-id>/player-records/batting-records-latest.json
 backend-spike/artifacts/source-collection/<run-id>/player-records/pitching-latest.html
 backend-spike/artifacts/source-collection/<run-id>/player-records/pitching-records-latest.json
+backend-spike/artifacts/source-collection/<run-id>/extra-records/team/*.html
+backend-spike/artifacts/source-collection/<run-id>/extra-records/team/*.json
+backend-spike/artifacts/source-collection/<run-id>/extra-records/player/*.html
+backend-spike/artifacts/source-collection/<run-id>/extra-records/player/*.json
+backend-spike/artifacts/source-collection/<run-id>/extra-records/league/*.html
+backend-spike/artifacts/source-collection/<run-id>/extra-records/league/*.json
 ```
 
 ## 3. 수집 내용
@@ -59,6 +72,24 @@ backend-spike/artifacts/source-collection/<run-id>/player-records/pitching-recor
 - parsed pitching record JSON: rank, games, CG, SHO, W, L, SV, HLD, PCT, PA, NP, IP outs, hits/extra-base allowed, HR, ERA
 - 영문 source의 `playerId`를 기준으로 한국어 기록 페이지 이름을 매칭해 `playerName`은 한글로 저장
 - local DB upsert 결과 검증용 raw source 저장
+
+추가 기록 소스 수집:
+
+- 팀 타격: `Record/Team/Hitter/Basic1.aspx`, `Basic2.aspx`
+- 팀 투수: `Record/Team/Pitcher/Basic1.aspx`, `Basic2.aspx`
+- 팀 수비/주루: `Record/Team/Defense/Basic.aspx`, `Record/Team/Runner/Basic.aspx`
+- 선수 타격: `Record/Player/HitterBasic/Basic2.aspx`, `Detail1.aspx`
+- 선수 투수: `Record/Player/PitcherBasic/Basic2.aspx`, `Detail1.aspx`, `Detail2.aspx`
+- 선수 수비/주루: `Record/Player/Defense/Basic.aspx`, `Record/Player/Runner/Basic.aspx`
+- 리그 컨텍스트: `Record/Ranking/Top5.aspx`, `Record/Expectation/WeekList.aspx`, `Record/Crowd/GraphTeam.aspx`
+- 각 페이지별 raw HTML과 table/row/column metadata JSON
+
+옵션:
+
+- `--include-extra-records`: 위 세부 기록 전체 수집
+- `--extra-records team`: 팀 기록만 수집
+- `--extra-records player`: 선수 세부 기록만 수집
+- `--extra-records team-hitter-basic1,player-pitcher-detail1`: 특정 id만 수집
 
 ## 4. 날짜 선정 기준
 
