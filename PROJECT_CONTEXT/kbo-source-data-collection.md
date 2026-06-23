@@ -31,6 +31,13 @@ cd backend-spike
 npm run collect:source -- --dates 20260621 --include-player-records --include-extra-records --write
 ```
 
+TOP5/관중 리그 데이터를 구조화 추출:
+
+```bash
+cd backend-spike
+npm run extract:league-records -- --year 2026 --run-id league-records-YYYYMMDD
+```
+
 생성물:
 
 ```text
@@ -47,6 +54,9 @@ backend-spike/artifacts/source-collection/<run-id>/extra-records/player/*.html
 backend-spike/artifacts/source-collection/<run-id>/extra-records/player/*.json
 backend-spike/artifacts/source-collection/<run-id>/extra-records/league/*.html
 backend-spike/artifacts/source-collection/<run-id>/extra-records/league/*.json
+backend-spike/artifacts/league-record-data/<run-id>/top5.json
+backend-spike/artifacts/league-record-data/<run-id>/crowd-team.json
+backend-spike/artifacts/league-record-data/<run-id>/manifest.json
 ```
 
 ## 3. 수집 내용
@@ -90,6 +100,14 @@ backend-spike/artifacts/source-collection/<run-id>/extra-records/league/*.json
 - `--extra-records team`: 팀 기록만 수집
 - `--extra-records player`: 선수 세부 기록만 수집
 - `--extra-records team-hitter-basic1,player-pitcher-detail1`: 특정 id만 수집
+- 알 수 없는 `--extra-records` 값은 실패 처리
+- 외부 KBO HTTP 요청은 timeout으로 보호
+- 선수 기록 한글명 매칭이 실패하면 영어명 fallback 없이 실패 처리
+
+구조화 리그 데이터 추출:
+
+- TOP5 HTML에서 카테고리/선수/순위/팀/값을 JSON으로 추출
+- 관중 현황은 KBO `GetCrowdTeam` JSON endpoint를 호출해 저장
 
 ## 4. 날짜 선정 기준
 

@@ -16,6 +16,7 @@
     "dump": "tsx scripts/dump-kbo-response.ts",
     "validate:data": "tsx scripts/validate-data-quality.ts",
     "collect:source": "tsx scripts/collect-source-data.ts",
+    "extract:league-records": "tsx scripts/extract-league-record-data.ts",
     "dump:players": "tsx scripts/dump-player-records-source.ts"
   },
   "dependencies": {
