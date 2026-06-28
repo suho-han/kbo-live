@@ -126,6 +126,7 @@ struct ProjectionMapperTests {
         #expect(summary.isLive == true)
         #expect(summary.primaryText == "KIA 3:2 한화")
         #expect(summary.secondaryText == "LIVE · 7회말 · 2사")
+        #expect(summary.recentPlay == "좌전 적시타")
     }
 
     @Test func truncatesLongRecentPlayForActivityState() {

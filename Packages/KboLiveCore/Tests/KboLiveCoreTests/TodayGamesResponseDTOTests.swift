@@ -118,7 +118,7 @@ struct TodayGamesResponseDTOTests {
         #expect(mapped.probablePitchers.home == "양현종")
     }
 
-    @Test func correctsBottomHalfSwappedCurrentMatchupFromBackend() {
+    @Test func keepsBackendProvidedCurrentMatchupAuthoritative() {
         let dto = GameDTO(
             gameId: "20260618LGHT0",
             date: "20260618",
@@ -131,17 +131,17 @@ struct TodayGamesResponseDTOTests {
             inning: InningDTO(number: 2, half: .bottom),
             count: CountDTO(balls: 0, strikes: 0, outs: 2),
             bases: BasesDTO(first: false, second: false, third: false),
-            current: CurrentMatchupDTO(batter: "톨허스트", pitcher: "김규성"),
+            current: CurrentMatchupDTO(batter: "시라카와", pitcher: "김규성"),
             probablePitchers: ProbablePitchersDTO(away: "톨허스트", home: "양현종"),
-            recentPlay: "2회말 톨허스트 타석, 투수 김규성, 카운트 0-0, 2아웃, 주자 없음",
+            recentPlay: "김규성 : 우익수 앞 1루타",
             sourceMeta: SourceMetaDTO(rawStatusCode: "1", rawTopBottomCode: "B", fetchedAt: "2026-06-18T10:09:28.000Z")
         )
 
         let mapped = GameDTOMapper.map(dto)
 
-        #expect(mapped.current?.batter == "김규성")
-        #expect(mapped.current?.pitcher == "톨허스트")
-        #expect(mapped.recentPlay == "2회말 김규성 타석, 투수 톨허스트, 카운트 0-0, 2아웃, 주자 없음")
+        #expect(mapped.current?.batter == "시라카와")
+        #expect(mapped.current?.pitcher == "김규성")
+        #expect(mapped.recentPlay == "김규성 : 우익수 앞 1루타")
     }
 
     @Test func keepsTopHalfCurrentMatchupWhenPitcherAndBatterAreAlreadyCorrect() {
