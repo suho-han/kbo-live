@@ -7,7 +7,8 @@ public enum MenuBarGameSummaryMapper {
             status: game.status,
             isLive: game.status == .live,
             primaryText: GameProjectionFormatter.scoreLine(for: game),
-            secondaryText: GameProjectionFormatter.menuBarSecondaryText(for: game)
+            secondaryText: GameProjectionFormatter.menuBarSecondaryText(for: game),
+            recentPlay: GameProjectionFormatter.shortRecentPlay(game.recentPlay, limit: 48)
         )
     }
 }

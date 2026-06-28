@@ -23,7 +23,6 @@ struct MenuBarDashboardView: View {
         static let cardCornerRadius = KboRadiusToken.large
         static let controlCornerRadius = KboRadiusToken.medium
         static let compactControlHeight: CGFloat = 54
-        static let teamShortcutHeight: CGFloat = 46
         static let controlColumns = [
             GridItem(.flexible(), spacing: KboSpacingToken.small),
             GridItem(.flexible(), spacing: KboSpacingToken.small)
@@ -47,11 +46,6 @@ struct MenuBarDashboardView: View {
             } else {
                 emptySummary
             }
-
-            teamShortcutSection
-
-            Divider()
-                .overlay(KboTheme.mutedBorder.opacity(0.65))
 
             backendIssueCallout
 
@@ -88,6 +82,7 @@ struct MenuBarDashboardView: View {
                 }
                 .buttonStyle(.plain)
             }
+            .frame(maxWidth: .infinity)
 
             Text(lastUpdatedStatusText)
                 .font(.caption2.weight(.semibold))
@@ -128,61 +123,6 @@ struct MenuBarDashboardView: View {
         }
     }
 
-    private var teamShortcutSection: some View {
-        HStack(spacing: 10) {
-            VStack(alignment: .leading, spacing: 2) {
-                Text("응원팀")
-                    .font(.caption2.weight(.bold))
-                    .foregroundStyle(KboTheme.secondaryText)
-
-                Text(headerSubtitle)
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(KboTheme.primaryText)
-                    .lineLimit(1)
-            }
-
-            Spacer(minLength: 8)
-
-            Menu {
-                Button("선택 안 함") {
-                    viewModel.selectTeam(nil)
-                }
-
-                Divider()
-
-                ForEach(KboTeamOption.sortedByStandings(games: viewModel.games)) { team in
-                    Button {
-                        viewModel.selectTeam(team.id)
-                    } label: {
-                        if viewModel.selectedTeamID == team.id {
-                            Label(team.koreanFullName, systemImage: "checkmark")
-                        } else {
-                            Text(team.koreanFullName)
-                        }
-                    }
-                }
-            } label: {
-                Label("변경", systemImage: "star.circle")
-                    .font(.caption.weight(.bold))
-                    .foregroundStyle(headerAccentColor)
-                    .padding(.horizontal, 10)
-                    .frame(height: 30)
-                    .background(headerAccentColor.opacity(0.14))
-                    .clipShape(Capsule())
-            }
-            .menuStyle(.button)
-            .buttonStyle(.plain)
-        }
-        .padding(.horizontal, 12)
-        .frame(height: Layout.teamShortcutHeight)
-        .background(KboSurfaceToken.glassControl.opacity(0.85))
-        .clipShape(RoundedRectangle(cornerRadius: Layout.controlCornerRadius, style: .continuous))
-        .overlay {
-            RoundedRectangle(cornerRadius: Layout.controlCornerRadius, style: .continuous)
-                .stroke(KboSurfaceToken.glassBorder.opacity(0.68), lineWidth: 1)
-        }
-    }
-
     private func favoriteGameCard(_ game: Game) -> some View {
         Button {
             openInMainWindow(game)
@@ -194,6 +134,7 @@ struct MenuBarDashboardView: View {
             )
         }
         .buttonStyle(.plain)
+        .frame(maxWidth: .infinity)
     }
 
     private func fallbackSummary(_ summary: MenuBarGameSummary) -> some View {
@@ -212,6 +153,10 @@ struct MenuBarDashboardView: View {
                         .font(.caption)
                         .foregroundStyle(KboTheme.secondaryText)
                 }
+
+                if let recentPlay = summary.recentPlay {
+                    recentPlayLabel(recentPlay)
+                }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(KboSpacingToken.medium)
@@ -223,6 +168,7 @@ struct MenuBarDashboardView: View {
             }
         }
         .buttonStyle(.plain)
+        .frame(maxWidth: .infinity)
     }
 
     private var emptySummary: some View {
@@ -232,6 +178,21 @@ struct MenuBarDashboardView: View {
             systemImage: "calendar.badge.exclamationmark",
             style: .control
         )
+    }
+
+    private func recentPlayLabel(_ text: String) -> some View {
+        Label {
+            Text(text)
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(KboTheme.primaryText)
+                .lineLimit(2)
+                .fixedSize(horizontal: false, vertical: true)
+        } icon: {
+            Image(systemName: "quote.bubble.fill")
+                .font(.caption2.weight(.bold))
+                .foregroundStyle(KboColorToken.statusLive)
+        }
+        .labelStyle(.titleAndIcon)
     }
 
     private var headerSubtitle: String {
@@ -302,7 +263,7 @@ struct MenuBarDashboardView: View {
         VStack(spacing: 6) {
             Image(systemName: systemImage)
                 .font(.system(size: 14, weight: .semibold))
-                .foregroundStyle(headerAccentColor.opacity(0.85))
+                .foregroundStyle(KboTheme.primaryText.opacity(0.88))
                 .frame(height: 16)
 
             Text(title)
@@ -441,7 +402,7 @@ private struct MenuBarFeaturedGameCardView: View {
 
                 Spacer(minLength: 8)
 
-                Text(gameDateTimeText)
+                Text(gameDateVenueText)
                     .font(KboTypographyToken.caption(scaledBy: fontScale))
                     .foregroundStyle(KboTheme.secondaryText)
                     .lineLimit(1)
@@ -457,7 +418,7 @@ private struct MenuBarFeaturedGameCardView: View {
                     team: game.awayTeam,
                     score: game.score.away,
                     isFavorite: game.awayTeam.id == favoriteTeamID,
-                    playerRole: playerRole(for: game.awayTeam)
+                    probablePitcher: trimmedPitcherName(game.probablePitchers.away)
                 )
 
                 Spacer(minLength: 0)
@@ -470,24 +431,17 @@ private struct MenuBarFeaturedGameCardView: View {
                     team: game.homeTeam,
                     score: game.score.home,
                     isFavorite: game.homeTeam.id == favoriteTeamID,
-                    playerRole: playerRole(for: game.homeTeam)
+                    probablePitcher: trimmedPitcherName(game.probablePitchers.home)
                 )
             }
 
-            gameMetaRow
+            if let recentPlay = GameProjectionFormatter.shortRecentPlay(game.recentPlay, limit: 48) {
+                recentPlayLabel(recentPlay)
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(12)
-        .background(
-            LinearGradient(
-                colors: [
-                    Color(red: 0.63, green: 0.15, blue: 0.18).opacity(0.75),
-                    Color(red: 0.09, green: 0.10, blue: 0.22).opacity(0.95)
-                ],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-        )
+        .background(KboTheme.cardBackground.opacity(0.94))
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         .overlay {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
@@ -495,7 +449,7 @@ private struct MenuBarFeaturedGameCardView: View {
         }
     }
 
-    private func teamColumn(team: Team, score: Int, isFavorite: Bool, playerRole: CurrentPlayerRole?) -> some View {
+    private func teamColumn(team: Team, score: Int, isFavorite: Bool, probablePitcher: String?) -> some View {
         VStack(spacing: 7) {
             TeamBadgeView(
                 shortName: team.name,
@@ -507,6 +461,15 @@ private struct MenuBarFeaturedGameCardView: View {
                 nameWidth: Layout.nameWidth
             )
 
+            if let probablePitcher {
+                Text(probablePitcher)
+                    .font(KboTypographyToken.system(size: 11, weight: .semibold, scaledBy: fontScale))
+                    .foregroundStyle(KboTheme.primaryText)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.72)
+                    .frame(maxWidth: Layout.badgeWidth, alignment: .center)
+            }
+
             if game.status != .scheduled {
                 Text(String(score))
                     .font(KboTypographyToken.system(size: 18, weight: .black, scaledBy: fontScale))
@@ -515,10 +478,6 @@ private struct MenuBarFeaturedGameCardView: View {
                     .lineLimit(1)
                     .fixedSize(horizontal: true, vertical: false)
                     .frame(minWidth: Layout.scoreWidth, alignment: .center)
-            }
-
-            if let playerRole {
-                currentPlayerView(playerRole)
             }
         }
         .frame(width: Layout.badgeWidth, alignment: .center)
@@ -536,113 +495,45 @@ private struct MenuBarFeaturedGameCardView: View {
                     count: game.count,
                     bases: game.bases
                 )
-            } else if let inningText = GameProjectionFormatter.inningText(for: game) {
-                Text(inningText)
-                    .font(KboTypographyToken.caption(scaledBy: fontScale))
-                    .foregroundStyle(KboTheme.secondaryText)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.78)
             }
         }
         .frame(width: 96, alignment: .center)
     }
 
-    @ViewBuilder
-    private var gameMetaRow: some View {
-        let metaParts = [
-            game.venue,
-            game.status == .live ? GameProjectionFormatter.inningText(for: game) : nil
-        ]
-            .compactMap { $0?.trimmingCharacters(in: .whitespacesAndNewlines) }
-            .filter { $0.isEmpty == false }
-            .reduce(into: [String]()) { result, part in
-                if result.contains(part) == false {
-                    result.append(part)
-                }
-            }
-
-        HStack(alignment: .center, spacing: 8) {
-            if metaParts.isEmpty == false {
-                Text(metaParts.joined(separator: " · "))
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.78)
-            }
-
-            Spacer(minLength: 0)
-        }
-        .font(KboTypographyToken.caption(scaledBy: fontScale))
-        .foregroundStyle(KboTheme.secondaryText)
-    }
-
-    private func playerRole(for team: Team) -> CurrentPlayerRole? {
-        guard game.status == .live else { return nil }
-        let batter = game.current?.batter?.trimmingCharacters(in: .whitespacesAndNewlines)
-        let pitcher = game.current?.pitcher?.trimmingCharacters(in: .whitespacesAndNewlines)
-        let activeBatter = batter?.isEmpty == false ? batter : nil
-        let activePitcher = pitcher?.isEmpty == false ? pitcher : nil
-
-        guard let half = game.inning?.half else {
+    private func trimmedPitcherName(_ name: String?) -> String? {
+        guard let trimmedName = name?.trimmingCharacters(in: .whitespacesAndNewlines),
+              trimmedName.isEmpty == false else {
             return nil
         }
 
-        if team.id == battingTeamID(for: half), let activeBatter {
-            return CurrentPlayerRole(kind: .batter, name: activeBatter)
-        }
-
-        if team.id == pitchingTeamID(for: half), let activePitcher {
-            return CurrentPlayerRole(kind: .pitcher, name: activePitcher)
-        }
-
-        return nil
+        return trimmedName
     }
 
-    private func battingTeamID(for half: InningHalf) -> String {
-        half == .top ? game.awayTeam.id : game.homeTeam.id
-    }
-
-    private func pitchingTeamID(for half: InningHalf) -> String {
-        half == .top ? game.homeTeam.id : game.awayTeam.id
-    }
-
-    private func currentPlayerView(_ playerRole: CurrentPlayerRole) -> some View {
-        HStack(spacing: 5) {
-            if let battingOrder = playerRole.battingOrder {
-                Text(String(battingOrder))
-                    .font(KboTypographyToken.system(size: 10, weight: .black, scaledBy: fontScale))
-                    .foregroundStyle(.white)
-                    .frame(width: 17, height: 17)
-                    .background(KboColorToken.statusScheduled.opacity(0.9))
-                    .clipShape(Circle())
-            }
-
-            if let positionText = playerRole.positionText {
-                Text(positionText)
-                    .font(KboTypographyToken.system(size: 10, weight: .bold, scaledBy: fontScale))
-                    .foregroundStyle(KboTheme.secondaryText)
-                    .lineLimit(1)
-            }
-
-            Text(playerRole.name)
+    private func recentPlayLabel(_ text: String) -> some View {
+        Label {
+            Text(text)
                 .font(KboTypographyToken.system(size: 11, weight: .semibold, scaledBy: fontScale))
                 .foregroundStyle(KboTheme.primaryText)
-                .lineLimit(1)
-                .minimumScaleFactor(0.72)
+                .lineLimit(2)
+                .fixedSize(horizontal: false, vertical: true)
+        } icon: {
+            Image(systemName: "quote.bubble.fill")
+                .font(.caption2.weight(.bold))
+                .foregroundStyle(KboColorToken.statusLive)
         }
-        .padding(.horizontal, 7)
-        .padding(.vertical, 4)
-        .frame(maxWidth: Layout.badgeWidth, minHeight: 24)
-        .background(Color.white.opacity(0.08))
-        .clipShape(Capsule())
+        .labelStyle(.titleAndIcon)
     }
 
-    private var gameDateTimeText: String {
+    private var gameDateVenueText: String {
         let time = game.startTime.map { Self.cardTimeFormatter.string(from: $0) } ?? "시간 미정"
+        let venue = game.venue?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let venueText = venue?.isEmpty == false ? venue : nil
 
         guard let date = Self.gameDateFormatter.date(from: game.date) else {
-            return time
+            return [time, venueText].compactMap(\.self).joined(separator: " · ")
         }
 
-        return "\(Self.cardDateFormatter.string(from: date)) · \(time)"
+        return [Self.cardDateFormatter.string(from: date), time, venueText].compactMap(\.self).joined(separator: " · ")
     }
 
     private static let gameDateFormatter: DateFormatter = {
@@ -669,27 +560,6 @@ private struct MenuBarFeaturedGameCardView: View {
         formatter.dateFormat = "HH:mm"
         return formatter
     }()
-}
-
-private struct CurrentPlayerRole {
-    enum Kind {
-        case batter
-        case pitcher
-    }
-
-    let kind: Kind
-    let name: String
-    let battingOrder: Int? = nil
-    let position: String? = nil
-
-    var positionText: String? {
-        switch kind {
-        case .batter:
-            return position
-        case .pitcher:
-            return "P"
-        }
-    }
 }
 
 private struct MenuBarGameStateBlockView: View {
