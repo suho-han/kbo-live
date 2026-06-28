@@ -2,12 +2,43 @@
 
 KBO 경기를 Apple 플랫폼에서 실시간으로 보기 위한 앱/백엔드 스파이크 저장소입니다.
 
+## TL;DR
+
+맥 프론트(메뉴바 앱)와 packaged backend를 같이 실행:
+
+```bash
+xcodebuild -scheme KboLivemacOS -project KboLiveApp.xcodeproj -destination 'platform=macOS' -derivedDataPath .xcode/DerivedData build
+PORT=3000 ./scripts/run-macos-app-with-packaged-backend.sh
+```
+
+맥 프론트만 실행:
+
+```bash
+xcodebuild -scheme KboLivemacOS -project KboLiveApp.xcodeproj -destination 'platform=macOS' -derivedDataPath .xcode/DerivedData build
+launchctl unsetenv KBO_LIVE_BASE_URL
+open -n .xcode/DerivedData/Build/Products/Debug/KboLiveApp.app
+```
+
+진행 중 경기 UI를 fixture로 바로 확인:
+
+```bash
+KBO_USE_TEST_LIVE_GAME=1 FORCE_RESTART=1 PORT=3000 ./scripts/run-macos-app-with-packaged-backend.sh
+```
+
+백엔드만 실행:
+
+```bash
+cd backend-spike
+npm install
+npm run dev
+```
+
 현재 범위:
 - macOS Menu Bar 앱 제품화 우선
 - macOS packaged backend / Mac-mini 원격 검증
 - iPhone 앱 설계
 - Widget / Live Activity 설계
-- KBO 데이터 수집용 backend spike
+- KBO 데이터 수집/정규화/fixture 저장용 backend spike
 - shared Swift DTO / domain scaffold
 
 ## 디렉터리
@@ -15,7 +46,9 @@ KBO 경기를 Apple 플랫폼에서 실시간으로 보기 위한 앱/백엔드 
 ```text
 PROJECT_CONTEXT/   # 제품/아키텍처/구현 계획 문서
 backend-spike/    # KBO source 검증용 Fastify + TypeScript spike
-Packages/         # Swift shared package scaffold
+KboLiveApp/       # iOS/macOS/Widget 앱 타깃 소스
+Packages/         # Swift shared core/features/design-system packages
+scripts/          # 로컬 실행, 패키징, 검증 wrapper
 ```
 
 ## 현재 상태
@@ -31,14 +64,48 @@ Packages/         # Swift shared package scaffold
 - `backend-spike/` 최소 실행 가능 scaffold
 - `/health`, `/ready`, `/v1/health`, `/v1/ready`, `/v1/games/today`, `/v1/games/:gameId`
 - MVP local 호환용 `/games/today`, `/games/:gameId`, `/debug/source/today`
+- 순위/선수 기록 API: `/v1/standings`, `/v1/teams/standings`, `/v1/players/search`, `/v1/players/:playerId/season`
+- backend cache, concurrent request dedupe, stale-if-error fallback
+- SQLite raw source 기록 및 선수/팀 기록 repository foundation
 - polling / dump / fixture 저장 흐름
 - `Packages/KboLiveCore` 최소 DTO/domain/mapper/test scaffold
+- `Packages/KboLiveFeatures` 오늘 경기/상세 화면 view model 및 feature test scaffold
 - widget / live activity / menu bar projection 모델 및 mapper 초안
 - `Packages/KboLiveDesignSystem` token/theme/primitive scaffold
 - iOS/macOS app target, 설정 화면, 메뉴바 dashboard, 경기 상세 화면
+- 팀 로고/워드마크 앱 asset 반영
 - macOS 앱 + packaged backend 로컬 실행 스크립트
 
 ## 빠른 시작
+
+### macOS 프론트
+
+앱을 빌드한 뒤 packaged backend와 함께 실행합니다.
+
+```bash
+xcodebuild -scheme KboLivemacOS -project KboLiveApp.xcodeproj -destination 'platform=macOS' -derivedDataPath .xcode/DerivedData build
+PORT=3000 ./scripts/run-macos-app-with-packaged-backend.sh
+```
+
+backend를 새로 띄우지 않고 프론트만 실행:
+
+```bash
+xcodebuild -scheme KboLivemacOS -project KboLiveApp.xcodeproj -destination 'platform=macOS' -derivedDataPath .xcode/DerivedData build
+launchctl unsetenv KBO_LIVE_BASE_URL
+open -n .xcode/DerivedData/Build/Products/Debug/KboLiveApp.app
+```
+
+이미 같은 포트에 backend가 떠 있는데 새 환경변수로 다시 실행해야 하면:
+
+```bash
+FORCE_RESTART=1 PORT=3000 ./scripts/run-macos-app-with-packaged-backend.sh
+```
+
+진행 중 경기 UI를 테스트하기 위한 단일 live fixture 실행:
+
+```bash
+KBO_USE_TEST_LIVE_GAME=1 FORCE_RESTART=1 PORT=3000 ./scripts/run-macos-app-with-packaged-backend.sh
+```
 
 ### backend spike
 ```bash
@@ -64,24 +131,6 @@ Xcode 실행 전에 자동으로 백엔드를 켜고 싶으면 scheme의 `Run > 
 /Users/suhohan/Projects/kbo-live/scripts/backend-start.sh
 ```
 
-macOS 앱과 packaged backend를 같이 실행:
-
-```bash
-PORT=3000 ./scripts/run-macos-app-with-packaged-backend.sh
-```
-
-이미 같은 포트에 backend가 떠 있는데 새 환경변수로 다시 실행해야 하면:
-
-```bash
-FORCE_RESTART=1 PORT=3000 ./scripts/run-macos-app-with-packaged-backend.sh
-```
-
-진행 중 경기 UI를 테스트하기 위한 단일 live fixture 실행:
-
-```bash
-KBO_USE_TEST_LIVE_GAME=1 FORCE_RESTART=1 PORT=3000 ./scripts/run-macos-app-with-packaged-backend.sh
-```
-
 Mac mini 테스트용 runtime 패키징:
 
 ```bash
@@ -99,6 +148,13 @@ macOS 배포/원격 테스트 체크리스트는 `PROJECT_CONTEXT/macos-release-
 ### Swift package
 ```bash
 cd Packages/KboLiveCore
+swift test
+```
+
+Feature package 검증:
+
+```bash
+cd Packages/KboLiveFeatures
 swift test
 ```
 
