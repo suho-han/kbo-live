@@ -4,9 +4,18 @@ import { rawKboGameListResponseSchema } from '../dto/kboGameList.dto.js'
 import { rawKboScheduleListResponseSchema } from '../dto/kboScheduleList.dto.js'
 import { saveRawSource } from '../repositories/rawSourceRepository.js'
 
-type KboEndpoint = 'GetKboGameDate' | 'GetKboGameList' | 'GetScheduleList' | 'TeamRankDaily'
+type KboEndpoint = 'GetKboGameDate' | 'GetKboGameList' | 'GetScheduleList' | 'TeamRankDaily' | 'LiveTextView2'
 
 const BASE_URL = 'https://www.koreabaseball.com/ws'
+const LIVE_TEXT_URL = 'https://www.koreabaseball.com/Game/LiveTextView2.aspx'
+const LIVE_TEXT_REFERER = 'https://www.koreabaseball.com/Game/LiveText.aspx'
+
+type LiveTextViewRequest = {
+  readonly gameId: string
+  readonly gyear: string
+  readonly leagueId?: string
+  readonly seriesId?: string
+}
 
 export class KboSourceError extends Error {
   readonly endpoint: KboEndpoint
@@ -105,6 +114,42 @@ export async function fetchKboGameList(date: string) {
   } catch (error) {
     throw new KboSourceError('GetKboGameList', 'response did not match expected schema', { cause: error })
   }
+}
+
+export async function fetchKboLiveTextView(input: LiveTextViewRequest): Promise<string> {
+  const payload = {
+    leagueId: input.leagueId ?? '1',
+    seriesId: input.seriesId ?? '0',
+    gameId: input.gameId,
+    gyear: input.gyear
+  }
+  const response = await fetch(LIVE_TEXT_URL, {
+    method: 'POST',
+    headers: buildKboHeaders(`${LIVE_TEXT_REFERER}?leagueId=${payload.leagueId}&seriesId=${payload.seriesId}&gameId=${payload.gameId}&gyear=${payload.gyear}`),
+    body: new URLSearchParams(payload),
+    signal: AbortSignal.timeout(5_000)
+  })
+  const text = await response.text()
+  const trimmed = text.trim()
+
+  recordRawSource({
+    endpoint: 'LiveTextView2',
+    requestKey: formRequestKey(payload),
+    statusCode: response.status,
+    body: text
+  })
+
+  if (!response.ok) {
+    throw new KboSourceError('LiveTextView2', `HTTP ${response.status}`, {
+      statusCode: response.status
+    })
+  }
+
+  if (trimmed.length === 0 || trimmed.includes('<title>에러')) {
+    throw new KboSourceError('LiveTextView2', 'returned invalid HTML')
+  }
+
+  return text
 }
 
 export async function fetchKboScheduleList(seasonId: string, gameMonth: string) {

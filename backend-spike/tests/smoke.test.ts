@@ -265,7 +265,7 @@ describe('backend-spike smoke', () => {
     expect(game.recentPlay).toBe('문보경 좌전 적시타')
   })
 
-  it('builds a live situation recent play fallback from game list fields', () => {
+  it('does not build a live situation recent play fallback from game list fields', () => {
     const game = mapGame({
       G_ID: '20260610SKLG0',
       G_DT: '20260610',
@@ -287,7 +287,11 @@ describe('backend-spike smoke', () => {
       B_P_NM: ' 임찬규 '
     })
 
-    expect(game.recentPlay).toBe('5회초 최정 타석, 투수 임찬규, 카운트 1-2, 1아웃, 1,3루')
+    expect(game.current).toEqual({
+      batter: '최정',
+      pitcher: '임찬규'
+    })
+    expect(game.recentPlay).toBeNull()
   })
 
   it('does not build a fallback recent play for completed games', () => {

@@ -4,9 +4,11 @@ import { mapGame, mapScheduledGame } from '../mappers/gameMapper.js'
 import { mapScheduleGames } from '../mappers/scheduleMapper.js'
 import { parseKboTeamRankDaily } from '../mappers/teamRankMapper.js'
 import { listTeamSeasonRecords, upsertTeamSeasonRecords } from '../repositories/teamRecordRepository.js'
+import { enrichPreviousAtBatResult } from './liveTextEnrichment.js'
+import { enrichTeamRecords, teamRecordsById } from './teamRecordEnrichment.js'
 import { toKboDate } from '../utils/date.js'
 import type { TeamRankEntry } from '../mappers/teamRankMapper.js'
-import type { NormalizedGame, TeamRecordSummary } from '../models/normalizedGame.js'
+import type { NormalizedGame } from '../models/normalizedGame.js'
 import type { TeamSeasonRecord } from '../repositories/teamRecordRepository.js'
 
 interface TodayGamesResult {
@@ -51,21 +53,6 @@ function staleIfErrorSeconds(): number {
 
 function teamRankCacheTtlSeconds(): number {
   return envNumber('KBO_CACHE_TTL_STANDINGS_SEC', 600)
-}
-
-function teamRecordsById(standings: TeamRankEntry[]): Map<string, TeamRecordSummary> {
-  return new Map(
-    standings.map((entry) => [
-      entry.teamId,
-      {
-        wins: entry.wins,
-        losses: entry.losses,
-        draws: entry.draws,
-        rank: entry.rank,
-        streak: entry.streak
-      }
-    ])
-  )
 }
 
 function teamRankEntriesFromDb(records: TeamSeasonRecord[]): TeamRankEntry[] {
@@ -119,23 +106,6 @@ async function loadTeamStandingsEntries(kboDate: string): Promise<TeamRankEntry[
   }
 }
 
-function enrichTeamRecords(game: NormalizedGame, recordsByTeamId: Map<string, TeamRecordSummary>): NormalizedGame {
-  const away = recordsByTeamId.get(game.awayTeam.id) ?? game.teamRecords?.away ?? null
-  const home = recordsByTeamId.get(game.homeTeam.id) ?? game.teamRecords?.home ?? null
-
-  if (!away && !home) {
-    return game
-  }
-
-  return {
-    ...game,
-    teamRecords: {
-      away,
-      home
-    }
-  }
-}
-
 async function loadMonthGames(kboDate: string) {
   const [gameDate, scheduleList] = await Promise.all([
     fetchKboGameDate(kboDate),
@@ -165,8 +135,12 @@ async function loadMonthGames(kboDate: string) {
     }
   }
 
+  const enrichedGames = await Promise.all(
+    [...gamesById.values()].map((game) => enrichPreviousAtBatResult(game, kboDate))
+  )
+
   const teamRecords = teamRecordsById(await loadTeamStandingsEntries(kboDate))
-  const games = [...gamesById.values()]
+  const games = enrichedGames
     .map((game) => enrichTeamRecords(game, teamRecords))
     .sort((lhs, rhs) => {
       const lhsStart = lhs.startTime ?? lhs.date

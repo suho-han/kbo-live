@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { fetchKboGameDate, fetchKboGameList, fetchKboScheduleList, fetchKboTeamRankDailyPage } from '../src/clients/kboClient.js'
+import { fetchKboGameDate, fetchKboGameList, fetchKboLiveTextView, fetchKboScheduleList, fetchKboTeamRankDailyPage } from '../src/clients/kboClient.js'
 import { closeDatabase } from '../src/db/database.js'
 import { upsertTeamSeasonRecords } from '../src/repositories/teamRecordRepository.js'
 import { clearGameServiceCacheForTests, getGameById, getTeamStandings, getTodayGames, getTodayGamesRaw } from '../src/services/gameService.js'
@@ -12,12 +12,14 @@ import { TEST_DATE, TEST_GAME_ID, TEST_INPUT_DATE, TEST_MONTH, TEST_NEXT_DATE, T
 vi.mock('../src/clients/kboClient.js', () => ({
   fetchKboGameDate: vi.fn(),
   fetchKboGameList: vi.fn(),
+  fetchKboLiveTextView: vi.fn(),
   fetchKboScheduleList: vi.fn(),
   fetchKboTeamRankDailyPage: vi.fn()
 }))
 
 const mockGameDate = vi.mocked(fetchKboGameDate)
 const mockGameList = vi.mocked(fetchKboGameList)
+const mockLiveTextView = vi.mocked(fetchKboLiveTextView)
 const mockScheduleList = vi.mocked(fetchKboScheduleList)
 const mockTeamRankDailyPage = vi.mocked(fetchKboTeamRankDailyPage)
 const tempDirs: string[] = []
@@ -79,6 +81,7 @@ describe('gameService', () => {
       }]
     })
     mockTeamRankDailyPage.mockResolvedValue(teamRankHtml)
+    mockLiveTextView.mockResolvedValue('')
   })
 
   afterEach(() => {
@@ -289,6 +292,48 @@ describe('gameService', () => {
       date: TEST_NEXT_DATE,
       venue: '대구',
       broadcastChannels: ['KBSN']
+    })
+  })
+
+  it('enriches requested-date live games with the previous at-bat result', async () => {
+    mockGameList.mockResolvedValue({
+      game: [{
+        G_ID: '20260627HTOB0',
+        G_DT: TEST_DATE,
+        G_TM: '17:00',
+        S_NM: '잠실',
+        AWAY_ID: 'HT',
+        HOME_ID: 'OB',
+        AWAY_NM: 'KIA',
+        HOME_NM: '두산',
+        GAME_STATE_SC: '2',
+        GAME_INN_NO: 3,
+        GAME_TB_SC: 'B',
+        T_SCORE_CN: 0,
+        B_SCORE_CN: 0,
+        BALL_CN: 2,
+        STRIKE_CN: 2,
+        OUT_CN: 0,
+        T_P_NM: '시라카와',
+        B_P_NM: '박찬호'
+      }]
+    })
+    mockLiveTextView.mockResolvedValue(`
+      <span class="normaiflTxt"> 9번타자 박찬호<br /></span>
+      <span class="normaiflTxt"> 박찬호 : 3루수 땅볼 아웃 (3루수-&gt;1루수 송구아웃)<br /></span>
+    `)
+
+    const result = await getTodayGames(TEST_INPUT_DATE)
+
+    expect(mockLiveTextView).toHaveBeenCalledWith({
+      gameId: '20260627HTOB0',
+      gyear: TEST_DATE.slice(0, 4)
+    })
+    const game = result.games.find((candidate) => candidate.gameId === '20260627HTOB0')
+    expect(game?.recentPlay).toBe('박찬호 : 3루수 땅볼 아웃 (3루수->1루수 송구아웃)')
+    expect(game?.current).toEqual({
+      batter: '박찬호',
+      pitcher: '시라카와'
     })
   })
 

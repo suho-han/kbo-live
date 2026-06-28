@@ -36,23 +36,6 @@ function hasMeaningfulValue(value: string | number | null | undefined): boolean 
   return Number.isFinite(value)
 }
 
-function mapInningText(number: number, half: 'top' | 'bottom' | null): string | null {
-  if (!half || number <= 0) return null
-  return `${number}회${half === 'top' ? '초' : '말'}`
-}
-
-function mapBaseText(bases: NormalizedGame['bases']): string | null {
-  if (!bases) return null
-
-  const occupied = [
-    bases.first ? '1' : null,
-    bases.second ? '2' : null,
-    bases.third ? '3' : null
-  ].filter(Boolean)
-
-  return occupied.length > 0 ? `${occupied.join(',')}루` : '주자 없음'
-}
-
 function mapCurrentMatchup(raw: RawKboGame, half: 'top' | 'bottom' | null): NonNullable<NormalizedGame['current']> {
   if (half === 'bottom') {
     return {
@@ -69,10 +52,6 @@ function mapCurrentMatchup(raw: RawKboGame, half: 'top' | 'bottom' | null): NonN
 
 function mapRecentPlay(raw: RawKboGame, game: {
   status: NormalizedGame['status']
-  inning: NormalizedGame['inning']
-  count: NormalizedGame['count']
-  bases: NormalizedGame['bases']
-  current: NonNullable<NormalizedGame['current']>
 }): string | null {
   const sourceText = [
     raw.RECENT_PLAY_TEXT,
@@ -84,20 +63,7 @@ function mapRecentPlay(raw: RawKboGame, game: {
   ].map(trimToNull).find(Boolean)
 
   if (sourceText) return sourceText
-  if (game.status !== 'live') return null
-
-  const inning = mapInningText(game.inning?.number ?? 0, game.inning?.half ?? null)
-  const baseText = mapBaseText(game.bases)
-  const countText = game.count ? `카운트 ${game.count.balls}-${game.count.strikes}, ${game.count.outs}아웃` : null
-
-  const parts = [
-    inning && game.current.batter ? `${inning} ${game.current.batter} 타석` : inning,
-    game.current.pitcher ? `투수 ${game.current.pitcher}` : null,
-    countText,
-    baseText
-  ].filter(Boolean)
-
-  return parts.length > 0 ? parts.join(', ') : null
+  return null
 }
 
 export function mapGame(raw: RawKboGame, scheduleInfo?: ScheduleGameInfo, options: MapGameOptions = {}): NormalizedGame {
@@ -158,7 +124,7 @@ export function mapGame(raw: RawKboGame, scheduleInfo?: ScheduleGameInfo, option
       away: trimToNull(raw.T_PIT_P_NM),
       home: trimToNull(raw.B_PIT_P_NM)
     },
-    recentPlay: mapRecentPlay(raw, { status, inning, count, bases, current }),
+    recentPlay: mapRecentPlay(raw, { status }),
     teamRecords: null,
     boxScore: {
       away: {

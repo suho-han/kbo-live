@@ -51,14 +51,14 @@ describe('mapGame recentPlay', () => {
     expect(game.recentPlay).toBe('마지막 플레이 텍스트')
   })
 
-  it('synthesizes a live context fallback when source text is missing', () => {
+  it('keeps recentPlay empty for live games without an official result source', () => {
     const game = mapGame(baseRawGame)
 
     expect(game.current).toEqual({
       batter: '오지환',
       pitcher: '문동주'
     })
-    expect(game.recentPlay).toBe('7회말 오지환 타석, 투수 문동주, 카운트 2-1, 1아웃, 1,2루')
+    expect(game.recentPlay).toBeNull()
   })
 
   it('maps top half current matchup as away batter against home pitcher', () => {
@@ -74,7 +74,7 @@ describe('mapGame recentPlay', () => {
       batter: '홍창기',
       pitcher: '양현종'
     })
-    expect(game.recentPlay).toContain('1회초 홍창기 타석, 투수 양현종')
+    expect(game.recentPlay).toBeNull()
   })
 
   it('maps bottom half current matchup as home batter against away pitcher', () => {
@@ -90,7 +90,7 @@ describe('mapGame recentPlay', () => {
       batter: '김호령',
       pitcher: '톨허스트'
     })
-    expect(game.recentPlay).toContain('1회말 김호령 타석, 투수 톨허스트')
+    expect(game.recentPlay).toBeNull()
   })
 
   it('keeps recentPlay empty for non-live games without source text', () => {

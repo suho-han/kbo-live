@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { fetchKboGameDate, fetchKboGameList, KboSourceError } from '../src/clients/kboClient.js'
+import { fetchKboGameDate, fetchKboGameList, fetchKboLiveTextView, KboSourceError } from '../src/clients/kboClient.js'
 import { closeDatabase } from '../src/db/database.js'
 import { countRawSources } from '../src/repositories/rawSourceRepository.js'
 import { TEST_DATE } from './testConfig.js'
@@ -66,6 +66,39 @@ describe('kboClient', () => {
     await fetchKboGameDate(TEST_DATE)
 
     expect(countRawSources()).toBe(1)
+  })
+
+  it('posts to KBO live text view and returns HTML', async () => {
+    const fetchMock = vi.fn(async (url: string, init: RequestInit) => {
+      expect(url).toBe('https://www.koreabaseball.com/Game/LiveTextView2.aspx')
+      expect(init.method).toBe('POST')
+      expect(String(init.body)).toBe('leagueId=1&seriesId=0&gameId=20260627HTOB0&gyear=2026')
+      expect(new Headers(init.headers).get('Referer')).toContain('LiveText.aspx')
+
+      return new Response('<span class="normaiflTxt"> 박찬호 : 3루수 땅볼 아웃<br /></span>', { status: 200 })
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    const html = await fetchKboLiveTextView({
+      gameId: '20260627HTOB0',
+      gyear: '2026'
+    })
+
+    expect(html).toContain('박찬호 : 3루수 땅볼 아웃')
+    expect(fetchMock).toHaveBeenCalledOnce()
+  })
+
+  it('wraps invalid live text responses with endpoint context', async () => {
+    vi.stubGlobal('fetch', vi.fn(async () => new Response('', { status: 200 })))
+
+    await expect(fetchKboLiveTextView({
+      gameId: '20260627HTOB0',
+      gyear: '2026'
+    })).rejects.toMatchObject({
+      name: 'KboSourceError',
+      endpoint: 'LiveTextView2',
+      message: expect.stringContaining('invalid HTML')
+    })
   })
 
   it('wraps non-2xx source responses with endpoint context', async () => {
