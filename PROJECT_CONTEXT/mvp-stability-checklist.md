@@ -24,11 +24,11 @@ SKIP_XCODE=1 ./scripts/verify-local.sh
 
 ```bash
 cd backend-spike && npm run typecheck && npm test && npm run build
-cd Packages/KboLiveCore && swift test
-cd Packages/KboLiveDesignSystem && swift build
-cd Packages/KboLiveFeatures && swift test
-xcodebuild -project KboLiveApp.xcodeproj -scheme KboLivemacOS -destination 'platform=macOS' build
-xcodebuild -project KboLiveApp.xcodeproj -scheme KboLiveiOS -destination 'generic/platform=iOS Simulator' build
+cd Packages/BaseballLiveKRCore && swift test
+cd Packages/BaseballLiveKRDesignSystem && swift build
+cd Packages/BaseballLiveKRFeatures && swift test
+xcodebuild -project BaseballLiveKR.xcodeproj -scheme BaseballLiveKRmacOS -destination 'platform=macOS' build
+xcodebuild -project BaseballLiveKR.xcodeproj -scheme BaseballLiveKRiOS -destination 'generic/platform=iOS Simulator' build
 ```
 
 ## 3. 로컬 실행 체크리스트
@@ -87,7 +87,7 @@ Menu Bar:
 
 ## 7. Polling 기준
 
-- 기본 polling interval은 `KboLiveEnvironment.defaultPollingInterval`을 사용한다.
+- 기본 polling interval은 `BaseballLiveKREnvironment.defaultPollingInterval`을 사용한다.
 - backend cache TTL은 환경변수로 조정한다.
 - live 경기 상태 변화는 backend polling fixture로 보관한다.
 

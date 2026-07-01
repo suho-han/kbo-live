@@ -90,7 +90,7 @@ npm test -- --run tests/contract.test.ts
 Swift DTO contract:
 
 ```bash
-cd Packages/KboLiveCore
+cd Packages/BaseballLiveKRCore
 swift test
 ```
 

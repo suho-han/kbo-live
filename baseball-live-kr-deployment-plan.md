@@ -1,11 +1,11 @@
 # Baseball LIVE KR 배포 방안
 
-**배포명:** Baseball LIVE KR  
-**한국어 표시명:** 한국 야구 라이브  
-**대표 도메인:** suhohan.kr  
-**공식 서비스 URL:** https://suhohan.kr/baseball-live-kr  
-**API URL:** https://api.suhohan.kr/baseball-live-kr  
-**MCP URL:** https://mcp.suhohan.kr/baseball-live-kr  
+**배포명:** Baseball LIVE KR
+**한국어 표시명:** 한국 야구 라이브
+**대표 도메인:** suhohan.kr
+**공식 서비스 URL:** https://suhohan.kr/baseball-live-kr
+**API URL:** https://api.suhohan.kr/baseball-live-kr
+**MCP URL:** https://mcp.suhohan.kr/baseball-live-kr
 
 ---
 
