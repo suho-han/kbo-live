@@ -1,0 +1,145 @@
+Wed Jul  1 16:46:33 UTC 2026
+[0/1] Planning build
+Building for debugging...
+[0/3] Write sources
+[1/3] Write swift-version--58304C5D6DBC2206.txt
+[3/5] Compiling KboLiveCore KboLiveEnvironment.swift
+[4/5] Emitting module KboLiveCore
+[4/6] Write Objects.LinkFileList
+[5/6] Linking KboLiveCorePackageTests
+Build complete! (2.28s)
+Test Suite 'All tests' started at 2026-07-02 01:46:36.143.
+Test Suite 'All tests' passed at 2026-07-02 01:46:36.145.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.002) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite KboLiveAPIClientTests started.
+◇ Suite TodayGamesListTests started.
+◇ Suite ProjectionMapperTests started.
+◇ Suite GameRepositoryTests started.
+◇ Suite BackendPresetPolicyTests started.
+◇ Suite LiveGamePollingServiceTests started.
+◇ Suite GameFeedClientTests started.
+◇ Suite TodayGamesResponseDTOTests started.
+◇ Test orderedGamesPrioritizesLiveThenScheduledStates() started.
+◇ Test scheduledFilterIncludesDelayedGames() started.
+◇ Suite RuntimeStringSettingMigrationTests started.
+◇ Test teamOptionsUseActualStandingsRanksWhenAvailable() started.
+◇ Test finalFilterIncludesCancelledGames() started.
+◇ Test teamOptionsFallBackToTemporaryStandingsOrderWhenRanksAreMissing() started.
+◇ Test mapsFavoriteTeamGameToPersonalizedWidgetSnapshot() started.
+◇ Test repositoryMapsOptionalGameDetail() started.
+◇ Test repositoryMapsTodayGamesIntoDomain() started.
+◇ Test fetchTodayGamesBuildsExpectedRequestAndDecodesResponse() started.
+◇ Test throwsOnUnexpectedStatusCode() started.
+◇ Test fetchTodayGamesAllowsUnversionedCompatibilityPath() started.
+◇ Test repositoryMapsTeamStandingsIntoDomain() started.
+◇ Test fetchTodayGamesDoesNotDuplicateNestedVersionPrefixAlreadyInBaseURL() started.
+◇ Test orderedGamesPrioritizesPreferredTeamBeforeStatusOrder() started.
+◇ Test mapsNoFavoriteTeamSelectedWidgetFallback() started.
+◇ Test fetchTeamStandingsUsesStandingsPath() started.
+◇ Test mapsLiveGameToActivityState() started.
+◇ Test pollingStreamYieldsImmediately() started.
+◇ Test mapsTodayGamesToNoFavoriteSelectedFallback() started.
+◇ Test truncatesLongRecentPlayForActivityState() started.
+◇ Test fetchGameDetailUsesMockDetailById() started.
+◇ Test fetchGameDetailUsesGameSpecificPath() started.
+◇ Test fetchTodayGamesDelegatesToRepository() started.
+◇ Test decodesNormalizedServerErrorResponse() started.
+◇ Test mapsScheduledGameToWidgetSnapshot() started.
+◇ Test mapsFavoriteTeamNoGameWidgetFallback() started.
+◇ Test deduplicatesMenuBarStatusTokensWhenDelayed() started.
+◇ Test deduplicatesMenuBarStatusTokensWhenLiveHasNoInning() started.
+◇ Test streamTodayGamesYieldsImmediately() started.
+◇ Test liveFactoryUsesEnvironmentDefaults() started.
+◇ Test onlyConfiguredPresetsRemainSelectable() started.
+◇ Test fetchTodayGamesDoesNotDuplicateVersionPrefixAlreadyInBaseURL() started.
+◇ Test mapsLiveGameToMenuBarSummary() started.
+◇ Test mapsTodayGamesToFavoriteTeamWidgetSnapshot() started.
+◇ Test displayOrderPreservesConfiguredPriority() started.
+◇ Test mockFactoryAllowsCustomPollingInterval() started.
+◇ Test widgetSnapshotRoundTripsThroughJSON() started.
+◇ Test mapsBlankStringsToNilInDomain() started.
+◇ Test mapsPregameLiveLikeResponseToScheduledBeforeStartTime() started.
+◇ Test keepsBackendProvidedCurrentMatchupAuthoritative() started.
+◇ Test decodesBackendLiveContractFixture() started.
+◇ Test decodesLegacyStringProbablePitchersAndStructuredRecordPayload() started.
+◇ Test decodesAndMapsStarterStatusWhenBackendProvidesIt() started.
+◇ Test keepsTopHalfCurrentMatchupWhenPitcherAndBatterAreAlreadyCorrect() started.
+◇ Test parsesExtendedIsoStartTimeIntoDate() started.
+◇ Test decodesTodayGamesFixture() started.
+◇ Test mapsOptionalDetailFieldsIntoDomain() started.
+◇ Test parsesIsoStartTimeIntoDate() started.
+◇ Test bothPresentKeepsNewValue() started.
+◇ Test destinationUnavailableStillReturnsReadableLegacyValue() started.
+◇ Test malformedNewEnvironmentFallsBackToValidLegacyValue() started.
+◇ Test newOnlyValueWinsWithoutTouchingLegacyKey() started.
+◇ Test environmentUsesNewValueBeforeLegacyValue() started.
+◇ Test oldOnlyValueIsReturnedPersistedToNewKeyAndRemovedFromLegacyKey() started.
+◇ Test oldInaccessibleBehavesLikeMissingValue() started.
+✔ Test repositoryMapsOptionalGameDetail() passed after 0.010 seconds.
+✔ Test teamOptionsUseActualStandingsRanksWhenAvailable() passed after 0.010 seconds.
+✔ Test finalFilterIncludesCancelledGames() passed after 0.010 seconds.
+✔ Test teamOptionsFallBackToTemporaryStandingsOrderWhenRanksAreMissing() passed after 0.010 seconds.
+✔ Test orderedGamesPrioritizesPreferredTeamBeforeStatusOrder() passed after 0.010 seconds.
+✔ Test scheduledFilterIncludesDelayedGames() passed after 0.010 seconds.
+✔ Test orderedGamesPrioritizesLiveThenScheduledStates() passed after 0.010 seconds.
+✔ Test repositoryMapsTodayGamesIntoDomain() passed after 0.010 seconds.
+✔ Test repositoryMapsTeamStandingsIntoDomain() passed after 0.010 seconds.
+✔ Test fetchGameDetailUsesMockDetailById() passed after 0.010 seconds.
+✔ Test truncatesLongRecentPlayForActivityState() passed after 0.010 seconds.
+✔ Test fetchGameDetailUsesGameSpecificPath() passed after 0.011 seconds.
+✔ Test throwsOnUnexpectedStatusCode() passed after 0.011 seconds.
+✔ Test fetchTodayGamesDelegatesToRepository() passed after 0.011 seconds.
+✔ Test fetchTeamStandingsUsesStandingsPath() passed after 0.011 seconds.
+✔ Test decodesNormalizedServerErrorResponse() passed after 0.012 seconds.
+✔ Test deduplicatesMenuBarStatusTokensWhenDelayed() passed after 0.009 seconds.
+✔ Test deduplicatesMenuBarStatusTokensWhenLiveHasNoInning() passed after 0.009 seconds.
+✔ Test mapsFavoriteTeamGameToPersonalizedWidgetSnapshot() passed after 0.012 seconds.
+✔ Test onlyConfiguredPresetsRemainSelectable() passed after 0.009 seconds.
+✔ Test fetchTodayGamesAllowsUnversionedCompatibilityPath() passed after 0.012 seconds.
+✔ Test fetchTodayGamesDoesNotDuplicateNestedVersionPrefixAlreadyInBaseURL() passed after 0.012 seconds.
+✔ Test fetchTodayGamesBuildsExpectedRequestAndDecodesResponse() passed after 0.012 seconds.
+✔ Test displayOrderPreservesConfiguredPriority() passed after 0.009 seconds.
+✔ Test mockFactoryAllowsCustomPollingInterval() passed after 0.010 seconds.
+✔ Test mapsNoFavoriteTeamSelectedWidgetFallback() passed after 0.012 seconds.
+✔ Test fetchTodayGamesDoesNotDuplicateVersionPrefixAlreadyInBaseURL() passed after 0.010 seconds.
+✔ Test mapsLiveGameToActivityState() passed after 0.012 seconds.
+✔ Test mapsLiveGameToMenuBarSummary() passed after 0.012 seconds.
+✔ Test mapsFavoriteTeamNoGameWidgetFallback() passed after 0.010 seconds.
+✔ Test widgetSnapshotRoundTripsThroughJSON() passed after 0.010 seconds.
+✔ Test keepsBackendProvidedCurrentMatchupAuthoritative() passed after 0.005 seconds.
+✔ Test mapsTodayGamesToFavoriteTeamWidgetSnapshot() passed after 0.010 seconds.
+✔ Test mapsScheduledGameToWidgetSnapshot() passed after 0.010 seconds.
+✔ Test decodesLegacyStringProbablePitchersAndStructuredRecordPayload() passed after 0.004 seconds.
+✔ Test decodesTodayGamesFixture() passed after 0.004 seconds.
+✔ Test bothPresentKeepsNewValue() passed after 0.003 seconds.
+✔ Test keepsTopHalfCurrentMatchupWhenPitcherAndBatterAreAlreadyCorrect() passed after 0.004 seconds.
+✔ Test malformedNewEnvironmentFallsBackToValidLegacyValue() passed after 0.003 seconds.
+✔ Test decodesAndMapsStarterStatusWhenBackendProvidesIt() passed after 0.004 seconds.
+✔ Test newOnlyValueWinsWithoutTouchingLegacyKey() passed after 0.003 seconds.
+✔ Test mapsBlankStringsToNilInDomain() passed after 0.005 seconds.
+✔ Test environmentUsesNewValueBeforeLegacyValue() passed after 0.003 seconds.
+✔ Test oldInaccessibleBehavesLikeMissingValue() passed after 0.003 seconds.
+✔ Test oldOnlyValueIsReturnedPersistedToNewKeyAndRemovedFromLegacyKey() passed after 0.003 seconds.
+✔ Test destinationUnavailableStillReturnsReadableLegacyValue() passed after 0.003 seconds.
+✔ Suite GameRepositoryTests passed after 0.013 seconds.
+✔ Suite TodayGamesListTests passed after 0.013 seconds.
+✔ Test pollingStreamYieldsImmediately() passed after 0.013 seconds.
+✔ Suite KboLiveAPIClientTests passed after 0.013 seconds.
+✔ Suite BackendPresetPolicyTests passed after 0.013 seconds.
+✔ Test mapsPregameLiveLikeResponseToScheduledBeforeStartTime() passed after 0.005 seconds.
+✔ Suite LiveGamePollingServiceTests passed after 0.013 seconds.
+✔ Suite RuntimeStringSettingMigrationTests passed after 0.013 seconds.
+✔ Test streamTodayGamesYieldsImmediately() passed after 0.010 seconds.
+✔ Test mapsTodayGamesToNoFavoriteSelectedFallback() passed after 0.013 seconds.
+✔ Suite ProjectionMapperTests passed after 0.014 seconds.
+✔ Test parsesIsoStartTimeIntoDate() passed after 0.005 seconds.
+✔ Test mapsOptionalDetailFieldsIntoDomain() passed after 0.005 seconds.
+✔ Test liveFactoryUsesEnvironmentDefaults() passed after 0.012 seconds.
+✔ Suite GameFeedClientTests passed after 0.015 seconds.
+✔ Test parsesExtendedIsoStartTimeIntoDate() passed after 0.006 seconds.
+✔ Test decodesBackendLiveContractFixture() passed after 0.007 seconds.
+✔ Suite TodayGamesResponseDTOTests passed after 0.015 seconds.
+✔ Test run with 55 tests in 9 suites passed after 0.015 seconds.

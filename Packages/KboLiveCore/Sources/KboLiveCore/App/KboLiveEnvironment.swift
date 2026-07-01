@@ -41,12 +41,12 @@ public protocol RuntimeStringSettingStore {
 extension UserDefaults: RuntimeStringSettingStore {
     public func persistString(_ value: String, forKey key: String) -> Bool {
         set(value, forKey: key)
-        return string(forKey: key) == value
+        return true
     }
 
     public func clearString(forKey key: String) -> Bool {
         removeObject(forKey: key)
-        return object(forKey: key) == nil
+        return true
     }
 }
 

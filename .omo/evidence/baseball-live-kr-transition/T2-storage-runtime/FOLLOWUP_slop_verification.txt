@@ -1,0 +1,8 @@
+Wed Jul  1 16:46:33 UTC 2026
+
+## pure LOC
+Packages/KboLiveCore/Sources/KboLiveCore/App/KboLiveEnvironment.swift      107
+
+## redundant verification search
+
+## diff check

@@ -1,0 +1,45 @@
+T2 storage-runtime code review / slop report
+
+Scope reviewed
+- Production diff from commit 47a4bdc plus follow-up remediation in:
+  - KboLiveApp/Shared/AppRuntime.swift
+  - KboLiveApp/Shared/BackendSettingsModel.swift
+  - KboLiveApp/Shared/BackendSettingsModel+Resolution.swift
+  - KboLiveApp/Shared/BackendSettingsView.swift
+  - KboLiveApp/Shared/WidgetGameSnapshotStore.swift
+  - KboLiveApp/iOS/Info.plist
+  - KboLiveApp/iOS/KboLiveiOS.entitlements
+  - KboLiveApp/macOS/Info.plist
+  - KboLiveApp/macOS/MenuBarDashboardView.swift
+  - KboLiveApp/Widget/KboLiveWidget.entitlements
+  - Packages/KboLiveCore/Sources/KboLiveCore/App/KboLiveEnvironment.swift
+  - Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/MyTeamSelectionStore.swift
+  - Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/TodayGamesViewModel.swift
+- Tests reviewed:
+  - Packages/KboLiveCore/Tests/KboLiveCoreTests/RuntimeStringSettingMigrationTests.swift
+  - Packages/KboLiveFeatures/Tests/KboLiveFeaturesTests/MyTeamSelectionStoreTests.swift
+
+Remove-ai-slops criteria
+- Obvious comments: PASS. No obvious comments or stale TODOs added to production code.
+- Over-defensive code: FIXED. UserDefaults persist/clear no longer performs immediate read-back verification after set/remove. Destination-unavailable behavior remains testable through the RuntimeStringSettingStore seam and mock store, not through redundant UserDefaults checks.
+- Excessive complexity: PASS. Migration branching is shallow and uses guard clauses; no deeply nested conditionals or clever one-liners were introduced.
+- Needless abstraction: PASS with rationale. RuntimeStringSettingStore is a small boundary seam used by production migration code and tests to model unavailable destinations without abusing UserDefaults behavior. No speculative factories or pass-through wrappers were added.
+- Boundary violations: PASS. App Group migration stays in app/shared storage; non-App-Group defaults/env migration stays in runtime/settings code; backend scripts/docs remain T3 scope.
+- Dead code: PASS. New constants are referenced by production migration paths or tests. Old App Group constants were removed.
+- Duplication: PASS with accepted local duplication. MyTeamSelectionStore keeps a local defaults migration because this source is compiled directly into Xcode app targets where importing the Swift package module breaks the project layout; this avoids a T1-owned project/module rename.
+- Performance equivalences: PASS. No algorithmic changes. Removed redundant UserDefaults read-backs reduces unnecessary work.
+- Missing tests: PASS. Tests cover old-only, new-only, both-present new-wins, old-inaccessible, destination-unavailable, malformed env fallback, and selected-team migration/save behavior.
+- Oversized modules: PASS for files touched by this follow-up. The edited source file remains below the hard 250 pure-LOC ceiling.
+
+Programming criteria
+- Type strictness: PASS. No untyped escape hatches, force casts, or suppression comments were added.
+- Boundary purity: PASS. Env strings are accepted only after URL normalization. Defaults migration preserves string settings and leaves URL parsing at the existing runtime URL boundary.
+- Variant discrimination: PASS. No tagged variant or enum discrimination chains were added.
+- Defensive layer: FIXED. Redundant post-action verification after UserDefaults set/remove was removed.
+- Helper discipline: PASS. The migration seam has production and test callers; no one-off helper was added in the follow-up.
+- Tests: PASS. Behavior remains locked by Swift package tests and app builds recorded in the follow-up verification artifact.
+
+Residual risks / deferred
+- Legacy KBO_LIVE_* and kbo-live.backend-* strings remain only as non-App-Group migration fallbacks and tests proving those fallbacks.
+- project.yml bundle identifiers remain T1/project-swift scope.
+- backend-spike, scripts, docs, KBO_DB_* names, and packaged DB paths remain T3/backend-scripts-docs scope.
