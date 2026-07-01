@@ -3,9 +3,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 BACKEND_DIR="${ROOT_DIR}/.build/kbo-live-backend-macos"
-APP_PATH="${APP_PATH:-${ROOT_DIR}/.xcode/DerivedData/Build/Products/Debug/KboLiveApp.app}"
-LEGACY_APP_PATH="${ROOT_DIR}/.xcode/DerivedData/Build/Products/Debug/KboLive.app"
-FALLBACK_APP_PATH="${ROOT_DIR}/build/XcodeDerivedData/Build/Products/Debug/KboLive.app"
+APP_PATH="${APP_PATH:-${ROOT_DIR}/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app}"
 PORT="${PORT:-17361}"
 FORCE_RESTART="${FORCE_RESTART:-0}"
 PID_FILE="${BACKEND_DIR}/backend.pid"
@@ -47,21 +45,13 @@ wait_for_backend_health() {
   exit 1
 }
 
-if [[ "${APP_PATH}" == "${ROOT_DIR}/.xcode/DerivedData/Build/Products/Debug/KboLiveApp.app" && ! -d "${APP_PATH}" ]]; then
-  if [[ -d "${LEGACY_APP_PATH}" ]]; then
-    APP_PATH="${LEGACY_APP_PATH}"
-  elif [[ -d "${FALLBACK_APP_PATH}" ]]; then
-    APP_PATH="${FALLBACK_APP_PATH}"
-  fi
-fi
-
 if [[ ! -x "${BACKEND_DIR}/run-backend.command" ]]; then
   "${ROOT_DIR}/scripts/package-backend-macos.sh"
 fi
 
 if [[ ! -d "${APP_PATH}" ]]; then
   echo "macOS app bundle not found: ${APP_PATH}" >&2
-  echo "Build it first with: xcodebuild -project KboLiveApp.xcodeproj -scheme KboLivemacOS -destination 'platform=macOS' -derivedDataPath .xcode/DerivedData build" >&2
+  echo "Build it first with: xcodebuild -project BaseballLiveKR.xcodeproj -scheme BaseballLiveKRmacOS -destination 'platform=macOS' -derivedDataPath .xcode/DerivedData build" >&2
   exit 1
 fi
 
@@ -138,7 +128,7 @@ if [[ "${FORCE_RESTART}" == "1" ]]; then
       APP_PIDS="$(find_app_pids)"
     fi
     if [[ -n "${APP_PIDS}" ]]; then
-      echo "failed to stop existing KboLiveApp instances; stop the Xcode run/debug session and retry" >&2
+      echo "failed to stop existing BaseballLiveKR instances; stop the Xcode run/debug session and retry" >&2
       ps -p ${APP_PIDS} -o pid,ppid,stat,command >&2 || true
       exit 1
     fi

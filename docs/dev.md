@@ -1,6 +1,6 @@
 # 개발 및 검증
 
-이 문서는 KBO Live를 직접 개발하거나 배포 준비를 확인할 때 필요한 명령만 모아둡니다. 앱을 실행해 보고 싶은 경우에는 README의 `./scripts/kbo-live.sh run`을 먼저 사용하세요.
+이 문서는 Baseball LIVE KR를 직접 개발하거나 배포 준비를 확인할 때 필요한 명령만 모아둡니다. 앱을 실행해 보고 싶은 경우에는 README의 `./scripts/kbo-live.sh run`을 먼저 사용하세요.
 
 ## 빠른 명령
 
@@ -27,12 +27,12 @@ SKIP_XCODE=1 ./scripts/verify-local.sh
 ## Swift package
 
 ```bash
-cd Packages/KboLiveCore
+cd Packages/BaseballLiveKRCore
 swift test
 ```
 
 ```bash
-cd Packages/KboLiveFeatures
+cd Packages/BaseballLiveKRFeatures
 swift test
 ```
 
@@ -42,26 +42,26 @@ swift test
 
 ```bash
 /private/tmp/XcodeGen/.build/release/xcodegen generate
-open KboLiveApp.xcodeproj
+open BaseballLiveKR.xcodeproj
 ```
 
 현재 포함 타깃:
 
-- `KboLiveiOS`
-- `KboLivemacOS`
-- `KboLiveWidgetExtension`
+- `BaseballLiveKRiOS`
+- `BaseballLiveKRmacOS`
+- `BaseballLiveKRWidgetExtension`
 
 참고:
 
 - 루트에 `KboLive.xcworkspace`도 같이 두었지만, 현재 샌드박스의 `xcodebuild -workspace` 검증은 통과하지 못했습니다.
-- 실제 빌드 검증은 `KboLiveApp.xcodeproj` 기준으로 수행했습니다.
+- 실제 빌드 검증은 `BaseballLiveKR.xcodeproj` 기준으로 수행했습니다.
 
 로컬 검증에 사용한 Xcode 명령:
 
 ```bash
-xcodebuild -scheme KboLivemacOS -project KboLiveApp.xcodeproj -destination 'platform=macOS' -derivedDataPath .xcode/DerivedData build
+xcodebuild -scheme BaseballLiveKRmacOS -project BaseballLiveKR.xcodeproj -destination 'platform=macOS' -derivedDataPath .xcode/DerivedData build
 
-xcodebuild -scheme KboLiveiOS -project KboLiveApp.xcodeproj -destination 'generic/platform=iOS Simulator' -derivedDataPath .xcode/DerivedData build
+xcodebuild -scheme BaseballLiveKRiOS -project BaseballLiveKR.xcodeproj -destination 'generic/platform=iOS Simulator' -derivedDataPath .xcode/DerivedData build
 ```
 
 ## 경기 데이터 설정

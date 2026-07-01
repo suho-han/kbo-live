@@ -1,0 +1,5 @@
+$ pgrep -fl "xcodebuild|swift test|swift-testing|XCBBuildService"
+55063 /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project KboLiveApp.xcodeproj -scheme KboLiveiOS -configuration Debug -destination generic/platform=iOS build CODE_SIGNING_ALLOWED=NO
+55067 /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project KboLiveApp.xcodeproj -scheme KboLivemacOS -configuration Debug -destination platform=macOS build CODE_SIGNING_ALLOWED=NO
+
+$ jobs -l

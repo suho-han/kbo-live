@@ -1,0 +1,140 @@
+$ rg -n "KboLiveApp\.xcodeproj|KboLiveiOS|KboLivemacOS|KboLiveWidgetExtension|KboLiveCore|KboLiveDesignSystem|KboLiveFeatures" project.yml Packages KboLiveApp scripts README.md docs
+project.yml:14:  KboLiveiOS:
+project.yml:18:      - path: Packages/KboLiveCore/Sources/KboLiveCore
+project.yml:19:      - path: Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem
+project.yml:20:      - path: Packages/KboLiveFeatures/Sources/KboLiveFeatures
+project.yml:27:      - target: KboLiveWidgetExtension
+project.yml:32:        CODE_SIGN_ENTITLEMENTS: KboLiveApp/iOS/KboLiveiOS.entitlements
+project.yml:34:        PRODUCT_NAME: KboLiveiOS
+project.yml:35:  KboLivemacOS:
+project.yml:39:      - path: Packages/KboLiveCore/Sources/KboLiveCore
+project.yml:40:      - path: Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem
+project.yml:41:      - path: Packages/KboLiveFeatures/Sources/KboLiveFeatures
+project.yml:53:  KboLiveWidgetExtension:
+project.yml:57:      - path: Packages/KboLiveCore/Sources/KboLiveCore
+project.yml:58:      - path: Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem
+project.yml:72:  KboLiveiOS:
+project.yml:75:        settingsTarget: KboLiveiOS
+project.yml:80:        KboLiveiOS: all
+project.yml:81:        KboLiveWidgetExtension: all
+project.yml:84:      executable: KboLiveiOS
+project.yml:85:  KboLivemacOS:
+project.yml:88:        settingsTarget: KboLivemacOS
+project.yml:93:        KboLivemacOS: all
+project.yml:96:  KboLiveWidgetExtension:
+project.yml:99:        KboLiveWidgetExtension: all
+KboLiveApp/iOS/Info.plist:8:	<string>KboLiveiOS</string>
+scripts/run-macos-app-with-packaged-backend.sh:64:  echo "Build it first with: xcodebuild -project KboLiveApp.xcodeproj -scheme KboLivemacOS -destination 'platform=macOS' -derivedDataPath .xcode/DerivedData build" >&2
+docs/dev.md:30:cd Packages/KboLiveCore
+docs/dev.md:35:cd Packages/KboLiveFeatures
+docs/dev.md:45:open KboLiveApp.xcodeproj
+docs/dev.md:50:- `KboLiveiOS`
+docs/dev.md:51:- `KboLivemacOS`
+docs/dev.md:52:- `KboLiveWidgetExtension`
+docs/dev.md:57:- 실제 빌드 검증은 `KboLiveApp.xcodeproj` 기준으로 수행했습니다.
+docs/dev.md:62:xcodebuild -scheme KboLivemacOS -project KboLiveApp.xcodeproj -destination 'platform=macOS' -derivedDataPath .xcode/DerivedData build
+docs/dev.md:64:xcodebuild -scheme KboLiveiOS -project KboLiveApp.xcodeproj -destination 'generic/platform=iOS Simulator' -derivedDataPath .xcode/DerivedData build
+Packages/KboLiveFeatures/Sources/KboLiveFeatures/GameDetail/GameDetailScreen.swift:2:#if canImport(KboLiveCore)
+Packages/KboLiveFeatures/Sources/KboLiveFeatures/GameDetail/GameDetailScreen.swift:3:import KboLiveCore
+scripts/package-macmini-runtime.sh:18:  printf 'Build it first with: xcodebuild -project KboLiveApp.xcodeproj -scheme KboLivemacOS -destination "platform=macOS" -derivedDataPath .xcode/DerivedData build\n' >&2
+KboLiveApp/iOS/KboLiveiOSApp.swift:2:#if canImport(KboLiveDesignSystem)
+KboLiveApp/iOS/KboLiveiOSApp.swift:3:import KboLiveDesignSystem
+KboLiveApp/iOS/KboLiveiOSApp.swift:7:struct KboLiveiOSApp: App {
+scripts/verify-local.sh:16:cd "$ROOT_DIR/Packages/KboLiveCore"
+scripts/verify-local.sh:19:cd "$ROOT_DIR/Packages/KboLiveDesignSystem"
+scripts/verify-local.sh:22:cd "$ROOT_DIR/Packages/KboLiveFeatures"
+scripts/verify-local.sh:32:  -project KboLiveApp.xcodeproj \
+scripts/verify-local.sh:33:  -scheme KboLivemacOS \
+scripts/verify-local.sh:39:  -project KboLiveApp.xcodeproj \
+scripts/verify-local.sh:40:  -scheme KboLiveiOS \
+scripts/kbo-live.sh:26:    -scheme KboLivemacOS \
+scripts/kbo-live.sh:27:    -project "$ROOT_DIR/KboLiveApp.xcodeproj" \
+KboLiveApp/Shared/WidgetGameSnapshotStore.swift:2:#if canImport(KboLiveCore)
+KboLiveApp/Shared/WidgetGameSnapshotStore.swift:3:import KboLiveCore
+Packages/KboLiveFeatures/Sources/KboLiveFeatures/GameDetail/GameDetailView.swift:2:#if canImport(KboLiveCore)
+Packages/KboLiveFeatures/Sources/KboLiveFeatures/GameDetail/GameDetailView.swift:3:import KboLiveCore
+Packages/KboLiveFeatures/Sources/KboLiveFeatures/GameDetail/GameDetailView.swift:5:#if canImport(KboLiveDesignSystem)
+Packages/KboLiveFeatures/Sources/KboLiveFeatures/GameDetail/GameDetailView.swift:6:import KboLiveDesignSystem
+Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/TodayGamesViewModel.swift:3:#if canImport(KboLiveCore)
+Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/TodayGamesViewModel.swift:4:import KboLiveCore
+KboLiveApp/Shared/BackendSettingsModel+Resolution.swift:2:#if canImport(KboLiveCore)
+KboLiveApp/Shared/BackendSettingsModel+Resolution.swift:3:import KboLiveCore
+Packages/KboLiveFeatures/Sources/KboLiveFeatures/GameDetail/GameDetailViewModel.swift:3:#if canImport(KboLiveCore)
+Packages/KboLiveFeatures/Sources/KboLiveFeatures/GameDetail/GameDetailViewModel.swift:4:import KboLiveCore
+KboLiveApp/Shared/LiveGameActivityController.swift:6:#if canImport(KboLiveCore)
+KboLiveApp/Shared/LiveGameActivityController.swift:7:import KboLiveCore
+Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/TodayGamesView.swift:7:#if canImport(KboLiveCore)
+Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/TodayGamesView.swift:8:import KboLiveCore
+Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/TodayGamesView.swift:10:#if canImport(KboLiveDesignSystem)
+Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/TodayGamesView.swift:11:import KboLiveDesignSystem
+KboLiveApp/Shared/BackendSettingsModel.swift:2:#if canImport(KboLiveCore)
+KboLiveApp/Shared/BackendSettingsModel.swift:3:import KboLiveCore
+KboLiveApp/Shared/LiveGameActivityAttributes.swift:5:#if canImport(KboLiveCore)
+KboLiveApp/Shared/LiveGameActivityAttributes.swift:6:import KboLiveCore
+Packages/KboLiveFeatures/Tests/KboLiveFeaturesTests/TodayGamesLayoutTests.swift:3:@testable import KboLiveFeatures
+KboLiveApp/Shared/AppRuntime.swift:5:#if canImport(KboLiveCore)
+KboLiveApp/Shared/AppRuntime.swift:6:import KboLiveCore
+Packages/KboLiveFeatures/Tests/KboLiveFeaturesTests/TodayGamesViewModelTests.swift:2:import KboLiveCore
+Packages/KboLiveFeatures/Tests/KboLiveFeaturesTests/TodayGamesViewModelTests.swift:4:@testable import KboLiveFeatures
+KboLiveApp/Shared/AppNavigationModel.swift:2:#if canImport(KboLiveCore)
+KboLiveApp/Shared/AppNavigationModel.swift:3:import KboLiveCore
+KboLiveApp/Shared/KboLiveHomeRootView.swift:5:#if canImport(KboLiveCore)
+KboLiveApp/Shared/KboLiveHomeRootView.swift:6:import KboLiveCore
+KboLiveApp/Shared/KboLiveHomeRootView.swift:8:#if canImport(KboLiveDesignSystem)
+KboLiveApp/Shared/KboLiveHomeRootView.swift:9:import KboLiveDesignSystem
+KboLiveApp/Shared/KboLiveHomeRootView.swift:11:#if canImport(KboLiveFeatures)
+KboLiveApp/Shared/KboLiveHomeRootView.swift:12:import KboLiveFeatures
+KboLiveApp/macOS/KboLivemacOSApp.swift:5:#if canImport(KboLiveDesignSystem)
+KboLiveApp/macOS/KboLivemacOSApp.swift:6:import KboLiveDesignSystem
+KboLiveApp/macOS/KboLivemacOSApp.swift:10:struct KboLivemacOSApp: App {
+Packages/KboLiveFeatures/Tests/KboLiveFeaturesTests/KboDisplayDateFormatterTests.swift:3:@testable import KboLiveFeatures
+Packages/KboLiveDesignSystem/Package.swift:5:    name: "KboLiveDesignSystem",
+Packages/KboLiveDesignSystem/Package.swift:12:            name: "KboLiveDesignSystem",
+Packages/KboLiveDesignSystem/Package.swift:13:            targets: ["KboLiveDesignSystem"]
+Packages/KboLiveDesignSystem/Package.swift:18:            name: "KboLiveDesignSystem"
+Packages/KboLiveDesignSystem/Package.swift:21:            name: "KboLiveDesignSystemTests",
+Packages/KboLiveDesignSystem/Package.swift:22:            dependencies: ["KboLiveDesignSystem"]
+Packages/KboLiveFeatures/Package.swift:5:    name: "KboLiveFeatures",
+Packages/KboLiveFeatures/Package.swift:12:            name: "KboLiveFeatures",
+Packages/KboLiveFeatures/Package.swift:13:            targets: ["KboLiveFeatures"]
+Packages/KboLiveFeatures/Package.swift:17:        .package(path: "../KboLiveCore"),
+Packages/KboLiveFeatures/Package.swift:18:        .package(path: "../KboLiveDesignSystem")
+Packages/KboLiveFeatures/Package.swift:22:            name: "KboLiveFeatures",
+Packages/KboLiveFeatures/Package.swift:24:                "KboLiveCore",
+Packages/KboLiveFeatures/Package.swift:25:                "KboLiveDesignSystem"
+Packages/KboLiveFeatures/Package.swift:29:            name: "KboLiveFeaturesTests",
+Packages/KboLiveFeatures/Package.swift:30:            dependencies: ["KboLiveFeatures"]
+Packages/KboLiveDesignSystem/Tests/KboLiveDesignSystemTests/AppearanceModeTests.swift:3:@testable import KboLiveDesignSystem
+KboLiveApp/Shared/AppSettingsView.swift:7:#if canImport(KboLiveCore)
+KboLiveApp/Shared/AppSettingsView.swift:8:import KboLiveCore
+KboLiveApp/Shared/AppSettingsView.swift:10:#if canImport(KboLiveDesignSystem)
+KboLiveApp/Shared/AppSettingsView.swift:11:import KboLiveDesignSystem
+KboLiveApp/Shared/AppSettingsView.swift:13:#if canImport(KboLiveFeatures)
+KboLiveApp/Shared/AppSettingsView.swift:14:import KboLiveFeatures
+KboLiveApp/macOS/MenuBarDashboardView.swift:6:#if canImport(KboLiveCore)
+KboLiveApp/macOS/MenuBarDashboardView.swift:7:import KboLiveCore
+KboLiveApp/macOS/MenuBarDashboardView.swift:9:#if canImport(KboLiveDesignSystem)
+KboLiveApp/macOS/MenuBarDashboardView.swift:10:import KboLiveDesignSystem
+KboLiveApp/macOS/MenuBarDashboardView.swift:12:#if canImport(KboLiveFeatures)
+KboLiveApp/macOS/MenuBarDashboardView.swift:13:import KboLiveFeatures
+KboLiveApp/macOS/MenuBarDashboardView.swift:380:#if canImport(KboLiveDesignSystem)
+KboLiveApp/macOS/MenuBarDashboardView.swift:388:#if canImport(KboLiveDesignSystem)
+Packages/KboLiveDesignSystem/Tests/KboLiveDesignSystemTests/TeamColorResolverTests.swift:2:@testable import KboLiveDesignSystem
+Packages/KboLiveFeatures/Tests/KboLiveFeaturesTests/ProbablePitcherChipFormatterTests.swift:1:import KboLiveCore
+Packages/KboLiveFeatures/Tests/KboLiveFeaturesTests/ProbablePitcherChipFormatterTests.swift:3:@testable import KboLiveFeatures
+Packages/KboLiveCore/Package.swift:5:    name: "KboLiveCore",
+Packages/KboLiveCore/Package.swift:12:            name: "KboLiveCore",
+Packages/KboLiveCore/Package.swift:13:            targets: ["KboLiveCore"]
+Packages/KboLiveCore/Package.swift:18:            name: "KboLiveCore"
+Packages/KboLiveCore/Package.swift:21:            name: "KboLiveCoreTests",
+Packages/KboLiveCore/Package.swift:22:            dependencies: ["KboLiveCore"],
+Packages/KboLiveCore/Tests/KboLiveCoreTests/GameFeedClientTests.swift:3:@testable import KboLiveCore
+Packages/KboLiveCore/Tests/KboLiveCoreTests/TodayGamesResponseDTOTests.swift:3:@testable import KboLiveCore
+Packages/KboLiveCore/Tests/KboLiveCoreTests/KboLiveAPIClientTests.swift:6:@testable import KboLiveCore
+Packages/KboLiveCore/Tests/KboLiveCoreTests/ProjectionMapperTests.swift:3:@testable import KboLiveCore
+Packages/KboLiveCore/Tests/KboLiveCoreTests/GameRepositoryTests.swift:3:@testable import KboLiveCore
+Packages/KboLiveCore/Tests/KboLiveCoreTests/TodayGamesListTests.swift:3:@testable import KboLiveCore
+Packages/KboLiveCore/Tests/KboLiveCoreTests/LiveGamePollingServiceTests.swift:3:@testable import KboLiveCore
+Packages/KboLiveCore/Tests/KboLiveCoreTests/BackendPresetPolicyTests.swift:2:@testable import KboLiveCore
+
+exit=0

@@ -1,0 +1,65 @@
+$ swift test --package-path Packages/BaseballLiveKRDesignSystem
+Building for debugging...
+[0/7] Write sources
+[0/7] /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/.build/arm64-apple-macosx/debug/BaseballLiveKRDesignSystemPackageTests.derived/runner.swift
+[0/7] Write sources
+[4/7] Write swift-version--58304C5D6DBC2206.txt
+[6/33] Emitting module BaseballLiveKRDesignSystem
+[7/33] Compiling BaseballLiveKRDesignSystem BaseDiamondView.swift
+[8/33] Compiling BaseballLiveKRDesignSystem InningStateView.swift
+[9/33] Compiling BaseballLiveKRDesignSystem KboCommandBar.swift
+[10/35] Compiling BaseballLiveKRDesignSystem KboShadowToken.swift
+[11/35] Compiling BaseballLiveKRDesignSystem KboSpacingToken.swift
+[12/35] Compiling BaseballLiveKRDesignSystem KboPrimaryActionButton.swift
+[13/35] Compiling BaseballLiveKRDesignSystem KboStatusPill.swift
+[14/35] Compiling BaseballLiveKRDesignSystem LiveBadgeView.swift
+[15/35] Compiling BaseballLiveKRDesignSystem KboRadiusToken.swift
+[16/35] Compiling BaseballLiveKRDesignSystem KboSemanticColorToken.swift
+[17/35] Compiling BaseballLiveKRDesignSystem KboControlToken.swift
+[18/35] Compiling BaseballLiveKRDesignSystem KboGlassToken.swift
+[19/35] Compiling BaseballLiveKRDesignSystem KboMotionToken.swift
+[20/35] Compiling BaseballLiveKRDesignSystem KboTheme.swift
+[21/35] Compiling BaseballLiveKRDesignSystem TeamColorPalette.swift
+[22/35] Compiling BaseballLiveKRDesignSystem KboColorToken.swift
+[23/35] Compiling BaseballLiveKRDesignSystem OutCountView.swift
+[24/35] Compiling BaseballLiveKRDesignSystem PitchCountView.swift
+[25/35] Compiling BaseballLiveKRDesignSystem ScoreDigitsView.swift
+[26/35] Compiling BaseballLiveKRDesignSystem KboEmptyStateView.swift
+[27/35] Compiling BaseballLiveKRDesignSystem KboGlassPanel.swift
+[28/35] Compiling BaseballLiveKRDesignSystem KboMetricRow.swift
+[29/35] Compiling BaseballLiveKRDesignSystem TeamBadgeView.swift
+[30/35] Compiling BaseballLiveKRDesignSystem TeamColorResolver.swift
+[31/35] Compiling BaseballLiveKRDesignSystem KboAppearanceMode.swift
+[32/35] Compiling BaseballLiveKRDesignSystem KboSurfaceToken.swift
+[33/35] Compiling BaseballLiveKRDesignSystem KboTypographyToken.swift
+[34/38] Compiling BaseballLiveKRDesignSystemTests TeamColorResolverTests.swift
+[35/38] Emitting module BaseballLiveKRDesignSystemTests
+[36/38] Compiling BaseballLiveKRDesignSystemTests AppearanceModeTests.swift
+[37/40] Compiling BaseballLiveKRDesignSystemPackageTests runner.swift
+[38/40] Emitting module BaseballLiveKRDesignSystemPackageTests
+[38/40] Write Objects.LinkFileList
+[39/40] Linking BaseballLiveKRDesignSystemPackageTests
+Build complete! (101.74s)
+Test Suite 'All tests' started at 2026-07-02 01:27:40.929.
+Test Suite 'All tests' passed at 2026-07-02 01:27:40.932.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.002) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite AppearanceModeTests started.
+◇ Suite TeamColorResolverTests started.
+◇ Test normalizesWhitespaceAndFullTeamIdentifiers() started.
+◇ Test systemIsTheDefaultAndUsesSystemColorScheme() started.
+◇ Test keepsTeamColorForegroundForBrightTeamColors() started.
+◇ Test explicitModesMapToSwiftUIColorSchemeAndLabels() started.
+◇ Test usesLightForegroundForDarkTeamColors() started.
+✔ Test systemIsTheDefaultAndUsesSystemColorScheme() passed after 0.001 seconds.
+✔ Test keepsTeamColorForegroundForBrightTeamColors() passed after 0.001 seconds.
+✔ Test usesLightForegroundForDarkTeamColors() passed after 0.001 seconds.
+✔ Test normalizesWhitespaceAndFullTeamIdentifiers() passed after 0.001 seconds.
+✔ Test explicitModesMapToSwiftUIColorSchemeAndLabels() passed after 0.001 seconds.
+✔ Suite TeamColorResolverTests passed after 0.001 seconds.
+✔ Suite AppearanceModeTests passed after 0.001 seconds.
+✔ Test run with 5 tests in 2 suites passed after 0.001 seconds.
+
+exit=0

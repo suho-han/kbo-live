@@ -1,0 +1,19 @@
+$ sed -n 1,220p /Users/suhohan/Projects/kbo-live/.omo/teams/team-fbacba12/team.json | rg "project-swift|019f1e79-ec5c|8787|status"
+  "status": "active",
+      "status": "active"
+      "status": "active"
+      "status": "active"
+      "name": "project-swift",
+      "threadId": "019f1e79-ec5c-7ae3-94b5-ea9db21c83f3",
+      "threadTitle": "[baseball-live-kr-transition] project-swift",
+      "cwd": "/Users/suhohan/.codex/worktrees/8787/kbo-live",
+        "path": "/Users/suhohan/.codex/worktrees/8787/kbo-live",
+      "status": "active"
+      "detail": "member A -> thread 019f1e79-ec5c-7ae3-94b5-ea9db21c83f3"
+      "event": "set-status",
+      "event": "set-status",
+      "event": "set-status",
+      "detail": "member A -> active: Bound to codex://threads/019f1e79-ec5c-7ae3-94b5-ea9db21c83f3 cwd /Users/suhohan/.codex/worktrees/8787/kbo-live; T1 start assigned."
+      "event": "set-status",
+
+exit=0

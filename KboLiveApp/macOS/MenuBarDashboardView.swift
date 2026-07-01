@@ -3,14 +3,14 @@ import Foundation
 #if canImport(AppKit)
 import AppKit
 #endif
-#if canImport(KboLiveCore)
-import KboLiveCore
+#if canImport(BaseballLiveKRCore)
+import BaseballLiveKRCore
 #endif
-#if canImport(KboLiveDesignSystem)
-import KboLiveDesignSystem
+#if canImport(BaseballLiveKRDesignSystem)
+import BaseballLiveKRDesignSystem
 #endif
-#if canImport(KboLiveFeatures)
-import KboLiveFeatures
+#if canImport(BaseballLiveKRFeatures)
+import BaseballLiveKRFeatures
 #endif
 
 struct MenuBarDashboardView: View {
@@ -377,7 +377,7 @@ struct MenuBarDashboardView: View {
     }
 
     private func teamColor(for teamID: String) -> Color {
-#if canImport(KboLiveDesignSystem)
+#if canImport(BaseballLiveKRDesignSystem)
         TeamColorResolver.color(forTeamID: teamID)
 #else
         .secondary
@@ -385,7 +385,7 @@ struct MenuBarDashboardView: View {
     }
 
     private var headerTextColor: Color {
-#if canImport(KboLiveDesignSystem)
+#if canImport(BaseballLiveKRDesignSystem)
         if let selectedTeamID = viewModel.selectedTeam?.id ?? viewModel.selectedTeamID,
            TeamColorResolver.usesLightForeground(forTeamID: selectedTeamID) {
             return KboColorToken.textPrimary

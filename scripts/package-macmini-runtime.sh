@@ -3,19 +3,14 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DERIVED_DATA_PATH="${DERIVED_DATA_PATH:-$ROOT_DIR/.xcode/DerivedData}"
-APP_PATH="${APP_PATH:-$DERIVED_DATA_PATH/Build/Products/Debug/KboLiveApp.app}"
-LEGACY_APP_PATH="$DERIVED_DATA_PATH/Build/Products/Debug/KboLive.app"
+APP_PATH="${APP_PATH:-$DERIVED_DATA_PATH/Build/Products/Debug/BaseballLiveKR.app}"
 OUT_DIR="${OUT_DIR:-$ROOT_DIR/.build/transfer}"
 STAGING_DIR="$ROOT_DIR/.build/macmini-runtime"
 ARCHIVE_PATH="$OUT_DIR/kbo-live-macmini-runtime.tar.gz"
 
-if [[ ! -d "$APP_PATH" && -d "$LEGACY_APP_PATH" ]]; then
-  APP_PATH="$LEGACY_APP_PATH"
-fi
-
 if [[ ! -d "$APP_PATH" ]]; then
   printf 'Missing macOS app bundle: %s\n' "$APP_PATH" >&2
-  printf 'Build it first with: xcodebuild -project KboLiveApp.xcodeproj -scheme KboLivemacOS -destination "platform=macOS" -derivedDataPath .xcode/DerivedData build\n' >&2
+  printf 'Build it first with: xcodebuild -project BaseballLiveKR.xcodeproj -scheme BaseballLiveKRmacOS -destination "platform=macOS" -derivedDataPath .xcode/DerivedData build\n' >&2
   exit 1
 fi
 

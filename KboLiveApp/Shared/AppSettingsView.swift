@@ -4,14 +4,14 @@ import AppKit
 #elseif canImport(UIKit)
 import UIKit
 #endif
-#if canImport(KboLiveCore)
-import KboLiveCore
+#if canImport(BaseballLiveKRCore)
+import BaseballLiveKRCore
 #endif
-#if canImport(KboLiveDesignSystem)
-import KboLiveDesignSystem
+#if canImport(BaseballLiveKRDesignSystem)
+import BaseballLiveKRDesignSystem
 #endif
-#if canImport(KboLiveFeatures)
-import KboLiveFeatures
+#if canImport(BaseballLiveKRFeatures)
+import BaseballLiveKRFeatures
 #endif
 
 struct AppSettingsView: View {

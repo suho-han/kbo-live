@@ -1,0 +1,24 @@
+T1 project-swift evidence index
+
+RED baseline:
+- red_manual_qa_legacy_identifiers.txt: pre-change exact legacy project/target/package search proved hits.
+- red_broad_legacy_identifiers.txt: pre-change broad legacy identifier search.
+- red_t1_scope_legacy_identifiers.txt: pre-change T1 scoped legacy identifier search.
+
+GREEN implementation evidence:
+- xcodegen_generate.txt: xcodegen generated BaseballLiveKR.xcodeproj.
+- xcodebuild_list.txt: project lists BaseballLiveKRWidgetExtension, BaseballLiveKRiOS, BaseballLiveKRmacOS targets and schemes.
+- swift_test_core.txt: BaseballLiveKRCore SwiftPM tests passed.
+- swift_test_design_system.txt: BaseballLiveKRDesignSystem SwiftPM tests passed.
+- swift_test_features.txt: BaseballLiveKRFeatures SwiftPM tests passed.
+- xcodebuild_macos.txt: BaseballLiveKRmacOS Xcode build passed.
+- xcodebuild_ios_clean.txt: BaseballLiveKRiOS simulator Xcode build passed.
+
+Manual QA / data artifacts:
+- manual_qa_green_legacy_identifiers.txt: required exact rg returns exit 1/no matches.
+- generated_project_inventory.txt: generated project/scheme inventory.
+- residual_broad_search_post_t1.txt: remaining broad KboLive/kbo-live hits for integration/T2/T3/T4 classification.
+- dirty_worktree_probe.txt: dirty worktree baseline, including pre-existing unrelated files.
+- stale_state_probe.txt: main team state confirms bound A thread/cwd.
+- cleanup_receipt.txt: process/job cleanup check after verification.
+- shell_syntax_scripts.txt: bash -n passed for touched helper scripts.

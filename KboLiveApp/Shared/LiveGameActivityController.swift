@@ -3,8 +3,8 @@ import Foundation
 #if os(iOS) && canImport(ActivityKit)
 import ActivityKit
 #endif
-#if canImport(KboLiveCore)
-import KboLiveCore
+#if canImport(BaseballLiveKRCore)
+import BaseballLiveKRCore
 #endif
 
 @MainActor
