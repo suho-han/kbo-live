@@ -9,9 +9,16 @@ backend-spike/dist/
 
 # Runtime outputs
 artifacts/
+.data/
 backend-spike/.data/
 backend-spike/artifacts/
 backend-spike/logs/polling/
+
+# Build outputs & tool caches
+/.xcode/
+/.omo/
+/dist/
+*.tar.gz
 
 # Swift
 .build/
