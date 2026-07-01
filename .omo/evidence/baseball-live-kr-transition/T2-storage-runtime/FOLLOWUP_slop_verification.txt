@@ -2,7 +2,16 @@ Wed Jul  1 16:46:33 UTC 2026
 
 ## pure LOC
 Packages/KboLiveCore/Sources/KboLiveCore/App/KboLiveEnvironment.swift      107
+Command: awk '!/^[[:space:]]*$/ && !/^[[:space:]]*(\/\/|#|--)/' Packages/KboLiveCore/Sources/KboLiveCore/App/KboLiveEnvironment.swift | wc -l
+Result: PASS - 107 pure LOC, below the 250 LOC ceiling.
+Exit status: 0
 
 ## redundant verification search
+Command: rg -n 'return string\(forKey: key\) == value|return object\(forKey: key\) == nil' Packages/KboLiveCore/Sources/KboLiveCore/App/KboLiveEnvironment.swift
+Result: PASS - no redundant UserDefaults set/remove read-back verification remains.
+Exit status: 1 from rg means no matches found.
 
 ## diff check
+Command: git diff --check -- .omo/evidence/baseball-live-kr-transition/T2-storage-runtime/code_review_slop_report.txt .omo/evidence/baseball-live-kr-transition/T2-storage-runtime/FOLLOWUP_slop_verification.txt
+Result: PASS - no whitespace or patch-format issues reported for the evidence-only follow-up files at the time of the check.
+Exit status: 0

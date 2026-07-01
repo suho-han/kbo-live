@@ -39,6 +39,16 @@ Programming criteria
 - Helper discipline: PASS. The migration seam has production and test callers; no one-off helper was added in the follow-up.
 - Tests: PASS. Behavior remains locked by Swift package tests and app builds recorded in the follow-up verification artifact.
 
+Overfit-test / test-slop taxonomy
+- Excessive or useless tests: PASS. The new tests target the T2 acceptance matrix only: old-only, new-only, both-present new-wins, old-inaccessible, destination-unavailable, malformed env fallback, selected-team migration, and new-key save behavior. No broad snapshot, golden dump, or unrelated UI formatting test was added.
+- Deletion-only tests: PASS. No test merely asserts that deleted text is absent. Removal of old App Group strings is covered by CLI evidence searches, while tests exercise runtime migration behavior.
+- Removal-only tests: PASS. Tests do not only verify old names disappeared. They assert resulting values, migration source, persistence/removal flags in the store abstraction, and selected-team read/write behavior.
+- Tautological tests: PASS. MockRuntimeStringSettingStore can fail writes and hide legacy reads, so tests would fail if migration logic ignored destination-unavailable or old-inaccessible cases. Feature tests use real UserDefaults suites rather than asserting against constants alone.
+- Implementation-mirroring tests: PASS. Tests assert observable migration results and stored values after one public call; they do not duplicate line-by-line control flow or check private branches.
+- Unnecessary extraction/parsing/normalization: PASS. No parsing helpers or normalization helpers were added solely for tests. URL validity remains at the existing runtime boundary; malformed env coverage calls the public migration helper with an explicit validity predicate.
+- Tests that merely verify requested removal: PASS. Removal verification is handled as manual QA artifacts. Automated tests prove preserved behavior and migration outcomes that would regress if the implementation were reverted.
+- Overfit conclusion: PASS. The tests protect behavior needed by T2 without pinning incidental implementation details or turning the requested removal into brittle assertions.
+
 Residual risks / deferred
 - Legacy KBO_LIVE_* and kbo-live.backend-* strings remain only as non-App-Group migration fallbacks and tests proving those fallbacks.
 - project.yml bundle identifiers remain T1/project-swift scope.
