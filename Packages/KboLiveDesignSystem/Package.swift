@@ -16,6 +16,10 @@ let package = Package(
     targets: [
         .target(
             name: "KboLiveDesignSystem"
+        ),
+        .testTarget(
+            name: "KboLiveDesignSystemTests",
+            dependencies: ["KboLiveDesignSystem"]
         )
     ]
 )

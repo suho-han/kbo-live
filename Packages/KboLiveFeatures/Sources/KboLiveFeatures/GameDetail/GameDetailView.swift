@@ -114,7 +114,7 @@ public struct GameDetailView: View {
             HStack(alignment: .top, spacing: 14) {
                 teamPreviewPanel(
                     team: game.awayTeam,
-                    pitcher: game.probablePitchers.away,
+                    pitcher: game.probablePitchers.away.name,
                     record: game.teamRecords?.away,
                     summary: game.analysis?.awaySummary
                 )
@@ -132,7 +132,7 @@ public struct GameDetailView: View {
 
                 teamPreviewPanel(
                     team: game.homeTeam,
-                    pitcher: game.probablePitchers.home,
+                    pitcher: game.probablePitchers.home.name,
                     record: game.teamRecords?.home,
                     summary: game.analysis?.homeSummary
                 )
@@ -281,7 +281,7 @@ public struct GameDetailView: View {
                 .offset(y: 24)
                 .overlay {
                     Diamond()
-                        .stroke(Color.white.opacity(0.34), lineWidth: 3)
+                        .stroke(KboSurfaceToken.glassBorder, lineWidth: 3)
                         .frame(width: 180, height: 180)
                         .offset(y: 24)
                 }
@@ -298,10 +298,10 @@ public struct GameDetailView: View {
             if let inning = GameProjectionFormatter.inningText(for: game) {
                 Text(inning)
                     .font(.system(size: 22, weight: .black))
-                    .foregroundStyle(Color.white)
+                    .foregroundStyle(KboTheme.primaryText)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
-                    .background(Color.black.opacity(0.35))
+                    .background(KboSurfaceToken.criticalOverlay)
                     .clipShape(Capsule())
                     .offset(y: -128)
             }
@@ -309,7 +309,7 @@ public struct GameDetailView: View {
         .overlay(alignment: .bottomLeading) {
             Text("BASE RUNNERS")
                 .font(KboTypographyToken.caption)
-                .foregroundStyle(Color.white.opacity(0.72))
+                .foregroundStyle(KboTheme.secondaryText)
                 .padding(18)
         }
     }
@@ -563,13 +563,13 @@ public struct GameDetailView: View {
     private func baseMarker(label: String, occupied: Bool) -> some View {
         Text(label)
             .font(.system(size: 12, weight: .black))
-            .foregroundStyle(occupied ? Color.black : Color.white.opacity(0.78))
+            .foregroundStyle(occupied ? Color.black : KboTheme.secondaryText)
             .frame(width: 34, height: 34)
-            .background(occupied ? KboColorToken.warning : Color.white.opacity(0.18))
+            .background(occupied ? KboColorToken.warning : KboSurfaceToken.glassControl)
             .clipShape(Diamond())
             .overlay {
                 Diamond()
-                    .stroke(Color.white.opacity(0.5), lineWidth: 1)
+                    .stroke(KboSurfaceToken.glassBorder, lineWidth: 1)
             }
     }
 
@@ -582,7 +582,7 @@ public struct GameDetailView: View {
             HStack(spacing: 5) {
                 ForEach(0..<total, id: \.self) { index in
                     Circle()
-                        .fill(index < count ? color : Color.white.opacity(0.16))
+                        .fill(index < count ? color : KboSurfaceToken.glassControl)
                         .frame(width: 12, height: 12)
                 }
             }

@@ -40,6 +40,10 @@ final class AppUpdateCheckModel: ObservableObject {
     private let releasesPageURL = URL(string: "https://github.com/suho-han/kbo-live/releases")!
     private var releasePageURL: URL?
     private var hasCheckedThisLaunch = false
+    private var automaticCheckTask: Task<Void, Never>?
+    private var lastAlertedReleaseTagName: String?
+
+    private nonisolated static let automaticCheckIntervalNanoseconds: UInt64 = 60 * 60 * 1_000_000_000
 
     var lastCheckedText: String {
         guard let lastCheckedAt else {
@@ -55,7 +59,27 @@ final class AppUpdateCheckModel: ObservableObject {
         await checkForUpdates()
     }
 
+    func startAutomaticChecks() {
+        guard automaticCheckTask == nil else { return }
+
+        automaticCheckTask = Task { [weak self] in
+            await self?.checkOnLaunch()
+
+            while !Task.isCancelled {
+                do {
+                    try await Task.sleep(nanoseconds: Self.automaticCheckIntervalNanoseconds)
+                } catch {
+                    return
+                }
+
+                await self?.checkForUpdates()
+            }
+        }
+    }
+
     func checkForUpdates() async {
+        guard state != .checking else { return }
+
         state = .checking
 
         do {
@@ -67,7 +91,10 @@ final class AppUpdateCheckModel: ObservableObject {
                 let title = release.name ?? release.tagName
                 alertMessage = "\(title)를 다운로드할 수 있습니다. 현재 버전은 \(currentVersion)입니다."
                 state = .updateAvailable(title)
-                isShowingUpdateAlert = true
+                if lastAlertedReleaseTagName != release.tagName {
+                    lastAlertedReleaseTagName = release.tagName
+                    isShowingUpdateAlert = true
+                }
             } else {
                 releasePageURL = release.htmlURL
                 state = .upToDate

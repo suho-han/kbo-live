@@ -28,6 +28,23 @@ public enum TeamColorResolver {
         }
     }
 
+    public static func usesLightForeground(forTeamID teamID: String) -> Bool {
+        switch normalize(teamID) {
+        case "LG",
+             "OB", "DOOSAN",
+             "HT", "KIA",
+             "LT", "LOTTE",
+             "SK", "SSG",
+             "NC",
+             "KT",
+             "SS", "SAMSUNG",
+             "WO", "KIWOOM":
+            return true
+        default:
+            return false
+        }
+    }
+
     private static func normalize(_ value: String) -> String {
         value.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
     }

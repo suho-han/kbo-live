@@ -9,9 +9,9 @@ import KboLiveDesignSystem
 @main
 struct KboLivemacOSApp: App {
     private enum MainWindowLayout {
-        static let minWidth: CGFloat = 980
+        static let minWidth = TodayGamesView.Layout.minimumWindowWidth
         static let minHeight: CGFloat = 720
-        static let defaultWidth: CGFloat = 1180
+        static let defaultWidth = TodayGamesView.Layout.minimumWindowWidth
         static let defaultHeight: CGFloat = 860
     }
 
@@ -23,6 +23,7 @@ struct KboLivemacOSApp: App {
     @StateObject private var navigationModel = AppNavigationModel()
     @StateObject private var updateChecker = AppUpdateCheckModel()
     @AppStorage("kboLiveFontScale") private var fontScale = Double(KboFontScale.defaultValue)
+    @AppStorage(KboAppearanceMode.storageKey) private var appearanceModeRawValue = KboAppearanceMode.defaultValue.rawValue
 
     init() {
         let settings = BackendSettingsModel()
@@ -36,20 +37,29 @@ struct KboLivemacOSApp: App {
     }
 
     var body: some Scene {
-        Window("KBO Live", id: "main-window") {
+        Window("Baseball LIVE KR", id: "main-window") {
             KboLiveHomeRootView(
                 viewModel: viewModel,
                 settings: settings,
                 navigationModel: navigationModel,
-                updateChecker: updateChecker
+                updateChecker: updateChecker,
+                appearanceMode: appearanceModeBinding
             )
                 .frame(
-                    minWidth: MainWindowLayout.minWidth,
-                    minHeight: MainWindowLayout.minHeight
+                    width: MainWindowLayout.minWidth
                 )
+                .frame(minHeight: MainWindowLayout.minHeight)
+                .background(WindowWidthLimiter(width: MainWindowLayout.minWidth))
                 .environment(\.kboFontScale, CGFloat(fontScale))
+                .preferredColorScheme(appearanceMode.preferredColorScheme)
+                .onAppear {
+                    applyApplicationAppearance(appearanceMode)
+                }
+                .onChange(of: appearanceMode) { newValue in
+                    applyApplicationAppearance(newValue)
+                }
                 .task {
-                    await updateChecker.checkOnLaunch()
+                    updateChecker.startAutomaticChecks()
                 }
                 .alert("업데이트가 있습니다.", isPresented: $updateChecker.isShowingUpdateAlert) {
                     Button("다운로드") {
@@ -88,6 +98,7 @@ struct KboLivemacOSApp: App {
                 navigationModel: navigationModel
             )
             .environment(\.kboFontScale, CGFloat(fontScale))
+            .preferredColorScheme(appearanceMode.preferredColorScheme)
         } label: {
             Label(menuBarTitle, systemImage: "baseball.fill")
         }
@@ -98,9 +109,23 @@ struct KboLivemacOSApp: App {
                 viewModel: viewModel,
                 settings: settings,
                 updateChecker: updateChecker,
+                appearanceMode: appearanceModeBinding,
                 onApplyBackendSettings: applyBackendSettings
             )
             .environment(\.kboFontScale, CGFloat(fontScale))
+            .preferredColorScheme(appearanceMode.preferredColorScheme)
+        }
+    }
+
+    private var appearanceMode: KboAppearanceMode {
+        KboAppearanceMode.resolved(from: appearanceModeRawValue)
+    }
+
+    private var appearanceModeBinding: Binding<KboAppearanceMode> {
+        Binding {
+            KboAppearanceMode.resolved(from: appearanceModeRawValue)
+        } set: { newValue in
+            appearanceModeRawValue = newValue.rawValue
         }
     }
 
@@ -114,16 +139,118 @@ struct KboLivemacOSApp: App {
         }
     }
 
+    private func applyApplicationAppearance(_ mode: KboAppearanceMode) {
+#if canImport(AppKit)
+        switch mode {
+        case .system:
+            NSApp.appearance = nil
+        case .light:
+            NSApp.appearance = NSAppearance(named: .aqua)
+        case .dark:
+            NSApp.appearance = NSAppearance(named: .darkAqua)
+        }
+#endif
+    }
+
     private var menuBarTitle: String {
         if let favoriteGame = viewModel.favoriteGame {
             return GameProjectionFormatter.scoreLine(for: favoriteGame)
         }
 
-        return viewModel.leagueGames.first.map { MenuBarGameSummaryMapper.map($0).primaryText } ?? "KBO Live"
+        return viewModel.leagueGames.first.map { MenuBarGameSummaryMapper.map($0).primaryText } ?? "Baseball LIVE KR"
     }
 }
 
 #if canImport(AppKit)
+private struct WindowWidthLimiter: NSViewRepresentable {
+    let width: CGFloat
+
+    func makeNSView(context: Context) -> NSView {
+        WindowWidthLimitingView(width: width)
+    }
+
+    func updateNSView(_ nsView: NSView, context: Context) {
+        guard let nsView = nsView as? WindowWidthLimitingView else { return }
+
+        nsView.width = width
+    }
+}
+
+private final class WindowWidthLimitingView: NSView {
+    var width: CGFloat {
+        didSet {
+            configureWindow()
+        }
+    }
+
+    init(width: CGFloat) {
+        self.width = width
+        super.init(frame: .zero)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        nil
+    }
+
+    override func viewDidMoveToWindow() {
+        super.viewDidMoveToWindow()
+        configureWindow()
+    }
+
+    private func configureWindow() {
+        guard let window else { return }
+
+        WindowWidthController.shared.apply(width: width, to: window)
+    }
+}
+
+@MainActor
+private final class WindowWidthController: NSObject, NSWindowDelegate {
+    static let shared = WindowWidthController()
+
+    private var width: CGFloat = .zero
+    private weak var controlledWindow: NSWindow?
+    private var isApplyingFrame = false
+
+    func apply(width: CGFloat, to window: NSWindow) {
+        self.width = width
+        controlledWindow = window
+        window.delegate = self
+        window.minSize.width = width
+        window.maxSize.width = width
+        window.contentMinSize.width = width
+        window.contentMaxSize.width = width
+        clampWidth(of: window)
+    }
+
+    func windowWillResize(_ sender: NSWindow, to frameSize: NSSize) -> NSSize {
+        guard sender === controlledWindow else { return frameSize }
+
+        return NSSize(width: width, height: frameSize.height)
+    }
+
+    func windowDidResize(_ notification: Notification) {
+        guard let window = notification.object as? NSWindow, window === controlledWindow else { return }
+
+        clampWidth(of: window)
+    }
+
+    private func clampWidth(of window: NSWindow) {
+        guard !isApplyingFrame else { return }
+
+        let frame = window.frame
+        guard abs(frame.width - width) > 0.5 else { return }
+
+        isApplyingFrame = true
+        window.setFrame(
+            NSRect(x: frame.minX, y: frame.minY, width: width, height: frame.height),
+            display: true
+        )
+        isApplyingFrame = false
+    }
+}
+
 private final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.activate(ignoringOtherApps: true)

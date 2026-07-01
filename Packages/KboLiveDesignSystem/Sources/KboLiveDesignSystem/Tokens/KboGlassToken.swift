@@ -35,7 +35,7 @@ public enum KboGlassToken {
             ]
         case .elevated:
             colors = [
-                Color.white.opacity(0.16),
+                KboSurfaceToken.glassNavigation,
                 KboSurfaceToken.elevated.opacity(0.72)
             ]
         case .control:
@@ -45,7 +45,7 @@ public enum KboGlassToken {
             ]
         case .navigation:
             colors = [
-                Color.white.opacity(0.18),
+                KboSurfaceToken.elevated.opacity(0.74),
                 KboSurfaceToken.glassNavigation
             ]
         }
@@ -69,11 +69,11 @@ public enum KboGlassToken {
     public static func shadowColor(for style: KboGlassPanelStyle) -> Color {
         switch style {
         case .card:
-            return Color.black.opacity(0.14)
+            return KboColorToken.shadow.opacity(0.14)
         case .elevated:
-            return Color.black.opacity(0.20)
+            return KboColorToken.shadow.opacity(0.20)
         case .control, .navigation:
-            return Color.black.opacity(0.12)
+            return KboColorToken.shadow.opacity(0.12)
         }
     }
 

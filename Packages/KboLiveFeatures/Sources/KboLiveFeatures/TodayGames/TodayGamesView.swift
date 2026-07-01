@@ -18,9 +18,17 @@ public enum LiveActivityControlState: Equatable {
 }
 
 public struct TodayGamesView: View {
-    private enum Layout {
-        static let contentHorizontalPadding: CGFloat = 20
+    public enum Layout {
+        public static let contentHorizontalPadding: CGFloat = 20
+        public static let leagueCardMinimumWidth: CGFloat = 184
+        public static let leagueGridSpacing: CGFloat = 12
+        public static let leagueGridColumnCount = 5
+        public static let leagueSectionWidth = leagueCardMinimumWidth * CGFloat(leagueGridColumnCount)
+            + leagueGridSpacing * CGFloat(leagueGridColumnCount - 1)
+        public static let minimumWindowWidth = leagueSectionWidth + contentHorizontalPadding * 2
+
         static let standingsTableWidth: CGFloat = 774
+        static let commandBarWidth = standingsTableWidth
         static let favoriteInfoWidth: CGFloat = 236
         static let favoriteColumnSpacing: CGFloat = 14
         static let featuredGameWidth: CGFloat = standingsTableWidth - favoriteInfoWidth - favoriteColumnSpacing
@@ -50,16 +58,14 @@ public struct TodayGamesView: View {
         NavigationStack {
             content
                 .background(backgroundView)
-                .navigationTitle("크보 라이브")
+                .navigationTitle("Baseball LIVE KR")
 #if os(iOS)
-                .toolbarColorScheme(.dark, for: .navigationBar)
                 .toolbarBackground(.hidden, for: .navigationBar)
 #endif
                 .navigationDestination(item: $selectedGame) { game in
                     GameDetailScreen(parentViewModel: viewModel, game: game)
                 }
         }
-        .preferredColorScheme(.dark)
         .task {
             await viewModel.loadIfNeeded()
         }
@@ -78,16 +84,18 @@ public struct TodayGamesView: View {
             default:
                 GeometryReader { proxy in
                     let availableWidth = contentWidth(for: proxy.size.width)
+                    let sectionWidth = sectionWidth(for: availableWidth)
+                    let standingsWidth = standingsBlockWidth(for: availableWidth)
 
                     ScrollView {
                         VStack(alignment: .leading, spacing: 24) {
-                            commandBar
+                            commandBar(width: standingsWidth)
                             gamesFailureBanner
                             favoriteSection(availableWidth: availableWidth)
                             standingsSection(availableWidth: availableWidth)
-                            leagueSection
+                            leagueSection(sectionWidth: sectionWidth)
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(width: sectionWidth, alignment: .leading)
                         .padding(.horizontal, Layout.contentHorizontalPadding)
                         .padding(.vertical, 24)
                     }
@@ -99,9 +107,9 @@ public struct TodayGamesView: View {
         }
     }
 
-    private var commandBar: some View {
+    private func commandBar(width: CGFloat) -> some View {
         KboCommandBar(
-            title: "KBO LIVE",
+            title: "Baseball LIVE KR",
             subtitle: commandBarSubtitle
         ) {
             Image(systemName: "baseball.fill")
@@ -132,6 +140,7 @@ public struct TodayGamesView: View {
                 }
             }
         }
+        .frame(width: width, alignment: .leading)
     }
 
 
@@ -150,6 +159,7 @@ public struct TodayGamesView: View {
 
                         favoriteGameColumn
                             .frame(width: Layout.featuredGameWidth, alignment: .topLeading)
+                            .frame(height: Layout.favoriteBlockHeight)
                     }
                     .frame(width: Layout.standingsTableWidth, alignment: .leading)
 
@@ -204,7 +214,7 @@ public struct TodayGamesView: View {
         }
     }
 
-    private var leagueSection: some View {
+    private func leagueSection(sectionWidth: CGFloat) -> some View {
         VStack(alignment: .leading, spacing: 14) {
             sectionHeader(title: "리그 전체", subtitle: "진행 중 경기를 우선 정렬한 전체 경기 목록입니다.")
             filterPicker
@@ -246,6 +256,7 @@ public struct TodayGamesView: View {
                 }
             }
         }
+        .frame(width: sectionWidth, alignment: .leading)
     }
 
     @ViewBuilder
@@ -323,22 +334,36 @@ public struct TodayGamesView: View {
     }
 
     private var commandBarSubtitle: String {
-        let gameCount = viewModel.games.count
-        let dateText = KboDisplayDateFormatter.fullDate(viewModel.activeDateString)
-        let teamFocusText = viewModel.selectedTeam.map { "\($0.name) 중심으로 보기 · " } ?? ""
-        let updatedText = viewModel.lastUpdatedAt.map {
-            " · 마지막 갱신 \(Self.lastUpdatedFormatter.string(from: $0))"
-        } ?? " · 갱신 대기 중"
+        Self.commandBarSubtitle(
+            activeDateString: viewModel.activeDateString,
+            lastUpdatedAt: viewModel.lastUpdatedAt
+        )
+    }
 
-        if gameCount == 0 {
-            return "\(teamFocusText)\(dateText) · 편성된 경기가 없습니다.\(updatedText)"
+    static func commandBarSubtitle(activeDateString: String, lastUpdatedAt: Date?) -> String {
+        let dateText = KboDisplayDateFormatter.fullDate(activeDateString)
+
+        guard let lastUpdatedAt else {
+            return dateText
         }
 
-        return "\(teamFocusText)\(dateText) · \(gameCount)경기 · 진행 중 경기를 먼저 보여줍니다.\(updatedText)"
+        return "\(dateText) · \(roundedLastUpdatedText(for: lastUpdatedAt))"
+    }
+
+    static func roundedLastUpdatedText(for date: Date) -> String {
+        lastUpdatedFormatter.string(from: date.flooredToFiveMinuteBoundary(calendar: fiveMinuteCalendar))
     }
 
     private func contentWidth(for containerWidth: CGFloat) -> CGFloat {
         max(0, containerWidth - Layout.contentHorizontalPadding * 2)
+    }
+
+    private func sectionWidth(for availableWidth: CGFloat) -> CGFloat {
+        min(Layout.leagueSectionWidth, availableWidth)
+    }
+
+    private func standingsBlockWidth(for availableWidth: CGFloat) -> CGFloat {
+        min(Layout.commandBarWidth, availableWidth)
     }
 
     private func commandIcon(systemImage: String, title: String) -> some View {
@@ -424,7 +449,11 @@ public struct TodayGamesView: View {
 
     private var leagueGridColumns: [GridItem] {
         [
-            GridItem(.adaptive(minimum: 184, maximum: 248), spacing: 12, alignment: .top)
+            GridItem(
+                .adaptive(minimum: Layout.leagueCardMinimumWidth, maximum: 248),
+                spacing: Layout.leagueGridSpacing,
+                alignment: .top
+            )
         ]
     }
 
@@ -595,14 +624,34 @@ public struct TodayGamesView: View {
         .ignoresSafeArea()
     }
 
+    fileprivate static let fiveMinuteCalendar: Calendar = {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "Asia/Seoul") ?? .current
+        return calendar
+    }()
+
     private static let lastUpdatedFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
-        formatter.dateFormat = "HH:mm:ss"
+        formatter.dateFormat = "HH시 mm분"
         return formatter
     }()
 
+}
+
+private extension Date {
+    func flooredToFiveMinuteBoundary(calendar: Calendar) -> Date {
+        let minute = calendar.component(.minute, from: self)
+        let flooredMinute = minute - minute % 5
+
+        var components = calendar.dateComponents([.year, .month, .day, .hour], from: self)
+        components.minute = flooredMinute
+        components.second = 0
+        components.nanosecond = 0
+
+        return calendar.date(from: components) ?? self
+    }
 }
 
 private struct GameDateSection: Identifiable {
@@ -655,7 +704,7 @@ private struct MyTeamSummaryCardView: View {
                 KboMetricRow(metrics, layout: .vertical)
                     .fixedSize(horizontal: false, vertical: true)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .padding(14)
             .background(
                 LinearGradient(
@@ -906,6 +955,67 @@ private struct TeamStandingLogoCellView: View {
     }
 }
 
+enum ProbablePitcherChipFormatter {
+    static func warningText(for status: StarterStatus) -> String? {
+        switch status {
+        case .missing:
+            return "확인 필요"
+        case .ready, .notDue:
+            return nil
+        }
+    }
+
+    static func displayText(for pitcher: ProbablePitcher) -> String? {
+        guard let name = trimmed(pitcher.name) else {
+            return nil
+        }
+
+        guard let record = pitcher.record else {
+            return name
+        }
+
+        var parts: [String] = []
+
+        switch (record.wins, record.losses) {
+        case let (.some(wins), .some(losses)):
+            parts.append("\(wins)승 \(losses)패")
+        case let (.some(wins), .none):
+            parts.append("\(wins)승")
+        case let (.none, .some(losses)):
+            parts.append("\(losses)패")
+        default:
+            break
+        }
+
+        if let era = record.era {
+            parts.append("ERA \(format(era))")
+        }
+
+        if let whip = record.whip {
+            parts.append("WHIP \(format(whip))")
+        }
+
+        guard parts.isEmpty == false else {
+            return name
+        }
+
+        return "\(name) · \(parts.joined(separator: " · "))"
+    }
+
+    private static func trimmed(_ value: String?) -> String? {
+        guard let value else {
+            return nil
+        }
+
+        let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? nil : trimmed
+    }
+
+    private static func format(_ value: Double) -> String {
+        String(format: "%.2f", locale: Locale(identifier: "en_US_POSIX"), value)
+    }
+}
+
 private struct FeaturedGameCardView: View {
     let game: Game
     let favoriteTeamID: String?
@@ -927,17 +1037,15 @@ private struct FeaturedGameCardView: View {
                     .textCase(.uppercase)
                     .tracking(0.7)
 
-                statusPill
-
                 Spacer()
 
                 Text(gameDateTimeText)
                     .font(KboTypographyToken.caption(scaledBy: fontScale))
-                    .foregroundStyle(KboTheme.secondaryText)
+                    .foregroundStyle(cardSecondaryText)
                     .lineLimit(1)
 
                 Image(systemName: "chevron.right")
-                    .foregroundStyle(KboTheme.secondaryText)
+                    .foregroundStyle(cardSecondaryText)
             }
 
             HStack(alignment: .top, spacing: 12) {
@@ -976,22 +1084,8 @@ private struct FeaturedGameCardView: View {
         .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
         .overlay {
             RoundedRectangle(cornerRadius: 24, style: .continuous)
-                .stroke(Color.white.opacity(0.08), lineWidth: 1)
+                .stroke(KboSurfaceToken.cardBorder, lineWidth: 1)
         }
-    }
-
-    private var statusPill: some View {
-        Text(statusPillText)
-            .font(KboTypographyToken.system(size: 11, weight: .black, scaledBy: fontScale))
-            .foregroundStyle(cardAccent)
-            .padding(.horizontal, 9)
-            .padding(.vertical, 5)
-            .background(cardAccent.opacity(0.16))
-            .clipShape(Capsule())
-            .overlay {
-                Capsule()
-                    .stroke(cardAccent.opacity(0.55), lineWidth: 1)
-            }
     }
 
     private var gameDateTimeText: String {
@@ -1049,6 +1143,18 @@ private struct FeaturedGameCardView: View {
         }
     }
 
+    private var cardPrimaryText: Color {
+        Color.white.opacity(0.95)
+    }
+
+    private var cardSecondaryText: Color {
+        Color.white.opacity(0.68)
+    }
+
+    private var cardChipText: Color {
+        Color(red: 0.06, green: 0.10, blue: 0.14)
+    }
+
     private var statusPillText: String {
         switch game.status {
         case .scheduled:
@@ -1083,14 +1189,15 @@ private struct FeaturedGameCardView: View {
                 emphasis: isFavorite ? .highlighted : .normal,
                 fixedWidth: Layout.badgeWidth,
                 logoSize: Layout.logoSize,
-                nameWidth: Layout.nameWidth
+                nameWidth: Layout.nameWidth,
+                foregroundColor: cardPrimaryText
             )
 
             if showsScore {
                 Text("\(score)")
                     .font(KboTypographyToken.system(size: 34, weight: .black, scaledBy: fontScale))
                     .monospacedDigit()
-                    .foregroundStyle(KboTheme.primaryText)
+                    .foregroundStyle(cardPrimaryText)
                     .lineLimit(1)
                     .fixedSize(horizontal: true, vertical: false)
                     .frame(minWidth: Layout.scoreWidth, alignment: .center)
@@ -1107,7 +1214,7 @@ private struct FeaturedGameCardView: View {
         VStack(spacing: 8) {
             Text(centerLabel)
                 .font(KboTypographyToken.system(size: game.status == .live ? 14 : 13, weight: .black, scaledBy: fontScale))
-                .foregroundStyle(game.status == .live ? KboTheme.secondaryText : cardAccent)
+                .foregroundStyle(game.status == .live ? cardSecondaryText : cardAccent)
                 .lineLimit(1)
 
             if game.status == .live, game.count != nil || game.bases != nil || game.inning != nil {
@@ -1158,7 +1265,7 @@ private struct FeaturedGameCardView: View {
             }
         }
         .font(KboTypographyToken.caption(scaledBy: fontScale))
-        .foregroundStyle(KboTheme.secondaryText)
+        .foregroundStyle(cardSecondaryText)
         .lineLimit(1)
     }
 
@@ -1177,19 +1284,39 @@ private struct FeaturedGameCardView: View {
     }
 
     private var scheduledContextStrip: some View {
-        contextChipRow {
-            if let awayPitcher = game.probablePitchers.away?.trimmingCharacters(in: .whitespacesAndNewlines), awayPitcher.isEmpty == false {
-                situationChip(title: "원정 선발", value: awayPitcher, systemImage: "figure.baseball")
-            }
-
-            if let homePitcher = game.probablePitchers.home?.trimmingCharacters(in: .whitespacesAndNewlines), homePitcher.isEmpty == false {
-                situationChip(title: "홈 선발", value: homePitcher, systemImage: "baseball.fill")
-            }
-
-            if game.probablePitchers.away == nil && game.probablePitchers.home == nil {
-                situationChip(title: "예정", value: startTimeText, systemImage: "clock.fill")
+        Group {
+            if hasProbablePitcherRecord {
+                VStack(alignment: .leading, spacing: 8) {
+                    scheduledContextChips
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            } else {
+                contextChipRow {
+                    scheduledContextChips
+                }
             }
         }
+    }
+
+    @ViewBuilder
+    private var scheduledContextChips: some View {
+        situationChip(title: "예정", value: startTimeText, systemImage: "clock.fill")
+
+        if let starterWarning = ProbablePitcherChipFormatter.warningText(for: game.starterStatus) {
+            situationChip(title: "선발", value: starterWarning, systemImage: "exclamationmark.triangle.fill")
+        }
+
+        if let awayPitcher = ProbablePitcherChipFormatter.displayText(for: game.probablePitchers.away) {
+            situationChip(title: "원정 선발", value: awayPitcher, systemImage: "baseball.fill", allowMultilineValue: true)
+        }
+
+        if let homePitcher = ProbablePitcherChipFormatter.displayText(for: game.probablePitchers.home) {
+            situationChip(title: "홈 선발", value: homePitcher, systemImage: "baseball.fill", allowMultilineValue: true)
+        }
+    }
+
+    private var hasProbablePitcherRecord: Bool {
+        game.probablePitchers.away.record != nil || game.probablePitchers.home.record != nil
     }
 
     private var liveContextStrip: some View {
@@ -1254,7 +1381,7 @@ private struct FeaturedGameCardView: View {
         game.startTime.map { Self.cardTimeFormatter.string(from: $0) } ?? "시간 미정"
     }
 
-    private func situationChip(title: String, value: String, systemImage: String) -> some View {
+    private func situationChip(title: String, value: String, systemImage: String, allowMultilineValue: Bool = false) -> some View {
         HStack(spacing: 6) {
             Image(systemName: systemImage)
                 .font(KboTypographyToken.system(size: 10, weight: .bold, scaledBy: fontScale))
@@ -1262,21 +1389,23 @@ private struct FeaturedGameCardView: View {
 
             Text(title)
                 .font(KboTypographyToken.system(size: 10, weight: .black, scaledBy: fontScale))
-                .foregroundStyle(KboTheme.secondaryText)
+                .foregroundStyle(cardChipText.opacity(0.62))
 
             Text(value)
                 .font(KboTypographyToken.system(size: 12, weight: .semibold, scaledBy: fontScale))
-                .foregroundStyle(KboTheme.primaryText)
-                .lineLimit(1)
-                .minimumScaleFactor(0.72)
+                .foregroundStyle(cardChipText)
+                .lineLimit(allowMultilineValue ? 2 : 1)
+                .fixedSize(horizontal: false, vertical: allowMultilineValue)
+                .minimumScaleFactor(allowMultilineValue ? 1.0 : 0.72)
         }
+        .frame(maxWidth: allowMultilineValue ? .infinity : nil, alignment: .leading)
         .padding(.horizontal, 10)
         .padding(.vertical, 7)
-        .background(Color.black.opacity(0.22))
+        .background(Color.white.opacity(0.66))
         .clipShape(Capsule())
         .overlay {
             Capsule()
-                .stroke(Color.white.opacity(0.10), lineWidth: 1)
+                .stroke(Color.white.opacity(0.24), lineWidth: 1)
         }
     }
 
@@ -1324,20 +1453,20 @@ private struct FeaturedGameCardView: View {
             if let positionText = playerRole.positionText {
                 Text(positionText)
                     .font(KboTypographyToken.system(size: 12, weight: .bold, scaledBy: fontScale))
-                    .foregroundStyle(KboTheme.secondaryText)
+                    .foregroundStyle(cardSecondaryText)
                     .lineLimit(1)
             }
 
             Text(playerRole.name)
                 .font(KboTypographyToken.system(size: 13, weight: .semibold, scaledBy: fontScale))
-                .foregroundStyle(KboTheme.primaryText)
+                .foregroundStyle(cardPrimaryText)
                 .lineLimit(1)
                 .minimumScaleFactor(0.72)
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 7)
         .frame(maxWidth: Layout.badgeWidth, minHeight: 32)
-        .background(Color.white.opacity(0.08))
+        .background(Color.white.opacity(0.16))
         .clipShape(Capsule())
     }
 }
@@ -1394,11 +1523,11 @@ private struct FeaturedGameStateBlockView: View {
         .padding(.horizontal, 13)
         .padding(.vertical, 10)
         .frame(width: 104)
-        .background(Color.black.opacity(0.24))
+        .background(KboSurfaceToken.glassControl)
         .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
         .overlay {
             RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .stroke(Color.white.opacity(0.11), lineWidth: 1)
+                .stroke(KboSurfaceToken.cardBorder, lineWidth: 1)
         }
         .fixedSize(horizontal: true, vertical: true)
     }
@@ -1493,7 +1622,7 @@ private struct TodayGameCardView: View {
             RoundedRectangle(cornerRadius: 18, style: .continuous)
                 .stroke(borderColor, lineWidth: 1)
         }
-        .shadow(color: Color.black.opacity(0.12), radius: 10, x: 0, y: 6)
+        .shadow(color: KboColorToken.shadow.opacity(0.12), radius: 10, x: 0, y: 6)
     }
 
     private var borderColor: Color {

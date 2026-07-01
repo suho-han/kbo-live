@@ -50,7 +50,7 @@ public struct KboPrimaryActionButton: View {
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             .overlay {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .stroke(Color.white.opacity(isDisabled ? 0.08 : 0.18), lineWidth: 1)
+                    .stroke(KboSurfaceToken.glassBorder.opacity(isDisabled ? 0.45 : 0.8), lineWidth: 1)
             }
         }
         .buttonStyle(.plain)

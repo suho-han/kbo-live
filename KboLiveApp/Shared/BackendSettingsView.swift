@@ -18,7 +18,6 @@ struct BackendSettingsView: View {
             VStack(alignment: .leading, spacing: Layout.sectionSpacing) {
                 headerCard
                 presetSection
-                endpointSection
                 actionSection
             }
             .padding(Layout.contentPadding)
@@ -35,7 +34,7 @@ struct BackendSettingsView: View {
         KboCommandBar(
             eyebrow: "Backend",
             title: "서버 연결",
-            subtitle: "앱, 위젯, 메뉴바가 사용할 KBO Live backend endpoint를 선택합니다."
+            subtitle: "앱, 위젯, 메뉴바가 사용할 Baseball LIVE KR backend preset을 선택합니다."
         ) {
             Image(systemName: "server.rack")
                 .font(.system(size: 21, weight: .bold))
@@ -51,11 +50,11 @@ struct BackendSettingsView: View {
     private var presetSection: some View {
         settingsCard {
             VStack(alignment: .leading, spacing: Layout.cardSpacing) {
-                sectionTitle("환경", subtitle: "Local, Staging, Production backend를 명시적으로 전환합니다.")
+                sectionTitle("환경", subtitle: "Production이 기본값이며, Local과 Staging(Beta)는 계정 기능이 준비되기 전까지 잠깁니다.")
 
                 VStack(spacing: KboSpacingToken.small) {
-                    ForEach(BackendSettingsModel.BackendPreset.allCases) { preset in
-                        presetButton(preset)
+                    ForEach(settings.orderedPresets) { preset in
+                        BackendPresetRow(settings: settings, preset: preset)
                     }
                 }
 
@@ -63,42 +62,6 @@ struct BackendSettingsView: View {
                     Label("KBO_LIVE_BASE_URL 환경변수가 있으면 모든 preset보다 우선합니다.", systemImage: "info.circle.fill")
                         .font(KboTypographyToken.caption)
                         .foregroundStyle(KboSemanticColorToken.warning)
-                }
-            }
-        }
-    }
-
-    private var endpointSection: some View {
-        settingsCard {
-            VStack(alignment: .leading, spacing: Layout.cardSpacing) {
-                sectionTitle("Backend URL", subtitle: "Staging/Production URL은 각각 KBO_LIVE_STAGING_BASE_URL, KBO_LIVE_PRODUCTION_BASE_URL로 초기화할 수 있습니다.")
-
-                TextField("https://example.com", text: $settings.baseURLText)
-                    .textFieldStyle(.plain)
-                    .font(.system(.callout, design: .monospaced).weight(.semibold))
-                    .foregroundStyle(KboTheme.primaryText)
-                    .padding(.horizontal, KboSpacingToken.medium)
-                    .padding(.vertical, KboSpacingToken.medium)
-                    .background(KboSurfaceToken.glassControl)
-                    .clipShape(RoundedRectangle(cornerRadius: KboRadiusToken.medium, style: .continuous))
-                    .overlay {
-                        RoundedRectangle(cornerRadius: KboRadiusToken.medium, style: .continuous)
-                            .stroke(KboSurfaceToken.glassBorder.opacity(0.75), lineWidth: 1)
-                    }
-                    .onSubmit {
-                        applySettings()
-                    }
-
-                HStack(spacing: KboSpacingToken.small) {
-                    Text("현재 프리셋")
-                        .font(KboTypographyToken.caption)
-                        .foregroundStyle(KboTheme.secondaryText)
-
-                    Text(settings.selectedPresetTitle)
-                        .font(KboTypographyToken.caption)
-                        .foregroundStyle(KboTheme.primaryText)
-
-                    Spacer(minLength: 0)
                 }
             }
         }
@@ -146,56 +109,6 @@ struct BackendSettingsView: View {
                 }
             }
         }
-    }
-
-    private func presetButton(_ preset: BackendSettingsModel.BackendPreset) -> some View {
-        Button {
-            settings.selectPreset(preset)
-            Task {
-                await settings.checkHealth()
-            }
-        } label: {
-            HStack(spacing: 12) {
-                Image(systemName: settings.selectedPreset == preset ? "checkmark.circle.fill" : "circle")
-                    .font(.system(size: 18, weight: .semibold))
-                    .foregroundStyle(settings.selectedPreset == preset ? KboSemanticColorToken.accentMint : KboTheme.secondaryText)
-
-                VStack(alignment: .leading, spacing: 3) {
-                    Text(preset.title)
-                        .font(KboTypographyToken.headline)
-                        .foregroundStyle(KboTheme.primaryText)
-
-                    Text(preset.description)
-                        .font(KboTypographyToken.caption)
-                        .foregroundStyle(KboTheme.secondaryText)
-
-                    Text(settings.baseURLDescription(for: preset))
-                        .font(.caption2.monospaced())
-                        .foregroundStyle(settings.hasConfiguredBaseURL(for: preset) ? KboTheme.mutedText : KboSemanticColorToken.danger)
-                        .lineLimit(1)
-                        .truncationMode(.middle)
-                }
-
-                Spacer()
-            }
-            .padding(KboSpacingToken.medium)
-            .background(
-                settings.selectedPreset == preset
-                    ? KboSemanticColorToken.accentMint.opacity(0.14)
-                    : KboSurfaceToken.glassControl
-            )
-            .clipShape(RoundedRectangle(cornerRadius: KboRadiusToken.large, style: .continuous))
-            .overlay {
-                RoundedRectangle(cornerRadius: KboRadiusToken.large, style: .continuous)
-                    .stroke(
-                        settings.selectedPreset == preset
-                            ? KboSemanticColorToken.accentMint.opacity(0.55)
-                            : KboSurfaceToken.glassBorder.opacity(0.68),
-                        lineWidth: 1
-                    )
-            }
-        }
-        .buttonStyle(.plain)
     }
 
     @ViewBuilder

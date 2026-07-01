@@ -17,7 +17,7 @@ final class BackendSettingsModel: ObservableObject {
             case .local:
                 return "Local"
             case .staging:
-                return "Staging"
+                return "Staging(Beta)"
             case .production:
                 return "Production"
             }
@@ -28,7 +28,7 @@ final class BackendSettingsModel: ObservableObject {
             case .local:
                 return "현재 Mac에서 실행 중인 packaged backend"
             case .staging:
-                return "운영 후보 backend 검증 환경"
+                return "운영 후보 backend 베타 환경"
             case .production:
                 return "운영 backend"
             }
@@ -43,22 +43,21 @@ final class BackendSettingsModel: ObservableObject {
     }
 
     @Published private(set) var selectedPreset: BackendPreset
-    @Published var baseURLText: String
     @Published private(set) var validationState: ValidationState = .idle
 
+    nonisolated(unsafe) static let presetPolicy = BackendPresetPolicy<BackendPreset>(
+        displayOrder: [.production, .staging, .local],
+        selectablePresets: [.production]
+    )
+
     private let defaults: UserDefaults
-    private let baseURLKey = KboLiveEnvironment.backendBaseURLDefaultsKey
     private let presetKey = "kbo-live.backend-preset"
-    private let localBaseURLKey = "kbo-live.backend-local-base-url"
-    private let stagingBaseURLKey = "kbo-live.backend-staging-base-url"
-    private let productionBaseURLKey = "kbo-live.backend-production-base-url"
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         let storedPreset = defaults.string(forKey: presetKey).flatMap(BackendPreset.init(rawValue:)) ?? Self.defaultPreset
-        let resolvedPreset = Self.resolvedPreset(from: storedPreset, defaults: defaults)
+        let resolvedPreset = Self.resolvedPreset(from: storedPreset)
         self.selectedPreset = resolvedPreset
-        self.baseURLText = Self.resolvedBaseURLString(defaults: defaults)
     }
 
     var hasEnvironmentBaseURL: Bool {
@@ -66,11 +65,15 @@ final class BackendSettingsModel: ObservableObject {
     }
 
     var effectiveBaseURL: URL {
-        Self.normalizedURL(from: baseURLText) ?? Self.resolvedBaseURL(defaults: defaults)
+        Self.baseURL(for: selectedPreset, defaults: defaults) ?? Self.resolvedBaseURL(defaults: defaults)
     }
 
     var selectedPresetTitle: String {
         return selectedPreset.title
+    }
+
+    var orderedPresets: [BackendPreset] {
+        Self.presetPolicy.displayOrder
     }
 
     func makeClient() -> GameFeedClient {
@@ -85,56 +88,40 @@ final class BackendSettingsModel: ObservableObject {
         Self.baseURLString(for: preset, defaults: defaults) ?? "URL 미설정"
     }
 
-    func selectPreset(_ preset: BackendPreset) {
-        selectedPreset = preset
-        validationState = .idle
-
-        baseURLText = Self.baseURLString(for: preset, defaults: defaults) ?? ""
+    func isPresetSelectable(_ preset: BackendPreset) -> Bool {
+        Self.presetPolicy.isSelectable(preset)
     }
 
-    func save() -> Bool {
-        guard let url = Self.normalizedURL(from: baseURLText) else {
-            validationState = .unavailable("URL 형식이 올바르지 않습니다.")
+    @discardableResult
+    func selectPreset(_ preset: BackendPreset) -> Bool {
+        guard isPresetSelectable(preset) || preset == selectedPreset else {
             return false
         }
 
-        baseURLText = url.absoluteString.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+        selectedPreset = preset
+        validationState = .idle
 
-        defaults.set(baseURLText, forKey: baseURLKey)
+        return true
+    }
+
+    func save() -> Bool {
         defaults.set(selectedPreset.rawValue, forKey: presetKey)
-
-        switch selectedPreset {
-        case .local:
-            defaults.set(baseURLText, forKey: localBaseURLKey)
-        case .staging:
-            defaults.set(baseURLText, forKey: stagingBaseURLKey)
-        case .production:
-            defaults.set(baseURLText, forKey: productionBaseURLKey)
-        }
+        defaults.removeObject(forKey: KboLiveEnvironment.backendBaseURLDefaultsKey)
 
         validationState = .idle
         return true
     }
 
     func reset() {
-        defaults.removeObject(forKey: baseURLKey)
         defaults.removeObject(forKey: presetKey)
-        defaults.removeObject(forKey: localBaseURLKey)
-        defaults.removeObject(forKey: stagingBaseURLKey)
-        defaults.removeObject(forKey: productionBaseURLKey)
+        defaults.removeObject(forKey: KboLiveEnvironment.backendBaseURLDefaultsKey)
         selectedPreset = Self.defaultPreset
-        baseURLText = Self.baseURLString(for: selectedPreset, defaults: defaults) ?? Self.defaultBaseURLString(for: selectedPreset)
         validationState = .idle
     }
 
     func checkHealth() async {
-        guard let baseURL = Self.normalizedURL(from: baseURLText),
-              let url = Self.backendURL(
-                baseURL: baseURL,
-                path: "ready",
-                apiPathPrefix: KboLiveEnvironment.defaultAPIPathPrefix
-              ) else {
-            validationState = .unavailable("URL 형식이 올바르지 않습니다.")
+        guard let url = Self.backendURL(baseURL: effectiveBaseURL, path: "ready") else {
+            validationState = .unavailable("백엔드 URL을 만들 수 없습니다.")
             return
         }
 
@@ -156,131 +143,4 @@ final class BackendSettingsModel: ObservableObject {
         }
     }
 
-    nonisolated static var defaultBaseURLString: String {
-        KboLiveEnvironment.defaultBaseURL.absoluteString.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
-    }
-
-    nonisolated static var defaultStagingBaseURLString: String {
-        KboLiveEnvironment.stagingBaseURL.absoluteString.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
-    }
-
-    nonisolated static func resolvedBaseURL(defaults: UserDefaults = .standard) -> URL {
-        if let url = normalizedURL(from: resolvedBaseURLString(defaults: defaults)) {
-            return url
-        }
-
-        return KboLiveEnvironment.productionBaseURL
-    }
-
-    nonisolated static func backendURL(baseURL: URL, path: String) -> URL? {
-        backendURL(
-            baseURL: baseURL,
-            path: path,
-            apiPathPrefix: KboLiveEnvironment.defaultAPIPathPrefix
-        )
-    }
-
-    nonisolated private static func resolvedBaseURLString(defaults: UserDefaults) -> String {
-        let storedPreset = defaults.string(forKey: "kbo-live.backend-preset")
-            .flatMap(BackendPreset.init(rawValue:)) ?? defaultPreset
-        let preset = resolvedPreset(from: storedPreset, defaults: defaults)
-
-        if let presetURL = baseURLString(for: preset, defaults: defaults) {
-            return presetURL
-        }
-
-        return defaults.string(forKey: KboLiveEnvironment.backendBaseURLDefaultsKey) ?? productionBaseURLString
-    }
-
-    nonisolated private static func resolvedPreset(from storedPreset: BackendPreset, defaults: UserDefaults) -> BackendPreset {
-        return baseURLString(for: storedPreset, defaults: defaults) == nil ? .production : storedPreset
-    }
-
-    nonisolated private static func baseURLString(for preset: BackendPreset, defaults: UserDefaults) -> String? {
-        switch preset {
-        case .local:
-            return environmentBaseURLString
-                ?? defaults.string(forKey: "kbo-live.backend-local-base-url")
-                ?? defaultBaseURLString
-        case .staging:
-            return environmentBaseURLString(named: "KBO_LIVE_STAGING_BASE_URL")
-                ?? defaults.string(forKey: "kbo-live.backend-staging-base-url")
-                ?? defaultStagingBaseURLString
-        case .production:
-            return environmentBaseURLString(named: "KBO_LIVE_PRODUCTION_BASE_URL")
-                ?? defaults.string(forKey: "kbo-live.backend-production-base-url")
-                ?? productionBaseURLString
-        }
-    }
-
-    nonisolated private static var productionBaseURLString: String {
-        KboLiveEnvironment.productionBaseURL.absoluteString.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
-    }
-
-    nonisolated private static func defaultBaseURLString(for preset: BackendPreset) -> String {
-        switch preset {
-        case .local:
-            return defaultBaseURLString
-        case .staging:
-            return defaultStagingBaseURLString
-        case .production:
-            return productionBaseURLString
-        }
-    }
-
-    nonisolated private static var defaultPreset: BackendPreset {
-        environmentBaseURLString == nil ? .production : .local
-    }
-
-    nonisolated private static var environmentBaseURLString: String? {
-        environmentBaseURLString(named: "KBO_LIVE_BASE_URL")
-    }
-
-    nonisolated private static func environmentBaseURLString(named name: String) -> String? {
-        guard let configured = ProcessInfo.processInfo.environment[name],
-              normalizedURL(from: configured) != nil else {
-            return nil
-        }
-
-        return configured
-    }
-
-    nonisolated private static func normalizedURL(from text: String) -> URL? {
-        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard trimmed.isEmpty == false,
-              let url = URL(string: trimmed),
-              let scheme = url.scheme,
-              ["http", "https"].contains(scheme),
-              url.host != nil else {
-            return nil
-        }
-
-        return url
-    }
-
-    nonisolated private static func backendURL(baseURL: URL, path: String, apiPathPrefix: String) -> URL? {
-        guard var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: false) else {
-            return nil
-        }
-
-        let basePath = components.path.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
-        let prefix = apiPathPrefix.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
-        let requestPath = path.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
-        let effectivePrefix = shouldAppendPrefix(prefix, to: basePath) ? prefix : ""
-        let pathParts = [basePath, effectivePrefix, requestPath].filter { $0.isEmpty == false }
-        components.path = "/" + pathParts.joined(separator: "/")
-        return components.url
-    }
-
-    nonisolated private static func shouldAppendPrefix(_ prefix: String, to basePath: String) -> Bool {
-        guard prefix.isEmpty == false else {
-            return false
-        }
-
-        guard basePath.isEmpty == false else {
-            return true
-        }
-
-        return basePath != prefix && basePath.hasSuffix("/" + prefix) == false
-    }
 }

@@ -18,6 +18,7 @@ struct AppSettingsView: View {
     @ObservedObject var viewModel: TodayGamesViewModel
     @ObservedObject var settings: BackendSettingsModel
     @ObservedObject var updateChecker: AppUpdateCheckModel
+    @Binding var appearanceMode: KboAppearanceMode
     let onApplyBackendSettings: () -> Void
 
     var body: some View {
@@ -33,6 +34,11 @@ struct AppSettingsView: View {
             teamSettingsView
                 .tabItem {
                     Label("응원팀", systemImage: "star")
+                }
+
+            appearanceSettingsView
+                .tabItem {
+                    Label("표시", systemImage: "circle.lefthalf.filled")
                 }
 
             updateSettingsView
@@ -69,10 +75,56 @@ struct AppSettingsView: View {
         .background(settingsBackground)
     }
 
+    private var appearanceSettingsView: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 18) {
+                KboCommandBar(
+                    eyebrow: "Display",
+                    title: "화면 모드",
+                    subtitle: "앱의 배경색과 글자색을 다크, 화이트, 시스템 설정에 맞춰 전환합니다."
+                ) {
+                    Image(systemName: "circle.lefthalf.filled")
+                        .font(.system(size: 21, weight: .bold))
+                        .foregroundStyle(KboSemanticColorToken.accentBlue)
+                        .frame(width: 44, height: 44)
+                        .background(KboSemanticColorToken.accentBlue.opacity(0.14))
+                        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                } actions: {
+                    Text(appearanceMode.title)
+                        .font(KboTypographyToken.caption)
+                        .foregroundStyle(KboTheme.primaryText)
+                        .padding(.horizontal, KboSpacingToken.medium)
+                        .padding(.vertical, KboSpacingToken.small)
+                        .background(KboSurfaceToken.glassControl)
+                        .clipShape(Capsule())
+                }
+
+                KboGlassPanel(style: .card, cornerRadius: 22) {
+                    Picker("화면 모드", selection: $appearanceMode) {
+                        ForEach(KboAppearanceMode.allCases) { mode in
+                            Label(mode.title, systemImage: systemImage(for: mode))
+                                .tag(mode)
+                        }
+                    }
+#if os(macOS)
+                    .pickerStyle(.radioGroup)
+#else
+                    .pickerStyle(.segmented)
+#endif
+                    .foregroundStyle(KboTheme.primaryText)
+                    .padding(16)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }
+            .padding(20)
+        }
+        .background(settingsBackground)
+    }
+
     private var teamGridColumns: [GridItem] {
         [
-            GridItem(.flexible(minimum: 190), spacing: 10),
-            GridItem(.flexible(minimum: 190), spacing: 10)
+            GridItem(.flexible(minimum: 210), spacing: 10),
+            GridItem(.flexible(minimum: 210), spacing: 10)
         ]
     }
 
@@ -156,6 +208,17 @@ struct AppSettingsView: View {
             }
         }
         .formStyle(.grouped)
+    }
+
+    private func systemImage(for mode: KboAppearanceMode) -> String {
+        switch mode {
+        case .system:
+            return "desktopcomputer"
+        case .light:
+            return "sun.max.fill"
+        case .dark:
+            return "moon.fill"
+        }
     }
 
     @ViewBuilder
@@ -267,7 +330,8 @@ private struct TeamSelectionCard: View {
                         .font(KboTypographyToken.headline)
                         .foregroundStyle(KboTheme.primaryText)
                         .lineLimit(1)
-                        .minimumScaleFactor(0.82)
+                        .minimumScaleFactor(0.7)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
 
                 Spacer(minLength: 0)

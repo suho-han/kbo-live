@@ -15,17 +15,17 @@ import KboLiveFeatures
 
 struct MenuBarDashboardView: View {
     private enum Layout {
-        static let popoverWidth: CGFloat = 340
+        static let popoverWidth: CGFloat = 328
         static let contentPadding = KboSpacingToken.large
-        static let sectionSpacing: CGFloat = 14
-        static let controlSpacing = KboSpacingToken.small
+        static let sectionSpacing: CGFloat = 12
+        static let controlSpacing: CGFloat = 10
         static let cardPadding: CGFloat = 14
         static let cardCornerRadius = KboRadiusToken.large
         static let controlCornerRadius = KboRadiusToken.medium
-        static let compactControlHeight: CGFloat = 54
+        static let compactControlHeight: CGFloat = 48
         static let controlColumns = [
-            GridItem(.flexible(), spacing: KboSpacingToken.small),
-            GridItem(.flexible(), spacing: KboSpacingToken.small)
+            GridItem(.flexible(), spacing: controlSpacing),
+            GridItem(.flexible(), spacing: controlSpacing)
         ]
     }
 
@@ -101,7 +101,7 @@ struct MenuBarDashboardView: View {
     private var headerSection: some View {
         HStack(alignment: .top) {
             HStack(alignment: .firstTextBaseline, spacing: 6) {
-                Text("크보 라이브")
+                Text("Baseball LIVE KR")
                     .font(.headline.weight(.bold))
                     .foregroundStyle(KboTheme.primaryText)
 
@@ -110,8 +110,20 @@ struct MenuBarDashboardView: View {
                     .foregroundStyle(KboTheme.secondaryText)
 
                 Text(headerSubtitle)
-                    .font(.headline.weight(.regular))
-                    .foregroundStyle(headerAccentColor)
+                    .font(.headline.weight(.bold))
+                    .foregroundStyle(headerTextColor)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.78)
+                    .fixedSize(horizontal: true, vertical: false)
+                    .layoutPriority(1)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 4)
+                    .background(headerAccentColor.opacity(0.36))
+                    .clipShape(Capsule(style: .continuous))
+                    .overlay {
+                        Capsule(style: .continuous)
+                            .stroke(headerAccentColor.opacity(0.5), lineWidth: 1.5)
+                    }
             }
 
             Spacer(minLength: 12)
@@ -129,7 +141,6 @@ struct MenuBarDashboardView: View {
         } label: {
             MenuBarFeaturedGameCardView(
                 game: game,
-                headline: "나의 팀 경기",
                 favoriteTeamID: viewModel.selectedTeamID
             )
         }
@@ -260,11 +271,10 @@ struct MenuBarDashboardView: View {
     }
 
     private func compactActionButton(title: String, systemImage: String) -> some View {
-        VStack(spacing: 6) {
+        HStack(spacing: 8) {
             Image(systemName: systemImage)
                 .font(.system(size: 14, weight: .semibold))
                 .foregroundStyle(KboTheme.primaryText.opacity(0.88))
-                .frame(height: 16)
 
             Text(title)
                 .font(.caption.weight(.semibold))
@@ -282,11 +292,10 @@ struct MenuBarDashboardView: View {
     }
 
     private var compactStatusButton: some View {
-        VStack(spacing: 6) {
+        HStack(spacing: 8) {
             Image(systemName: backendStatus.systemImage)
                 .font(.system(size: 14, weight: .semibold))
                 .foregroundStyle(backendStatus.color)
-                .frame(height: 16)
 
             Text(backendStatus.title)
                 .font(.caption.weight(.semibold))
@@ -356,11 +365,15 @@ struct MenuBarDashboardView: View {
     }
 
     private var headerAccentColor: Color {
-        guard let selectedTeamID = viewModel.selectedTeamID else {
-            return .secondary
+        if let selectedTeamID = viewModel.selectedTeam?.id ?? viewModel.selectedTeamID {
+            return teamColor(for: selectedTeamID)
         }
 
-        return teamColor(for: selectedTeamID)
+        if let selectedTeamID = teamID(forKoreanName: headerSubtitle) {
+            return teamColor(for: selectedTeamID)
+        }
+
+        return KboTheme.secondaryText
     }
 
     private func teamColor(for teamID: String) -> Color {
@@ -369,6 +382,44 @@ struct MenuBarDashboardView: View {
 #else
         .secondary
 #endif
+    }
+
+    private var headerTextColor: Color {
+#if canImport(KboLiveDesignSystem)
+        if let selectedTeamID = viewModel.selectedTeam?.id ?? viewModel.selectedTeamID,
+           TeamColorResolver.usesLightForeground(forTeamID: selectedTeamID) {
+            return KboColorToken.textPrimary
+        }
+#endif
+
+        return KboTheme.primaryText
+    }
+
+    private func teamID(forKoreanName teamName: String) -> String? {
+        switch teamName {
+        case "LG 트윈스":
+            return "LG"
+        case "두산 베어스":
+            return "OB"
+        case "기아 타이거즈", "KIA 타이거즈":
+            return "KIA"
+        case "롯데 자이언츠":
+            return "LT"
+        case "SSG 랜더스":
+            return "SSG"
+        case "한화 이글스":
+            return "HH"
+        case "NC 다이노스":
+            return "NC"
+        case "KT 위즈", "케이티 위즈":
+            return "KT"
+        case "삼성 라이온즈":
+            return "SS"
+        case "키움 히어로즈":
+            return "WO"
+        default:
+            return nil
+        }
     }
 
     private static let lastUpdatedFormatter: DateFormatter = {
@@ -382,26 +433,20 @@ struct MenuBarDashboardView: View {
 
 private struct MenuBarFeaturedGameCardView: View {
     let game: Game
-    let headline: String
     let favoriteTeamID: String?
     @Environment(\.kboFontScale) private var fontScale
 
     private enum Layout {
-        static let badgeWidth: CGFloat = 86
-        static let nameWidth: CGFloat = 30
+        static let badgeWidth: CGFloat = 88
+        static let nameWidth: CGFloat = 34
         static let logoSize: CGFloat = 16
-        static let scoreWidth: CGFloat = 30
+        static let scoreWidth: CGFloat = 28
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 9) {
             HStack(alignment: .firstTextBaseline, spacing: 8) {
-                Text(headline)
-                    .font(KboTypographyToken.caption(scaledBy: fontScale))
-                    .foregroundStyle(KboColorToken.statusLive)
-
-                Spacer(minLength: 8)
-
+                Spacer(minLength: 0)
                 Text(gameDateVenueText)
                     .font(KboTypographyToken.caption(scaledBy: fontScale))
                     .foregroundStyle(KboTheme.secondaryText)
@@ -418,7 +463,7 @@ private struct MenuBarFeaturedGameCardView: View {
                     team: game.awayTeam,
                     score: game.score.away,
                     isFavorite: game.awayTeam.id == favoriteTeamID,
-                    probablePitcher: trimmedPitcherName(game.probablePitchers.away)
+                    probablePitcher: trimmedPitcherName(game.probablePitchers.away.name)
                 )
 
                 Spacer(minLength: 0)
@@ -431,7 +476,7 @@ private struct MenuBarFeaturedGameCardView: View {
                     team: game.homeTeam,
                     score: game.score.home,
                     isFavorite: game.homeTeam.id == favoriteTeamID,
-                    probablePitcher: trimmedPitcherName(game.probablePitchers.home)
+                    probablePitcher: trimmedPitcherName(game.probablePitchers.home.name)
                 )
             }
 
@@ -440,12 +485,12 @@ private struct MenuBarFeaturedGameCardView: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(12)
+        .padding(10)
         .background(KboTheme.cardBackground.opacity(0.94))
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         .overlay {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .stroke(Color.white.opacity(0.08), lineWidth: 1)
+                .stroke(KboSurfaceToken.cardBorder, lineWidth: 1)
         }
     }
 
@@ -497,7 +542,7 @@ private struct MenuBarFeaturedGameCardView: View {
                 )
             }
         }
-        .frame(width: 96, alignment: .center)
+        .frame(width: 76, alignment: .center)
     }
 
     private func trimmedPitcherName(_ name: String?) -> String? {
@@ -593,11 +638,11 @@ private struct MenuBarGameStateBlockView: View {
         .padding(.horizontal, 11)
         .padding(.vertical, 9)
         .frame(width: 92)
-        .background(Color.black.opacity(0.24))
+        .background(KboSurfaceToken.glassControl)
         .clipShape(RoundedRectangle(cornerRadius: 9, style: .continuous))
         .overlay {
             RoundedRectangle(cornerRadius: 9, style: .continuous)
-                .stroke(Color.white.opacity(0.11), lineWidth: 1)
+                .stroke(KboSurfaceToken.cardBorder, lineWidth: 1)
         }
         .fixedSize(horizontal: true, vertical: true)
     }

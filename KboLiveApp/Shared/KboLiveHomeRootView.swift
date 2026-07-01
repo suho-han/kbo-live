@@ -5,6 +5,9 @@ import WidgetKit
 #if canImport(KboLiveCore)
 import KboLiveCore
 #endif
+#if canImport(KboLiveDesignSystem)
+import KboLiveDesignSystem
+#endif
 #if canImport(KboLiveFeatures)
 import KboLiveFeatures
 #endif
@@ -15,17 +18,20 @@ struct KboLiveHomeRootView: View {
     @ObservedObject private var settings: BackendSettingsModel
     @ObservedObject private var navigationModel: AppNavigationModel
     @ObservedObject private var updateChecker: AppUpdateCheckModel
+    @Binding private var appearanceMode: KboAppearanceMode
     @State private var isShowingSettings = false
 
     init(
         viewModel: TodayGamesViewModel? = nil,
         settings: BackendSettingsModel = BackendSettingsModel(),
         navigationModel: AppNavigationModel = AppNavigationModel(),
-        updateChecker: AppUpdateCheckModel = AppUpdateCheckModel()
+        updateChecker: AppUpdateCheckModel = AppUpdateCheckModel(),
+        appearanceMode: Binding<KboAppearanceMode> = .constant(.defaultValue)
     ) {
         _settings = ObservedObject(wrappedValue: settings)
         _navigationModel = ObservedObject(wrappedValue: navigationModel)
         _updateChecker = ObservedObject(wrappedValue: updateChecker)
+        _appearanceMode = appearanceMode
         if let viewModel {
             _viewModel = StateObject(wrappedValue: viewModel)
         } else {
@@ -82,6 +88,7 @@ struct KboLiveHomeRootView: View {
                         viewModel: viewModel,
                         settings: settings,
                         updateChecker: updateChecker,
+                        appearanceMode: $appearanceMode,
                         onApplyBackendSettings: applyBackendSettings
                     )
                     .navigationTitle("설정")
@@ -97,6 +104,7 @@ struct KboLiveHomeRootView: View {
                     }
                 }
                 .frame(minWidth: 420, minHeight: 320)
+                .preferredColorScheme(appearanceMode.preferredColorScheme)
             }
     }
 

@@ -57,7 +57,10 @@ enum SampleGameFactory {
             count: CountState(balls: 1, strikes: 2, outs: 1),
             bases: BasesState(first: true, second: false, third: true),
             current: CurrentMatchup(batter: "박민우", pitcher: "고영표"),
-            probablePitchers: ProbablePitchers(away: "김준원", home: "고영표"),
+            probablePitchers: ProbablePitchers(
+                away: ProbablePitcher(name: "김준원"),
+                home: ProbablePitcher(name: "고영표")
+            ),
             recentPlay: "5회초 NC 박민우 타석, 1사 1,3루 기회",
             teamRecords: TeamRecords(
                 away: TeamRecordSummary(wins: 31, losses: 34, draws: 2, rank: 7, streak: "1패"),
@@ -101,7 +104,16 @@ enum SampleGameFactory {
             count: nil,
             bases: nil,
             current: nil,
-            probablePitchers: ProbablePitchers(away: "왕옌청", home: "로젠버그"),
+            probablePitchers: ProbablePitchers(
+                away: ProbablePitcher(
+                    name: "왕옌청",
+                    record: PitcherSeasonSummary(wins: 5, losses: 4, era: 3.41, whip: 1.18)
+                ),
+                home: ProbablePitcher(
+                    name: "로젠버그",
+                    record: PitcherSeasonSummary(wins: 7, losses: 3, era: 2.87, whip: 1.06)
+                )
+            ),
             recentPlay: nil,
             teamRecords: TeamRecords(
                 away: TeamRecordSummary(wins: 34, losses: 31, draws: 1, rank: 5, streak: "1승"),
@@ -134,7 +146,10 @@ enum SampleGameFactory {
             count: CountState(balls: 0, strikes: 0, outs: 3),
             bases: BasesState(first: false, second: false, third: false),
             current: nil,
-            probablePitchers: ProbablePitchers(away: "비슬리", home: "임찬규"),
+            probablePitchers: ProbablePitchers(
+                away: ProbablePitcher(name: "비슬리"),
+                home: ProbablePitcher(name: "임찬규")
+            ),
             recentPlay: "LG가 8회 추가점으로 리드를 지키며 경기를 마쳤습니다.",
             teamRecords: TeamRecords(
                 away: TeamRecordSummary(wins: 30, losses: 34, draws: 1, rank: 8, streak: "1패"),
