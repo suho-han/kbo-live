@@ -1,0 +1,4 @@
+command=./scripts/verify-release-assets.sh /tmp/definitely-missing-t4-review-path .xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app
+Missing release/staged artifact target: /tmp/definitely-missing-t4-review-path
+One or more explicit release/staged artifact targets were missing.
+exit_code=2
