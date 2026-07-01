@@ -3,7 +3,9 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
+default_mode=0
 if (($# == 0)); then
+  default_mode=1
   set -- \
     "$ROOT_DIR/.xcode/DerivedData/Build/Products" \
     "$ROOT_DIR/.build/macmini-runtime" \
@@ -11,6 +13,8 @@ if (($# == 0)); then
 fi
 
 found=0
+inspected=0
+missing=0
 
 is_official_asset_path() {
   case "$1" in
@@ -24,7 +28,16 @@ is_official_asset_path() {
 }
 
 for target in "$@"; do
-  [[ -e "$target" ]] || continue
+  if [[ ! -e "$target" ]]; then
+    if ((default_mode)); then
+      continue
+    fi
+    printf 'Missing release/staged artifact target: %s\n' "$target" >&2
+    missing=1
+    continue
+  fi
+
+  inspected=$((inspected + 1))
 
   while IFS= read -r path; do
     printf '%s\n' "$path"
@@ -77,6 +90,16 @@ done
 if ((found)); then
   printf 'Official visual asset risk found in release/staged artifacts.\n' >&2
   exit 1
+fi
+
+if ((missing)); then
+  printf 'One or more explicit release/staged artifact targets were missing.\n' >&2
+  exit 2
+fi
+
+if ((inspected == 0)); then
+  printf 'No release/staged artifact roots exist to inspect.\n' >&2
+  exit 2
 fi
 
 printf 'No official visual asset filenames found in release/staged artifacts.\n'
