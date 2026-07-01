@@ -1,0 +1,21 @@
+Changed file pure LOC measurement
+30 README.md
+112 backend-spike/README.md
+34 backend-spike/package.json
+45 backend-spike/src/db/database.ts
+130 backend-spike/tests/gameService.cache.test.ts
+216 backend-spike/tests/gameServiceTestSupport.ts
+114 backend-spike/tests/kboClient.test.ts
+245 backend-spike/tests/playerRecordRepository.test.ts
+63 backend-spike/tests/rawSourceRepository.test.ts
+147 backend-spike/tests/routes.core.test.ts
+102 backend-spike/tests/routes.players.test.ts
+57 backend-spike/tests/teamRecordRepository.test.ts
+102 docs/dev.md
+20 scripts/deploy-macmini-runtime.sh
+56 scripts/kbo-live.sh
+58 scripts/package-backend-macos.sh
+23 scripts/package-macmini-runtime.sh
+121 scripts/run-macos-app-with-packaged-backend.sh
+33 scripts/verify-local.sh
+327 baseball-live-kr-deployment-plan.md

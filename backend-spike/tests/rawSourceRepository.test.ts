@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 
-import { closeDatabase, openDatabase } from '../src/db/database.js'
+import { closeDatabase, defaultDatabasePath, isDatabaseDisabled, openDatabase, resolveDatabasePath } from '../src/db/database.js'
 import { countRawSources, saveRawSource } from '../src/repositories/rawSourceRepository.js'
 
 describe('rawSourceRepository', () => {
@@ -14,12 +14,13 @@ describe('rawSourceRepository', () => {
     for (const dir of tempDirs.splice(0)) {
       rmSync(dir, { recursive: true, force: true })
     }
-    delete process.env.KBO_DB_DISABLED
-    delete process.env.KBO_DB_ENABLED
+    delete process.env.BASEBALL_LIVE_KR_DB_DISABLED
+    delete process.env.BASEBALL_LIVE_KR_DB_ENABLED
+    delete process.env.BASEBALL_LIVE_KR_DB_PATH
   })
 
   it('runs migrations and stores deduplicated raw source bodies', () => {
-    process.env.KBO_DB_ENABLED = '1'
+    process.env.BASEBALL_LIVE_KR_DB_ENABLED = '1'
     const dir = mkdtempSync(join(tmpdir(), 'kbo-live-db-'))
     tempDirs.push(dir)
     const db = openDatabase(join(dir, 'test.sqlite'))
@@ -47,7 +48,7 @@ describe('rawSourceRepository', () => {
   })
 
   it('skips persistence when DB is disabled', () => {
-    process.env.KBO_DB_DISABLED = '1'
+    process.env.BASEBALL_LIVE_KR_DB_DISABLED = '1'
     const dir = mkdtempSync(join(tmpdir(), 'kbo-live-db-'))
     tempDirs.push(dir)
     const db = openDatabase(join(dir, 'test.sqlite'))
@@ -61,5 +62,13 @@ describe('rawSourceRepository', () => {
 
     expect(result).toBeNull()
     expect(countRawSources(db)).toBe(0)
+  })
+
+  it('falls back to default DB path when env path is blank', () => {
+    process.env.BASEBALL_LIVE_KR_DB_PATH = '   '
+    process.env.BASEBALL_LIVE_KR_DB_ENABLED = 'not-a-boolean'
+
+    expect(resolveDatabasePath()).toBe(defaultDatabasePath())
+    expect(isDatabaseDisabled()).toBe(true)
   })
 })

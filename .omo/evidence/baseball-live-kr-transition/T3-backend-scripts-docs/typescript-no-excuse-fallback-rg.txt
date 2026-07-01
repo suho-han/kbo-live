@@ -1,0 +1,3 @@
+Fallback TypeScript no-excuse forbidden pattern audit
+Expected: no matches for any/as any/as unknown/non-null/ts-ignore/ts-expect-error/enum/throw literal patterns introduced in edited TS files.
+

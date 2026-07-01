@@ -29,15 +29,15 @@ fi
 
 cd "$ROOT_DIR"
 run xcodebuild \
-  -project KboLiveApp.xcodeproj \
-  -scheme KboLivemacOS \
+  -project BaseballLiveKR.xcodeproj \
+  -scheme BaseballLiveKRmacOS \
   -destination 'platform=macOS' \
   -derivedDataPath "$DERIVED_DATA_PATH" \
   build
 
 run xcodebuild \
-  -project KboLiveApp.xcodeproj \
-  -scheme KboLiveiOS \
+  -project BaseballLiveKR.xcodeproj \
+  -scheme BaseballLiveKRiOS \
   -destination 'generic/platform=iOS Simulator' \
   -derivedDataPath "$DERIVED_DATA_PATH" \
   build

@@ -1,6 +1,6 @@
-# KBO Live
+# Baseball LIVE KR
 
-KBO Live는 야구를 보다가 지금 어느 경기가 열리고 있는지, 점수는 어떻게 바뀌었는지, 내가 응원하는 팀은 어떤 흐름인지 빠르게 확인하기 위한 앱입니다. 중계를 계속 켜두지 않아도 오늘의 KBO 경기 상황과 주요 기록을 한눈에 볼 수 있게 만드는 것이 목표입니다.
+Baseball LIVE KR은 야구를 보다가 지금 어느 경기가 열리고 있는지, 점수는 어떻게 바뀌었는지, 내가 응원하는 팀은 어떤 흐름인지 빠르게 확인하기 위한 앱입니다. 중계를 계속 켜두지 않아도 오늘의 KBO 경기 상황과 주요 기록을 한눈에 볼 수 있게 만드는 것이 목표입니다.
 
 현재는 macOS에서 메뉴바와 작은 창으로 경기 상황을 확인하는 경험을 먼저 다듬고 있습니다. 이후에는 iPhone, 위젯, 실시간 활동에서도 같은 정보를 자연스럽게 볼 수 있도록 확장할 예정입니다.
 
@@ -16,11 +16,11 @@ KBO Live는 야구를 보다가 지금 어느 경기가 열리고 있는지, 점
 
 macOS 앱 메인 화면:
 
-<img src="images/main.png" alt="KBO Live 메인 화면" width="720">
+<img src="images/main.png" alt="Baseball LIVE KR 메인 화면" width="720">
 
 메뉴바에서 경기 확인:
 
-<img src="images/menubar.png" alt="KBO Live 메뉴바 화면" width="360">
+<img src="images/menubar.png" alt="Baseball LIVE KR 메뉴바 화면" width="360">
 
 ## 지금 볼 수 있는 것
 
@@ -44,9 +44,9 @@ macOS 앱 메인 화면:
 
 ## 실행
 
-1. `KboLiveApp.app`을 엽니다.
+1. `BaseballLiveKR.app`을 엽니다.
 2. macOS가 확인을 요청하면 안내에 따라 실행을 허용합니다.
-3. 메뉴바에서 KBO Live 아이콘을 눌러 오늘 경기를 확인합니다.
+3. 메뉴바에서 Baseball LIVE KR 아이콘을 눌러 오늘 경기를 확인합니다.
 
 ## 개발 및 검증
 

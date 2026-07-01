@@ -1,0 +1,6 @@
+malformed_input probe
+Automated test added: rawSourceRepository falls back when BASEBALL_LIVE_KR_DB_PATH is blank and treats BASEBALL_LIVE_KR_DB_ENABLED=not-a-boolean as disabled.
+Command: npm --prefix backend-spike test
+67:  it('falls back to default DB path when env path is blank', () => {
+68:    process.env.BASEBALL_LIVE_KR_DB_PATH = '   '
+69:    process.env.BASEBALL_LIVE_KR_DB_ENABLED = 'not-a-boolean'

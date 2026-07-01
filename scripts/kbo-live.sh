@@ -6,7 +6,7 @@ DERIVED_DATA_PATH="${DERIVED_DATA_PATH:-$ROOT_DIR/.xcode/DerivedData}"
 
 print_help() {
   cat <<'TEXT'
-KBO Live helper
+Baseball LIVE KR helper
 
 Usage:
   ./scripts/kbo-live.sh run      Build and open the macOS app with game data
@@ -23,8 +23,8 @@ TEXT
 
 build_macos_app() {
   xcodebuild \
-    -scheme KboLivemacOS \
-    -project "$ROOT_DIR/KboLiveApp.xcodeproj" \
+    -scheme BaseballLiveKRmacOS \
+    -project "$ROOT_DIR/BaseballLiveKR.xcodeproj" \
     -destination 'platform=macOS' \
     -derivedDataPath "$DERIVED_DATA_PATH" \
     build
@@ -44,7 +44,7 @@ case "$command" in
   open)
     build_macos_app
     launchctl unsetenv KBO_LIVE_BASE_URL
-    open -n "$DERIVED_DATA_PATH/Build/Products/Debug/KboLiveApp.app"
+    open -n "$DERIVED_DATA_PATH/Build/Products/Debug/BaseballLiveKR.app"
     ;;
   verify)
     "$ROOT_DIR/scripts/verify-local.sh"

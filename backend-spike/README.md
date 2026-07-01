@@ -1,6 +1,6 @@
-# KBO Live Backend Spike
+# Baseball LIVE KR Backend Spike
 
-Fastify 기반 KBO Live backend spike 뼈대입니다.
+Fastify 기반 Baseball LIVE KR backend spike 뼈대입니다.
 
 ## 목적
 - 공식 KBO 웹서비스 호출 검증
@@ -36,12 +36,12 @@ KBO_CACHE_STALE_IF_ERROR_SEC=600
 DB foundation 환경변수:
 
 ```bash
-KBO_DB_PATH=.data/kbo-live.sqlite
-KBO_DB_DISABLED=1
-KBO_DB_ENABLED=1
+BASEBALL_LIVE_KR_DB_PATH=.data/baseball-live-kr.sqlite
+BASEBALL_LIVE_KR_DB_DISABLED=1
+BASEBALL_LIVE_KR_DB_ENABLED=1
 ```
 
-기본값은 `backend-spike/.data/kbo-live.sqlite`입니다. KBO source 응답은 `raw_sources` table에 checksum 기준으로 중복 저장을 방지하며 기록됩니다. 테스트 환경에서는 기본 비활성화되며, 임시 실행에서 DB 기록을 끄려면 `KBO_DB_DISABLED=1`, 테스트에서 명시적으로 켜려면 `KBO_DB_ENABLED=1`을 사용합니다.
+기본값은 `backend-spike/.data/baseball-live-kr.sqlite`입니다. KBO source 응답은 `raw_sources` table에 checksum 기준으로 중복 저장을 방지하며 기록됩니다. 테스트 환경에서는 기본 비활성화되며, 임시 실행에서 DB 기록을 끄려면 `BASEBALL_LIVE_KR_DB_DISABLED=1`, 테스트에서 명시적으로 켜려면 `BASEBALL_LIVE_KR_DB_ENABLED=1`을 사용합니다.
 
 ## 검증
 
@@ -148,7 +148,7 @@ npm run dump:players -- --kind pitching --write
 - `fixtures/player-records-source/pitching-latest.html`
 - timestamp별 `.html` / metadata `.json`
 
-DB가 활성화된 일반 실행에서는 `raw_sources` table에도 `kbo-official-eng` source로 저장하고, leaders table을 parse해 `players`, `player_team_seasons`, batting/pitching season record table에 upsert합니다. 테스트 환경에서 DB 저장까지 확인하려면 `KBO_DB_ENABLED=1`을 명시합니다.
+DB가 활성화된 일반 실행에서는 `raw_sources` table에도 `kbo-official-eng` source로 저장하고, leaders table을 parse해 `players`, `player_team_seasons`, batting/pitching season record table에 upsert합니다. 테스트 환경에서 DB 저장까지 확인하려면 `BASEBALL_LIVE_KR_DB_ENABLED=1`을 명시합니다.
 
 ## 검증 팁
 - 경기 전 시간대에는 `changedGames: 0`이 정상일 수 있음

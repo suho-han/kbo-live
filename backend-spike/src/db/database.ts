@@ -8,11 +8,11 @@ let sharedDatabase: DatabaseSync | null = null
 let sharedDatabasePath: string | null = null
 
 export function defaultDatabasePath(): string {
-  return resolve(process.cwd(), '.data/kbo-live.sqlite')
+  return resolve(process.cwd(), '.data/baseball-live-kr.sqlite')
 }
 
 export function resolveDatabasePath(): string {
-  return process.env.KBO_DB_PATH?.trim() || defaultDatabasePath()
+  return process.env.BASEBALL_LIVE_KR_DB_PATH?.trim() || defaultDatabasePath()
 }
 
 export function openDatabase(path = resolveDatabasePath()): DatabaseSync {
@@ -49,9 +49,9 @@ export function closeDatabase(): void {
 }
 
 export function isDatabaseDisabled(): boolean {
-  if (process.env.KBO_DB_ENABLED !== undefined) {
-    return process.env.KBO_DB_ENABLED !== '1'
+  if (process.env.BASEBALL_LIVE_KR_DB_ENABLED !== undefined) {
+    return process.env.BASEBALL_LIVE_KR_DB_ENABLED !== '1'
   }
 
-  return process.env.KBO_DB_DISABLED === '1' || process.env.NODE_ENV === 'test'
+  return process.env.BASEBALL_LIVE_KR_DB_DISABLED === '1' || process.env.NODE_ENV === 'test'
 }

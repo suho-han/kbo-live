@@ -12,7 +12,7 @@ describe('kboClient', () => {
   const tempDirs: string[] = []
 
   beforeEach(() => {
-    process.env.KBO_DB_DISABLED = '1'
+    process.env.BASEBALL_LIVE_KR_DB_DISABLED = '1'
   })
 
   afterEach(() => {
@@ -21,9 +21,9 @@ describe('kboClient', () => {
     for (const dir of tempDirs.splice(0)) {
       rmSync(dir, { recursive: true, force: true })
     }
-    delete process.env.KBO_DB_DISABLED
-    delete process.env.KBO_DB_ENABLED
-    delete process.env.KBO_DB_PATH
+    delete process.env.BASEBALL_LIVE_KR_DB_DISABLED
+    delete process.env.BASEBALL_LIVE_KR_DB_ENABLED
+    delete process.env.BASEBALL_LIVE_KR_DB_PATH
   })
 
   it('posts form data and parses a valid game date response', async () => {
@@ -49,11 +49,11 @@ describe('kboClient', () => {
   })
 
   it('stores successful source responses when DB persistence is enabled', async () => {
-    delete process.env.KBO_DB_DISABLED
-    process.env.KBO_DB_ENABLED = '1'
+    delete process.env.BASEBALL_LIVE_KR_DB_DISABLED
+    process.env.BASEBALL_LIVE_KR_DB_ENABLED = '1'
     const dir = mkdtempSync(join(tmpdir(), 'kbo-live-client-db-'))
     tempDirs.push(dir)
-    process.env.KBO_DB_PATH = join(dir, 'test.sqlite')
+    process.env.BASEBALL_LIVE_KR_DB_PATH = join(dir, 'test.sqlite')
     vi.stubGlobal('fetch', vi.fn(async () => new Response(JSON.stringify({
       BEFORE_G_DT: '20260612',
       NOW_G_DT: TEST_DATE,

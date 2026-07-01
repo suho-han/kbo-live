@@ -1,0 +1,9 @@
+run-backend.command matches:
+16:PACKAGED_DB="${DIR}/.data/baseball-live-kr.sqlite"
+18:  export BASEBALL_LIVE_KR_DB_ENABLED="${BASEBALL_LIVE_KR_DB_ENABLED:-1}"
+19:  export BASEBALL_LIVE_KR_DB_PATH="${BASEBALL_LIVE_KR_DB_PATH:-${PACKAGED_DB}}"
+
+README matches:
+1:Baseball LIVE KR Backend macOS bundle
+9:  BASEBALL_LIVE_KR_DB_ENABLED=1 ./run-backend.command
+10:  BASEBALL_LIVE_KR_DB_PATH=.data/baseball-live-kr.sqlite ./run-backend.command

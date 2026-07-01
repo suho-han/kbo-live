@@ -1,0 +1,9 @@
+Cleanup receipt
+Port 17379 listener check after packaged backend QA (expected none):
+
+Ignored generated/runtime paths left untracked by design:
+!! .build/
+!! .omo/
+!! backend-spike/.data/
+!! backend-spike/dist/
+!! backend-spike/node_modules/
