@@ -16,7 +16,7 @@ Findings:
 - `project.yml` is the durable source of truth for generated project resources and now excludes all three official asset directories: `TeamLogos/**`, `TeamWordmarks/**`, and `TeamBrandAssets/**`.
 - The checked-in baseline `KboLiveApp.xcodeproj` was also cleaned so this worktree can build and inspect a clean app bundle. Per leader coordination, that generated-project edit is integration-obsolete because T1 replaces it with `BaseballLiveKR.xcodeproj`; the equivalent durable exclusion is the `project.yml` change.
 - `scripts/verify-release-assets.sh` checks staged/built filesystem paths and archive member names for official visual asset filenames. It fails on injected filesystem and tar archive probes, fails explicit missing artifact targets, and fails default runs that inspect zero existing release/staged roots.
-- Notarization readiness is documented as a credentialed procedure rather than claimed as executed.
+- Notarization readiness is documented as a credentialed procedure rather than claimed as executed. The procedure and pre-release checklist were checked against the current build product name: `BaseballLiveKR.app`, with the notarization zip parameterized as `.build/transfer/${APP_PRODUCT_NAME}.zip`.
 
 Slop and safety coverage:
 
@@ -43,5 +43,7 @@ Verification summary:
 - `./scripts/verify-release-assets.sh /tmp/definitely-missing-t4-review-path`: FAILS EXPECTED with exit code 2
 - `./scripts/verify-release-assets.sh /tmp/definitely-missing-t4-review-path .xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app`: FAILS EXPECTED with exit code 2
 - copied-script default zero-root probe: FAILS EXPECTED with exit code 2
+- `rg -n 'KboLiveApp\.(app|zip)' PROJECT_CONTEXT/macos-release-operations.md`: PASS with no matches
+- `rg -n 'BaseballLiveKR\.app|APP_PRODUCT_NAME=BaseballLiveKR|APP_ZIP' PROJECT_CONTEXT/macos-release-operations.md`: PASS with current product/archive references
 - `git diff --check 43b4445^ 43b4445`: initially failed on trailing whitespace in `green/xcodebuild-macos-debug.txt`; this follow-up evidence-only commit normalizes that log.
 - `git diff --check 43b4445^ HEAD`: PASS after follow-up normalization.

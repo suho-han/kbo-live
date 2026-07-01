@@ -43,7 +43,7 @@ Mac mini 전송용 runtime archive 생성:
 
 archive 포함 항목:
 
-- `.xcode/DerivedData/Build/Products/Debug/KboLiveApp.app`
+- `.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app`
 - `.build/kbo-live-backend-macos`
 - `scripts/run-macos-app-with-packaged-backend.sh`
 
@@ -94,6 +94,10 @@ PORT=3000 ./scripts/run-macos-app-with-packaged-backend.sh
 Release readiness procedure when Developer ID credentials are available:
 
 ```bash
+APP_PRODUCT_NAME=BaseballLiveKR
+APP_BUNDLE=".xcode/DerivedData/Build/Products/Release/${APP_PRODUCT_NAME}.app"
+APP_ZIP=".build/transfer/${APP_PRODUCT_NAME}.zip"
+
 xcodebuild -project KboLiveApp.xcodeproj \
   -scheme KboLivemacOS \
   -configuration Release \
@@ -104,16 +108,16 @@ xcodebuild -project KboLiveApp.xcodeproj \
   build
 
 ditto -c -k --keepParent \
-  .xcode/DerivedData/Build/Products/Release/KboLiveApp.app \
-  .build/transfer/KboLiveApp.zip
+  "${APP_BUNDLE}" \
+  "${APP_ZIP}"
 
-xcrun notarytool submit .build/transfer/KboLiveApp.zip \
+xcrun notarytool submit "${APP_ZIP}" \
   --keychain-profile baseball-live-kr-notary \
   --wait
 
-xcrun stapler staple .xcode/DerivedData/Build/Products/Release/KboLiveApp.app
-xcrun stapler validate .xcode/DerivedData/Build/Products/Release/KboLiveApp.app
-spctl --assess --type execute --verbose=4 .xcode/DerivedData/Build/Products/Release/KboLiveApp.app
+xcrun stapler staple "${APP_BUNDLE}"
+xcrun stapler validate "${APP_BUNDLE}"
+spctl --assess --type execute --verbose=4 "${APP_BUNDLE}"
 ```
 
 Credentials required:
@@ -150,7 +154,7 @@ Credentials required:
 - `KboLivemacOS` xcodebuild 통과
 - `./scripts/package-macmini-runtime.sh` 통과
 - `./scripts/verify-release-assets.sh .xcode/DerivedData/Build/Products .build/macmini-runtime .build/transfer` 통과
-- archive 안에 `KboLiveApp.app`, packaged backend, run script 포함
+- archive 안에 `BaseballLiveKR.app`, packaged backend, run script 포함
 - local `PORT=3000 ./scripts/run-macos-app-with-packaged-backend.sh` 실행 가능
 - remote `deploy-macmini-runtime.sh` health smoke 통과
 - 실제 경기 데이터 또는 live fixture로 메뉴바/메인 화면 확인

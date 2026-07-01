@@ -11,6 +11,7 @@ Scope: rights-release-qa for official visual asset removal, UI fallback replacem
 | Built macOS app asset verifier | `green/verify-release-assets-built-app.txt` | `No official visual asset filenames found in release/staged artifacts.` | PASS |
 | Default release roots asset verifier | `green/verify-release-assets-default-roots-after-missing-fix.txt` | Default run inspects at least one existing release/staged root and reports no official visual asset filenames | PASS: exit code 0 |
 | Built macOS app asset verifier after missing-target fix | `green/verify-release-assets-built-app-after-missing-fix.txt` | Explicit built app target still reports no official visual asset filenames | PASS: exit code 0 |
+| Release-readiness doc product names | `green/release-readiness-doc-product-name-check.txt` | No `KboLiveApp.app` or `KboLiveApp.zip` references; notarization/checklist names align to `BaseballLiveKR.app` and `${APP_PRODUCT_NAME}.zip` | PASS |
 | Visual UI fallback | `manual-qa/macos-launch-screenshot.png` | Team visuals render as text initials in self-owned colored shapes, not official marks | PASS: screenshot shows initials badges for standings and favorite-team prompt |
 | Korean/CJK visible UI | `manual-qa/macos-launch-screenshot.png` | No visible Korean text clipping or awkward line break in the captured app window | PASS |
 | Archive member adversarial probe | `adversarial/misleading_success_archive_output.txt` | Verifier fails nonzero when a tar archive contains `TeamLogos/HH.png` | PASS: exit code 1 |
