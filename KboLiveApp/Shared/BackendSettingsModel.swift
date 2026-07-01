@@ -1,6 +1,6 @@
 import Foundation
-#if canImport(KboLiveCore)
-import KboLiveCore
+#if canImport(BaseballLiveKRCore)
+import BaseballLiveKRCore
 #endif
 
 @MainActor
@@ -106,7 +106,7 @@ final class BackendSettingsModel: ObservableObject {
 
     func save() -> Bool {
         defaults.set(selectedPreset.rawValue, forKey: presetKey)
-        defaults.removeObject(forKey: KboLiveEnvironment.backendBaseURLDefaultsKey)
+        defaults.removeObject(forKey: BaseballLiveKREnvironment.backendBaseURLDefaultsKey)
 
         validationState = .idle
         return true
@@ -114,7 +114,7 @@ final class BackendSettingsModel: ObservableObject {
 
     func reset() {
         defaults.removeObject(forKey: presetKey)
-        defaults.removeObject(forKey: KboLiveEnvironment.backendBaseURLDefaultsKey)
+        defaults.removeObject(forKey: BaseballLiveKREnvironment.backendBaseURLDefaultsKey)
         selectedPreset = Self.defaultPreset
         validationState = .idle
     }

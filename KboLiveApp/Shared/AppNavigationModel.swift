@@ -1,6 +1,6 @@
 import Foundation
-#if canImport(KboLiveCore)
-import KboLiveCore
+#if canImport(BaseballLiveKRCore)
+import BaseballLiveKRCore
 #endif
 
 @MainActor

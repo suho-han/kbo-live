@@ -1,6 +1,6 @@
-name: KboLiveApp
+name: BaseballLiveKR
 options:
-  bundleIdPrefix: com.suhohan
+  bundleIdPrefix: kr.suhohan
   deploymentTarget:
     iOS: "18.0"
     macOS: "15.0"
@@ -11,34 +11,34 @@ settings:
     CURRENT_PROJECT_VERSION: 1
     GENERATE_INFOPLIST_FILE: YES
 targets:
-  KboLiveiOS:
+  BaseballLiveKRiOS:
     type: application
     platform: iOS
     sources:
-      - path: Packages/KboLiveCore/Sources/KboLiveCore
-      - path: Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem
-      - path: Packages/KboLiveFeatures/Sources/KboLiveFeatures
+      - path: Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore
+      - path: Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem
+      - path: Packages/BaseballLiveKRFeatures/Sources/BaseballLiveKRFeatures
       - path: KboLiveApp/Shared
         excludes:
           - TeamWordmarks/**
           - TeamBrandAssets/**
       - path: KboLiveApp/iOS
     dependencies:
-      - target: KboLiveWidgetExtension
+      - target: BaseballLiveKRWidgetExtension
     settings:
       base:
         GENERATE_INFOPLIST_FILE: NO
         INFOPLIST_FILE: KboLiveApp/iOS/Info.plist
-        CODE_SIGN_ENTITLEMENTS: KboLiveApp/iOS/KboLiveiOS.entitlements
-        PRODUCT_BUNDLE_IDENTIFIER: com.suhohan.kbo-live.ios
-        PRODUCT_NAME: KboLiveiOS
-  KboLivemacOS:
+        CODE_SIGN_ENTITLEMENTS: KboLiveApp/iOS/BaseballLiveKRiOS.entitlements
+        PRODUCT_BUNDLE_IDENTIFIER: kr.suhohan.baseballlivekr.ios
+        PRODUCT_NAME: BaseballLiveKR
+  BaseballLiveKRmacOS:
     type: application
     platform: macOS
     sources:
-      - path: Packages/KboLiveCore/Sources/KboLiveCore
-      - path: Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem
-      - path: Packages/KboLiveFeatures/Sources/KboLiveFeatures
+      - path: Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore
+      - path: Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem
+      - path: Packages/BaseballLiveKRFeatures/Sources/BaseballLiveKRFeatures
       - path: KboLiveApp/Shared
         excludes:
           - TeamWordmarks/**
@@ -50,12 +50,12 @@ targets:
         PRODUCT_NAME: BaseballLiveKR
         GENERATE_INFOPLIST_FILE: NO
         INFOPLIST_FILE: KboLiveApp/macOS/Info.plist
-  KboLiveWidgetExtension:
+  BaseballLiveKRWidgetExtension:
     type: app-extension
     platform: iOS
     sources:
-      - path: Packages/KboLiveCore/Sources/KboLiveCore
-      - path: Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem
+      - path: Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore
+      - path: Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem
       - path: KboLiveApp/Shared/LiveGameActivityAttributes.swift
       - path: KboLiveApp/Shared/SampleGameFactory.swift
       - path: KboLiveApp/Shared/WidgetGameSnapshotStore.swift
@@ -64,36 +64,36 @@ targets:
       base:
         GENERATE_INFOPLIST_FILE: NO
         INFOPLIST_FILE: KboLiveApp/Widget/Info.plist
-        CODE_SIGN_ENTITLEMENTS: KboLiveApp/Widget/KboLiveWidget.entitlements
-        PRODUCT_BUNDLE_IDENTIFIER: com.suhohan.kbo-live.ios.widget
-        PRODUCT_NAME: KboLiveWidget
+        CODE_SIGN_ENTITLEMENTS: KboLiveApp/Widget/BaseballLiveKRWidget.entitlements
+        PRODUCT_BUNDLE_IDENTIFIER: kr.suhohan.baseballlivekr.ios.widget
+        PRODUCT_NAME: BaseballLiveKRWidget
         SKIP_INSTALL: YES
 schemes:
-  KboLiveiOS:
+  BaseballLiveKRiOS:
     preActions:
       - name: Clean Before Run
-        settingsTarget: KboLiveiOS
+        settingsTarget: BaseballLiveKRiOS
         script: |
           rm -rf "${BUILD_DIR}"
     build:
       targets:
-        KboLiveiOS: all
-        KboLiveWidgetExtension: all
+        BaseballLiveKRiOS: all
+        BaseballLiveKRWidgetExtension: all
     run:
       config: Debug
-      executable: KboLiveiOS
-  KboLivemacOS:
+      executable: BaseballLiveKRiOS
+  BaseballLiveKRmacOS:
     preActions:
       - name: Clean Before Run
-        settingsTarget: KboLivemacOS
+        settingsTarget: BaseballLiveKRmacOS
         script: |
           rm -rf "${BUILD_DIR}"
     build:
       targets:
-        KboLivemacOS: all
+        BaseballLiveKRmacOS: all
     run:
       config: Debug
-  KboLiveWidgetExtension:
+  BaseballLiveKRWidgetExtension:
     build:
       targets:
-        KboLiveWidgetExtension: all
+        BaseballLiveKRWidgetExtension: all

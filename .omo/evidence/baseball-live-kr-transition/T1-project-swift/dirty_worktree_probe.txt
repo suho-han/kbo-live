@@ -1,0 +1,233 @@
+$ git status --branch --short
+## HEAD (no branch)
+RM KboLiveApp.xcodeproj/project.pbxproj -> BaseballLiveKR.xcodeproj/project.pbxproj
+R  KboLive.xcworkspace/contents.xcworkspacedata -> BaseballLiveKR.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+RD KboLiveApp.xcodeproj/xcshareddata/xcschemes/KboLiveWidgetExtension.xcscheme -> BaseballLiveKR.xcodeproj/xcshareddata/xcschemes/KboLiveWidgetExtension.xcscheme
+RD KboLiveApp.xcodeproj/xcshareddata/xcschemes/KboLiveiOS.xcscheme -> BaseballLiveKR.xcodeproj/xcshareddata/xcschemes/KboLiveiOS.xcscheme
+RD KboLiveApp.xcodeproj/xcshareddata/xcschemes/KboLivemacOS.xcscheme -> BaseballLiveKR.xcodeproj/xcshareddata/xcschemes/KboLivemacOS.xcscheme
+R  KboLiveApp.xcodeproj/project.xcworkspace/contents.xcworkspacedata -> BaseballLiveKR.xcworkspace/contents.xcworkspacedata
+ M KboLiveApp/Shared/AppNavigationModel.swift
+ M KboLiveApp/Shared/AppRuntime.swift
+ M KboLiveApp/Shared/AppSettingsView.swift
+ M KboLiveApp/Shared/BackendSettingsModel+Resolution.swift
+ M KboLiveApp/Shared/BackendSettingsModel.swift
+ D KboLiveApp/Shared/KboLiveHomeRootView.swift
+ M KboLiveApp/Shared/LiveGameActivityAttributes.swift
+ M KboLiveApp/Shared/LiveGameActivityController.swift
+ M KboLiveApp/Shared/WidgetGameSnapshotStore.swift
+ M KboLiveApp/Widget/Info.plist
+ D KboLiveApp/Widget/KboLiveWidget.entitlements
+ D KboLiveApp/Widget/KboLiveWidgetBundle.swift
+ M KboLiveApp/iOS/Info.plist
+ D KboLiveApp/iOS/KboLiveiOS.entitlements
+ D KboLiveApp/iOS/KboLiveiOSApp.swift
+ D KboLiveApp/macOS/KboLivemacOSApp.swift
+ M KboLiveApp/macOS/MenuBarDashboardView.swift
+ D PROJECT_CONTEXT/baseball-live-kr-branding-and-release-plan.md
+ D Packages/KboLiveCore/Package.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/API/KboLiveAPIClient.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/App/BackendPresetPolicy.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/App/GameFeedClient.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/App/KboLiveEnvironment.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/App/TodayGamesList.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/DTO/GameDTO.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/DTO/TeamStandingsDTO.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/Domain/Game.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/Domain/GameFeed.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/Domain/KboTeamOption.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/Domain/TeamStandings.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/Formatting/GameProjectionFormatter.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/Mappers/ActivityGameStateMapper.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/Mappers/GameDTOMapper.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/Mappers/MenuBarGameSummaryMapper.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/Mappers/TeamStandingsDTOMapper.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/Mappers/WidgetGameSnapshotMapper.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/Mocks/MockGameRepository.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/Projections/ActivityGameState.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/Projections/MenuBarGameSummary.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/Projections/WidgetGameSnapshot.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/Repository/GameRepository.swift
+ D Packages/KboLiveCore/Sources/KboLiveCore/Services/LiveGamePollingService.swift
+ D Packages/KboLiveCore/Tests/KboLiveCoreTests/BackendPresetPolicyTests.swift
+ D Packages/KboLiveCore/Tests/KboLiveCoreTests/FixtureLoader.swift
+ D Packages/KboLiveCore/Tests/KboLiveCoreTests/Fixtures/live-test-game-response.json
+ D Packages/KboLiveCore/Tests/KboLiveCoreTests/Fixtures/team-standings-response.json
+ D Packages/KboLiveCore/Tests/KboLiveCoreTests/Fixtures/today-games-response.json
+ D Packages/KboLiveCore/Tests/KboLiveCoreTests/GameFeedClientTests.swift
+ D Packages/KboLiveCore/Tests/KboLiveCoreTests/GameRepositoryTests.swift
+ D Packages/KboLiveCore/Tests/KboLiveCoreTests/KboLiveAPIClientTests.swift
+ D Packages/KboLiveCore/Tests/KboLiveCoreTests/LiveGamePollingServiceTests.swift
+ D Packages/KboLiveCore/Tests/KboLiveCoreTests/ProjectionMapperTests.swift
+ D Packages/KboLiveCore/Tests/KboLiveCoreTests/TodayGamesListTests.swift
+ D Packages/KboLiveCore/Tests/KboLiveCoreTests/TodayGamesResponseDTOTests.swift
+ D Packages/KboLiveDesignSystem/Package.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/BaseDiamondView.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/InningStateView.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/KboCommandBar.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/KboEmptyStateView.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/KboGlassPanel.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/KboMetricRow.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/KboPrimaryActionButton.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/KboStatusPill.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/LiveBadgeView.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/OutCountView.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/PitchCountView.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/ScoreDigitsView.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/TeamBadgeView.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Helpers/TeamColorResolver.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Theme/KboAppearanceMode.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Theme/KboTheme.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Theme/TeamColorPalette.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Tokens/KboColorToken.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Tokens/KboControlToken.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Tokens/KboGlassToken.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Tokens/KboMotionToken.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Tokens/KboRadiusToken.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Tokens/KboSemanticColorToken.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Tokens/KboShadowToken.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Tokens/KboSpacingToken.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Tokens/KboSurfaceToken.swift
+ D Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Tokens/KboTypographyToken.swift
+ D Packages/KboLiveDesignSystem/Tests/KboLiveDesignSystemTests/AppearanceModeTests.swift
+ D Packages/KboLiveDesignSystem/Tests/KboLiveDesignSystemTests/TeamColorResolverTests.swift
+ D Packages/KboLiveFeatures/Package.swift
+ D Packages/KboLiveFeatures/Sources/KboLiveFeatures/GameDetail/GameDetailScreen.swift
+ D Packages/KboLiveFeatures/Sources/KboLiveFeatures/GameDetail/GameDetailView.swift
+ D Packages/KboLiveFeatures/Sources/KboLiveFeatures/GameDetail/GameDetailViewModel.swift
+ D Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/MyTeamSelectionStore.swift
+ D Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/TodayGamesView.swift
+ D Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/TodayGamesViewModel.swift
+ D Packages/KboLiveFeatures/Tests/KboLiveFeaturesTests/KboDisplayDateFormatterTests.swift
+ D Packages/KboLiveFeatures/Tests/KboLiveFeaturesTests/ProbablePitcherChipFormatterTests.swift
+ D Packages/KboLiveFeatures/Tests/KboLiveFeaturesTests/TodayGamesLayoutTests.swift
+ D Packages/KboLiveFeatures/Tests/KboLiveFeaturesTests/TodayGamesViewModelTests.swift
+ M README.md
+ M docs/dev.md
+ M project.yml
+ M scripts/kbo-live.sh
+ M scripts/package-macmini-runtime.sh
+ M scripts/run-macos-app-with-packaged-backend.sh
+ M scripts/verify-local.sh
+?? .gjc/
+?? BaseballLiveKR.xcodeproj/xcshareddata/xcschemes/BaseballLiveKRWidgetExtension.xcscheme
+?? BaseballLiveKR.xcodeproj/xcshareddata/xcschemes/BaseballLiveKRiOS.xcscheme
+?? BaseballLiveKR.xcodeproj/xcshareddata/xcschemes/BaseballLiveKRmacOS.xcscheme
+?? KboLiveApp/Shared/BaseballLiveKRHomeRootView.swift
+?? KboLiveApp/Widget/BaseballLiveKRWidget.entitlements
+?? KboLiveApp/Widget/BaseballLiveKRWidgetBundle.swift
+?? KboLiveApp/iOS/BaseballLiveKRiOS.entitlements
+?? KboLiveApp/iOS/BaseballLiveKRiOSApp.swift
+?? KboLiveApp/macOS/BaseballLiveKRmacOSApp.swift
+?? Packages/BaseballLiveKRCore/
+?? Packages/BaseballLiveKRDesignSystem/
+?? Packages/BaseballLiveKRFeatures/
+?? baseball-live-kr-deployment-plan.md
+
+$ git diff --stat
+ BaseballLiveKR.xcodeproj/project.pbxproj           | 1696 +++++++++----------
+ .../xcschemes/KboLiveWidgetExtension.xcscheme      |   91 -
+ .../xcshareddata/xcschemes/KboLiveiOS.xcscheme     |  105 --
+ .../xcshareddata/xcschemes/KboLivemacOS.xcscheme   |   91 -
+ KboLiveApp/Shared/AppNavigationModel.swift         |    4 +-
+ KboLiveApp/Shared/AppRuntime.swift                 |    4 +-
+ KboLiveApp/Shared/AppSettingsView.swift            |   12 +-
+ .../Shared/BackendSettingsModel+Resolution.swift   |   14 +-
+ KboLiveApp/Shared/BackendSettingsModel.swift       |    8 +-
+ KboLiveApp/Shared/KboLiveHomeRootView.swift        |  130 --
+ KboLiveApp/Shared/LiveGameActivityAttributes.swift |    4 +-
+ KboLiveApp/Shared/LiveGameActivityController.swift |    4 +-
+ KboLiveApp/Shared/WidgetGameSnapshotStore.swift    |    4 +-
+ KboLiveApp/Widget/Info.plist                       |    2 +-
+ KboLiveApp/Widget/KboLiveWidget.entitlements       |   10 -
+ KboLiveApp/Widget/KboLiveWidgetBundle.swift        |   10 -
+ KboLiveApp/iOS/Info.plist                          |    2 +-
+ KboLiveApp/iOS/KboLiveiOS.entitlements             |   10 -
+ KboLiveApp/iOS/KboLiveiOSApp.swift                 |   28 -
+ KboLiveApp/macOS/KboLivemacOSApp.swift             |  259 ---
+ KboLiveApp/macOS/MenuBarDashboardView.swift        |   16 +-
+ .../baseball-live-kr-branding-and-release-plan.md  |  190 ---
+ Packages/KboLiveCore/Package.swift                 |   28 -
+ .../Sources/KboLiveCore/API/KboLiveAPIClient.swift |  165 --
+ .../KboLiveCore/App/BackendPresetPolicy.swift      |   19 -
+ .../Sources/KboLiveCore/App/GameFeedClient.swift   |   82 -
+ .../KboLiveCore/App/KboLiveEnvironment.swift       |   24 -
+ .../Sources/KboLiveCore/App/TodayGamesList.swift   |   75 -
+ .../Sources/KboLiveCore/DTO/GameDTO.swift          |  360 ----
+ .../Sources/KboLiveCore/DTO/TeamStandingsDTO.swift |   50 -
+ .../Sources/KboLiveCore/Domain/Game.swift          |  321 ----
+ .../Sources/KboLiveCore/Domain/GameFeed.swift      |   21 -
+ .../Sources/KboLiveCore/Domain/KboTeamOption.swift |  130 --
+ .../Sources/KboLiveCore/Domain/TeamStandings.swift |   47 -
+ .../Formatting/GameProjectionFormatter.swift       |  101 --
+ .../Mappers/ActivityGameStateMapper.swift          |   17 -
+ .../KboLiveCore/Mappers/GameDTOMapper.swift        |  216 ---
+ .../Mappers/MenuBarGameSummaryMapper.swift         |   14 -
+ .../Mappers/TeamStandingsDTOMapper.swift           |   24 -
+ .../Mappers/WidgetGameSnapshotMapper.swift         |  123 --
+ .../KboLiveCore/Mocks/MockGameRepository.swift     |   29 -
+ .../Projections/ActivityGameState.swift            |   44 -
+ .../Projections/MenuBarGameSummary.swift           |   26 -
+ .../Projections/WidgetGameSnapshot.swift           |   53 -
+ .../KboLiveCore/Repository/GameRepository.swift    |   36 -
+ .../Services/LiveGamePollingService.swift          |   36 -
+ .../BackendPresetPolicyTests.swift                 |   30 -
+ .../Tests/KboLiveCoreTests/FixtureLoader.swift     |   11 -
+ .../Fixtures/live-test-game-response.json          |  161 --
+ .../Fixtures/team-standings-response.json          |   17 -
+ .../Fixtures/today-games-response.json             |   73 -
+ .../KboLiveCoreTests/GameFeedClientTests.swift     |   85 -
+ .../KboLiveCoreTests/GameRepositoryTests.swift     |  128 --
+ .../KboLiveCoreTests/KboLiveAPIClientTests.swift   |  212 ---
+ .../LiveGamePollingServiceTests.swift              |   56 -
+ .../KboLiveCoreTests/ProjectionMapperTests.swift   |  207 ---
+ .../KboLiveCoreTests/TodayGamesListTests.swift     |  168 --
+ .../TodayGamesResponseDTOTests.swift               |  317 ----
+ Packages/KboLiveDesignSystem/Package.swift         |   25 -
+ .../Components/BaseDiamondView.swift               |   43 -
+ .../Components/InningStateView.swift               |   20 -
+ .../Components/KboCommandBar.swift                 |   63 -
+ .../Components/KboEmptyStateView.swift             |   49 -
+ .../Components/KboGlassPanel.swift                 |   66 -
+ .../Components/KboMetricRow.swift                  |   76 -
+ .../Components/KboPrimaryActionButton.swift        |   60 -
+ .../Components/KboStatusPill.swift                 |  102 --
+ .../Components/LiveBadgeView.swift                 |   35 -
+ .../Components/OutCountView.swift                  |   21 -
+ .../Components/PitchCountView.swift                |   19 -
+ .../Components/ScoreDigitsView.swift               |   50 -
+ .../Components/TeamBadgeView.swift                 |  130 --
+ .../Helpers/TeamColorResolver.swift                |   51 -
+ .../Theme/KboAppearanceMode.swift                  |   38 -
+ .../KboLiveDesignSystem/Theme/KboTheme.swift       |   11 -
+ .../Theme/TeamColorPalette.swift                   |   16 -
+ .../KboLiveDesignSystem/Tokens/KboColorToken.swift |   74 -
+ .../Tokens/KboControlToken.swift                   |    8 -
+ .../KboLiveDesignSystem/Tokens/KboGlassToken.swift |   99 --
+ .../Tokens/KboMotionToken.swift                    |    8 -
+ .../Tokens/KboRadiusToken.swift                    |    8 -
+ .../Tokens/KboSemanticColorToken.swift             |   20 -
+ .../Tokens/KboShadowToken.swift                    |    7 -
+ .../Tokens/KboSpacingToken.swift                   |   10 -
+ .../Tokens/KboSurfaceToken.swift                   |   14 -
+ .../Tokens/KboTypographyToken.swift                |   69 -
+ .../AppearanceModeTests.swift                      |   26 -
+ .../TeamColorResolverTests.swift                   |   27 -
+ Packages/KboLiveFeatures/Package.swift             |   33 -
+ .../GameDetail/GameDetailScreen.swift              |   16 -
+ .../GameDetail/GameDetailView.swift                |  800 ---------
+ .../GameDetail/GameDetailViewModel.swift           |   82 -
+ .../TodayGames/MyTeamSelectionStore.swift          |   28 -
+ .../TodayGames/TodayGamesView.swift                | 1761 --------------------
+ .../TodayGames/TodayGamesViewModel.swift           |  421 -----
+ .../KboDisplayDateFormatterTests.swift             |   44 -
+ .../ProbablePitcherChipFormatterTests.swift        |   31 -
+ .../TodayGamesLayoutTests.swift                    |   23 -
+ .../TodayGamesViewModelTests.swift                 |  524 ------
+ README.md                                          |   12 +-
+ docs/dev.md                                        |   20 +-
+ project.yml                                        |   60 +-
+ scripts/kbo-live.sh                                |    8 +-
+ scripts/package-macmini-runtime.sh                 |    6 +-
+ scripts/run-macos-app-with-packaged-backend.sh     |   12 +-
+ scripts/verify-local.sh                            |   14 +-
+ 106 files changed, 951 insertions(+), 10389 deletions(-)

@@ -1,0 +1,38 @@
+T1 code-review / programming / remove-ai-slops audit
+
+Scope reviewed:
+- Follow-up scope is docs/evidence only: docs/dev.md, cleanup_receipt.txt, evidence_index.txt, residual_broad_search_post_t1.txt, and this audit file.
+- Prior T1 code scope in b46cfaf remains the reviewed implementation surface: project.yml, generated Xcode project/schemes, KboLiveApp Swift entry/shared files, and Packages/BaseballLiveKRCore, Packages/BaseballLiveKRDesignSystem, Packages/BaseballLiveKRFeatures.
+
+Code-review findings:
+- No behavioral code changes are introduced by this follow-up commit.
+- The rejected stale docs reference was real: docs/dev.md still named KboLive.xcworkspace after the workspace was renamed. Remediation changes it to BaseballLiveKR.xcworkspace.
+- The existing T1 verification remains applicable: xcodegen_generate.txt, xcodebuild_list.txt, swift_test_core.txt, swift_test_design_system.txt, swift_test_features.txt, xcodebuild_macos.txt, xcodebuild_ios_clean.txt, shell_syntax_scripts.txt, and manual_qa_green_legacy_identifiers.txt all record passing checks.
+
+Programming criteria:
+- The programming skill's mandatory language references apply to Python, Rust, TypeScript, and Go code edits. This remediation edits no files in those languages.
+- The previous T1 implementation touched Swift and project metadata. No unsafe escape hatches analogous to any, ts-ignore, unwrap, panic, or ignored errors were added in the follow-up.
+- Boundary parsing, variant exhaustiveness, typed errors, and 250-LOC language-file gates are not newly affected by this docs/evidence-only remediation.
+
+Remove-ai-slops criteria:
+- Obvious comments: no explanatory code comments or section dividers added to production code.
+- Over-defensive code: no fallback, compatibility shim, broad catch, redundant null check, or post-action verification code added.
+- Excessive complexity: no production function, branch chain, helper abstraction, or nested logic added.
+- Needless abstraction: no wrapper/helper introduced.
+- Boundary violations: no production imports or layer boundaries changed.
+- Dead code: no code added; stale docs reference removed.
+- Duplication: no duplicated implementation logic added.
+- Performance equivalence: not applicable to docs/evidence-only remediation.
+- Missing tests: not applicable; no runtime behavior introduced.
+- Oversized modules: not applicable; no source module edited in the follow-up.
+
+Overfit-test taxonomy:
+- Excessive/useless tests: not applicable; no tests were added in the T1 rename or gate-remediation follow-ups.
+- Deletion-only tests: not applicable; no tests were added whose only assertion is that old KboLive names were deleted. The manual QA artifact uses rg as data evidence, not as a new committed test.
+- Removal-only tests: not applicable; no tests were added to assert only the absence of legacy identifiers without checking positive BaseballLiveKR behavior.
+- Tautological tests: not applicable; no tests were added that repeat implementation literals or assert a fixture against itself.
+- Implementation-mirroring tests: not applicable; no tests were added that duplicate rename implementation details, generated project internals, or package path construction.
+- Unnecessary extraction/parsing/normalization: not applicable; the remediation did not add extraction helpers, parsers, normalizers, or data-shaping code.
+
+Slop/overfit conclusion:
+- The follow-up is intentionally narrow and does not add compatibility wording around KboLive.xcworkspace. It records the current BaseballLiveKR workspace name and current cleanup process state only.

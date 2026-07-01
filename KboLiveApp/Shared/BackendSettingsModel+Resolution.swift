@@ -1,15 +1,15 @@
 import Foundation
-#if canImport(KboLiveCore)
-import KboLiveCore
+#if canImport(BaseballLiveKRCore)
+import BaseballLiveKRCore
 #endif
 
 extension BackendSettingsModel {
     nonisolated static var defaultBaseURLString: String {
-        KboLiveEnvironment.defaultBaseURL.absoluteString.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+        BaseballLiveKREnvironment.defaultBaseURL.absoluteString.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
     }
 
     nonisolated static var defaultStagingBaseURLString: String {
-        KboLiveEnvironment.stagingBaseURL.absoluteString.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+        BaseballLiveKREnvironment.stagingBaseURL.absoluteString.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
     }
 
     nonisolated static func resolvedBaseURL(defaults: UserDefaults = .standard) -> URL {
@@ -17,14 +17,14 @@ extension BackendSettingsModel {
             return url
         }
 
-        return KboLiveEnvironment.productionBaseURL
+        return BaseballLiveKREnvironment.productionBaseURL
     }
 
     nonisolated static func backendURL(baseURL: URL, path: String) -> URL? {
         backendURL(
             baseURL: baseURL,
             path: path,
-            apiPathPrefix: KboLiveEnvironment.defaultAPIPathPrefix
+            apiPathPrefix: BaseballLiveKREnvironment.defaultAPIPathPrefix
         )
     }
 
@@ -78,7 +78,7 @@ extension BackendSettingsModel {
     }
 
     nonisolated static var productionBaseURLString: String {
-        KboLiveEnvironment.productionBaseURL.absoluteString.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+        BaseballLiveKREnvironment.productionBaseURL.absoluteString.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
     }
 
     nonisolated static var defaultPreset: BackendPreset {

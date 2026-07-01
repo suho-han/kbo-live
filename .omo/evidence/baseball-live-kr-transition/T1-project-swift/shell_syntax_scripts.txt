@@ -1,0 +1,3 @@
+$ bash -n scripts/kbo-live.sh scripts/package-macmini-runtime.sh scripts/run-macos-app-with-packaged-backend.sh scripts/verify-local.sh
+
+exit=0

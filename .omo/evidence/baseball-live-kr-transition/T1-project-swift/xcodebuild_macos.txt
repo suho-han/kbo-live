@@ -1,0 +1,733 @@
+$ xcodebuild -project BaseballLiveKR.xcodeproj -scheme BaseballLiveKRmacOS -destination "platform=macOS" -derivedDataPath .xcode/DerivedData CODE_SIGNING_ALLOWED=NO build
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project BaseballLiveKR.xcodeproj -scheme BaseballLiveKRmacOS -destination platform=macOS -derivedDataPath .xcode/DerivedData CODE_SIGNING_ALLOWED=NO build
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:macOS, arch:arm64, id:00008142-000131693E09401C, name:My Mac }
+{ platform:macOS, arch:x86_64, id:00008142-000131693E09401C, name:My Mac }
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (1 target)
+    Target 'BaseballLiveKRmacOS' in project 'BaseballLiveKR' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+Build description signature: a82ed1a4597bc4bfbb181b399a9410e3
+Build description path: /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/XCBuildData/a82ed1a4597bc4bfbb181b399a9410e3.xcbuilddata
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/SDKStatCaches.noindex/macosx26.5-25F70-e082c4a02f00227109f4ed75e425c832.sdkstatcache
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live/BaseballLiveKR.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -o /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/SDKStatCaches.noindex/macosx26.5-25F70-e082c4a02f00227109f4ed75e425c832.sdkstatcache
+
+CreateBuildDirectory /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live/BaseballLiveKR.xcodeproj
+    builtin-create-build-directory /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products
+
+CreateBuildDirectory /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live/BaseballLiveKR.xcodeproj
+    builtin-create-build-directory /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex
+
+CreateBuildDirectory /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live/BaseballLiveKR.xcodeproj
+    builtin-create-build-directory /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+
+CreateBuildDirectory /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/ExplicitPrecompiledModules
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live/BaseballLiveKR.xcodeproj
+    builtin-create-build-directory /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/ExplicitPrecompiledModules
+
+CreateBuildDirectory /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/EagerLinkingTBDs/Debug
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live/BaseballLiveKR.xcodeproj
+    builtin-create-build-directory /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/EagerLinkingTBDs/Debug
+
+WriteAuxiliaryFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKR-752cca6e1ed11bfda3d99bdcc9320899-VFS/all-product-headers.yaml
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live/BaseballLiveKR.xcodeproj
+    write-file /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKR-752cca6e1ed11bfda3d99bdcc9320899-VFS/all-product-headers.yaml
+
+CreateBuildDirectory /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live/BaseballLiveKR.xcodeproj
+    builtin-create-build-directory /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug
+
+WriteAuxiliaryFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKRmacOS_const_extract_protocols.json (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    write-file /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKRmacOS_const_extract_protocols.json
+
+WriteAuxiliaryFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.SwiftFileList (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    write-file /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.SwiftFileList
+
+WriteAuxiliaryFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.SwiftConstValuesFileList (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    write-file /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.SwiftConstValuesFileList
+
+WriteAuxiliaryFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.LinkFileList (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    write-file /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.LinkFileList
+
+WriteAuxiliaryFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR.hmap (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    write-file /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR.hmap
+
+WriteAuxiliaryFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR.DependencyStaticMetadataFileList (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    write-file /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR.DependencyMetadataFileList (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    write-file /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-project-headers.hmap (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    write-file /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-project-headers.hmap
+
+WriteAuxiliaryFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKRmacOS-OutputFileMap.json (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    write-file /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKRmacOS-OutputFileMap.json
+
+WriteAuxiliaryFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-own-target-headers.hmap (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    write-file /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-own-target-headers.hmap
+
+WriteAuxiliaryFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-generated-files.hmap (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    write-file /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-generated-files.hmap
+
+WriteAuxiliaryFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-all-target-headers.hmap (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    write-file /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-all-target-headers.hmap
+
+WriteAuxiliaryFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-all-non-framework-target-headers.hmap (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    write-file /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-all-non-framework-target-headers.hmap
+
+WriteAuxiliaryFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-DebugDylibPath-normal-arm64.txt (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    write-file /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-DebugDylibPath-normal-arm64.txt
+
+WriteAuxiliaryFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-DebugDylibInstallName-normal-arm64.txt (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    write-file /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-DebugDylibInstallName-normal-arm64.txt
+
+MkDir /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/MacOS (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    /bin/mkdir -p /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/MacOS
+
+MkDir /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    /bin/mkdir -p /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources
+
+MkDir /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    /bin/mkdir -p /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents
+
+MkDir /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    /bin/mkdir -p /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app
+
+CopyPNGFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources/WO.png /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/TeamLogos/WO.png (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    /Applications/Xcode.app/Contents/Developer/usr/bin/copypng /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/TeamLogos/WO.png /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources/WO.png
+
+ProcessInfoPlistFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Info.plist /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/macOS/Info.plist (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    builtin-infoPlistUtility /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/macOS/Info.plist -producttype com.apple.product-type.application -genpkginfo /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/PkgInfo -expandbuildsettings -platform macosx -o /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Info.plist
+
+Ld /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/MacOS/__preview.dylib normal (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-macos15.0 -dynamiclib -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -O0 -L/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug -F/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug -install_name @rpath/BaseballLiveKR.debug.dylib -rdynamic -Xlinker -no_deduplicate -Xlinker -dependency_info -Xlinker /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR_dependency_info.dat -o /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/MacOS/__preview.dylib
+
+CopyPNGFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources/SS.png /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/TeamLogos/SS.png (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    /Applications/Xcode.app/Contents/Developer/usr/bin/copypng /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/TeamLogos/SS.png /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources/SS.png
+
+CopyPNGFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources/SK.png /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/TeamLogos/SK.png (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    /Applications/Xcode.app/Contents/Developer/usr/bin/copypng /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/TeamLogos/SK.png /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources/SK.png
+
+CopyPNGFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources/OB.png /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/TeamLogos/OB.png (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    /Applications/Xcode.app/Contents/Developer/usr/bin/copypng /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/TeamLogos/OB.png /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources/OB.png
+
+CopyPNGFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources/NC.png /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/TeamLogos/NC.png (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    /Applications/Xcode.app/Contents/Developer/usr/bin/copypng /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/TeamLogos/NC.png /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources/NC.png
+
+CopyPNGFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources/LT.png /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/TeamLogos/LT.png (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    /Applications/Xcode.app/Contents/Developer/usr/bin/copypng /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/TeamLogos/LT.png /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources/LT.png
+
+CopyPNGFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources/LG.png /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/TeamLogos/LG.png (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    /Applications/Xcode.app/Contents/Developer/usr/bin/copypng /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/TeamLogos/LG.png /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources/LG.png
+
+CopyPNGFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources/KT.png /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/TeamLogos/KT.png (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    /Applications/Xcode.app/Contents/Developer/usr/bin/copypng /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/TeamLogos/KT.png /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources/KT.png
+
+CopyPNGFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources/HT.png /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/TeamLogos/HT.png (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    /Applications/Xcode.app/Contents/Developer/usr/bin/copypng /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/TeamLogos/HT.png /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources/HT.png
+
+CopyPNGFile /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources/HH.png /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/TeamLogos/HH.png (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    /Applications/Xcode.app/Contents/Developer/usr/bin/copypng /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/TeamLogos/HH.png /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources/HH.png
+
+SwiftDriver BaseballLiveKRmacOS normal arm64 com.apple.xcode.tools.swift.compiler (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name BaseballLiveKR -Onone @/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.SwiftFileList -DDEBUG -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -target arm64-apple-macos15.0 -g -module-cache-path /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 6 -I /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug -F /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/SDKStatCaches.noindex/macosx26.5-25F70-e082c4a02f00227109f4ed75e425c832.sdkstatcache -output-file-map /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKRmacOS-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKRmacOS_const_extract_protocols.json -Xcc -iquote -Xcc /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-generated-files.hmap -Xcc -I/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-own-target-headers.hmap -Xcc -I/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-all-target-headers.hmap -Xcc -iquote -Xcc /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-project-headers.hmap -Xcc -I/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/include -Xcc -I/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/DerivedSources-normal/arm64 -Xcc -I/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/DerivedSources/arm64 -Xcc -I/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR-Swift.h -working-directory /Users/suhohan/.codex/worktrees/8787/kbo-live -experimental-emit-module-separately -disable-cmo
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/ptrauth-2LCW4FTIY78APS2EF5BI5FZ51.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/ptrcheck-3NUJGMMELR2MFHFGDSH4FCN2Z.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/_AvailabilityInternal-5JQXIJTRLYLDDBS0UA1R0KQYV.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/_SwiftConcurrencyShims-309AXOQIKEWS0OS7EO84VOM9X.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/_Builtin_float-3Q726TQW38NV7Q3RQ565XV2C8.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/_Builtin_stddef-8Y8T52TUDE9BTPTCZZA9KZDEX.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/DeveloperToolsSupport-QEY0WAMQRH5782UDO5A88WC3.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/_Builtin_stdbool-1RBT5A3E4K8RRJPW7MA6NVAJ6.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/SwiftShims-1X7WZWPWPN3X01JND1UD7MC5R.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/_Builtin_stdarg-A5BILAET94GZBDWFX4C2JTYZV.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/_DarwinFoundation1-2WRLHNXC7PEWN1RH2YZ9UWI3R.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/_DarwinFoundation2-7HPCAF7DCFNODYPM0D325XJ5Z.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/_Builtin_limits-3W302ZCFG5FRM322V22BN37GI.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/_Builtin_tgmath-2N9HE0TUI85UUWUSJ9RAWTSOD.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/_Builtin_stdint-E26450VLE0QBKD9QJJAUJHXB8.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/sys_types-6JYYMYIDFOHGOH0GYMBN716WY.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/_Builtin_intrinsics-26AJ9KOC3X45YI4TL588OTKJB.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/_DarwinFoundation3-3S5UBZN09OXH3OIOF6RV3CTII.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/_Builtin_stdatomic-8T8UC7EOXGP0ZV6FT4RJE057A.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/OpenGL-1FH4LEHVROX99ZQQ969901A7L.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/libDER-6228TT3CUAP3RAPE90YUSR9KE.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/_Builtin_inttypes-8NE61XGI5H0OSX133G0WUPGE2.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/Darwin-CW9B7JL6G2YPACTJPCUUXQ9VS.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/simd-560L6UV4AZOOL2B32Y3WCS19S.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/launch-CZH49G4PHWXPLR26C28WD8F55.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/CUPS-32GQ65SEO7ZQSCC2R3LMS3FZH.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/MachO-9N8NCGAV3CZ6NSBBX95VPX29J.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/libkern-AIL00EALM0ZFOFS6XEF4J5ZSF.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/ObjectiveC-2SHTLNX49Q3I4444EDN2P6F6C.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/Spatial-27WVCZLOXYULS3XOA8RHZRK1F.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/os_object-DJGPJJX4NYJZMNBFT25Z8RHDE.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/os_workgroup-30ZDQNG597EVNG50MH4S10SWJ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/Dispatch-B17ZZBHD2ETSFESPEUIP68MZA.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/CoreFoundation-1QBC8EJ7MSI2WIBH63FS7XGMS.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/XPC-D0NPOKPXZUA050E94V2DUYWO5.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/os-5HL8ZDJFL0IZYNOR2F0O82A0L.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/IOKit-264U0DZDNTWAZOJOP5EV4FUGW.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/Security-3NEOFBZMX2FWI45PSOYNWWXSW.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/CFNetwork-10YJVOJIEV6G3S9ZPYROZ47WV.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/ColorSync-DL4HS1Y8TH2DA26T02XPW54XL.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/CoreGraphics-CDIKFGVOKYCE5RGOUGJD58C36.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/DiskArbitration-DC3Y59Q1EU0O72D6QGO0EA7RV.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/CoreServices-E9DM6RN5LIBC4AQ21AUN7MP4X.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/ImageIO-EDXEW5BJBBG6BE8ZVZ5RNHIUK.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/CoreText-943JMMT9UM95ZK3UIZNJEG9LR.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/Foundation-4IH5OHFCDQQC8R6N7KJ5S7EVX.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/Accessibility-6XCILPN0326D4290MUETU1T0Q.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/CoreTransferable-86VTWGX0RYVKAO4PW95MF8O7U.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/UniformTypeIdentifiers-9LAZPLXYNEH4QNLK15GJTL3KH.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/ApplicationServices-EUGTH2LSZG23A6IFZ2A21L9RZ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/DataDetection-3T4XOIP68Y1RIO1ZNUAF51RP4.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/Symbols-BV9VGPMDJ1CPQ2X1ILLNOJUFA.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/OSLog-4NLXO18Y1DYJCJ2SGER5KJX0I.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/CoreData-ANUKF6075GURF29FW4AVK8QEO.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/IOSurface-A9ZUDCHUCPM7LKVFLJYWR20N3.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/Metal-E1FO77EEW5ZU2TKR7S0EULV7L.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/CoreVideo-8TFHFQZC9WGF3TJQXY9L8HMJC.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/QuartzCore-6M8HOO3SF5TWJ4M50PJDCECZ2.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/CoreImage-58S5EWYE5FTF27364CFDO25YJ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/SwiftUICore-3SZOC432LE0JZM4EP428XH6OF.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/AppKit-DY8T9TD8QUJP2327QAX7YQBW8.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/SwiftUI-40DFTU0SQFW1YY4033RVDXC2T.pcm
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ BaseballLiveKR (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+
+EmitSwiftModule normal arm64 (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+/Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/BackendSettingsModel.swift:48:5: warning: 'nonisolated(unsafe)' is unnecessary for a constant with 'Sendable' type 'BackendPresetPolicy<BackendSettingsModel.BackendPreset>', consider removing it
+    nonisolated(unsafe) static let presetPolicy = BackendPresetPolicy<BackendPreset>(
+    ^~~~~~~~~~~~~~~~~~~~
+
+
+SwiftCompile normal arm64 Compiling\ KboTheme.swift,\ KboTypographyToken.swift,\ LiveBadgeView.swift,\ LiveGameActivityAttributes.swift,\ LiveGameActivityController.swift,\ LiveGamePollingService.swift,\ MenuBarDashboardView.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Theme/KboTheme.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboTypographyToken.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/LiveBadgeView.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/LiveGameActivityAttributes.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/LiveGameActivityController.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Services/LiveGamePollingService.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/macOS/MenuBarDashboardView.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Theme/KboTheme.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboTypographyToken.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/LiveBadgeView.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/LiveGameActivityAttributes.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/LiveGameActivityController.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Services/LiveGamePollingService.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/macOS/MenuBarDashboardView.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 Compiling\ ScoreDigitsView.swift,\ SettingsView.swift,\ TeamBadgeView.swift,\ TeamColorPalette.swift,\ TeamColorResolver.swift,\ TeamStandings.swift,\ TeamStandingsDTO.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/ScoreDigitsView.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/macOS/SettingsView.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/TeamBadgeView.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Theme/TeamColorPalette.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Helpers/TeamColorResolver.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Domain/TeamStandings.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/DTO/TeamStandingsDTO.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/ScoreDigitsView.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/macOS/SettingsView.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/TeamBadgeView.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Theme/TeamColorPalette.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Helpers/TeamColorResolver.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Domain/TeamStandings.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/DTO/TeamStandingsDTO.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 Compiling\ MenuBarGameSummary.swift,\ MenuBarGameSummaryMapper.swift,\ MockGameRepository.swift,\ MyTeamSelectionStore.swift,\ OutCountView.swift,\ PitchCountView.swift,\ SampleGameFactory.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Projections/MenuBarGameSummary.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mappers/MenuBarGameSummaryMapper.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mocks/MockGameRepository.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRFeatures/Sources/BaseballLiveKRFeatures/TodayGames/MyTeamSelectionStore.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/OutCountView.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/PitchCountView.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/SampleGameFactory.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Projections/MenuBarGameSummary.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mappers/MenuBarGameSummaryMapper.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mocks/MockGameRepository.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRFeatures/Sources/BaseballLiveKRFeatures/TodayGames/MyTeamSelectionStore.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/OutCountView.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/PitchCountView.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/SampleGameFactory.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 Compiling\ KboRadiusToken.swift,\ KboSemanticColorToken.swift,\ KboShadowToken.swift,\ KboSpacingToken.swift,\ KboStatusPill.swift,\ KboSurfaceToken.swift,\ KboTeamOption.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboRadiusToken.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboSemanticColorToken.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboShadowToken.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboSpacingToken.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/KboStatusPill.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboSurfaceToken.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Domain/KboTeamOption.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboRadiusToken.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboSemanticColorToken.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboShadowToken.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboSpacingToken.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/KboStatusPill.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboSurfaceToken.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Domain/KboTeamOption.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 Compiling\ KboControlToken.swift,\ KboEmptyStateView.swift,\ KboGlassPanel.swift,\ KboGlassToken.swift,\ KboMetricRow.swift,\ KboMotionToken.swift,\ KboPrimaryActionButton.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboControlToken.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/KboEmptyStateView.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/KboGlassPanel.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboGlassToken.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/KboMetricRow.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboMotionToken.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/KboPrimaryActionButton.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboControlToken.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/KboEmptyStateView.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/KboGlassPanel.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboGlassToken.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/KboMetricRow.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboMotionToken.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/KboPrimaryActionButton.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 Compiling\ ActivityGameState.swift,\ ActivityGameStateMapper.swift,\ AppNavigationModel.swift,\ AppRuntime.swift,\ AppSettingsView.swift,\ BackendPresetPolicy.swift,\ BackendPresetRow.swift,\ BackendSettingsModel+Resolution.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Projections/ActivityGameState.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mappers/ActivityGameStateMapper.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/AppNavigationModel.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/AppRuntime.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/AppSettingsView.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/App/BackendPresetPolicy.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/BackendPresetRow.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/BackendSettingsModel+Resolution.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Projections/ActivityGameState.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mappers/ActivityGameStateMapper.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/AppNavigationModel.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/AppRuntime.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/AppSettingsView.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/App/BackendPresetPolicy.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/BackendPresetRow.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/BackendSettingsModel+Resolution.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 Compiling\ Game.swift,\ GameDTO.swift,\ GameDTOMapper.swift,\ GameDetailScreen.swift,\ GameDetailView.swift,\ GameDetailViewModel.swift,\ GameFeed.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Domain/Game.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/DTO/GameDTO.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mappers/GameDTOMapper.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRFeatures/Sources/BaseballLiveKRFeatures/GameDetail/GameDetailScreen.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRFeatures/Sources/BaseballLiveKRFeatures/GameDetail/GameDetailView.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRFeatures/Sources/BaseballLiveKRFeatures/GameDetail/GameDetailViewModel.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Domain/GameFeed.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Domain/Game.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/DTO/GameDTO.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mappers/GameDTOMapper.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRFeatures/Sources/BaseballLiveKRFeatures/GameDetail/GameDetailScreen.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRFeatures/Sources/BaseballLiveKRFeatures/GameDetail/GameDetailView.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRFeatures/Sources/BaseballLiveKRFeatures/GameDetail/GameDetailViewModel.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Domain/GameFeed.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 Compiling\ GameFeedClient.swift,\ GameProjectionFormatter.swift,\ GameRepository.swift,\ InningStateView.swift,\ KboAppearanceMode.swift,\ KboColorToken.swift,\ KboCommandBar.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/App/GameFeedClient.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Formatting/GameProjectionFormatter.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Repository/GameRepository.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/InningStateView.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Theme/KboAppearanceMode.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboColorToken.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/KboCommandBar.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/App/GameFeedClient.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Formatting/GameProjectionFormatter.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Repository/GameRepository.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/InningStateView.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Theme/KboAppearanceMode.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboColorToken.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/KboCommandBar.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 Compiling\ BackendSettingsModel.swift,\ BackendSettingsView.swift,\ BaseDiamondView.swift,\ BaseballLiveKRAPIClient.swift,\ BaseballLiveKREnvironment.swift,\ BaseballLiveKRHomeRootView.swift,\ BaseballLiveKRmacOSApp.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/BackendSettingsModel.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/BackendSettingsView.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/BaseDiamondView.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/API/BaseballLiveKRAPIClient.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/App/BaseballLiveKREnvironment.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/BaseballLiveKRHomeRootView.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/macOS/BaseballLiveKRmacOSApp.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/BackendSettingsModel.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+/Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/BackendSettingsModel.swift:48:5: warning: 'nonisolated(unsafe)' is unnecessary for a constant with 'Sendable' type 'BackendPresetPolicy<BackendSettingsModel.BackendPreset>', consider removing it
+    nonisolated(unsafe) static let presetPolicy = BackendPresetPolicy<BackendPreset>(
+    ^~~~~~~~~~~~~~~~~~~~
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/BackendSettingsView.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/BaseDiamondView.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/API/BaseballLiveKRAPIClient.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/App/BaseballLiveKREnvironment.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/BaseballLiveKRHomeRootView.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/macOS/BaseballLiveKRmacOSApp.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+/Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/macOS/BaseballLiveKRmacOSApp.swift:58:18: warning: 'onChange(of:perform:)' was deprecated in macOS 14.0: Use `onChange` with a two or zero parameter action closure instead.
+                .onChange(of: appearanceMode) { newValue in
+                 ^
+
+SwiftCompile normal arm64 Compiling\ TeamStandingsDTOMapper.swift,\ TodayGamesList.swift,\ TodayGamesView.swift,\ TodayGamesViewModel.swift,\ WidgetGameSnapshot.swift,\ WidgetGameSnapshotMapper.swift,\ WidgetGameSnapshotStore.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mappers/TeamStandingsDTOMapper.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/App/TodayGamesList.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRFeatures/Sources/BaseballLiveKRFeatures/TodayGames/TodayGamesView.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRFeatures/Sources/BaseballLiveKRFeatures/TodayGames/TodayGamesViewModel.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Projections/WidgetGameSnapshot.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mappers/WidgetGameSnapshotMapper.swift /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/WidgetGameSnapshotStore.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mappers/TeamStandingsDTOMapper.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/App/TodayGamesList.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRFeatures/Sources/BaseballLiveKRFeatures/TodayGames/TodayGamesView.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRFeatures/Sources/BaseballLiveKRFeatures/TodayGames/TodayGamesViewModel.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Projections/WidgetGameSnapshot.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mappers/WidgetGameSnapshotMapper.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftCompile normal arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/KboLiveApp/Shared/WidgetGameSnapshotStore.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for BaseballLiveKR (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+
+SwiftDriver\ Compilation\ Requirements BaseballLiveKRmacOS normal arm64 com.apple.xcode.tools.swift.compiler (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name BaseballLiveKR -Onone @/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.SwiftFileList -DDEBUG -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -target arm64-apple-macos15.0 -g -module-cache-path /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 6 -I /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug -F /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/SDKStatCaches.noindex/macosx26.5-25F70-e082c4a02f00227109f4ed75e425c832.sdkstatcache -output-file-map /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKRmacOS-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKRmacOS_const_extract_protocols.json -Xcc -iquote -Xcc /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-generated-files.hmap -Xcc -I/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-own-target-headers.hmap -Xcc -I/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-all-target-headers.hmap -Xcc -iquote -Xcc /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-project-headers.hmap -Xcc -I/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/include -Xcc -I/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/DerivedSources-normal/arm64 -Xcc -I/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/DerivedSources/arm64 -Xcc -I/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR-Swift.h -working-directory /Users/suhohan/.codex/worktrees/8787/kbo-live -experimental-emit-module-separately -disable-cmo
+
+SwiftDriverJobDiscovery normal arm64 Compiling KboControlToken.swift, KboEmptyStateView.swift, KboGlassPanel.swift, KboGlassToken.swift, KboMetricRow.swift, KboMotionToken.swift, KboPrimaryActionButton.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+
+SwiftMergeGeneratedHeaders /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/DerivedSources/BaseballLiveKR-Swift.h /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR-Swift.h (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    builtin-swiftHeaderTool -arch arm64 /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR-Swift.h -o /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/DerivedSources/BaseballLiveKR-Swift.h
+
+Copy /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.swiftmodule/arm64-apple-macos.swiftmodule /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.swiftmodule (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.swiftmodule /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.swiftmodule/arm64-apple-macos.swiftmodule
+
+Copy /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.swiftmodule/arm64-apple-macos.swiftdoc /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.swiftdoc (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.swiftdoc /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.swiftmodule/arm64-apple-macos.swiftdoc
+
+Copy /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.swiftmodule/arm64-apple-macos.abi.json /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.abi.json (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.abi.json /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.swiftmodule/arm64-apple-macos.abi.json
+
+Copy /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.swiftmodule/Project/arm64-apple-macos.swiftsourceinfo /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.swiftsourceinfo (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.swiftsourceinfo /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.swiftmodule/Project/arm64-apple-macos.swiftsourceinfo
+
+SwiftDriverJobDiscovery normal arm64 Compiling MenuBarGameSummary.swift, MenuBarGameSummaryMapper.swift, MockGameRepository.swift, MyTeamSelectionStore.swift, OutCountView.swift, PitchCountView.swift, SampleGameFactory.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+
+SwiftDriverJobDiscovery normal arm64 Compiling KboRadiusToken.swift, KboSemanticColorToken.swift, KboShadowToken.swift, KboSpacingToken.swift, KboStatusPill.swift, KboSurfaceToken.swift, KboTeamOption.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+
+SwiftDriverJobDiscovery normal arm64 Compiling ScoreDigitsView.swift, SettingsView.swift, TeamBadgeView.swift, TeamColorPalette.swift, TeamColorResolver.swift, TeamStandings.swift, TeamStandingsDTO.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+
+SwiftDriverJobDiscovery normal arm64 Compiling ActivityGameState.swift, ActivityGameStateMapper.swift, AppNavigationModel.swift, AppRuntime.swift, AppSettingsView.swift, BackendPresetPolicy.swift, BackendPresetRow.swift, BackendSettingsModel+Resolution.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+
+SwiftDriverJobDiscovery normal arm64 Compiling BackendSettingsModel.swift, BackendSettingsView.swift, BaseDiamondView.swift, BaseballLiveKRAPIClient.swift, BaseballLiveKREnvironment.swift, BaseballLiveKRHomeRootView.swift, BaseballLiveKRmacOSApp.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+
+SwiftDriverJobDiscovery normal arm64 Compiling GameFeedClient.swift, GameProjectionFormatter.swift, GameRepository.swift, InningStateView.swift, KboAppearanceMode.swift, KboColorToken.swift, KboCommandBar.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+
+SwiftDriverJobDiscovery normal arm64 Compiling KboTheme.swift, KboTypographyToken.swift, LiveBadgeView.swift, LiveGameActivityAttributes.swift, LiveGameActivityController.swift, LiveGamePollingService.swift, MenuBarDashboardView.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+
+SwiftDriverJobDiscovery normal arm64 Compiling Game.swift, GameDTO.swift, GameDTOMapper.swift, GameDetailScreen.swift, GameDetailView.swift, GameDetailViewModel.swift, GameFeed.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+
+SwiftDriverJobDiscovery normal arm64 Compiling TeamStandingsDTOMapper.swift, TodayGamesList.swift, TodayGamesView.swift, TodayGamesViewModel.swift, WidgetGameSnapshot.swift, WidgetGameSnapshotMapper.swift, WidgetGameSnapshotStore.swift (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+
+SwiftDriver\ Compilation BaseballLiveKRmacOS normal arm64 com.apple.xcode.tools.swift.compiler (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name BaseballLiveKR -Onone @/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.SwiftFileList -DDEBUG -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -target arm64-apple-macos15.0 -g -module-cache-path /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 6 -I /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug -F /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/SDKStatCaches.noindex/macosx26.5-25F70-e082c4a02f00227109f4ed75e425c832.sdkstatcache -output-file-map /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKRmacOS-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKRmacOS_const_extract_protocols.json -Xcc -iquote -Xcc /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-generated-files.hmap -Xcc -I/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-own-target-headers.hmap -Xcc -I/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-all-target-headers.hmap -Xcc -iquote -Xcc /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-project-headers.hmap -Xcc -I/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/include -Xcc -I/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/DerivedSources-normal/arm64 -Xcc -I/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/DerivedSources/arm64 -Xcc -I/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR-Swift.h -working-directory /Users/suhohan/.codex/worktrees/8787/kbo-live -experimental-emit-module-separately -disable-cmo
+
+Ld /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/MacOS/BaseballLiveKR.debug.dylib normal (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-macos15.0 -dynamiclib -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -O0 -L/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/EagerLinkingTBDs/Debug -L/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug -F/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/EagerLinkingTBDs/Debug -F/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug -filelist /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.LinkFileList -install_name @rpath/BaseballLiveKR.debug.dylib -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @executable_path/../Frameworks -Xlinker -object_path_lto -Xlinker /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -dependency_info -Xlinker /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR_dependency_info.dat -fobjc-link-runtime -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.swiftmodule @/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR-linker-args.resp -Xlinker -alias -Xlinker _main -Xlinker ___debug_main_executable_dylib_entry_point -o /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/MacOS/BaseballLiveKR.debug.dylib
+
+ConstructStubExecutorLinkFileList /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-ExecutorLinkFileList-normal-arm64.txt (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    construct-stub-executor-link-file-list /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/MacOS/BaseballLiveKR.debug.dylib /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/libPreviewsJITStubExecutor_no_swift_entry_point.a /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/libPreviewsJITStubExecutor.a --output /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-ExecutorLinkFileList-normal-arm64.txt
+note: Using stub executor library with Swift entry point. (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+
+Ld /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/MacOS/BaseballLiveKR normal (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-macos15.0 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -O0 -L/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug -F/Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug -Xlinker -rpath -Xlinker @executable_path -Xlinker -rpath -Xlinker @executable_path/../Frameworks -rdynamic -Xlinker -no_deduplicate -e ___debug_blank_executor_main -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_dylib -Xlinker /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-DebugDylibPath-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_instlnm -Xlinker /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-DebugDylibInstallName-normal-arm64.txt -Xlinker -filelist -Xlinker /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR-ExecutorLinkFileList-normal-arm64.txt /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/MacOS/BaseballLiveKR.debug.dylib -o /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/MacOS/BaseballLiveKR
+
+CopySwiftLibs /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    builtin-swiftStdLibTool --copy --verbose --scan-executable /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/MacOS/BaseballLiveKR.debug.dylib --scan-folder /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Frameworks --scan-folder /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/PlugIns --scan-folder /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Library/SystemExtensions --scan-folder /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Extensions --platform macosx --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Frameworks --strip-bitcode --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os --back-deploy-swift-span
+Ignoring --strip-bitcode because --sign was not passed
+
+ExtractAppIntentsMetadata (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name BaseballLiveKR --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk --xcode-version 17F113 --platform-family macOS --deployment-target 15.0 --bundle-identifier kr.suhohan.baseballlivekr.macos --output /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Resources --target-triple arm64-apple-macos15.0 --binary-file /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/MacOS/BaseballLiveKR --dependency-file /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR_dependency_info.dat --stringsdata-file /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.SwiftFileList --metadata-file-list /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR.DependencyMetadataFileList --static-metadata-file-list /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/BaseballLiveKR.DependencyStaticMetadataFileList --swift-const-vals-list /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Intermediates.noindex/BaseballLiveKR.build/Debug/BaseballLiveKRmacOS.build/Objects-normal/arm64/BaseballLiveKR.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --validate-assistant-intents --no-app-shortcuts-localization
+2026-07-02 01:29:11.658 appintentsmetadataprocessor[34884:729439] Starting appintentsmetadataprocessor export
+2026-07-02 01:29:11.664 appintentsmetadataprocessor[34884:729439] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
+
+RegisterExecutionPolicyException /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    builtin-RegisterExecutionPolicyException /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app
+
+Validate /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    builtin-validationUtility /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app -no-validate-extension -infoplist-subpath Contents/Info.plist
+
+Touch /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    /usr/bin/touch -c /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app
+
+RegisterWithLaunchServices /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app (in target 'BaseballLiveKRmacOS' from project 'BaseballLiveKR')
+    cd /Users/suhohan/.codex/worktrees/8787/kbo-live
+    /System/Library/Frameworks/CoreServices.framework/Versions/Current/Frameworks/LaunchServices.framework/Versions/Current/Support/lsregister -f -R -trusted /Users/suhohan/.codex/worktrees/8787/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app
+
+** BUILD SUCCEEDED **
+
+
+exit=0

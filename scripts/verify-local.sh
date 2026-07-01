@@ -13,13 +13,13 @@ cd "$ROOT_DIR/backend-spike"
 run npm test
 run npm run build
 
-cd "$ROOT_DIR/Packages/KboLiveCore"
+cd "$ROOT_DIR/Packages/BaseballLiveKRCore"
 run swift test
 
-cd "$ROOT_DIR/Packages/KboLiveDesignSystem"
+cd "$ROOT_DIR/Packages/BaseballLiveKRDesignSystem"
 run swift build
 
-cd "$ROOT_DIR/Packages/KboLiveFeatures"
+cd "$ROOT_DIR/Packages/BaseballLiveKRFeatures"
 run swift test
 
 if [[ "${SKIP_XCODE:-0}" == "1" ]]; then
@@ -29,15 +29,15 @@ fi
 
 cd "$ROOT_DIR"
 run xcodebuild \
-  -project KboLiveApp.xcodeproj \
-  -scheme KboLivemacOS \
+  -project BaseballLiveKR.xcodeproj \
+  -scheme BaseballLiveKRmacOS \
   -destination 'platform=macOS' \
   -derivedDataPath "$DERIVED_DATA_PATH" \
   build
 
 run xcodebuild \
-  -project KboLiveApp.xcodeproj \
-  -scheme KboLiveiOS \
+  -project BaseballLiveKR.xcodeproj \
+  -scheme BaseballLiveKRiOS \
   -destination 'generic/platform=iOS Simulator' \
   -derivedDataPath "$DERIVED_DATA_PATH" \
   build

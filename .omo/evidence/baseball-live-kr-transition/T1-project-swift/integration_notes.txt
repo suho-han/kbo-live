@@ -1,0 +1,7 @@
+Integration notes for parallel slices
+
+- B/storage-runtime helper destination after T1 rename: Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/...
+- B feature selection tests destination after T1 rename: Packages/BaseballLiveKRFeatures/Tests/BaseballLiveKRFeaturesTests/...
+- B app shared Swift edits should import BaseballLiveKRCore and BaseballLiveKRFeatures after integration.
+- C/backend-scripts-docs acknowledged project/scheme/app names; this T1 commit also updates only build-hint references in scripts/docs touched by project generation commands.
+- D/rights-release-qa acknowledged imports remain T1-authoritative; T4 asset/UI removal should merge into KboLiveApp shared UI files with BaseballLiveKR* imports already present.

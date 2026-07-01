@@ -1,0 +1,10 @@
+Adversarial probe summary
+
+- dirty_worktree: captured in dirty_worktree_probe.txt; pre-existing unrelated PROJECT_CONTEXT deletion, .gjc/, and baseball-live-kr-deployment-plan.md are not part of this commit.
+- stale_state: captured in stale_state_probe.txt; main team state binds A/project-swift to thread 019f1e79-ec5c-7ae3-94b5-ea9db21c83f3 and cwd /Users/suhohan/.codex/worktrees/8787/kbo-live.
+- misleading_success_output: initial xcodebuild_ios.txt wrapper returned process 0 while xcodebuild logged exit=65 because concurrent builds locked build.db; reran serially as xcodebuild_ios_clean.txt with clean exit=0.
+- hung_or_long_commands: SwiftPM design/features tests and Xcode builds exceeded 30s; sessions were polled to completion, no interrupts.
+- flaky_tests: not applicable; T1 added no new tests and all existing package tests passed once per package.
+- network_dependency: not applicable; T1 verification used local Swift/Xcode/project generation only.
+- external_service_dependency: not applicable; no live endpoint or App Store/notarization claim in T1.
+- destructive_cleanup: not applicable; no reset/checkout/stash/delete of unrelated user work.

@@ -1,0 +1,9 @@
+$ git status --branch --short
+## HEAD (no branch)
+ D PROJECT_CONTEXT/baseball-live-kr-branding-and-release-plan.md
+?? .gjc/
+?? baseball-live-kr-deployment-plan.md
+
+$ git rev-parse --show-toplevel && git rev-parse --short HEAD
+/Users/suhohan/.codex/worktrees/8787/kbo-live
+932cf72

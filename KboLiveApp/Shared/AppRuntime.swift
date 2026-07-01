@@ -2,8 +2,8 @@ import Foundation
 #if canImport(AppKit)
 import AppKit
 #endif
-#if canImport(KboLiveCore)
-import KboLiveCore
+#if canImport(BaseballLiveKRCore)
+import BaseballLiveKRCore
 #endif
 
 enum AppRuntime {

@@ -1,0 +1,3 @@
+$ rg -n "KboLiveApp\.xcodeproj|KboLiveiOS|KboLivemacOS|KboLiveWidgetExtension|KboLiveCore|KboLiveDesignSystem|KboLiveFeatures" project.yml Packages KboLiveApp scripts README.md docs
+
+exit=1
