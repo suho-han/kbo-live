@@ -1,0 +1,10 @@
+Missing macOS app bundle: /Users/suhohan/.codex/worktrees/361b/kbo-live/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app
+Build it first with: xcodebuild -project BaseballLiveKR.xcodeproj -scheme BaseballLiveKRmacOS -destination "platform=macOS" -derivedDataPath .xcode/DerivedData build
+
+exit_status=1
+
+Static name check:
+6:APP_PATH="${APP_PATH:-$DERIVED_DATA_PATH/Build/Products/Debug/BaseballLiveKR.app}"
+9:ARCHIVE_PATH="$OUT_DIR/baseball-live-kr-macmini-runtime.tar.gz"
+23:cp -R "$ROOT_DIR/.build/baseball-live-kr-backend-macos" "$STAGING_DIR/.build/baseball-live-kr-backend-macos"
+27:chmod +x "$STAGING_DIR/.build/baseball-live-kr-backend-macos/run-backend.command"

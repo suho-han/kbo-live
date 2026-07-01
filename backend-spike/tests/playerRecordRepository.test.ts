@@ -20,12 +20,12 @@ describe('playerRecordRepository', () => {
     for (const dir of tempDirs.splice(0)) {
       rmSync(dir, { recursive: true, force: true })
     }
-    delete process.env.KBO_DB_ENABLED
-    delete process.env.KBO_DB_PATH
+    delete process.env.BASEBALL_LIVE_KR_DB_ENABLED
+    delete process.env.BASEBALL_LIVE_KR_DB_PATH
   })
 
   it('upserts batting and pitching records and reads player season summaries', () => {
-    process.env.KBO_DB_ENABLED = '1'
+    process.env.BASEBALL_LIVE_KR_DB_ENABLED = '1'
     const dir = mkdtempSync(join(tmpdir(), 'kbo-live-player-records-'))
     tempDirs.push(dir)
     const db = openDatabase(join(dir, 'test.sqlite'))
@@ -134,7 +134,7 @@ describe('playerRecordRepository', () => {
   })
 
   it('resolves probable starter pitching summaries by exact team and season', () => {
-    process.env.KBO_DB_ENABLED = '1'
+    process.env.BASEBALL_LIVE_KR_DB_ENABLED = '1'
     const dir = mkdtempSync(join(tmpdir(), 'kbo-live-probable-pitchers-'))
     tempDirs.push(dir)
     const db = openDatabase(join(dir, 'test.sqlite'))
@@ -214,7 +214,7 @@ describe('playerRecordRepository', () => {
   })
 
   it('does not open the configured database for probable pitcher summaries when DB is explicitly disabled', () => {
-    process.env.KBO_DB_ENABLED = '1'
+    process.env.BASEBALL_LIVE_KR_DB_ENABLED = '1'
     const dir = mkdtempSync(join(tmpdir(), 'kbo-live-probable-pitcher-disable-'))
     tempDirs.push(dir)
     const path = join(dir, 'test.sqlite')
@@ -250,8 +250,8 @@ describe('playerRecordRepository', () => {
     db.close()
     closeDatabase()
 
-    process.env.KBO_DB_ENABLED = '0'
-    process.env.KBO_DB_PATH = path
+    process.env.BASEBALL_LIVE_KR_DB_ENABLED = '0'
+    process.env.BASEBALL_LIVE_KR_DB_PATH = path
 
     expect(getPitcherSeasonSummaryByNameAndTeam('올러', 'HT', 2026, '20260701')).toBeNull()
   })

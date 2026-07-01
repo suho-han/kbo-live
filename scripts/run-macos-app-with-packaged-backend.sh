@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-BACKEND_DIR="${ROOT_DIR}/.build/kbo-live-backend-macos"
+BACKEND_DIR="${ROOT_DIR}/.build/baseball-live-kr-backend-macos"
 APP_PATH="${APP_PATH:-${ROOT_DIR}/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app}"
 PORT="${PORT:-17361}"
 FORCE_RESTART="${FORCE_RESTART:-0}"
@@ -108,7 +108,7 @@ if ! lsof -ti "tcp:${PORT}" >/dev/null; then
   echo "log: ${LOG_FILE}"
 fi
 
-launchctl setenv KBO_LIVE_BASE_URL "http://127.0.0.1:${PORT}"
+launchctl setenv BASEBALL_LIVE_KR_BASE_URL "http://127.0.0.1:${PORT}"
 
 if [[ "${FORCE_RESTART}" == "1" ]]; then
   APP_PIDS="$(find_app_pids)"
@@ -137,5 +137,5 @@ fi
 
 open "${APP_PATH}"
 
-echo "app launched with KBO_LIVE_BASE_URL=http://127.0.0.1:${PORT}"
+echo "app launched with BASEBALL_LIVE_KR_BASE_URL=http://127.0.0.1:${PORT}"
 echo "stop backend: kill \$(cat ${PID_FILE})"

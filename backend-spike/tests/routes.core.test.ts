@@ -35,8 +35,8 @@ describe('games routes core', () => {
   })
 
   afterEach(async () => {
-    delete process.env.KBO_DB_ENABLED
-    delete process.env.KBO_DB_PATH
+    delete process.env.BASEBALL_LIVE_KR_DB_ENABLED
+    delete process.env.BASEBALL_LIVE_KR_DB_PATH
   })
 
   it('returns today games through Fastify injection', async () => {

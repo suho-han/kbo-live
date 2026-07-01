@@ -1,0 +1,6 @@
+Residual old T3 names search
+Command: rg -n "kbo-live-backend-macos|KBO_DB_|KboLiveApp|KboLiveiOS|KboLivemacOS|KboLiveWidgetExtension|kbo-live-macmini-runtime|kbo-live\.sqlite" backend-spike scripts README.md docs baseball-live-kr-deployment-plan.md
+
+scripts/fetch-team-brand-assets.sh:5:OUT_DIR="${ROOT_DIR}/KboLiveApp/Shared/TeamBrandAssets"
+
+Note: scripts/fetch-team-brand-assets.sh is D-owned rights/asset scope and remains outside T3 edits.

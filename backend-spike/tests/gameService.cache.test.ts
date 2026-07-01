@@ -100,10 +100,10 @@ describe('gameService cache', () => {
   })
 
   it('falls back to DB-backed team standings when the source fails and cache is empty', async () => {
-    process.env.KBO_DB_ENABLED = '1'
+    process.env.BASEBALL_LIVE_KR_DB_ENABLED = '1'
     const dir = mkdtempSync(join(tmpdir(), 'kbo-live-standings-fallback-'))
     tempDirs.push(dir)
-    process.env.KBO_DB_PATH = join(dir, 'test.sqlite')
+    process.env.BASEBALL_LIVE_KR_DB_PATH = join(dir, 'test.sqlite')
     upsertTeamSeasonRecords(TEST_DATE, [{
       teamId: 'LG',
       teamName: 'LG',

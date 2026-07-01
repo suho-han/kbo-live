@@ -1,0 +1,27 @@
+dirty_worktree probe
+Command: git status --short
+ D PROJECT_CONTEXT/baseball-live-kr-branding-and-release-plan.md
+ M README.md
+ M backend-spike/README.md
+ M backend-spike/package-lock.json
+ M backend-spike/package.json
+ M backend-spike/src/db/database.ts
+ M backend-spike/tests/gameService.cache.test.ts
+ M backend-spike/tests/gameServiceTestSupport.ts
+ M backend-spike/tests/kboClient.test.ts
+ M backend-spike/tests/playerRecordRepository.test.ts
+ M backend-spike/tests/rawSourceRepository.test.ts
+ M backend-spike/tests/routes.core.test.ts
+ M backend-spike/tests/routes.players.test.ts
+ M backend-spike/tests/teamRecordRepository.test.ts
+ M docs/dev.md
+ M scripts/deploy-macmini-runtime.sh
+ M scripts/kbo-live.sh
+ M scripts/package-backend-macos.sh
+ M scripts/package-macmini-runtime.sh
+ M scripts/run-macos-app-with-packaged-backend.sh
+ M scripts/verify-local.sh
+?? .gjc/
+?? baseball-live-kr-deployment-plan.md
+
+Pre-existing before T3: deleted PROJECT_CONTEXT/baseball-live-kr-branding-and-release-plan.md, untracked .gjc/, untracked baseball-live-kr-deployment-plan.md. T3 did not revert unrelated dirty files.

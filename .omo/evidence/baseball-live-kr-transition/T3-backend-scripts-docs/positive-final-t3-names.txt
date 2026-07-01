@@ -1,0 +1,91 @@
+Positive final T3 names search
+README.md:47:1. `BaseballLiveKR.app`을 엽니다.
+baseball-live-kr-deployment-plan.md:74:프로젝트와 배포 산출물은 `BaseballLiveKRApp`, `kr.suhohan.baseballlivekr...`, `BaseballLiveKRiOS`, `BaseballLiveKRmacOS`, `BaseballLiveKRWidgetExtension` 이름을 사용한다.
+docs/dev.md:45:open BaseballLiveKR.xcodeproj
+docs/dev.md:50:- `BaseballLiveKRiOS`
+docs/dev.md:51:- `BaseballLiveKRmacOS`
+docs/dev.md:52:- `BaseballLiveKRWidgetExtension`
+docs/dev.md:57:- 실제 빌드 검증은 `BaseballLiveKR.xcodeproj` 기준으로 수행했습니다.
+docs/dev.md:62:xcodebuild -scheme BaseballLiveKRmacOS -project BaseballLiveKR.xcodeproj -destination 'platform=macOS' -derivedDataPath .xcode/DerivedData build
+docs/dev.md:64:xcodebuild -scheme BaseballLiveKRiOS -project BaseballLiveKR.xcodeproj -destination 'generic/platform=iOS Simulator' -derivedDataPath .xcode/DerivedData build
+docs/dev.md:123:BASEBALL_LIVE_KR_DB_ENABLED=1 npm run collect:probable-pitchers -- --date 20260630 --write
+backend-spike/README.md:39:BASEBALL_LIVE_KR_DB_PATH=.data/baseball-live-kr.sqlite
+backend-spike/README.md:40:BASEBALL_LIVE_KR_DB_DISABLED=1
+backend-spike/README.md:41:BASEBALL_LIVE_KR_DB_ENABLED=1
+backend-spike/README.md:44:기본값은 `backend-spike/.data/baseball-live-kr.sqlite`입니다. KBO source 응답은 `raw_sources` table에 checksum 기준으로 중복 저장을 방지하며 기록됩니다. 테스트 환경에서는 기본 비활성화되며, 임시 실행에서 DB 기록을 끄려면 `BASEBALL_LIVE_KR_DB_DISABLED=1`, 테스트에서 명시적으로 켜려면 `BASEBALL_LIVE_KR_DB_ENABLED=1`을 사용합니다.
+backend-spike/README.md:151:DB가 활성화된 일반 실행에서는 `raw_sources` table에도 `kbo-official-eng` source로 저장하고, leaders table을 parse해 `players`, `player_team_seasons`, batting/pitching season record table에 upsert합니다. 테스트 환경에서 DB 저장까지 확인하려면 `BASEBALL_LIVE_KR_DB_ENABLED=1`을 명시합니다.
+scripts/run-macos-app-with-packaged-backend.sh:5:BACKEND_DIR="${ROOT_DIR}/.build/baseball-live-kr-backend-macos"
+scripts/run-macos-app-with-packaged-backend.sh:6:APP_PATH="${APP_PATH:-${ROOT_DIR}/.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app}"
+scripts/run-macos-app-with-packaged-backend.sh:54:  echo "Build it first with: xcodebuild -project BaseballLiveKR.xcodeproj -scheme BaseballLiveKRmacOS -destination 'platform=macOS' -derivedDataPath .xcode/DerivedData build" >&2
+scripts/package-backend-macos.sh:6:OUTPUT_DIR="${ROOT_DIR}/.build/baseball-live-kr-backend-macos"
+scripts/package-backend-macos.sh:7:TEMP_OUTPUT_DIR="${ROOT_DIR}/.build/baseball-live-kr-backend-macos.tmp"
+scripts/package-backend-macos.sh:25:SOURCE_DB="${BACKEND_DIR}/.data/baseball-live-kr.sqlite"
+scripts/package-backend-macos.sh:28:  cp "${SOURCE_DB}" "${TEMP_OUTPUT_DIR}/.data/baseball-live-kr.sqlite"
+scripts/package-backend-macos.sh:47:PACKAGED_DB="${DIR}/.data/baseball-live-kr.sqlite"
+scripts/package-backend-macos.sh:49:  export BASEBALL_LIVE_KR_DB_ENABLED="${BASEBALL_LIVE_KR_DB_ENABLED:-1}"
+scripts/package-backend-macos.sh:50:  export BASEBALL_LIVE_KR_DB_PATH="${BASEBALL_LIVE_KR_DB_PATH:-${PACKAGED_DB}}"
+scripts/package-backend-macos.sh:67:  BASEBALL_LIVE_KR_DB_ENABLED=1 ./run-backend.command
+scripts/package-backend-macos.sh:68:  BASEBALL_LIVE_KR_DB_PATH=.data/baseball-live-kr.sqlite ./run-backend.command
+scripts/package-macmini-runtime.sh:6:APP_PATH="${APP_PATH:-$DERIVED_DATA_PATH/Build/Products/Debug/BaseballLiveKR.app}"
+scripts/package-macmini-runtime.sh:9:ARCHIVE_PATH="$OUT_DIR/baseball-live-kr-macmini-runtime.tar.gz"
+scripts/package-macmini-runtime.sh:13:  printf 'Build it first with: xcodebuild -project BaseballLiveKR.xcodeproj -scheme BaseballLiveKRmacOS -destination "platform=macOS" -derivedDataPath .xcode/DerivedData build\n' >&2
+scripts/package-macmini-runtime.sh:23:cp -R "$ROOT_DIR/.build/baseball-live-kr-backend-macos" "$STAGING_DIR/.build/baseball-live-kr-backend-macos"
+scripts/package-macmini-runtime.sh:27:chmod +x "$STAGING_DIR/.build/baseball-live-kr-backend-macos/run-backend.command"
+backend-spike/tests/routes.players.test.ts:18:    delete process.env.BASEBALL_LIVE_KR_DB_ENABLED
+backend-spike/tests/routes.players.test.ts:19:    delete process.env.BASEBALL_LIVE_KR_DB_PATH
+backend-spike/tests/routes.players.test.ts:23:    process.env.BASEBALL_LIVE_KR_DB_ENABLED = '1'
+backend-spike/tests/routes.players.test.ts:26:    process.env.BASEBALL_LIVE_KR_DB_PATH = join(dir, 'test.sqlite')
+scripts/verify-local.sh:32:  -project BaseballLiveKR.xcodeproj \
+scripts/verify-local.sh:33:  -scheme BaseballLiveKRmacOS \
+scripts/verify-local.sh:39:  -project BaseballLiveKR.xcodeproj \
+scripts/verify-local.sh:40:  -scheme BaseballLiveKRiOS \
+scripts/kbo-live.sh:26:    -scheme BaseballLiveKRmacOS \
+scripts/kbo-live.sh:27:    -project "$ROOT_DIR/BaseballLiveKR.xcodeproj" \
+scripts/kbo-live.sh:47:    open -n "$DERIVED_DATA_PATH/Build/Products/Debug/BaseballLiveKR.app"
+scripts/deploy-macmini-runtime.sh:9:ARCHIVE_PATH="${ARCHIVE_PATH:-$ROOT_DIR/.build/transfer/baseball-live-kr-macmini-runtime.tar.gz}"
+scripts/deploy-macmini-runtime.sh:15:scp "$ARCHIVE_PATH" "$SSH_TARGET:$REMOTE_DIR/baseball-live-kr-macmini-runtime.tar.gz"
+scripts/deploy-macmini-runtime.sh:17:ssh "$SSH_TARGET" "cd '$REMOTE_DIR' && tar -xzf baseball-live-kr-macmini-runtime.tar.gz && chmod +x scripts/run-macos-app-with-packaged-backend.sh .build/baseball-live-kr-backend-macos/run-backend.command"
+scripts/deploy-macmini-runtime.sh:20:ssh "$SSH_TARGET" "cd '$REMOTE_DIR' && PORT=$SMOKE_PORT .build/baseball-live-kr-backend-macos/run-backend.command >/tmp/baseball-live-kr-backend-$SMOKE_PORT.log 2>&1 & pid=\$!; for i in {1..20}; do if ! kill -0 \$pid 2>/dev/null; then cat /tmp/baseball-live-kr-backend-$SMOKE_PORT.log; exit 1; fi; if curl -fsS --max-time 1 http://127.0.0.1:$SMOKE_PORT/health; then kill \$pid; wait \$pid 2>/dev/null || true; exit 0; fi; sleep 0.25; done; cat /tmp/baseball-live-kr-backend-$SMOKE_PORT.log; kill \$pid 2>/dev/null || true; exit 1"
+backend-spike/tests/routes.core.test.ts:38:    delete process.env.BASEBALL_LIVE_KR_DB_ENABLED
+backend-spike/tests/routes.core.test.ts:39:    delete process.env.BASEBALL_LIVE_KR_DB_PATH
+backend-spike/tests/playerRecordRepository.test.ts:23:    delete process.env.BASEBALL_LIVE_KR_DB_ENABLED
+backend-spike/tests/playerRecordRepository.test.ts:24:    delete process.env.BASEBALL_LIVE_KR_DB_PATH
+backend-spike/tests/playerRecordRepository.test.ts:28:    process.env.BASEBALL_LIVE_KR_DB_ENABLED = '1'
+backend-spike/tests/playerRecordRepository.test.ts:137:    process.env.BASEBALL_LIVE_KR_DB_ENABLED = '1'
+backend-spike/tests/playerRecordRepository.test.ts:217:    process.env.BASEBALL_LIVE_KR_DB_ENABLED = '1'
+backend-spike/tests/playerRecordRepository.test.ts:253:    process.env.BASEBALL_LIVE_KR_DB_ENABLED = '0'
+backend-spike/tests/playerRecordRepository.test.ts:254:    process.env.BASEBALL_LIVE_KR_DB_PATH = path
+backend-spike/tests/gameServiceTestSupport.ts:33:  delete process.env.BASEBALL_LIVE_KR_DB_ENABLED
+backend-spike/tests/gameServiceTestSupport.ts:34:  delete process.env.BASEBALL_LIVE_KR_DB_PATH
+backend-spike/tests/gameServiceTestSupport.ts:83:  delete process.env.BASEBALL_LIVE_KR_DB_ENABLED
+backend-spike/tests/gameServiceTestSupport.ts:84:  delete process.env.BASEBALL_LIVE_KR_DB_PATH
+backend-spike/tests/gameServiceTestSupport.ts:101:  process.env.BASEBALL_LIVE_KR_DB_ENABLED = '1'
+backend-spike/tests/gameServiceTestSupport.ts:104:  process.env.BASEBALL_LIVE_KR_DB_PATH = join(dir, 'test.sqlite')
+backend-spike/tests/rawSourceRepository.test.ts:17:    delete process.env.BASEBALL_LIVE_KR_DB_DISABLED
+backend-spike/tests/rawSourceRepository.test.ts:18:    delete process.env.BASEBALL_LIVE_KR_DB_ENABLED
+backend-spike/tests/rawSourceRepository.test.ts:19:    delete process.env.BASEBALL_LIVE_KR_DB_PATH
+backend-spike/tests/rawSourceRepository.test.ts:23:    process.env.BASEBALL_LIVE_KR_DB_ENABLED = '1'
+backend-spike/tests/rawSourceRepository.test.ts:51:    process.env.BASEBALL_LIVE_KR_DB_DISABLED = '1'
+backend-spike/tests/rawSourceRepository.test.ts:68:    process.env.BASEBALL_LIVE_KR_DB_PATH = '   '
+backend-spike/tests/rawSourceRepository.test.ts:69:    process.env.BASEBALL_LIVE_KR_DB_ENABLED = 'not-a-boolean'
+backend-spike/src/db/database.ts:11:  return resolve(process.cwd(), '.data/baseball-live-kr.sqlite')
+backend-spike/src/db/database.ts:15:  return process.env.BASEBALL_LIVE_KR_DB_PATH?.trim() || defaultDatabasePath()
+backend-spike/src/db/database.ts:52:  if (process.env.BASEBALL_LIVE_KR_DB_ENABLED !== undefined) {
+backend-spike/src/db/database.ts:53:    return process.env.BASEBALL_LIVE_KR_DB_ENABLED !== '1'
+backend-spike/src/db/database.ts:56:  return process.env.BASEBALL_LIVE_KR_DB_DISABLED === '1' || process.env.NODE_ENV === 'test'
+backend-spike/tests/kboClient.test.ts:15:    process.env.BASEBALL_LIVE_KR_DB_DISABLED = '1'
+backend-spike/tests/kboClient.test.ts:24:    delete process.env.BASEBALL_LIVE_KR_DB_DISABLED
+backend-spike/tests/kboClient.test.ts:25:    delete process.env.BASEBALL_LIVE_KR_DB_ENABLED
+backend-spike/tests/kboClient.test.ts:26:    delete process.env.BASEBALL_LIVE_KR_DB_PATH
+backend-spike/tests/kboClient.test.ts:52:    delete process.env.BASEBALL_LIVE_KR_DB_DISABLED
+backend-spike/tests/kboClient.test.ts:53:    process.env.BASEBALL_LIVE_KR_DB_ENABLED = '1'
+backend-spike/tests/kboClient.test.ts:56:    process.env.BASEBALL_LIVE_KR_DB_PATH = join(dir, 'test.sqlite')
+backend-spike/tests/teamRecordRepository.test.ts:17:    delete process.env.BASEBALL_LIVE_KR_DB_ENABLED
+backend-spike/tests/teamRecordRepository.test.ts:21:    process.env.BASEBALL_LIVE_KR_DB_ENABLED = '1'
+backend-spike/tests/gameService.cache.test.ts:103:    process.env.BASEBALL_LIVE_KR_DB_ENABLED = '1'
+backend-spike/tests/gameService.cache.test.ts:106:    process.env.BASEBALL_LIVE_KR_DB_PATH = join(dir, 'test.sqlite')
+backend-spike/dist/src/db/database.js:8:    return resolve(process.cwd(), '.data/baseball-live-kr.sqlite');
+backend-spike/dist/src/db/database.js:11:    return process.env.BASEBALL_LIVE_KR_DB_PATH?.trim() || defaultDatabasePath();
+backend-spike/dist/src/db/database.js:41:    if (process.env.BASEBALL_LIVE_KR_DB_ENABLED !== undefined) {
+backend-spike/dist/src/db/database.js:42:        return process.env.BASEBALL_LIVE_KR_DB_ENABLED !== '1';
+backend-spike/dist/src/db/database.js:44:    return process.env.BASEBALL_LIVE_KR_DB_DISABLED === '1' || process.env.NODE_ENV === 'test';

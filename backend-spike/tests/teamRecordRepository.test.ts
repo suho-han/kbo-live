@@ -14,11 +14,11 @@ describe('teamRecordRepository', () => {
     for (const dir of tempDirs.splice(0)) {
       rmSync(dir, { recursive: true, force: true })
     }
-    delete process.env.KBO_DB_ENABLED
+    delete process.env.BASEBALL_LIVE_KR_DB_ENABLED
   })
 
   it('upserts team season records and keeps one row per season date team', () => {
-    process.env.KBO_DB_ENABLED = '1'
+    process.env.BASEBALL_LIVE_KR_DB_ENABLED = '1'
     const dir = mkdtempSync(join(tmpdir(), 'kbo-live-team-records-'))
     tempDirs.push(dir)
     const db = openDatabase(join(dir, 'test.sqlite'))

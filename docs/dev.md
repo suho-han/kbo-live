@@ -1,6 +1,6 @@
 # 개발 및 검증
 
-이 문서는 Baseball LIVE KR를 직접 개발하거나 배포 준비를 확인할 때 필요한 명령만 모아둡니다. 앱을 실행해 보고 싶은 경우에는 README의 `./scripts/kbo-live.sh run`을 먼저 사용하세요.
+이 문서는 Baseball LIVE KR을 직접 개발하거나 배포 준비를 확인할 때 필요한 명령만 모아둡니다. 앱을 실행해 보고 싶은 경우에는 README의 `./scripts/kbo-live.sh run`을 먼저 사용하세요.
 
 ## 빠른 명령
 
@@ -68,11 +68,11 @@ xcodebuild -scheme BaseballLiveKRiOS -project BaseballLiveKR.xcodeproj -destinat
 
 macOS 앱 기본 동작:
 
-- `KBO_LIVE_BASE_URL`을 지정하지 않으면 앱 설정 또는 `http://127.0.0.1:17361`의 경기 데이터를 사용합니다.
+- `BASEBALL_LIVE_KR_BASE_URL`을 지정하지 않으면 앱 설정 또는 `http://127.0.0.1:17361`의 경기 데이터를 사용합니다.
 - 앱은 기본적으로 최신 경기 정보용 주소를 호출합니다.
 - iOS/macOS 앱의 설정 화면에서 `Local`, `Staging`, `Production` 데이터 주소를 선택하고 저장할 수 있습니다.
-- `KBO_LIVE_BASE_URL` 환경변수가 있으면 앱 설정값보다 우선합니다.
-- `KBO_LIVE_STAGING_BASE_URL`, `KBO_LIVE_PRODUCTION_BASE_URL`을 지정하면 설정 화면의 Staging/Production preset 초기 URL로 사용합니다.
+- `BASEBALL_LIVE_KR_BASE_URL` 환경변수가 있으면 앱 설정값보다 우선합니다.
+- `BASEBALL_LIVE_KR_STAGING_BASE_URL`, `BASEBALL_LIVE_KR_PRODUCTION_BASE_URL`을 지정하면 설정 화면의 Staging/Production preset 초기 URL로 사용합니다.
 
 ## 데이터 서버만 실행
 
@@ -120,7 +120,7 @@ backend-spike/fixtures/live-<YYYYMMDD>/
 
 ```bash
 cd backend-spike
-KBO_DB_ENABLED=1 npm run collect:probable-pitchers -- --date 20260630 --write
+BASEBALL_LIVE_KR_DB_ENABLED=1 npm run collect:probable-pitchers -- --date 20260630 --write
 ```
 
 ## 배포 준비

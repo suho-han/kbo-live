@@ -30,8 +30,8 @@ export function resetGameServiceTestState(): void {
   delete process.env.KBO_CACHE_TTL_GAME_IDLE_SEC
   delete process.env.KBO_CACHE_TTL_GAME_LIVE_SEC
   delete process.env.KBO_CACHE_STALE_IF_ERROR_SEC
-  delete process.env.KBO_DB_ENABLED
-  delete process.env.KBO_DB_PATH
+  delete process.env.BASEBALL_LIVE_KR_DB_ENABLED
+  delete process.env.BASEBALL_LIVE_KR_DB_PATH
   mockGameDate.mockResolvedValue({
     BEFORE_G_DT: '20260612',
     NOW_G_DT: TEST_DATE,
@@ -80,8 +80,8 @@ export function cleanupGameServiceTestState(tempDirs: string[]): void {
   delete process.env.KBO_CACHE_TTL_GAME_IDLE_SEC
   delete process.env.KBO_CACHE_TTL_GAME_LIVE_SEC
   delete process.env.KBO_CACHE_STALE_IF_ERROR_SEC
-  delete process.env.KBO_DB_ENABLED
-  delete process.env.KBO_DB_PATH
+  delete process.env.BASEBALL_LIVE_KR_DB_ENABLED
+  delete process.env.BASEBALL_LIVE_KR_DB_PATH
   closeDatabase()
   for (const dir of tempDirs.splice(0)) {
     rmSync(dir, { recursive: true, force: true })
@@ -98,10 +98,10 @@ export function seedPitcherRecord(
     teamName: string
   }> = {}
 ): void {
-  process.env.KBO_DB_ENABLED = '1'
+  process.env.BASEBALL_LIVE_KR_DB_ENABLED = '1'
   const dir = mkdtempSync(join(tmpdir(), prefix))
   tempDirs.push(dir)
-  process.env.KBO_DB_PATH = join(dir, 'test.sqlite')
+  process.env.BASEBALL_LIVE_KR_DB_PATH = join(dir, 'test.sqlite')
   upsertPitchingSeasonRecords(TEST_DATE, [{
     playerId: overrides.playerId ?? '55633',
     playerName: overrides.playerName ?? '올러',

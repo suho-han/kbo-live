@@ -1,0 +1,8 @@
+misleading_success_output probe
+Package command printed success; independently verifying key files and old-name absence.
+
+-rw-r--r--@ 1 suhohan  staff  122880 Jul  2 01:27 .build/baseball-live-kr-backend-macos/.data/baseball-live-kr.sqlite
+-rw-r--r--@ 1 suhohan  staff     376 Jul  2 01:27 .build/baseball-live-kr-backend-macos/README.txt
+-rwxr-xr-x@ 1 suhohan  staff     656 Jul  2 01:27 .build/baseball-live-kr-backend-macos/run-backend.command
+
+Old package/env names in generated key files (expected none):
