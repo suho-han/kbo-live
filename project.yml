@@ -46,8 +46,8 @@ targets:
       - path: KboLiveApp/macOS
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.suhohan.kbo-live.macos
-        PRODUCT_NAME: KboLiveApp
+        PRODUCT_BUNDLE_IDENTIFIER: kr.suhohan.baseballlivekr.macos
+        PRODUCT_NAME: BaseballLiveKR
         GENERATE_INFOPLIST_FILE: NO
         INFOPLIST_FILE: KboLiveApp/macOS/Info.plist
   KboLiveWidgetExtension:
