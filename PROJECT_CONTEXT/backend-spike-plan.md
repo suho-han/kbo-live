@@ -1,4 +1,4 @@
-# KBO Live Backend Spike Plan
+# Baseball LIVE KR Backend Spike Plan
 
 > **For Hermes:** Use subagent-driven-development skill to implement this plan task-by-task.
 
@@ -14,7 +14,7 @@
 - dump 스크립트에 raw + normalized payload fixture 저장 기능 추가
 - 아직 실제 live 경기 시간대의 inning/count/bases/current 변화 검증은 추가로 필요
 
-**Goal:** KBO Live 앱용 중간 backend/BFF의 최소 기술 검증(spike)을 수행해 공식 KBO 데이터 소스를 안정적으로 수집·정규화할 수 있는지 확인한다.
+**Goal:** Baseball LIVE KR 앱용 중간 backend/BFF의 최소 기술 검증(spike)을 수행해 공식 KBO 데이터 소스를 안정적으로 수집·정규화할 수 있는지 확인한다.
 
 **Architecture:** 공식 KBO 웹서비스를 backend가 polling하고, 응답을 앱 친화적인 JSON 모델로 정규화한 뒤 iOS/macOS/widget/live activity가 이 backend만 바라보도록 구성한다. spike 단계에서는 production-grade 배포보다 데이터 접근 안정성, 응답 구조 검증, 정규화 가능성, polling 리스크 파악에 집중한다.
 

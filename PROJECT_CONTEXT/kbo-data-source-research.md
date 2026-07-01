@@ -3,7 +3,7 @@
 작성일: 2026-06-10
 상태: Research Note v0.1
 검증 환경: `/home/suhohan/kbo-live` Linux shell에서 HTTP 호출 확인
-목적: KBO Live 앱의 초기 데이터 소스 및 실시간 공급 방식을 결정하기 위한 조사 메모
+목적: Baseball LIVE KR 앱의 초기 데이터 소스 및 실시간 공급 방식을 결정하기 위한 조사 메모
 
 ## 1. 결론 요약
 

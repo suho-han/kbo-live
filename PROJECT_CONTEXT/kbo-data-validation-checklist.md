@@ -79,7 +79,7 @@ npm run build
 Swift DTO/mapper contract:
 
 ```bash
-cd Packages/KboLiveCore
+cd Packages/BaseballLiveKRCore
 swift test --disable-sandbox
 ```
 

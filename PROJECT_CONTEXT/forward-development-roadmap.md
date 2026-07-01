@@ -1,4 +1,4 @@
-# KBO Live Forward Development Roadmap
+# Baseball LIVE KR Forward Development Roadmap
 
 작성일: 2026-06-12
 업데이트: 2026-06-14
@@ -34,9 +34,9 @@ MVP에서 제외:
 - `/games/today`
 - `/games/:gameId`
 - `/debug/source/today`
-- `KboLiveCore` domain/DTO/mapper/projection
-- `KboLiveCore` networking/repository/polling service
-- `KboLiveDesignSystem` token/theme/primitive scaffold
+- `BaseballLiveKRCore` domain/DTO/mapper/projection
+- `BaseballLiveKRCore` networking/repository/polling service
+- `BaseballLiveKRDesignSystem` token/theme/primitive scaffold
 - Xcode workspace/project
 - iOS app target
 - macOS menu bar target
@@ -47,10 +47,10 @@ MVP에서 제외:
 
 검증된 것:
 - `backend-spike` typecheck/test/build 통과
-- `KboLiveCore` Swift test 16개 통과
+- `BaseballLiveKRCore` Swift test 16개 통과
 - 실제 KBO 응답 기준 `/games/today` 정상 동작 확인
 - 2026-06-14 기준 6월 전체 schedule 90경기 로드 확인
-- `KboLivemacOS` Xcode build 통과
+- `BaseballLiveKRmacOS` Xcode build 통과
 
 아직 없는 것:
 - Live Activity extension
@@ -80,15 +80,15 @@ MVP에서 제외:
 - 현재 추가된 Core networking 계층과 DesignSystem을 모두 검증 가능한 상태로 만든다.
 
 작업:
-- `KboLiveDesignSystem` Swift build 실행
+- `BaseballLiveKRDesignSystem` Swift build 실행
 - DesignSystem compile error 수정
-- `KboLiveCore` 테스트 명령 README 또는 validation checklist에 반영
+- `BaseballLiveKRCore` 테스트 명령 README 또는 validation checklist에 반영
 - `.connect/` 파일을 git에 포함할지 제외할지 결정
 - 현재 변경분을 기능 단위로 커밋할 준비
 
 완료 기준:
-- `Packages/KboLiveCore` test 통과
-- `Packages/KboLiveDesignSystem` build 통과
+- `Packages/BaseballLiveKRCore` test 통과
+- `Packages/BaseballLiveKRDesignSystem` build 통과
 - `AGENTS.md` 규칙 확인
 - 현재 작업 트리 변경이 의도별로 구분됨
 
@@ -111,10 +111,10 @@ MVP에서 제외:
 - facade 테스트 추가
 
 예상 파일:
-- `Packages/KboLiveCore/Sources/KboLiveCore/App/GameFeedClient.swift`
-- `Packages/KboLiveCore/Sources/KboLiveCore/App/KboLiveEnvironment.swift`
-- `Packages/KboLiveCore/Sources/KboLiveCore/Mocks/MockGameRepository.swift`
-- `Packages/KboLiveCore/Tests/KboLiveCoreTests/GameFeedClientTests.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/App/GameFeedClient.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/App/BaseballLiveKREnvironment.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mocks/MockGameRepository.swift`
+- `Packages/BaseballLiveKRCore/Tests/BaseballLiveKRCoreTests/GameFeedClientTests.swift`
 
 완료 기준:
 - 앱에서 `GameFeedClient.live(baseURL:)` 형태로 조립 가능
@@ -127,13 +127,13 @@ MVP에서 제외:
 - 실제 Apple 플랫폼 앱 개발을 시작할 수 있는 workspace를 만든다.
 
 작업:
-- `KboLive.xcworkspace` 생성
-- `KboLiveApp/KboLiveApp.xcodeproj` 생성
+- `BaseballLiveKR.xcworkspace` 생성
+- `BaseballLiveKR.xcodeproj` 생성
 - iOS app target 생성
 - macOS app target 생성
 - Widget extension 생성
 - Live Activity extension 생성
-- `KboLiveCore`, `KboLiveDesignSystem` package 연결
+- `BaseballLiveKRCore`, `BaseballLiveKRDesignSystem` package 연결
 
 완료 기준:
 - iOS app 빈 화면 build 성공
@@ -291,7 +291,7 @@ MVP에서 제외:
 
 ## 14. 권장 작업 순서
 
-1. `KboLiveDesignSystem` build 검증
+1. `BaseballLiveKRDesignSystem` build 검증
 2. `GameFeedClient` facade 구현
 3. 현재 변경분 커밋 정리
 4. Xcode workspace 및 target 생성

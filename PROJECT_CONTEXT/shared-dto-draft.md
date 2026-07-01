@@ -1,15 +1,15 @@
-# KBO Live Shared DTO Draft
+# Baseball LIVE KR Shared DTO Draft
 
 작성일: 2026-06-10
 상태: Working v0.2
 기준 source: `backend-spike`의 `/games/today`, `/games/:gameId` normalized JSON
 
 업데이트 메모 (2026-06-10):
-- `Packages/KboLiveCore/Sources/KboLiveCore/DTO/GameDTO.swift`에 초안 DTO 구현 반영
-- `Packages/KboLiveCore/Sources/KboLiveCore/Mappers/GameDTOMapper.swift`에 blank-to-nil 및 backend basic ISO/extended ISO 겸용 startTime 파싱 반영
-- `Packages/KboLiveCore/Sources/KboLiveCore/Projections/`에 widget / live activity / menu bar용 projection 모델 추가
-- `Packages/KboLiveCore/Sources/KboLiveCore/Mappers/`에 projection mapper 초안 추가
-- `Packages/KboLiveCore/Tests/KboLiveCoreTests/Fixtures/today-games-response.json` fixture 및 projection 테스트 추가
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/DTO/GameDTO.swift`에 초안 DTO 구현 반영
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mappers/GameDTOMapper.swift`에 blank-to-nil 및 backend basic ISO/extended ISO 겸용 startTime 파싱 반영
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Projections/`에 widget / live activity / menu bar용 projection 모델 추가
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mappers/`에 projection mapper 초안 추가
+- `Packages/BaseballLiveKRCore/Tests/BaseballLiveKRCoreTests/Fixtures/today-games-response.json` fixture 및 projection 테스트 추가
 
 ## 1. 목표
 
@@ -100,7 +100,7 @@ TodayGamesResponseDTO
 ## 4. 권장 파일 배치
 
 ```text
-Packages/KboLiveCore/Sources/KboLiveCore/DTO/
+Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/DTO/
 ├── TodayGamesResponseDTO.swift
 ├── GameDetailResponseDTO.swift
 ├── GameDTO.swift

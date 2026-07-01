@@ -4,7 +4,7 @@
 
 ## 1. 목표
 
-KBO Live의 iOS/macOS UI를 Apple Liquid Glass 계열의 플랫폼 네이티브 질감과 Toss식 명확한 정보 위계로 정리한다.
+Baseball LIVE KR의 iOS/macOS UI를 Apple Liquid Glass 계열의 플랫폼 네이티브 질감과 Toss식 명확한 정보 위계로 정리한다.
 
 핵심 목표:
 
@@ -24,7 +24,7 @@ Apple:
 Toss:
 
 - TDS는 Toss 제품군의 공통 디자인 언어이자 협업 기준이다.
-- 공개 문서의 라이선스 범위는 App in Toss 사용으로 제한되므로 KBO Live에 Toss UI Kit 자체를 복제하거나 asset을 가져오지 않는다.
+- 공개 문서의 라이선스 범위는 App in Toss 사용으로 제한되므로 Baseball LIVE KR에 Toss UI Kit 자체를 복제하거나 asset을 가져오지 않는다.
 - 적용 대상은 원칙과 UX 패턴이다: 빠른 이해, 일관성, 명확한 액션, 간결한 텍스트, 안정적인 spacing/typography.
 
 참고 URL:
@@ -71,7 +71,7 @@ Toss:
 - CTA는 한 화면에 primary 1개, secondary 1~2개만 둔다.
 - 에러/빈 상태 문구는 짧게 쓰고 바로 해결 액션을 붙인다.
 
-KBO Live에 적용:
+Baseball LIVE KR에 적용:
 
 - 오늘 화면 primary question: "내 팀 경기가 지금 어떤 상태인가?"
 - 리그 섹션 primary question: "오늘 전체 경기는 어떻게 진행 중인가?"
@@ -82,9 +82,9 @@ KBO Live에 적용:
 
 현재 위치:
 
-- `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Tokens/`
-- `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Theme/`
-- `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/`
+- `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/`
+- `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Theme/`
+- `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/`
 
 추가/수정할 토큰:
 
@@ -336,7 +336,7 @@ KBO Live에 적용:
 
 결정 필요:
 
-- KBO Live의 기본 모드는 dark sports dashboard 유지 여부
+- Baseball LIVE KR의 기본 모드는 dark sports dashboard 유지 여부
 - production build target을 iOS 26/macOS 26으로 올릴 시점
 - staging/production backend preset의 실제 URL
 - screenshot regression 도입 여부

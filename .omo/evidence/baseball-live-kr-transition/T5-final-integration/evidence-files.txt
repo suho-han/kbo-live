@@ -25,7 +25,9 @@
 .omo/evidence/baseball-live-kr-transition/T5-final-integration/manual-qa/cleanup-process-probe.txt
 .omo/evidence/baseball-live-kr-transition/T5-final-integration/manual-qa/packaged-backend-health.txt
 .omo/evidence/baseball-live-kr-transition/T5-final-integration/remediation/active-doc-stale-name-search.txt
+.omo/evidence/baseball-live-kr-transition/T5-final-integration/remediation/all-current-project-doc-stale-name-search.txt
 .omo/evidence/baseball-live-kr-transition/T5-final-integration/remediation/bash-n-scripts-after-remediation.txt
 .omo/evidence/baseball-live-kr-transition/T5-final-integration/remediation/broader-current-doc-stale-name-search.txt
+.omo/evidence/baseball-live-kr-transition/T5-final-integration/remediation/full-working-diff-check-after-all-docs.txt
 .omo/evidence/baseball-live-kr-transition/T5-final-integration/remediation/full-working-diff-check-after-broader-docs.txt
 .omo/evidence/baseball-live-kr-transition/T5-final-integration/remediation/full-working-diff-check.txt

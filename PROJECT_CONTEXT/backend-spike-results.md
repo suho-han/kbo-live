@@ -1,4 +1,4 @@
-# KBO Live Backend Spike Results
+# Baseball LIVE KR Backend Spike Results
 
 작성일: 2026-06-10
 업데이트: 2026-06-14

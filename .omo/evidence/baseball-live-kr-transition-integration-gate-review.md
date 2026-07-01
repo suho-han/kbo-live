@@ -1,91 +1,158 @@
-# Baseball LIVE KR Transition Integration Gate Review
+# Baseball LIVE KR Transition Integration Gate Re-review
 
 recommendation: REJECT
 
 ## originalIntent
 
-Integrate the approved T1-T4 Baseball LIVE KR transition work into `codex/baseball-live-kr-transition-integration` at `7fbb491`, then provide final T5 evidence that the integrated branch builds, tests, packages, verifies release assets, cleans up processes, and contains no stale product/project/script names or misleading success evidence.
+Integrate the approved T1-T4 Baseball LIVE KR transition work into `codex/baseball-live-kr-transition-integration`, keep T1-T4 heads plus T5 commits reachable from `HEAD`, and demonstrate that the branch uses current Baseball LIVE KR project/package/scheme/runtime names across build, release, docs, and verification surfaces.
 
 ## desiredOutcome
 
-The user should receive an integrated Baseball LIVE KR branch where the approved member commits are reachable, all user-facing build/package/release instructions use current names, release asset verification fails on missing or zero-inspection targets, branch diff hygiene is clean, and T5 evidence includes code review/slop coverage, manual QA, adversarial checks, cleanup, and verification outputs.
+The user should receive a branch that builds and verifies as Baseball LIVE KR, exposes only BaseballLiveKR Xcode schemes, rejects release artifacts that contain official visual asset filenames or uninspected targets, has clean branch diff hygiene, and has no stale active documentation that would tell a developer to use old `KBO Live` / `KboLive*` project, package, scheme, app, or env names.
 
 ## userOutcomeReview
 
-The branch integrates the T1-T4 heads and has strong build/test/package evidence, but it does not yet satisfy the user-visible completion outcome. Active release operations documentation still gives old `KboLiveApp.xcodeproj` / `KboLivemacOS` commands and old package artifact names that no longer match the integrated branch. The full branch diff fails `git diff --check`, while T5 records a green diff-check artifact without enough command context to support that claim for the integrated branch. T5 also lacks a code-review/slop report for the final integration diff.
+The requested fresh probes mostly pass: full diff whitespace is clean, the exact six-file broad-doc scan returns no matches, the expected T1-T4/T5 commits are all ancestors of `HEAD`, the generated project lists the BaseballLiveKR schemes, and the release asset verifier positive/negative probes behave correctly.
+
+I cannot approve because a stricter pass over documents that `PROJECT_CONTEXT/README.md` itself lists as "current reference docs" still finds old `KBO Live` / `KboLive*` names and stale command paths. This is the same blocker class as the prior rejection: active docs can still mislead future work after the rename.
 
 ## blockers
 
-1. Full branch diff hygiene fails.
-   - Command run: `git diff --check $(git merge-base main HEAD)..HEAD`
-   - Exit: `2`
+1. Active current-reference docs still contain stale names outside the narrower six-file scan.
+   - `PROJECT_CONTEXT/README.md` says root `PROJECT_CONTEXT` keeps only current reference docs and lists these files under "현재 참고 문서".
+   - Command run:
+
+```bash
+rg -n 'KboLiveApp\.xcodeproj|KboLivemacOS|KboLiveiOS|KboLiveWidgetExtension|KboLiveCore|KboLiveDesignSystem|KboLiveFeatures|KBO_LIVE_BASE_URL|KBO Live' PROJECT_CONTEXT/forward-development-roadmap.md PROJECT_CONTEXT/backend-spike-plan.md PROJECT_CONTEXT/backend-spike-results.md PROJECT_CONTEXT/team-player-records-db-plan.md PROJECT_CONTEXT/kbo-data-quality-regression-plan.md PROJECT_CONTEXT/app-productization-roadmap.md PROJECT_CONTEXT/macos-release-operations.md PROJECT_CONTEXT/mvp-stability-checklist.md PROJECT_CONTEXT/liquid-glass-toss-design-plan.md PROJECT_CONTEXT/kbo-data-source-research.md PROJECT_CONTEXT/shared-dto-draft.md PROJECT_CONTEXT/swiftui-component-structure.md PROJECT_CONTEXT/kbo-data-validation-checklist.md
+```
+
+   - Exit: `0`
    - Evidence:
-     - `.omo/evidence/baseball-live-kr-transition/T3-backend-scripts-docs/npm-build.txt:4: new blank line at EOF.`
-     - `.omo/evidence/baseball-live-kr-transition/T3-backend-scripts-docs/npm-test.txt:112: new blank line at EOF.`
-     - `.omo/evidence/baseball-live-kr-transition/T3-backend-scripts-docs/typescript-no-excuse-fallback-rg.txt:3: new blank line at EOF.`
-     - `baseball-live-kr-deployment-plan.md:3-8: trailing whitespace.`
-   - Evidence gap: T5 `green/git-diff-check.txt` contains only `git_diff_check_exit=0` and does not show the checked range. It is not sufficient evidence for whole-branch hygiene.
+     - `PROJECT_CONTEXT/forward-development-roadmap.md:1`: `# KBO Live Forward Development Roadmap`
+     - `PROJECT_CONTEXT/forward-development-roadmap.md:37`: `KboLiveCore`
+     - `PROJECT_CONTEXT/forward-development-roadmap.md:53`: `KboLivemacOS`
+     - `PROJECT_CONTEXT/forward-development-roadmap.md:131`: `KboLiveApp/KboLiveApp.xcodeproj`
+     - `PROJECT_CONTEXT/kbo-data-validation-checklist.md:82`: `cd Packages/KboLiveCore`
+     - `PROJECT_CONTEXT/shared-dto-draft.md:1`: `# KBO Live Shared DTO Draft`
+     - `PROJECT_CONTEXT/shared-dto-draft.md:103`: `Packages/KboLiveCore/Sources/KboLiveCore/DTO/`
+     - `PROJECT_CONTEXT/liquid-glass-toss-design-plan.md:85-87`: old `Packages/KboLiveDesignSystem/...` paths
+     - `PROJECT_CONTEXT/backend-spike-plan.md:1`: `# KBO Live Backend Spike Plan`
+   - User impact: these docs are not under `PROJECT_CONTEXT/archive/` and are advertised as current references, so they remain an active stale-instruction surface.
 
-2. T5 final integration evidence lacks the required code-review/slop coverage.
-   - Command run: `rg -n "code review|Remove-AI-Slops|Overfit|programming|tautological|implementation-mirroring|deletion-only|excessive|useless tests|unnecessary extraction" .omo/evidence/baseball-live-kr-transition/T5-final-integration`
-   - Exit: `1`, no matches.
-   - Evidence gap: T3 and T4 member evidence include review/slop matrices, but T5 does not contain an integration-level code review report and does not explicitly cover the `remove-ai-slops` overfit/slop criteria for final conflict resolutions and residual fixes.
+## requestedProbeEvidence
 
-3. Active release documentation still contains stale/broken project, scheme, and package names.
-   - File: `PROJECT_CONTEXT/macos-release-operations.md`
-   - Stale evidence:
-     - line 7: `KboLivemacOS`
-     - lines 14-15: `xcodebuild -project KboLiveApp.xcodeproj` and `-scheme KboLivemacOS`
-     - line 41: `.build/transfer/kbo-live-macmini-runtime.tar.gz`
-     - line 47: `.build/kbo-live-backend-macos`
-     - lines 101-102: release build still uses `KboLiveApp.xcodeproj` / `KboLivemacOS`
-     - line 154: pre-release checklist still says `KboLivemacOS` build.
-   - User impact: the integration branch no longer has `KboLiveApp.xcodeproj`; current schemes are `BaseballLiveKRiOS`, `BaseballLiveKRmacOS`, and `BaseballLiveKRWidgetExtension`.
+- Command:
 
-4. T5 adversarial evidence for default zero roots is incomplete as an artifact.
-   - Artifact: `.omo/evidence/baseball-live-kr-transition/T5-final-integration/adversarial/verify-release-assets-default-zero-roots.txt`
-   - It contains only `No release/staged artifact roots exist to inspect.` and no exit code or command context.
-   - Direct verification passed: `./scripts/verify-release-assets.sh /tmp/definitely-missing-t5-gate-review-path` exits `2` and prints the expected missing-target error. This means the script behavior is likely correct, but the T5 artifact is incomplete.
+```bash
+git diff --check $(git merge-base main HEAD)..HEAD
+```
+
+  - Exit: `0`
+  - Output: no output.
+
+- Command:
+
+```bash
+rg -n 'KboLiveApp\.xcodeproj|KboLivemacOS|KboLiveiOS|KboLiveWidgetExtension|KboLiveCore|KboLiveDesignSystem|KboLiveFeatures|KBO_LIVE_BASE_URL|KBO Live' PROJECT_CONTEXT/README.md PROJECT_CONTEXT/xcode-project-structure.md PROJECT_CONTEXT/live-activity-verification.md PROJECT_CONTEXT/production-backend-strategy.md PROJECT_CONTEXT/widget-live-activity-personalization-plan.md DESIGN.md
+```
+
+  - Exit: `1`
+  - Output: no matches.
+
+- Command:
+
+```bash
+for c in 1c83b3f fc0e231 f4d8863 df90756 7fbb491 29a0945 151aa80; do git merge-base --is-ancestor "$c" HEAD && echo "$c ancestor-of-HEAD" || echo "$c NOT-ancestor-of-HEAD"; done
+```
+
+  - Exit: `0`
+  - Output:
+    - `1c83b3f ancestor-of-HEAD`
+    - `fc0e231 ancestor-of-HEAD`
+    - `f4d8863 ancestor-of-HEAD`
+    - `df90756 ancestor-of-HEAD`
+    - `7fbb491 ancestor-of-HEAD`
+    - `29a0945 ancestor-of-HEAD`
+    - `151aa80 ancestor-of-HEAD`
+
+- Command:
+
+```bash
+xcodebuild -list -project BaseballLiveKR.xcodeproj
+```
+
+  - Exit: `0`
+  - Evidence: targets and schemes are `BaseballLiveKRWidgetExtension`, `BaseballLiveKRiOS`, and `BaseballLiveKRmacOS`.
+
+- Release asset verifier positive probe:
+
+```bash
+tmp=$(mktemp -d); ./scripts/verify-release-assets.sh "$tmp"; rc=$?; rm -rf "$tmp"; echo "exit=$rc"
+```
+
+  - Output: `No official visual asset filenames found in release/staged artifacts.` and `exit=0`.
+
+- Release asset verifier official-asset negative probe:
+
+```bash
+tmp=$(mktemp -d); touch "$tmp/HH.png"; ./scripts/verify-release-assets.sh "$tmp"; rc=$?; rm -rf "$tmp"; echo "exit=$rc"
+```
+
+  - Output includes the temp `HH.png`, `Official visual asset risk found in release/staged artifacts.`, and `exit=1`.
+
+- Release asset verifier missing-target negative probe:
+
+```bash
+./scripts/verify-release-assets.sh /tmp/definitely-missing-t5-rereview-path; echo "exit=$?"
+```
+
+  - Output includes `Missing release/staged artifact target: /tmp/definitely-missing-t5-rereview-path`, `One or more explicit release/staged artifact targets were missing.`, and `exit=2`.
+
+## slopAndProgrammingReview
+
+Direct remove-ai-slops pass: no unresolved production-code slop blocker found in the inspected final diff surfaces. The verifier probes are behavioral, not removal-only; the remediation added no new tests; the sampled changed source/script files are below the 250 pure LOC ceiling except pre-existing large Swift view files not expanded by this remediation. No `as any`, `@ts-ignore`, or `@ts-expect-error` appears in the reviewed remediation evidence.
+
+Report coverage check: `.omo/evidence/baseball-live-kr-transition/T5-final-integration/gate-remediation-review.md` explicitly covers code review, remove-ai-slops/overfit taxonomy, excessive/useless tests, deletion/removal-only tests, tautological tests, implementation-mirroring tests, unnecessary extraction/parsing/normalization, and programming criteria. T1/T3/T4 review artifacts also include slop/programming matrices. Report coverage exists, but it does not overcome the remaining active-doc blocker above.
 
 ## checkedArtifactPaths
 
 - `.omo/evidence/baseball-live-kr-transition/T5-final-integration/integration-summary.md`
 - `.omo/evidence/baseball-live-kr-transition/T5-final-integration/manual-qa-matrix.md`
-- `.omo/evidence/baseball-live-kr-transition/T5-final-integration/cleanup-receipt.md`
-- `.omo/evidence/baseball-live-kr-transition/T5-final-integration/evidence-files.txt`
-- `.omo/evidence/baseball-live-kr-transition/T5-final-integration/green/*`
-- `.omo/evidence/baseball-live-kr-transition/T5-final-integration/adversarial/verify-release-assets-default-zero-roots.txt`
-- `.omo/evidence/baseball-live-kr-transition/T5-final-integration/manual-qa/*`
+- `.omo/evidence/baseball-live-kr-transition/T5-final-integration/gate-remediation-review.md`
+- `.omo/evidence/baseball-live-kr-transition/T5-final-integration/remediation/broader-current-doc-stale-name-search.txt`
+- `.omo/evidence/baseball-live-kr-transition/T5-final-integration/remediation/full-working-diff-check-after-broader-docs.txt`
+- `.omo/evidence/baseball-live-kr-transition/T1-project-swift/code_review_programming_slop_audit.txt`
 - `.omo/evidence/baseball-live-kr-transition/T3-backend-scripts-docs/code-review-manual-qa-matrix.md`
-- `.omo/evidence/baseball-live-kr-transition/T3-backend-scripts-docs/residual-old-t3-names.txt`
 - `.omo/evidence/baseball-live-kr-transition/T4-rights-release-qa/implementation-review.md`
-- `.omo/evidence/baseball-live-kr-transition/T4-rights-release-qa/notepad.md`
+- `PROJECT_CONTEXT/README.md`
+- `PROJECT_CONTEXT/xcode-project-structure.md`
+- `PROJECT_CONTEXT/live-activity-verification.md`
+- `PROJECT_CONTEXT/production-backend-strategy.md`
+- `PROJECT_CONTEXT/widget-live-activity-personalization-plan.md`
 - `PROJECT_CONTEXT/macos-release-operations.md`
-- `docs/dev.md`
-- `scripts/verify-release-assets.sh`
+- `PROJECT_CONTEXT/mvp-stability-checklist.md`
+- `PROJECT_CONTEXT/forward-development-roadmap.md`
+- `PROJECT_CONTEXT/backend-spike-plan.md`
+- `PROJECT_CONTEXT/backend-spike-results.md`
+- `PROJECT_CONTEXT/team-player-records-db-plan.md`
+- `PROJECT_CONTEXT/liquid-glass-toss-design-plan.md`
+- `PROJECT_CONTEXT/kbo-data-source-research.md`
+- `PROJECT_CONTEXT/shared-dto-draft.md`
+- `PROJECT_CONTEXT/swiftui-component-structure.md`
+- `PROJECT_CONTEXT/kbo-data-validation-checklist.md`
+- `DESIGN.md`
 - `BaseballLiveKR.xcodeproj/project.pbxproj`
 - `project.yml`
-- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/App/BaseballLiveKREnvironment.swift`
-- `Packages/BaseballLiveKRFeatures/Sources/BaseballLiveKRFeatures/TodayGames/MyTeamSelectionStore.swift`
-- `backend-spike/src/db/database.ts`
-- `backend-spike/tests/rawSourceRepository.test.ts`
-
-## directVerification
-
-- T1-T4 approved heads are reachable from `HEAD`:
-  - `1c83b3f`: ancestor exit `0`
-  - `fc0e231`: ancestor exit `0`
-  - `f4d8863`: ancestor exit `0`
-  - `df90756`: ancestor exit `0`
-- T5 build/test evidence shows passing Swift, npm, xcodegen, xcodebuild, package, health, and release-asset checks.
-- Direct missing-target verifier check exits `2`, so the missing-target false-success production issue appears fixed.
-- Direct official asset reference check finds only intended excludes/source-asset tooling and verifier patterns; no generated project release resource references were found.
-- Direct slop/programming pass found no oversized inspected source files in the sampled final-diff code: `database.ts` 45 pure LOC, `rawSourceRepository.test.ts` 63, `verify-release-assets.sh` 92, `BaseballLiveKREnvironment.swift` 83, `MyTeamSelectionStore.swift` 40. The blocker is absent T5 report coverage plus unresolved evidence/docs hygiene, not a newly found production extraction/parsing/normalization smell in those sampled files.
+- `scripts/verify-release-assets.sh`
+- `scripts/kbo-live.sh`
+- `scripts/package-backend-macos.sh`
+- `scripts/package-macmini-runtime.sh`
+- `scripts/run-macos-app-with-packaged-backend.sh`
+- `scripts/deploy-macmini-runtime.sh`
+- `scripts/verify-local.sh`
 
 ## exactEvidenceGaps
 
-- No T5 code-review report artifact.
-- No T5 `remove-ai-slops` / overfit matrix covering excessive/useless tests, deletion-only tests, tautological tests, implementation-mirroring tests, and unnecessary extraction/parsing/normalization for the final integration diff.
-- T5 `git-diff-check.txt` lacks command/range output and conflicts with the failing full-branch `git diff --check`.
-- T5 zero-roots adversarial artifact lacks exit code.
-- Active `PROJECT_CONTEXT/macos-release-operations.md` remains stale after integration and contradicts current project/scheme/package names.
+- The committed T5 remediation evidence records the six-file broad-doc scan as clean, but it does not account for other docs that `PROJECT_CONTEXT/README.md` classifies as current references.
+- Current-reference docs outside the exact scan still contain old product/package/scheme/path names, including stale `Packages/KboLiveCore` and `KboLiveApp.xcodeproj` guidance.
+- Because active docs remain stale, the user-visible rename/remediation outcome is not fully satisfied even though the requested narrow probes pass.

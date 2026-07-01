@@ -1,4 +1,4 @@
-# KBO Live SwiftUI Component Structure
+# Baseball LIVE KR SwiftUI Component Structure
 
 작성일: 2026-06-10
 상태: Draft v0.1
@@ -6,7 +6,7 @@
 
 ## 1. 목표
 
-KBO Live의 화면을 SwiftUI 컴포넌트 단위로 나누고, 전광판 스타일(Tone A)과 방송 중계 스타일(Tone B)을 빠르게 비교할 수 있는 구조를 정의한다.
+Baseball LIVE KR의 화면을 SwiftUI 컴포넌트 단위로 나누고, 전광판 스타일(Tone A)과 방송 중계 스타일(Tone B)을 빠르게 비교할 수 있는 구조를 정의한다.
 
 핵심 원칙:
 - 정보 우선순위가 UI 계층에도 그대로 반영되어야 함
@@ -57,7 +57,7 @@ KBO Live의 화면을 SwiftUI 컴포넌트 단위로 나누고, 전광판 스타
 권장 타입:
 
 ```text
-KboLiveDesignSystem/
+BaseballLiveKRDesignSystem/
 ├── Tokens/
 │   ├── KboColorToken.swift
 │   ├── KboSpacingToken.swift
@@ -182,7 +182,7 @@ KboLiveDesignSystem/
 - live activity
 - menu bar dropdown
 
-이 컴포넌트는 KBO Live의 핵심 primitive 중 하나다.
+이 컴포넌트는 Baseball LIVE KR의 핵심 primitive 중 하나다.
 
 ---
 

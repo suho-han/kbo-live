@@ -1,11 +1,11 @@
 # Baseball LIVE KR — 브랜딩 · 네이밍 · 배포 정책
 
-> 이 문서는 `KboLive`/`KBO Live` 브랜딩을 스토어 출시용 **Baseball LIVE KR** 브랜드로 전환하기 위한 정책 기준서다.
+> 이 문서는 스토어 출시용 **Baseball LIVE KR** 브랜드와 배포 식별자를 고정하기 위한 정책 기준서다.
 > KBO 상표를 앱명·식별자·아이콘·패키지명에서 제거하고, `suhohan.kr` 기준의 `kr.suhohan.*` reverse-DNS 식별자로 통일한다.
 
 ## 현재 반영 범위 (중요)
 
-이 문서는 **전체 배포 정책**(iOS/Android/백엔드/MCP/Skill 포함)을 기록하지만, 실제 **코드 반영은 macOS 앱에 한정**되어 있다.
+이 문서는 **전체 배포 정책**(iOS/Android/백엔드/MCP/Skill 포함)을 기록한다. 현재 iOS/macOS/Widget, Swift 모듈, backend companion, GitHub repo/runtime URL, App Group, release asset policy는 Baseball LIVE KR 기준으로 반영되어 있다.
 
 | 항목 | 상태 |
 | --- | --- |
@@ -13,11 +13,12 @@
 | macOS 표시명 (창 제목/메뉴바/대시보드/홈 헤더 → `Baseball LIVE KR`) | ✅ 완료 |
 | macOS 식별자 (`kr.suhohan.baseballlivekr.macos`, PRODUCT_NAME `BaseballLiveKR`) | ✅ 완료 |
 | macOS Dock/Finder 표시명 (`CFBundleDisplayName = Baseball LIVE KR`) | ✅ 완료 |
-| iOS/Widget Bundle ID · App Group rename | ⬜ 미완료 |
-| 백엔드 URL / `KBO_LIVE_*` 환경변수 rename | ⬜ 미완료 (HTTPS 백엔드 준비 후) |
-| ATS(`NSAllowsArbitraryLoads`) 제거 | ⬜ 미완료 (HTTPS 백엔드 준비 후) |
-| Swift 모듈/디렉터리/타입 prefix(`KboLive*`) 리팩터 | ⬜ 미완료 |
-| GitHub repo · backend/MCP 패키지명 rename | ⬜ 미완료 |
+| iOS/Widget Bundle ID · App Group rename | ✅ 완료 |
+| 백엔드 URL / `BASEBALL_LIVE_KR_*` 환경변수 rename | ✅ 완료 |
+| ATS(`NSAllowsArbitraryLoads`) 제거 | ✅ 완료 |
+| Swift 모듈/디렉터리/타입 prefix 리팩터 | ✅ 완료 |
+| GitHub repo · backend package/runtime URL rename | ✅ 완료 |
+| MCP package명 | ⬜ 미완료 |
 | MCP 서버 · Claude Skill 공개 | ⬜ 미완료 (앱 출시 후) |
 
 ---
@@ -38,7 +39,7 @@
 | GitHub | suho-han/baseball-live-kr |
 | iOS Bundle ID | kr.suhohan.baseballlivekr.ios |
 | macOS Bundle ID | kr.suhohan.baseballlivekr.macos |
-| Widget Bundle ID | kr.suhohan.baseballlivekr.widget |
+| Widget Bundle ID | kr.suhohan.baseballlivekr.ios.widget |
 | Android applicationId | kr.suhohan.baseballlivekr |
 | Backend package | baseball-live-kr-backend |
 | MCP package | baseball-live-kr-mcp |
@@ -73,15 +74,15 @@
 
 ## 3. 식별자 정책 (reverse-DNS `kr.suhohan.*`)
 
-`suhohan.kr` 을 기준 도메인으로 삼으므로 식별자는 `kr.suhohan.*` 형태. 기존 `com.suhohan.kbo-live.*` 를 아래로 전환.
+`suhohan.kr` 을 기준 도메인으로 삼으므로 식별자는 `kr.suhohan.*` 형태로 통일한다.
 
-| 대상 | 기존 | 신규 |
-| --- | --- | --- |
-| iOS Bundle ID | com.suhohan.kbo-live.ios | kr.suhohan.baseballlivekr.ios |
-| macOS Bundle ID | com.suhohan.kbo-live.macos | kr.suhohan.baseballlivekr.macos |
-| Widget Bundle ID | com.suhohan.kbo-live.ios.widget | kr.suhohan.baseballlivekr.widget |
-| Android applicationId | — | kr.suhohan.baseballlivekr |
-| App Group | group.com.suhohan.kbo-live | group.kr.suhohan.baseballlivekr |
+| 대상 | 값 |
+| --- | --- |
+| iOS Bundle ID | kr.suhohan.baseballlivekr.ios |
+| macOS Bundle ID | kr.suhohan.baseballlivekr.macos |
+| Widget Bundle ID | kr.suhohan.baseballlivekr.ios.widget |
+| Android applicationId | kr.suhohan.baseballlivekr |
+| App Group | group.kr.suhohan.baseballlivekr |
 
 > App Group 을 rename 하면 `WidgetGameSnapshotStore.swift` 와 iOS/Widget entitlements 3곳을 **동시에** 맞춰야 하며, 기존 공유 UserDefaults 데이터는 마이그레이션되지 않는다.
 
@@ -150,17 +151,17 @@ GET https://api.suhohan.kr/baseball-live-kr/v1/standings
 GET https://api.suhohan.kr/baseball-live-kr/v1/players/search
 ```
 
-### ATS / HTTPS 하드닝 (미완료)
-현재 macOS 는 `NSAllowsArbitraryLoads = true`, iOS 는 특정 IP HTTP 예외를 사용한다. 출시 빌드에서는 심사 리스크이므로 제거해야 한다. 단, **HTTPS 프로덕션 백엔드(`api.suhohan.kr`)가 준비된 뒤** 별도 PR 로 진행한다 (현재 백엔드는 `http://140.245.66.62:17361`). 환경변수도 함께 정리:
+### ATS / HTTPS 하드닝
+출시 빌드는 HTTPS 프로덕션 백엔드(`api.suhohan.kr`)를 기본으로 사용하고, ATS arbitrary loads/IP 예외를 포함하지 않는다. 환경변수는 다음 이름을 사용한다.
 
-| 기존 | 신규 |
+| 용도 | 값 |
 | --- | --- |
-| KBO_LIVE_BASE_URL | BASEBALL_LIVE_KR_BASE_URL |
-| KBO_LIVE_STAGING_BASE_URL | BASEBALL_LIVE_KR_STAGING_BASE_URL |
-| KBO_LIVE_PRODUCTION_BASE_URL | BASEBALL_LIVE_KR_PRODUCTION_BASE_URL |
-| KBO_USE_TEST_LIVE_GAME | BASEBALL_LIVE_KR_USE_TEST_LIVE_GAME |
+| Backend URL override | BASEBALL_LIVE_KR_BASE_URL |
+| Staging preset URL | BASEBALL_LIVE_KR_STAGING_BASE_URL |
+| Production preset URL | BASEBALL_LIVE_KR_PRODUCTION_BASE_URL |
+| Local live fixture flag | KBO_USE_TEST_LIVE_GAME |
 
-> 이 값들은 `Packages/KboLiveCore/Sources/KboLiveCore/App/KboLiveEnvironment.swift` 및 `BackendSettingsModel+Resolution.swift` 에 정의되어 iOS 와 공유되므로, rename 은 전 플랫폼 동시 작업으로 처리한다.
+> 이 값들은 `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/App/BaseballLiveKREnvironment.swift` 및 `BackendSettingsModel+Resolution.swift` 에 정의되어 iOS 와 공유되므로, rename 은 전 플랫폼 동시 작업으로 처리한다.
 
 ### MCP (앱 출시 후 별도 공개)
 - 이름 `baseball-live-kr-mcp`, endpoint `https://mcp.suhohan.kr/baseball-live-kr`.
