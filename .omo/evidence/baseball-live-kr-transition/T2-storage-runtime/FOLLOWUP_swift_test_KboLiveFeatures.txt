@@ -1,0 +1,81 @@
+Wed Jul  1 16:46:33 UTC 2026
+[0/1] Planning build
+Building for debugging...
+[0/3] Write sources
+[1/3] Write swift-version--58304C5D6DBC2206.txt
+[3/5] Compiling KboLiveCore KboLiveEnvironment.swift
+[4/5] Emitting module KboLiveCore
+[4/6] Write Objects.LinkFileList
+[5/6] Linking KboLiveFeaturesPackageTests
+Build complete! (2.71s)
+Test Suite 'All tests' started at 2026-07-02 01:46:36.607.
+Test Suite 'All tests' passed at 2026-07-02 01:46:36.609.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite TodayGamesLayoutTests started.
+◇ Suite TodayGamesViewModelTests started.
+◇ Suite MyTeamSelectionStoreTests started.
+◇ Suite ProbablePitcherChipFormatterTests started.
+◇ Suite KboDisplayDateFormatterTests started.
+◇ Test dashboardSummaryKeepsSelectedTeamNoGameCopy() started.
+◇ Test dashboardSummaryCountsGameStates() started.
+◇ Test mainWindowMinimumWidthMatchesLeagueSectionWidth() started.
+◇ Test bothPresentSelectedTeamIDKeepsNewValue() started.
+◇ Test loadStoresFriendlyFailureMessage() started.
+◇ Test commandBarWidthMatchesTeamStandingsWidth() started.
+◇ Test selectedTeamGameAppearsFirstInLeagueList() started.
+◇ Test initialFilterPrefersLiveGames() started.
+◇ Test saveSelectedTeamIDWritesOnlyNewDefaultsKey() started.
+◇ Test oldOnlySelectedTeamIDMigratesToNewDefaultsKey() started.
+◇ Test newOnlySelectedTeamIDIsUsed() started.
+◇ Test formatsPitcherRecordSummaryWhenPresent() started.
+◇ Test dashboardSummaryFocusesSelectedTeamGame() started.
+◇ Test fallsBackToNameWhenRecordIsAbsentOrEmpty() started.
+◇ Test loadStoresTeamStandings() started.
+◇ Test loadWithoutDatePreservesExplicitRequestDate() started.
+◇ Test commandBarSubtitleOmitsStatusCopyWhenWaitingForFirstRefresh() started.
+◇ Test loadOrdersGamesUsingSharedCoreRule() started.
+◇ Test initialFilterFallsBackToScheduledWhenNoLiveGames() started.
+◇ Test standingsFailureUsesGameRecordFallback() started.
+◇ Test gamesFailureDoesNotBlockLoadedStandings() started.
+◇ Test setFilterNarrowsVisibleGames() started.
+◇ Test fullDateIncludesWeekday() started.
+◇ Test commandBarSubtitleShowsOnlyDateAndRoundedFiveMinuteTime() started.
+◇ Test fullDateFallsBackForInvalidInput() started.
+◇ Test formatsMissingStarterWarningOnlyForMissingStatus() started.
+◇ Test standingsFailureDoesNotFailLoadedGames() started.
+✔ Test formatsMissingStarterWarningOnlyForMissingStatus() passed after 0.001 seconds.
+✔ Test commandBarWidthMatchesTeamStandingsWidth() passed after 0.001 seconds.
+✔ Test mainWindowMinimumWidthMatchesLeagueSectionWidth() passed after 0.001 seconds.
+✔ Test fallsBackToNameWhenRecordIsAbsentOrEmpty() passed after 0.001 seconds.
+✔ Suite TodayGamesLayoutTests passed after 0.001 seconds.
+✔ Test formatsPitcherRecordSummaryWhenPresent() passed after 0.001 seconds.
+✔ Suite ProbablePitcherChipFormatterTests passed after 0.002 seconds.
+✔ Test fullDateFallsBackForInvalidInput() passed after 0.003 seconds.
+✔ Test commandBarSubtitleOmitsStatusCopyWhenWaitingForFirstRefresh() passed after 0.004 seconds.
+✔ Test fullDateIncludesWeekday() passed after 0.004 seconds.
+✔ Test commandBarSubtitleShowsOnlyDateAndRoundedFiveMinuteTime() passed after 0.004 seconds.
+✔ Suite KboDisplayDateFormatterTests passed after 0.005 seconds.
+✔ Test dashboardSummaryKeepsSelectedTeamNoGameCopy() passed after 0.005 seconds.
+✔ Test dashboardSummaryCountsGameStates() passed after 0.005 seconds.
+✔ Test initialFilterPrefersLiveGames() passed after 0.005 seconds.
+✔ Test selectedTeamGameAppearsFirstInLeagueList() passed after 0.005 seconds.
+✔ Test loadStoresTeamStandings() passed after 0.005 seconds.
+✔ Test dashboardSummaryFocusesSelectedTeamGame() passed after 0.005 seconds.
+✔ Test loadStoresFriendlyFailureMessage() passed after 0.005 seconds.
+✔ Test initialFilterFallsBackToScheduledWhenNoLiveGames() passed after 0.005 seconds.
+✔ Test loadOrdersGamesUsingSharedCoreRule() passed after 0.005 seconds.
+✔ Test standingsFailureUsesGameRecordFallback() passed after 0.005 seconds.
+✔ Test setFilterNarrowsVisibleGames() passed after 0.005 seconds.
+✔ Test gamesFailureDoesNotBlockLoadedStandings() passed after 0.005 seconds.
+✔ Test standingsFailureDoesNotFailLoadedGames() passed after 0.005 seconds.
+✔ Test loadWithoutDatePreservesExplicitRequestDate() passed after 0.005 seconds.
+✔ Suite TodayGamesViewModelTests passed after 0.006 seconds.
+✔ Test saveSelectedTeamIDWritesOnlyNewDefaultsKey() passed after 0.006 seconds.
+✔ Test newOnlySelectedTeamIDIsUsed() passed after 0.007 seconds.
+✔ Test bothPresentSelectedTeamIDKeepsNewValue() passed after 0.009 seconds.
+✔ Test oldOnlySelectedTeamIDMigratesToNewDefaultsKey() passed after 0.009 seconds.
+✔ Suite MyTeamSelectionStoreTests passed after 0.009 seconds.
+✔ Test run with 27 tests in 5 suites passed after 0.009 seconds.

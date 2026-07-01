@@ -1,0 +1,90 @@
+T2 storage-runtime code review / slop report
+
+Scope reviewed
+- Production diff from commit 47a4bdc plus follow-up remediation in:
+  - KboLiveApp/Shared/AppRuntime.swift
+  - KboLiveApp/Shared/BackendSettingsModel.swift
+  - KboLiveApp/Shared/BackendSettingsModel+Resolution.swift
+  - KboLiveApp/Shared/BackendSettingsView.swift
+  - KboLiveApp/Shared/WidgetGameSnapshotStore.swift
+  - KboLiveApp/iOS/Info.plist
+  - KboLiveApp/iOS/KboLiveiOS.entitlements
+  - KboLiveApp/macOS/Info.plist
+  - KboLiveApp/macOS/MenuBarDashboardView.swift
+  - KboLiveApp/Widget/KboLiveWidget.entitlements
+  - Packages/KboLiveCore/Sources/KboLiveCore/App/KboLiveEnvironment.swift
+  - Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/MyTeamSelectionStore.swift
+  - Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/TodayGamesViewModel.swift
+- Tests reviewed:
+  - Packages/KboLiveCore/Tests/KboLiveCoreTests/RuntimeStringSettingMigrationTests.swift
+  - Packages/KboLiveFeatures/Tests/KboLiveFeaturesTests/MyTeamSelectionStoreTests.swift
+
+Follow-up gate remediation after 261815c
+- RuntimeStringSettingMigration.Result was reduced to value-only production metadata. Removed public source, persistedLegacyValue, removedLegacyValue, and destinationUnavailable fields because production callers consumed only value and the metadata existed only for implementation-mirroring tests.
+- RuntimeStringSettingMigrationTests now assert returned values and concrete store side effects only:
+  - old-only: returns legacy value, persists new key, removes legacy key.
+  - new-only: returns new value, leaves legacy absent.
+  - both-present: returns new value, leaves both stored values unchanged.
+  - old-inaccessible: returns nil, does not create new key, leaves legacy storage untouched.
+  - destination-unavailable: returns readable legacy value, leaves new absent and legacy present.
+  - environment new-wins and malformed-new fallback: assert returned values only.
+- Metadata removal search command:
+  - Command: rg -n 'result\.(source|persistedLegacyValue|removedLegacyValue|destinationUnavailable)|RuntimeStringSettingMigration\.Source|source:|persistedLegacyValue|removedLegacyValue|destinationUnavailable' Packages/KboLiveCore/Sources/KboLiveCore/App/KboLiveEnvironment.swift Packages/KboLiveCore/Tests/KboLiveCoreTests/RuntimeStringSettingMigrationTests.swift
+  - Result: PASS after remediation; no matches remain.
+  - Exit status: 1 from rg means no matches found.
+
+Remove-ai-slops criteria
+- Obvious comments: PASS. No obvious comments or stale TODOs added to production code.
+- Over-defensive code: FIXED. UserDefaults persist/clear no longer performs immediate read-back verification after set/remove. Destination-unavailable behavior remains testable through the RuntimeStringSettingStore seam and mock store, not through redundant UserDefaults checks.
+- Excessive complexity: PASS. Migration branching is shallow and uses guard clauses; no deeply nested conditionals or clever one-liners were introduced.
+- Needless abstraction: PASS with rationale. RuntimeStringSettingStore is a small boundary seam used by production migration code and tests to model unavailable destinations without abusing UserDefaults behavior. No speculative factories or pass-through wrappers were added.
+- Boundary violations: PASS. App Group migration stays in app/shared storage; non-App-Group defaults/env migration stays in runtime/settings code; backend scripts/docs remain T3 scope.
+- Dead code: PASS. New constants are referenced by production migration paths or tests. Old App Group constants were removed.
+- Duplication: PASS with accepted local duplication. MyTeamSelectionStore keeps a local defaults migration because this source is compiled directly into Xcode app targets where importing the Swift package module breaks the project layout; this avoids a T1-owned project/module rename.
+- Performance equivalences: PASS. No algorithmic changes. Removed redundant UserDefaults read-backs reduces unnecessary work.
+- Missing tests: PASS. Tests cover old-only, new-only, both-present new-wins, old-inaccessible, destination-unavailable, malformed env fallback, and selected-team migration/save behavior.
+- Oversized modules: PASS for the follow-up code edit and SCOPED EXEMPTION for pre-existing branch-touched oversized files. The edited migration source file is 83 pure LOC after remediation. Two pre-existing large files remain above the 250 pure-LOC ceiling, but T2 touches are narrow and cannot be split safely inside this storage-runtime slice without conflicting with the project/module/path rename owned by A/project-swift:
+  - KboLiveApp/macOS/MenuBarDashboardView.swift: 649 pure LOC. Branch diff is one line replacing the old env var name in existing backend status copy with BASEBALL_LIVE_KR_BASE_URL.
+  - Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/TodayGamesViewModel.swift: 362 pure LOC. Branch diff is 3 additions / 7 deletions replacing direct old-key UserDefaults access with UserDefaultsMyTeamSelectionStore load/save migration.
+  - Command: for f in KboLiveApp/macOS/MenuBarDashboardView.swift Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/TodayGamesViewModel.swift Packages/KboLiveCore/Sources/KboLiveCore/App/KboLiveEnvironment.swift; do printf '%s ' "$f"; awk '!/^[[:space:]]*$/ && !/^[[:space:]]*(#|\/\/)/' "$f" | wc -l | tr -d ' '; printf '\n'; done
+  - Result: MenuBarDashboardView.swift 649; TodayGamesViewModel.swift 362; KboLiveEnvironment.swift 83.
+  - Exit status: 0.
+  - Command: git diff --numstat origin/main..HEAD -- KboLiveApp/macOS/MenuBarDashboardView.swift Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/TodayGamesViewModel.swift
+  - Result: 1 add / 1 delete in MenuBarDashboardView.swift; 3 adds / 7 deletes in TodayGamesViewModel.swift.
+  - Exit status: 0.
+  - Command: git diff --unified=0 origin/main..HEAD -- KboLiveApp/macOS/MenuBarDashboardView.swift Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/TodayGamesViewModel.swift
+  - Result: only the env-var display string and selected-team store substitution hunks appear.
+  - Exit status: 0.
+  - Rationale: full modular splitting of these app/view-model files is valid technical debt, but it is outside T2 clean-break storage/runtime scope and would create integration risk with A's BaseballLiveKRCore/Features rename. This follow-up does not add responsibilities to either file; it removes direct legacy defaults access from TodayGamesViewModel and updates one user-visible env name.
+
+Programming criteria
+- Type strictness: PASS. No untyped escape hatches, force casts, or suppression comments were added.
+- Boundary purity: PASS. Env strings are accepted only after URL normalization. Defaults migration preserves string settings and leaves URL parsing at the existing runtime URL boundary.
+- Variant discrimination: PASS. No tagged variant or enum discrimination chains were added.
+- Defensive layer: FIXED. Redundant post-action verification after UserDefaults set/remove was removed.
+- Helper discipline: PASS. The migration seam has production and test callers; no one-off helper was added in the follow-up.
+- Tests: PASS. Behavior remains locked by Swift package tests and app builds recorded in the follow-up verification artifact.
+
+Overfit-test / test-slop taxonomy
+- Excessive or useless tests: PASS. The new tests target the T2 acceptance matrix only: old-only, new-only, both-present new-wins, old-inaccessible, destination-unavailable, malformed env fallback, selected-team migration, and new-key save behavior. No broad snapshot, golden dump, or unrelated UI formatting test was added.
+- Deletion-only tests: PASS. No test merely asserts that deleted text is absent. Removal of old App Group strings is covered by CLI evidence searches, while tests exercise runtime migration behavior.
+- Removal-only tests: FIXED/PASS. Tests do not only verify old names disappeared. They assert returned values, concrete store side effects, and selected-team read/write behavior without depending on migration-source or persistence/removal metadata.
+- Tautological tests: PASS. MockRuntimeStringSettingStore can fail writes and hide legacy reads, so tests would fail if migration logic ignored destination-unavailable or old-inaccessible cases. Feature tests use real UserDefaults suites rather than asserting against constants alone.
+- Implementation-mirroring tests: FIXED/PASS. Tests no longer assert source, persistedLegacyValue, removedLegacyValue, or destinationUnavailable metadata. They assert observable migration results and store side effects after one public call, so the tests do not depend on production-only metadata or duplicate line-by-line control flow.
+- Unnecessary extraction/parsing/normalization: PASS. No parsing helpers or normalization helpers were added solely for tests. URL validity remains at the existing runtime boundary; malformed env coverage calls the public migration helper with an explicit validity predicate.
+- Tests that merely verify requested removal: PASS. Removal verification is handled as manual QA artifacts. Automated tests prove preserved behavior and migration outcomes that would regress if the implementation were reverted.
+- Overfit conclusion: PASS. The tests protect behavior needed by T2 without pinning incidental implementation details or turning the requested removal into brittle assertions.
+
+Residual risks / deferred
+- Legacy KBO_LIVE_* and kbo-live.backend-* strings remain only as non-App-Group migration fallbacks and tests proving those fallbacks.
+- project.yml bundle identifiers remain T1/project-swift scope.
+- backend-spike, scripts, docs, KBO_DB_* names, and packaged DB paths remain T3/backend-scripts-docs scope.
+- Oversized-file debt remains in KboLiveApp/macOS/MenuBarDashboardView.swift and Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/TodayGamesViewModel.swift. T2 did not add responsibilities there; full modular splitting is deferred because it crosses the current storage-runtime slice and A/project-swift rename integration.
+
+Follow-up verification after this remediation
+- PASS: rg metadata search found no RuntimeStringSettingMigration source/persist/remove/destination metadata in production or tests.
+- PASS: git diff --check found no whitespace errors in the follow-up code/evidence files.
+- PASS: swift test --package-path Packages/KboLiveCore --filter RuntimeStringSettingMigrationTests (7 Swift Testing tests).
+- PASS: swift test --package-path Packages/KboLiveFeatures --filter MyTeamSelectionStoreTests (4 Swift Testing tests).
+- PASS: xcodebuild -project KboLiveApp.xcodeproj -scheme KboLiveiOS -configuration Debug -destination 'generic/platform=iOS' build CODE_SIGNING_ALLOWED=NO.
+- PASS: xcodebuild -project KboLiveApp.xcodeproj -scheme KboLivemacOS -configuration Debug -destination 'platform=macOS' build CODE_SIGNING_ALLOWED=NO. Existing warning remains for BackendSettingsModel.swift nonisolated(unsafe); not introduced by this follow-up.

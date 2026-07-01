@@ -1,0 +1,76 @@
+Wed Jul  1 16:46:33 UTC 2026
+
+## pure LOC
+Packages/KboLiveCore/Sources/KboLiveCore/App/KboLiveEnvironment.swift      107
+Command: awk '!/^[[:space:]]*$/ && !/^[[:space:]]*(\/\/|#|--)/' Packages/KboLiveCore/Sources/KboLiveCore/App/KboLiveEnvironment.swift | wc -l
+Result: PASS - 107 pure LOC, below the 250 LOC ceiling.
+Exit status: 0
+
+## redundant verification search
+Command: rg -n 'return string\(forKey: key\) == value|return object\(forKey: key\) == nil' Packages/KboLiveCore/Sources/KboLiveCore/App/KboLiveEnvironment.swift
+Result: PASS - no redundant UserDefaults set/remove read-back verification remains.
+Exit status: 1 from rg means no matches found.
+
+## diff check
+Command: git diff --check -- .omo/evidence/baseball-live-kr-transition/T2-storage-runtime/code_review_slop_report.txt .omo/evidence/baseball-live-kr-transition/T2-storage-runtime/FOLLOWUP_slop_verification.txt
+Result: PASS - no whitespace or patch-format issues reported for the evidence-only follow-up files at the time of the check.
+Exit status: 0
+
+Thu Jul  2 02:43:39 KST 2026
+
+## metadata-only Result surface search
+Command: rg -n 'result\.(source|persistedLegacyValue|removedLegacyValue|destinationUnavailable)|RuntimeStringSettingMigration\.Source|source:|persistedLegacyValue|removedLegacyValue|destinationUnavailable' Packages/KboLiveCore/Sources/KboLiveCore/App/KboLiveEnvironment.swift Packages/KboLiveCore/Tests/KboLiveCoreTests/RuntimeStringSettingMigrationTests.swift
+Result: PASS - RuntimeStringSettingMigration.Result exposes only value; tests no longer consume source/persist/remove/destination metadata.
+Exit status: 1 from rg means no matches found.
+
+## branch-scope pure LOC measurement
+Command: for f in KboLiveApp/macOS/MenuBarDashboardView.swift Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/TodayGamesViewModel.swift Packages/KboLiveCore/Sources/KboLiveCore/App/KboLiveEnvironment.swift; do printf '%s ' "$f"; awk '!/^[[:space:]]*$/ && !/^[[:space:]]*(#|\/\/)/' "$f" | wc -l | tr -d ' '; printf '\n'; done
+Result: PASS with scoped exemption recorded in code_review_slop_report.txt - MenuBarDashboardView.swift 649, TodayGamesViewModel.swift 362, KboLiveEnvironment.swift 83.
+Exit status: 0
+
+## oversized-file branch diff size
+Command: git diff --numstat origin/main..HEAD -- KboLiveApp/macOS/MenuBarDashboardView.swift Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/TodayGamesViewModel.swift
+Result: PASS with scoped exemption recorded in code_review_slop_report.txt - MenuBarDashboardView.swift has 1 add / 1 delete; TodayGamesViewModel.swift has 3 adds / 7 deletes.
+Exit status: 0
+
+## oversized-file branch diff hunks
+Command: git diff --unified=0 origin/main..HEAD -- KboLiveApp/macOS/MenuBarDashboardView.swift Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/TodayGamesViewModel.swift
+Result: PASS with scoped exemption recorded in code_review_slop_report.txt - only the backend env-var display string and selected-team migration-store substitution hunks appear.
+Exit status: 0
+
+## focused core migration tests
+Command: swift test --package-path Packages/KboLiveCore --filter RuntimeStringSettingMigrationTests
+Result: PASS - Swift Testing ran 7 RuntimeStringSettingMigrationTests and all passed.
+Evidence file: .omo/evidence/baseball-live-kr-transition/T2-storage-runtime/FOLLOWUP2_swift_test_KboLiveCore_RuntimeStringSettingMigrationTests.txt
+Exit status: 0
+
+## focused feature selection-store tests
+Command: swift test --package-path Packages/KboLiveFeatures --filter MyTeamSelectionStoreTests
+Result: PASS - Swift Testing ran 4 MyTeamSelectionStoreTests and all passed.
+Evidence file: .omo/evidence/baseball-live-kr-transition/T2-storage-runtime/FOLLOWUP2_swift_test_KboLiveFeatures_MyTeamSelectionStoreTests.txt
+Exit status: 0
+
+## iOS app build
+Command: xcodebuild -project KboLiveApp.xcodeproj -scheme KboLiveiOS -configuration Debug -destination 'generic/platform=iOS' build CODE_SIGNING_ALLOWED=NO
+Result: PASS - ** BUILD SUCCEEDED **.
+Evidence file: .omo/evidence/baseball-live-kr-transition/T2-storage-runtime/FOLLOWUP2_xcodebuild_KboLiveiOS.txt
+Exit status: 0
+
+## macOS app build
+Command: xcodebuild -project KboLiveApp.xcodeproj -scheme KboLivemacOS -configuration Debug -destination 'platform=macOS' build CODE_SIGNING_ALLOWED=NO
+Result: PASS - ** BUILD SUCCEEDED **. Pre-existing warning remains: BackendSettingsModel.swift reports nonisolated(unsafe) is unnecessary for a Sendable constant.
+Evidence file: .omo/evidence/baseball-live-kr-transition/T2-storage-runtime/FOLLOWUP2_xcodebuild_KboLivemacOS.txt
+Exit status: 0
+
+Thu Jul  2 02:55:17 KST 2026
+
+## evidence log whitespace remediation
+Files:
+- .omo/evidence/baseball-live-kr-transition/T2-storage-runtime/FOLLOWUP2_xcodebuild_KboLiveiOS.txt
+- .omo/evidence/baseball-live-kr-transition/T2-storage-runtime/FOLLOWUP2_xcodebuild_KboLivemacOS.txt
+Action: stripped trailing whitespace and final extra blank lines from the committed xcodebuild evidence logs.
+
+## staged reviewed-range diff check
+Command: git add -f .omo/evidence/baseball-live-kr-transition/T2-storage-runtime/FOLLOWUP2_xcodebuild_KboLiveiOS.txt .omo/evidence/baseball-live-kr-transition/T2-storage-runtime/FOLLOWUP2_xcodebuild_KboLivemacOS.txt .omo/evidence/baseball-live-kr-transition/T2-storage-runtime/FOLLOWUP_slop_verification.txt && tree=$(git write-tree) && git diff --check e345d30^ "$tree"
+Result: PASS - no whitespace errors across the staged full reviewed range from e345d30^ to the staged follow-up tree.
+Exit status: 0

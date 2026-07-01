@@ -56,21 +56,17 @@ public final class TodayGamesViewModel: ObservableObject {
         selectedTeamID: String? = nil,
         now: @escaping @Sendable () -> Date = Date.init
     ) {
-        let selectedTeamKey = "kbo-live.selected-team-id"
+        let selectionStore = UserDefaultsMyTeamSelectionStore()
         self.init(
             client: client,
             title: title,
             filter: filter,
             selectedTeamID: selectedTeamID,
             loadSelectedTeamID: {
-                UserDefaults.standard.string(forKey: selectedTeamKey)
+                selectionStore.loadSelectedTeamID()
             },
             saveSelectedTeamID: { teamID in
-                if let teamID, teamID.isEmpty == false {
-                    UserDefaults.standard.set(teamID, forKey: selectedTeamKey)
-                } else {
-                    UserDefaults.standard.removeObject(forKey: selectedTeamKey)
-                }
+                selectionStore.saveSelectedTeamID(teamID)
             },
             now: now
         )

@@ -51,11 +51,16 @@ final class BackendSettingsModel: ObservableObject {
     )
 
     private let defaults: UserDefaults
-    private let presetKey = "kbo-live.backend-preset"
+    private let presetKey = "baseball-live-kr.backend-preset"
+    private let legacyPresetKey = "kbo-live.backend-preset"
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
-        let storedPreset = defaults.string(forKey: presetKey).flatMap(BackendPreset.init(rawValue:)) ?? Self.defaultPreset
+        let storedPreset = RuntimeStringSettingMigration.resolve(
+            store: defaults,
+            newKey: presetKey,
+            legacyKey: legacyPresetKey
+        ).value.flatMap(BackendPreset.init(rawValue:)) ?? Self.defaultPreset
         let resolvedPreset = Self.resolvedPreset(from: storedPreset)
         self.selectedPreset = resolvedPreset
     }

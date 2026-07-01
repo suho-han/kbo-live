@@ -41,7 +41,11 @@ extension BackendSettingsModel {
             return environmentBaseURLString
         }
 
-        let storedPreset = defaults.string(forKey: "kbo-live.backend-preset")
+        let storedPreset = RuntimeStringSettingMigration.resolve(
+            store: defaults,
+            newKey: "baseball-live-kr.backend-preset",
+            legacyKey: "kbo-live.backend-preset"
+        ).value
             .flatMap(BackendPreset.init(rawValue:)) ?? defaultPreset
         let preset = resolvedPreset(from: storedPreset)
 
@@ -64,15 +68,33 @@ extension BackendSettingsModel {
         switch preset {
         case .local:
             return environmentBaseURLString
-                ?? defaults.string(forKey: "kbo-live.backend-local-base-url")
+                ?? migratedDefaultsString(
+                    defaults: defaults,
+                    newKey: "baseball-live-kr.backend-local-base-url",
+                    legacyKey: "kbo-live.backend-local-base-url"
+                )
                 ?? defaultBaseURLString
         case .staging:
-            return environmentBaseURLString(named: "KBO_LIVE_STAGING_BASE_URL")
-                ?? defaults.string(forKey: "kbo-live.backend-staging-base-url")
+            return environmentBaseURLString(
+                named: BaseballLiveKREnvironment.stagingBaseURLEnvironmentName,
+                legacyName: BaseballLiveKREnvironment.legacyStagingBaseURLEnvironmentName
+            )
+                ?? migratedDefaultsString(
+                    defaults: defaults,
+                    newKey: "baseball-live-kr.backend-staging-base-url",
+                    legacyKey: "kbo-live.backend-staging-base-url"
+                )
                 ?? defaultStagingBaseURLString
         case .production:
-            return environmentBaseURLString(named: "KBO_LIVE_PRODUCTION_BASE_URL")
-                ?? defaults.string(forKey: "kbo-live.backend-production-base-url")
+            return environmentBaseURLString(
+                named: BaseballLiveKREnvironment.productionBaseURLEnvironmentName,
+                legacyName: BaseballLiveKREnvironment.legacyProductionBaseURLEnvironmentName
+            )
+                ?? migratedDefaultsString(
+                    defaults: defaults,
+                    newKey: "baseball-live-kr.backend-production-base-url",
+                    legacyKey: "kbo-live.backend-production-base-url"
+                )
                 ?? productionBaseURLString
         }
     }
@@ -86,16 +108,26 @@ extension BackendSettingsModel {
     }
 
     nonisolated static var environmentBaseURLString: String? {
-        environmentBaseURLString(named: "KBO_LIVE_BASE_URL")
+        environmentBaseURLString(
+            named: BaseballLiveKREnvironment.backendBaseURLEnvironmentName,
+            legacyName: BaseballLiveKREnvironment.legacyBackendBaseURLEnvironmentName
+        )
     }
 
-    nonisolated static func environmentBaseURLString(named name: String) -> String? {
-        guard let configured = ProcessInfo.processInfo.environment[name],
-              normalizedURL(from: configured) != nil else {
-            return nil
-        }
+    nonisolated static func environmentBaseURLString(named name: String, legacyName: String) -> String? {
+        RuntimeStringSettingMigration.resolveEnvironmentValue(
+            newName: name,
+            legacyName: legacyName,
+            isValid: { normalizedURL(from: $0) != nil }
+        ).value
+    }
 
-        return configured
+    nonisolated static func migratedDefaultsString(defaults: UserDefaults, newKey: String, legacyKey: String) -> String? {
+        RuntimeStringSettingMigration.resolve(
+            store: defaults,
+            newKey: newKey,
+            legacyKey: legacyKey
+        ).value
     }
 
     nonisolated static func normalizedURL(from text: String) -> URL? {

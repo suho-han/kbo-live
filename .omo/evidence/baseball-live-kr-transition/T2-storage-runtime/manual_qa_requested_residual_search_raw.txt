@@ -1,0 +1,86 @@
+Wed Jul  1 16:31:53 UTC 2026
+
+## full requested residual search
+project.yml:33:        PRODUCT_BUNDLE_IDENTIFIER: com.suhohan.kbo-live.ios
+project.yml:68:        PRODUCT_BUNDLE_IDENTIFIER: com.suhohan.kbo-live.ios.widget
+docs/dev.md:3:이 문서는 KBO Live를 직접 개발하거나 배포 준비를 확인할 때 필요한 명령만 모아둡니다. 앱을 실행해 보고 싶은 경우에는 README의 `./scripts/kbo-live.sh run`을 먼저 사용하세요.
+docs/dev.md:8:./scripts/kbo-live.sh run
+docs/dev.md:9:./scripts/kbo-live.sh live
+docs/dev.md:10:./scripts/kbo-live.sh open
+docs/dev.md:11:./scripts/kbo-live.sh verify
+docs/dev.md:12:./scripts/kbo-live.sh package
+docs/dev.md:71:- `KBO_LIVE_BASE_URL`을 지정하지 않으면 앱 설정 또는 `http://127.0.0.1:17361`의 경기 데이터를 사용합니다.
+docs/dev.md:74:- `KBO_LIVE_BASE_URL` 환경변수가 있으면 앱 설정값보다 우선합니다.
+docs/dev.md:75:- `KBO_LIVE_STAGING_BASE_URL`, `KBO_LIVE_PRODUCTION_BASE_URL`을 지정하면 설정 화면의 Staging/Production preset 초기 URL로 사용합니다.
+docs/dev.md:123:KBO_DB_ENABLED=1 npm run collect:probable-pitchers -- --date 20260630 --write
+scripts/run-macos-app-with-packaged-backend.sh:121:launchctl setenv KBO_LIVE_BASE_URL "http://127.0.0.1:${PORT}"
+scripts/run-macos-app-with-packaged-backend.sh:150:echo "app launched with KBO_LIVE_BASE_URL=http://127.0.0.1:${PORT}"
+Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/MyTeamSelectionStore.swift:10:    static let legacySelectedTeamIDKey = "kbo-live.selected-team-id"
+scripts/package-backend-macos.sh:25:SOURCE_DB="${BACKEND_DIR}/.data/kbo-live.sqlite"
+scripts/package-backend-macos.sh:28:  cp "${SOURCE_DB}" "${TEMP_OUTPUT_DIR}/.data/kbo-live.sqlite"
+scripts/package-backend-macos.sh:47:PACKAGED_DB="${DIR}/.data/kbo-live.sqlite"
+scripts/package-backend-macos.sh:49:  export KBO_DB_ENABLED="${KBO_DB_ENABLED:-1}"
+scripts/package-backend-macos.sh:50:  export KBO_DB_PATH="${KBO_DB_PATH:-${PACKAGED_DB}}"
+scripts/kbo-live.sh:12:  ./scripts/kbo-live.sh run      Build and open the macOS app with game data
+scripts/kbo-live.sh:13:  ./scripts/kbo-live.sh live     Open the macOS app with a sample live game
+scripts/kbo-live.sh:14:  ./scripts/kbo-live.sh open     Build and open only the macOS app
+scripts/kbo-live.sh:15:  ./scripts/kbo-live.sh verify   Run local verification
+scripts/kbo-live.sh:16:  ./scripts/kbo-live.sh package  Build the Mac mini test package
+scripts/kbo-live.sh:46:    launchctl unsetenv KBO_LIVE_BASE_URL
+backend-spike/src/db/database.ts:11:  return resolve(process.cwd(), '.data/kbo-live.sqlite')
+backend-spike/src/db/database.ts:15:  return process.env.KBO_DB_PATH?.trim() || defaultDatabasePath()
+backend-spike/src/db/database.ts:52:  if (process.env.KBO_DB_ENABLED !== undefined) {
+backend-spike/src/db/database.ts:53:    return process.env.KBO_DB_ENABLED !== '1'
+backend-spike/src/db/database.ts:56:  return process.env.KBO_DB_DISABLED === '1' || process.env.NODE_ENV === 'test'
+KboLiveApp/Shared/BackendSettingsModel.swift:57:    private let legacyPresetKey = "kbo-live.backend-preset"
+Packages/KboLiveCore/Sources/KboLiveCore/App/KboLiveEnvironment.swift:10:    public static let legacyBackendBaseURLDefaultsKey = "kbo-live.backend-base-url"
+Packages/KboLiveCore/Sources/KboLiveCore/App/KboLiveEnvironment.swift:12:    public static let legacyBackendBaseURLEnvironmentName = "KBO_LIVE_BASE_URL"
+Packages/KboLiveCore/Sources/KboLiveCore/App/KboLiveEnvironment.swift:14:    public static let legacyStagingBaseURLEnvironmentName = "KBO_LIVE_STAGING_BASE_URL"
+Packages/KboLiveCore/Sources/KboLiveCore/App/KboLiveEnvironment.swift:16:    public static let legacyProductionBaseURLEnvironmentName = "KBO_LIVE_PRODUCTION_BASE_URL"
+backend-spike/README.md:39:KBO_DB_PATH=.data/kbo-live.sqlite
+backend-spike/README.md:40:KBO_DB_DISABLED=1
+backend-spike/README.md:41:KBO_DB_ENABLED=1
+backend-spike/README.md:44:기본값은 `backend-spike/.data/kbo-live.sqlite`입니다. KBO source 응답은 `raw_sources` table에 checksum 기준으로 중복 저장을 방지하며 기록됩니다. 테스트 환경에서는 기본 비활성화되며, 임시 실행에서 DB 기록을 끄려면 `KBO_DB_DISABLED=1`, 테스트에서 명시적으로 켜려면 `KBO_DB_ENABLED=1`을 사용합니다.
+backend-spike/README.md:151:DB가 활성화된 일반 실행에서는 `raw_sources` table에도 `kbo-official-eng` source로 저장하고, leaders table을 parse해 `players`, `player_team_seasons`, batting/pitching season record table에 upsert합니다. 테스트 환경에서 DB 저장까지 확인하려면 `KBO_DB_ENABLED=1`을 명시합니다.
+backend-spike/tests/playerRecordRepository.test.ts:23:    delete process.env.KBO_DB_ENABLED
+backend-spike/tests/playerRecordRepository.test.ts:24:    delete process.env.KBO_DB_PATH
+backend-spike/tests/playerRecordRepository.test.ts:28:    process.env.KBO_DB_ENABLED = '1'
+backend-spike/tests/playerRecordRepository.test.ts:137:    process.env.KBO_DB_ENABLED = '1'
+backend-spike/tests/playerRecordRepository.test.ts:217:    process.env.KBO_DB_ENABLED = '1'
+backend-spike/tests/playerRecordRepository.test.ts:253:    process.env.KBO_DB_ENABLED = '0'
+backend-spike/tests/playerRecordRepository.test.ts:254:    process.env.KBO_DB_PATH = path
+backend-spike/tests/routes.players.test.ts:18:    delete process.env.KBO_DB_ENABLED
+backend-spike/tests/routes.players.test.ts:19:    delete process.env.KBO_DB_PATH
+backend-spike/tests/routes.players.test.ts:23:    process.env.KBO_DB_ENABLED = '1'
+backend-spike/tests/routes.players.test.ts:26:    process.env.KBO_DB_PATH = join(dir, 'test.sqlite')
+Packages/KboLiveCore/Tests/KboLiveCoreTests/RuntimeStringSettingMigrationTests.swift:99:            legacyName: "KBO_LIVE_BASE_URL",
+Packages/KboLiveCore/Tests/KboLiveCoreTests/RuntimeStringSettingMigrationTests.swift:102:                "KBO_LIVE_BASE_URL": "http://127.0.0.1:17361"
+Packages/KboLiveCore/Tests/KboLiveCoreTests/RuntimeStringSettingMigrationTests.swift:114:            legacyName: "KBO_LIVE_BASE_URL",
+Packages/KboLiveCore/Tests/KboLiveCoreTests/RuntimeStringSettingMigrationTests.swift:117:                "KBO_LIVE_BASE_URL": "http://127.0.0.1:17361"
+backend-spike/tests/gameServiceTestSupport.ts:33:  delete process.env.KBO_DB_ENABLED
+backend-spike/tests/gameServiceTestSupport.ts:34:  delete process.env.KBO_DB_PATH
+backend-spike/tests/gameServiceTestSupport.ts:83:  delete process.env.KBO_DB_ENABLED
+backend-spike/tests/gameServiceTestSupport.ts:84:  delete process.env.KBO_DB_PATH
+backend-spike/tests/gameServiceTestSupport.ts:101:  process.env.KBO_DB_ENABLED = '1'
+backend-spike/tests/gameServiceTestSupport.ts:104:  process.env.KBO_DB_PATH = join(dir, 'test.sqlite')
+backend-spike/tests/rawSourceRepository.test.ts:17:    delete process.env.KBO_DB_DISABLED
+backend-spike/tests/rawSourceRepository.test.ts:18:    delete process.env.KBO_DB_ENABLED
+backend-spike/tests/rawSourceRepository.test.ts:22:    process.env.KBO_DB_ENABLED = '1'
+backend-spike/tests/rawSourceRepository.test.ts:50:    process.env.KBO_DB_DISABLED = '1'
+backend-spike/tests/routes.core.test.ts:38:    delete process.env.KBO_DB_ENABLED
+backend-spike/tests/routes.core.test.ts:39:    delete process.env.KBO_DB_PATH
+backend-spike/tests/kboClient.test.ts:15:    process.env.KBO_DB_DISABLED = '1'
+backend-spike/tests/kboClient.test.ts:24:    delete process.env.KBO_DB_DISABLED
+backend-spike/tests/kboClient.test.ts:25:    delete process.env.KBO_DB_ENABLED
+backend-spike/tests/kboClient.test.ts:26:    delete process.env.KBO_DB_PATH
+backend-spike/tests/kboClient.test.ts:52:    delete process.env.KBO_DB_DISABLED
+backend-spike/tests/kboClient.test.ts:53:    process.env.KBO_DB_ENABLED = '1'
+backend-spike/tests/kboClient.test.ts:56:    process.env.KBO_DB_PATH = join(dir, 'test.sqlite')
+backend-spike/tests/teamRecordRepository.test.ts:17:    delete process.env.KBO_DB_ENABLED
+backend-spike/tests/teamRecordRepository.test.ts:21:    process.env.KBO_DB_ENABLED = '1'
+backend-spike/tests/gameService.cache.test.ts:103:    process.env.KBO_DB_ENABLED = '1'
+backend-spike/tests/gameService.cache.test.ts:106:    process.env.KBO_DB_PATH = join(dir, 'test.sqlite')
+KboLiveApp/Shared/BackendSettingsModel+Resolution.swift:49:            legacyKey: "kbo-live.backend-preset"
+KboLiveApp/Shared/BackendSettingsModel+Resolution.swift:76:                    legacyKey: "kbo-live.backend-local-base-url"
+KboLiveApp/Shared/BackendSettingsModel+Resolution.swift:87:                    legacyKey: "kbo-live.backend-staging-base-url"
+KboLiveApp/Shared/BackendSettingsModel+Resolution.swift:98:                    legacyKey: "kbo-live.backend-production-base-url"

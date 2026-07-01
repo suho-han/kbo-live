@@ -739,7 +739,7 @@ private enum BackendServerStatus {
         case .inactive:
             return "백엔드 서버가 응답하지 않습니다."
         case .notConfigured:
-            return "KBO_LIVE_BASE_URL이 설정되지 않았습니다."
+            return "BASEBALL_LIVE_KR_BASE_URL이 설정되지 않았습니다."
         }
     }
 

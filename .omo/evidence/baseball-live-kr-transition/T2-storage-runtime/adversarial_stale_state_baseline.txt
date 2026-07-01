@@ -1,0 +1,7 @@
+Wed Jul  1 16:22:37 UTC 2026
+
+## worktree-local plan
+missing
+
+## absolute team state B row
+{"threadId":"019f1e79-ec57-7e22-ad72-a40ea4e53fa5","cwd":"\/Users\/suhohan\/.codex\/worktrees\/f85d\/kbo-live","focus":"clean-break App Group, non-App-Group defaults\/env migration, AppRuntime URLs, ATS policy","id":"B","deliverable":"Complete T2 from .omo\/plans\/baseball-live-kr-transition.md with RED baseline, GREEN implementation, automated verification, manual-QA CLI artifacts, cleanup receipt, and one atomic commit in your thread\/worktree.","status":"active","threadTitle":"[baseball-live-kr-transition] storage-runtime","worktree":{"path":"\/Users\/suhohan\/.codex\/worktrees\/f85d\/kbo-live","branch":null},"name":"storage-runtime","lens":"area"}

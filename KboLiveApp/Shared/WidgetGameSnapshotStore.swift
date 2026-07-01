@@ -4,9 +4,9 @@ import BaseballLiveKRCore
 #endif
 
 struct WidgetGameSnapshotStore {
-    static let appGroupIdentifier = "group.com.suhohan.kbo-live"
-    static let snapshotKey = "kbo-live.widget.snapshot"
-    static let lastUpdatedAtKey = "kbo-live.widget.snapshot-updated-at"
+    static let appGroupIdentifier = "group.kr.suhohan.baseballlivekr"
+    static let snapshotKey = "baseball-live-kr.widget.snapshot"
+    static let lastUpdatedAtKey = "baseball-live-kr.widget.snapshot-updated-at"
 
     private let defaults: UserDefaults
     private let encoder: JSONEncoder

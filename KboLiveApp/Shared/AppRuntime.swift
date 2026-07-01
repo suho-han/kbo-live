@@ -36,8 +36,8 @@ final class AppUpdateCheckModel: ObservableObject {
         case failed(String)
     }
 
-    private let latestReleaseURL = URL(string: "https://api.github.com/repos/suho-han/kbo-live/releases/latest")!
-    private let releasesPageURL = URL(string: "https://github.com/suho-han/kbo-live/releases")!
+    private let latestReleaseURL = URL(string: "https://api.github.com/repos/suho-han/baseball-live-kr/releases/latest")!
+    private let releasesPageURL = URL(string: "https://github.com/suho-han/baseball-live-kr/releases")!
     private var releasePageURL: URL?
     private var hasCheckedThisLaunch = false
     private var automaticCheckTask: Task<Void, Never>?

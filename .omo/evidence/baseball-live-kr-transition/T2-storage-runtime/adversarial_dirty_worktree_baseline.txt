@@ -1,0 +1,11 @@
+Wed Jul  1 16:22:37 UTC 2026
+
+## git status --short
+ D PROJECT_CONTEXT/baseball-live-kr-branding-and-release-plan.md
+?? .gjc/
+?? baseball-live-kr-deployment-plan.md
+
+## branch
+
+## worktree
+/Users/suhohan/.codex/worktrees/f85d/kbo-live
