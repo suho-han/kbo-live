@@ -4,15 +4,15 @@
 
 ## 1. 목적
 
-Xcode 없이 `KboLivemacOS` 앱과 packaged backend companion을 앱 형태로 반복 테스트하기 위한 절차를 고정한다.
+Xcode 없이 `BaseballLiveKRmacOS` 앱과 packaged backend companion을 앱 형태로 반복 테스트하기 위한 절차를 고정한다.
 
 ## 2. Local Build
 
 macOS app build:
 
 ```bash
-xcodebuild -project KboLiveApp.xcodeproj \
-  -scheme KboLivemacOS \
+xcodebuild -project BaseballLiveKR.xcodeproj \
+  -scheme BaseballLiveKRmacOS \
   -destination 'platform=macOS' \
   -derivedDataPath .xcode/DerivedData \
   build
@@ -38,13 +38,13 @@ Mac mini 전송용 runtime archive 생성:
 생성물:
 
 ```text
-.build/transfer/kbo-live-macmini-runtime.tar.gz
+.build/transfer/baseball-live-kr-macmini-runtime.tar.gz
 ```
 
 archive 포함 항목:
 
 - `.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app`
-- `.build/kbo-live-backend-macos`
+- `.build/baseball-live-kr-backend-macos`
 - `scripts/run-macos-app-with-packaged-backend.sh`
 
 ## 4. Local App + Backend 실행
@@ -98,8 +98,8 @@ APP_PRODUCT_NAME=BaseballLiveKR
 APP_BUNDLE=".xcode/DerivedData/Build/Products/Release/${APP_PRODUCT_NAME}.app"
 APP_ZIP=".build/transfer/${APP_PRODUCT_NAME}.zip"
 
-xcodebuild -project KboLiveApp.xcodeproj \
-  -scheme KboLivemacOS \
+xcodebuild -project BaseballLiveKR.xcodeproj \
+  -scheme BaseballLiveKRmacOS \
   -configuration Release \
   -destination 'platform=macOS' \
   -derivedDataPath .xcode/DerivedData \
@@ -151,7 +151,7 @@ Credentials required:
 - backend `npm run typecheck` 통과
 - backend `npm test` 통과
 - backend `npm run build` 통과
-- `KboLivemacOS` xcodebuild 통과
+- `BaseballLiveKRmacOS` xcodebuild 통과
 - `./scripts/package-macmini-runtime.sh` 통과
 - `./scripts/verify-release-assets.sh .xcode/DerivedData/Build/Products .build/macmini-runtime .build/transfer` 통과
 - archive 안에 `BaseballLiveKR.app`, packaged backend, run script 포함

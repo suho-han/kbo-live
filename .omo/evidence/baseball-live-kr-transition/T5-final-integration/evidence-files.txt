@@ -1,6 +1,7 @@
 .omo/evidence/baseball-live-kr-transition/T5-final-integration/adversarial/verify-release-assets-default-zero-roots.txt
 .omo/evidence/baseball-live-kr-transition/T5-final-integration/cleanup-receipt.md
 .omo/evidence/baseball-live-kr-transition/T5-final-integration/evidence-files.txt
+.omo/evidence/baseball-live-kr-transition/T5-final-integration/gate-remediation-review.md
 .omo/evidence/baseball-live-kr-transition/T5-final-integration/green/bash-n-scripts.result.txt
 .omo/evidence/baseball-live-kr-transition/T5-final-integration/green/bash-n-scripts.txt
 .omo/evidence/baseball-live-kr-transition/T5-final-integration/green/generated-project-official-asset-scan.txt
@@ -23,3 +24,6 @@
 .omo/evidence/baseball-live-kr-transition/T5-final-integration/manual-qa-matrix.md
 .omo/evidence/baseball-live-kr-transition/T5-final-integration/manual-qa/cleanup-process-probe.txt
 .omo/evidence/baseball-live-kr-transition/T5-final-integration/manual-qa/packaged-backend-health.txt
+.omo/evidence/baseball-live-kr-transition/T5-final-integration/remediation/active-doc-stale-name-search.txt
+.omo/evidence/baseball-live-kr-transition/T5-final-integration/remediation/bash-n-scripts-after-remediation.txt
+.omo/evidence/baseball-live-kr-transition/T5-final-integration/remediation/full-working-diff-check.txt
