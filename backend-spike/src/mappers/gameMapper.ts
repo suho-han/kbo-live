@@ -1,12 +1,18 @@
 import { mapBases } from './baseMapper.js'
 import { mapStatus } from './statusMapper.js'
 import type { RawKboGame } from '../dto/kboGameList.dto.js'
-import type { NormalizedGame } from '../models/normalizedGame.js'
+import type { NormalizedGame, StarterStatus } from '../models/normalizedGame.js'
 import type { ScheduleGameInfo } from './scheduleMapper.js'
 
 interface MapGameOptions {
   now?: Date
 }
+
+interface MapScheduledGameOptions {
+  now?: Date
+}
+
+const ONE_DAY_MS = 86_400_000
 
 function toNumber(value: string | number | null | undefined): number {
   const num = Number(value ?? 0)
@@ -34,6 +40,56 @@ function hasMeaningfulValue(value: string | number | null | undefined): boolean 
   }
 
   return Number.isFinite(value)
+}
+
+function kstDateKey(date: Date): string {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Seoul',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).formatToParts(date)
+  const year = parts.find((part) => part.type === 'year')?.value ?? '0000'
+  const month = parts.find((part) => part.type === 'month')?.value ?? '00'
+  const day = parts.find((part) => part.type === 'day')?.value ?? '00'
+
+  return `${year}${month}${day}`
+}
+
+function addDays(dateKey: string, days: number): string {
+  const year = Number(dateKey.slice(0, 4))
+  const month = Number(dateKey.slice(4, 6))
+  const day = Number(dateKey.slice(6, 8))
+
+  if (!Number.isInteger(year) || !Number.isInteger(month) || !Number.isInteger(day)) {
+    return dateKey
+  }
+
+  const date = new Date(Date.UTC(year, month - 1, day) + (days * ONE_DAY_MS))
+  return [
+    String(date.getUTCFullYear()).padStart(4, '0'),
+    String(date.getUTCMonth() + 1).padStart(2, '0'),
+    String(date.getUTCDate()).padStart(2, '0')
+  ].join('')
+}
+
+function starterStatusForGame(input: {
+  status: NormalizedGame['status']
+  date: string
+  awayName: string | null
+  homeName: string | null
+  now?: Date
+}): StarterStatus {
+  if (input.awayName != null && input.homeName != null) {
+    return 'ready'
+  }
+
+  if (input.status !== 'scheduled') {
+    return 'ready'
+  }
+
+  const tomorrow = addDays(kstDateKey(input.now ?? new Date()), 1)
+  return input.date > tomorrow ? 'notDue' : 'missing'
 }
 
 function mapCurrentMatchup(raw: RawKboGame, half: 'top' | 'bottom' | null): NonNullable<NormalizedGame['current']> {
@@ -85,6 +141,8 @@ export function mapGame(raw: RawKboGame, scheduleInfo?: ScheduleGameInfo, option
     : null
   const bases = status === 'live' ? mapBases(raw) : null
   const current = mapCurrentMatchup(raw, half)
+  const awayStarterName = trimToNull(raw.T_PIT_P_NM)
+  const homeStarterName = trimToNull(raw.B_PIT_P_NM)
 
   return {
     gameId: raw.G_ID,
@@ -104,6 +162,13 @@ export function mapGame(raw: RawKboGame, scheduleInfo?: ScheduleGameInfo, option
       save: trimToNull(raw.SV_PIT_P_NM)
     },
     status,
+    starterStatus: starterStatusForGame({
+      status,
+      date: String(raw.G_DT ?? ''),
+      awayName: awayStarterName,
+      homeName: homeStarterName,
+      now: options.now
+    }),
     awayTeam: {
       id: raw.AWAY_ID ?? '',
       name: raw.AWAY_NM ?? ''
@@ -121,8 +186,14 @@ export function mapGame(raw: RawKboGame, scheduleInfo?: ScheduleGameInfo, option
     bases,
     current: status === 'live' ? current : null,
     probablePitchers: {
-      away: trimToNull(raw.T_PIT_P_NM),
-      home: trimToNull(raw.B_PIT_P_NM)
+      away: {
+        name: awayStarterName,
+        record: null
+      },
+      home: {
+        name: homeStarterName,
+        record: null
+      }
     },
     recentPlay: mapRecentPlay(raw, { status }),
     teamRecords: null,
@@ -151,7 +222,7 @@ export function mapGame(raw: RawKboGame, scheduleInfo?: ScheduleGameInfo, option
   }
 }
 
-export function mapScheduledGame(scheduleInfo: ScheduleGameInfo): NormalizedGame {
+export function mapScheduledGame(scheduleInfo: ScheduleGameInfo, options: MapScheduledGameOptions = {}): NormalizedGame {
   const status = scheduleInfo.statusHint ?? 'scheduled'
 
   return {
@@ -167,6 +238,13 @@ export function mapScheduledGame(scheduleInfo: ScheduleGameInfo): NormalizedGame
       save: null
     },
     status,
+    starterStatus: starterStatusForGame({
+      status,
+      date: scheduleInfo.date,
+      awayName: null,
+      homeName: null,
+      now: options.now
+    }),
     awayTeam: scheduleInfo.awayTeam,
     homeTeam: scheduleInfo.homeTeam,
     score: {
@@ -178,8 +256,14 @@ export function mapScheduledGame(scheduleInfo: ScheduleGameInfo): NormalizedGame
     bases: null,
     current: null,
     probablePitchers: {
-      away: null,
-      home: null
+      away: {
+        name: null,
+        record: null
+      },
+      home: {
+        name: null,
+        record: null
+      }
     },
     recentPlay: null,
     teamRecords: null,

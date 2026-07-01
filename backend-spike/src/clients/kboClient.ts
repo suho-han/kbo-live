@@ -1,10 +1,11 @@
 import { buildKboHeaders } from '../config/kboHeaders.js'
 import { rawKboGameDateResponseSchema } from '../dto/kboGameDate.dto.js'
 import { rawKboGameListResponseSchema } from '../dto/kboGameList.dto.js'
+import { rawKboPitcherRecordAnalysisResponseSchema } from '../dto/kboPitcherRecordAnalysis.dto.js'
 import { rawKboScheduleListResponseSchema } from '../dto/kboScheduleList.dto.js'
 import { saveRawSource } from '../repositories/rawSourceRepository.js'
 
-type KboEndpoint = 'GetKboGameDate' | 'GetKboGameList' | 'GetScheduleList' | 'TeamRankDaily' | 'LiveTextView2'
+type KboEndpoint = 'GetKboGameDate' | 'GetKboGameList' | 'GetPitcherRecordAnalysis' | 'GetScheduleList' | 'TeamRankDaily' | 'LiveTextView2'
 
 const BASE_URL = 'https://www.koreabaseball.com/ws'
 const LIVE_TEXT_URL = 'https://www.koreabaseball.com/Game/LiveTextView2.aspx'
@@ -15,6 +16,18 @@ type LiveTextViewRequest = {
   readonly gyear: string
   readonly leagueId?: string
   readonly seriesId?: string
+}
+
+type PitcherRecordAnalysisRequest = {
+  readonly leId: string
+  readonly srId: string
+  readonly seasonId: string
+  readonly awayTeamId: string
+  readonly awayPitId: string
+  readonly homeTeamId: string
+  readonly homePitId: string
+  readonly gameId: string
+  readonly groupSc?: 'SEASON' | 'HOMEAWAY' | 'VS'
 }
 
 export class KboSourceError extends Error {
@@ -165,6 +178,25 @@ export async function fetchKboScheduleList(seasonId: string, gameMonth: string) 
     return rawKboScheduleListResponseSchema.parse(json)
   } catch (error) {
     throw new KboSourceError('GetScheduleList', 'response did not match expected schema', { cause: error })
+  }
+}
+
+export async function fetchKboPitcherRecordAnalysis(input: PitcherRecordAnalysisRequest) {
+  const json = await postForm('GetPitcherRecordAnalysis', 'Schedule.asmx/GetPitcherRecordAnalysis', {
+    leId: input.leId,
+    srId: input.srId,
+    seasonId: input.seasonId,
+    awayTeamId: input.awayTeamId,
+    awayPitId: input.awayPitId,
+    homeTeamId: input.homeTeamId,
+    homePitId: input.homePitId,
+    groupSc: input.groupSc ?? 'SEASON'
+  }, `https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx?gameId=${input.gameId}&section=START_PIT`)
+
+  try {
+    return rawKboPitcherRecordAnalysisResponseSchema.parse(json)
+  } catch (error) {
+    throw new KboSourceError('GetPitcherRecordAnalysis', 'response did not match expected schema', { cause: error })
   }
 }
 

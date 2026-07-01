@@ -16,6 +16,7 @@ export interface NormalizedGame {
     save: string | null
   }
   status: 'scheduled' | 'live' | 'final' | 'delayed' | 'cancelled' | 'unknown'
+  starterStatus: StarterStatus
   awayTeam: {
     id: string
     name: string
@@ -47,8 +48,8 @@ export interface NormalizedGame {
     pitcher: string | null
   } | null
   probablePitchers: {
-    away: string | null
-    home: string | null
+    away: ProbablePitcherSummary
+    home: ProbablePitcherSummary
   }
   recentPlay: string | null
   teamRecords: {
@@ -78,6 +79,20 @@ export interface NormalizedGame {
     rawTopBottomCode: string | null
     fetchedAt: string
   }
+}
+
+export type StarterStatus = 'ready' | 'missing' | 'notDue'
+
+export interface ProbablePitcherSummary {
+  name: string | null
+  record: PitcherSeasonSummary | null
+}
+
+export interface PitcherSeasonSummary {
+  wins: number | null
+  losses: number | null
+  era: number | null
+  whip: number | null
 }
 
 export interface TeamRecordSummary {

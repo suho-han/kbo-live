@@ -4,6 +4,7 @@ import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 
 import { closeDatabase, openDatabase } from '../src/db/database.js'
+import { getPitcherSeasonSummaryByNameAndTeam } from '../src/repositories/pitcherSeasonSummaryRepository.js'
 import {
   getPlayerSeasonRecord,
   searchPlayers,
@@ -20,6 +21,7 @@ describe('playerRecordRepository', () => {
       rmSync(dir, { recursive: true, force: true })
     }
     delete process.env.KBO_DB_ENABLED
+    delete process.env.KBO_DB_PATH
   })
 
   it('upserts batting and pitching records and reads player season summaries', () => {
@@ -130,5 +132,127 @@ describe('playerRecordRepository', () => {
       }
     })
   })
-})
 
+  it('resolves probable starter pitching summaries by exact team and season', () => {
+    process.env.KBO_DB_ENABLED = '1'
+    const dir = mkdtempSync(join(tmpdir(), 'kbo-live-probable-pitchers-'))
+    tempDirs.push(dir)
+    const db = openDatabase(join(dir, 'test.sqlite'))
+
+    upsertPitchingSeasonRecords('20260617', [{
+      playerId: '55633',
+      playerName: '올러',
+      teamId: 'HT',
+      teamName: 'KIA',
+      rank: 1,
+      games: 14,
+      completeGames: 1,
+      shutouts: 1,
+      wins: 7,
+      losses: 5,
+      saves: 0,
+      holds: 0,
+      winningPercentage: 0.583,
+      plateAppearances: 344,
+      pitches: 1314,
+      inningsPitchedOuts: 262,
+      hitsAllowed: 56,
+      doublesAllowed: 6,
+      triplesAllowed: 2,
+      homeRunsAllowed: 6,
+      era: 2.58,
+      walks: 27,
+      strikeouts: 92,
+      earnedRuns: 25,
+      whip: 0.95
+    }, {
+      playerId: '99100',
+      playerName: '올러',
+      teamId: 'LG',
+      teamName: 'LG',
+      rank: 9,
+      games: 4,
+      completeGames: 0,
+      shutouts: 0,
+      wins: 1,
+      losses: 2,
+      saves: 0,
+      holds: 0,
+      winningPercentage: 0.333,
+      plateAppearances: 88,
+      pitches: 310,
+      inningsPitchedOuts: 58,
+      hitsAllowed: 20,
+      doublesAllowed: 4,
+      triplesAllowed: 0,
+      homeRunsAllowed: 2,
+      era: 5.12,
+      walks: 9,
+      strikeouts: 21,
+      earnedRuns: 11,
+      whip: 1.48
+    }], db)
+
+    expect(getPitcherSeasonSummaryByNameAndTeam('올러', 'HT', 2026, '20260618', db)).toMatchObject({
+      playerId: '55633',
+      playerName: '올러',
+      teamId: 'HT',
+      season: 2026,
+      wins: 7,
+      losses: 5,
+      era: 2.58,
+      whip: 0.95
+    })
+    expect(getPitcherSeasonSummaryByNameAndTeam('올러', 'LG', 2026, '20260618', db)).toMatchObject({
+      playerId: '99100',
+      teamId: 'LG',
+      era: 5.12,
+      whip: 1.48
+    })
+    expect(getPitcherSeasonSummaryByNameAndTeam('올러', 'SS', 2026, '20260618', db)).toBeNull()
+    expect(getPitcherSeasonSummaryByNameAndTeam('없는선수', 'HT', 2026, '20260618', db)).toBeNull()
+  })
+
+  it('does not open the configured database for probable pitcher summaries when DB is explicitly disabled', () => {
+    process.env.KBO_DB_ENABLED = '1'
+    const dir = mkdtempSync(join(tmpdir(), 'kbo-live-probable-pitcher-disable-'))
+    tempDirs.push(dir)
+    const path = join(dir, 'test.sqlite')
+    const db = openDatabase(path)
+
+    upsertPitchingSeasonRecords('20260701', [{
+      playerId: '55633',
+      playerName: '올러',
+      teamId: 'HT',
+      teamName: 'KIA',
+      rank: 1,
+      games: 14,
+      completeGames: 1,
+      shutouts: 1,
+      wins: 7,
+      losses: 5,
+      saves: 0,
+      holds: 0,
+      winningPercentage: 0.583,
+      plateAppearances: 344,
+      pitches: 1314,
+      inningsPitchedOuts: 262,
+      hitsAllowed: 56,
+      doublesAllowed: 6,
+      triplesAllowed: 2,
+      homeRunsAllowed: 6,
+      era: 2.58,
+      walks: 27,
+      strikeouts: 92,
+      earnedRuns: 25,
+      whip: 0.95
+    }], db)
+    db.close()
+    closeDatabase()
+
+    process.env.KBO_DB_ENABLED = '0'
+    process.env.KBO_DB_PATH = path
+
+    expect(getPitcherSeasonSummaryByNameAndTeam('올러', 'HT', 2026, '20260701')).toBeNull()
+  })
+})

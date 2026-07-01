@@ -23,6 +23,7 @@ export function makeTestLiveGame(date: string, fetchedAt = new Date().toISOStrin
       save: null
     },
     status: 'live',
+    starterStatus: 'ready',
     awayTeam: {
       id: 'LT',
       name: '롯데'
@@ -54,8 +55,14 @@ export function makeTestLiveGame(date: string, fetchedAt = new Date().toISOStrin
       pitcher: '김원중'
     },
     probablePitchers: {
-      away: '반즈',
-      home: '문동주'
+      away: {
+        name: '반즈',
+        record: null
+      },
+      home: {
+        name: '문동주',
+        record: null
+      }
     },
     recentPlay: '7회말 한화 공격, 1사 1,2루에서 노시환 타석',
     teamRecords: {

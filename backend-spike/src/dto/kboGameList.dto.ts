@@ -11,6 +11,8 @@ export const rawKboGameSchema = z.object({
   HOME_NM: z.string().optional().nullable(),
   T_PIT_P_NM: z.string().optional().nullable(),
   B_PIT_P_NM: z.string().optional().nullable(),
+  T_PIT_P_ID: z.union([z.string(), z.number()]).optional().nullable(),
+  B_PIT_P_ID: z.union([z.string(), z.number()]).optional().nullable(),
   W_PIT_P_NM: z.string().optional().nullable(),
   L_PIT_P_NM: z.string().optional().nullable(),
   SV_PIT_P_NM: z.string().optional().nullable(),
@@ -34,7 +36,11 @@ export const rawKboGameSchema = z.object({
   LAST_PLAY: z.string().optional().nullable(),
   LAST_PLAY_TEXT: z.string().optional().nullable(),
   LIVE_TEXT: z.string().optional().nullable(),
-  GAME_TEXT: z.string().optional().nullable()
+  GAME_TEXT: z.string().optional().nullable(),
+  LE_ID: z.union([z.string(), z.number()]).optional().nullable(),
+  SR_ID: z.union([z.string(), z.number()]).optional().nullable(),
+  SEASON_ID: z.union([z.string(), z.number()]).optional().nullable(),
+  START_PIT_CK: z.union([z.string(), z.number()]).optional().nullable()
 }).passthrough()
 
 export const rawKboGameListResponseSchema = z.object({

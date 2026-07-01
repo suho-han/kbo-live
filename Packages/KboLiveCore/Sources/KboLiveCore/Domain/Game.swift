@@ -9,6 +9,7 @@ public struct Game: Identifiable, Sendable, Equatable, Hashable {
     public let homepageLinks: HomepageLinks?
     public let pitcherDecisions: PitcherDecisions?
     public let status: GameStatus
+    public let starterStatus: StarterStatus
     public let awayTeam: Team
     public let homeTeam: Team
     public let score: Score
@@ -33,6 +34,7 @@ public struct Game: Identifiable, Sendable, Equatable, Hashable {
         homepageLinks: HomepageLinks? = nil,
         pitcherDecisions: PitcherDecisions? = nil,
         status: GameStatus,
+        starterStatus: StarterStatus = .ready,
         awayTeam: Team,
         homeTeam: Team,
         score: Score,
@@ -56,6 +58,7 @@ public struct Game: Identifiable, Sendable, Equatable, Hashable {
         self.homepageLinks = homepageLinks
         self.pitcherDecisions = pitcherDecisions
         self.status = status
+        self.starterStatus = starterStatus
         self.awayTeam = awayTeam
         self.homeTeam = homeTeam
         self.score = score
@@ -138,12 +141,36 @@ public struct CurrentMatchup: Sendable, Equatable, Hashable {
 }
 
 public struct ProbablePitchers: Sendable, Equatable, Hashable {
-    public let away: String?
-    public let home: String?
+    public let away: ProbablePitcher
+    public let home: ProbablePitcher
 
-    public init(away: String?, home: String?) {
+    public init(away: ProbablePitcher, home: ProbablePitcher) {
         self.away = away
         self.home = home
+    }
+}
+
+public struct ProbablePitcher: Sendable, Equatable, Hashable {
+    public let name: String?
+    public let record: PitcherSeasonSummary?
+
+    public init(name: String?, record: PitcherSeasonSummary? = nil) {
+        self.name = name
+        self.record = record
+    }
+}
+
+public struct PitcherSeasonSummary: Sendable, Equatable, Hashable {
+    public let wins: Int?
+    public let losses: Int?
+    public let era: Double?
+    public let whip: Double?
+
+    public init(wins: Int?, losses: Int?, era: Double?, whip: Double?) {
+        self.wins = wins
+        self.losses = losses
+        self.era = era
+        self.whip = whip
     }
 }
 
@@ -280,6 +307,12 @@ public enum GameStatus: String, Codable, Sendable, Equatable, Hashable {
     case delayed
     case cancelled
     case unknown
+}
+
+public enum StarterStatus: String, Codable, Sendable, Equatable, Hashable {
+    case ready
+    case missing
+    case notDue
 }
 
 public enum InningHalf: String, Sendable, Equatable, Hashable {

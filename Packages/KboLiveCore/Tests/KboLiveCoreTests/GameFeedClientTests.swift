@@ -75,7 +75,10 @@ private func makeGame(id: String) -> Game {
         count: CountState(balls: 0, strikes: 0, outs: 0),
         bases: BasesState(first: false, second: false, third: false),
         current: nil,
-        probablePitchers: ProbablePitchers(away: nil, home: nil),
+        probablePitchers: ProbablePitchers(
+            away: ProbablePitcher(name: nil),
+            home: ProbablePitcher(name: nil)
+        ),
         recentPlay: nil,
         sourceMeta: SourceMeta(rawStatusCode: nil, rawTopBottomCode: nil, fetchedAt: "2026-06-10T10:05:00.000Z")
     )

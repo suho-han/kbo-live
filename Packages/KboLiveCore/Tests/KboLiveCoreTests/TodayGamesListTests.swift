@@ -160,7 +160,7 @@ private func makeGame(
         count: nil,
         bases: nil,
         current: nil,
-        probablePitchers: ProbablePitchers(away: nil, home: nil),
+        probablePitchers: ProbablePitchers(away: ProbablePitcher(name: nil), home: ProbablePitcher(name: nil)),
         recentPlay: nil,
         teamRecords: teamRecords,
         sourceMeta: SourceMeta(rawStatusCode: nil, rawTopBottomCode: nil, fetchedAt: "2026-06-10T10:05:00.000Z")

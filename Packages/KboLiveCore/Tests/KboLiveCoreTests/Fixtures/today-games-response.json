@@ -22,7 +22,10 @@
       "count": null,
       "bases": { "first": false, "second": false, "third": false },
       "current": { "batter": "", "pitcher": "" },
-      "probablePitchers": { "away": "", "home": "" },
+      "probablePitchers": {
+        "away": { "name": "", "record": null },
+        "home": { "name": "", "record": null }
+      },
       "recentPlay": null,
       "sourceMeta": {
         "rawStatusCode": "1",
@@ -55,7 +58,10 @@
       "count": { "balls": 2, "strikes": 1, "outs": 2 },
       "bases": { "first": true, "second": false, "third": true },
       "current": { "batter": "최인호", "pitcher": "정해영" },
-      "probablePitchers": { "away": "네일", "home": "류현진" },
+      "probablePitchers": {
+        "away": { "name": "네일", "record": null },
+        "home": { "name": "류현진", "record": { "wins": 5, "losses": 4, "era": 3.22, "whip": 1.17 } }
+      },
       "recentPlay": "좌전 적시타",
       "sourceMeta": {
         "rawStatusCode": "2",

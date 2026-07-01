@@ -29,6 +29,7 @@ public struct GameDTO: Decodable, Identifiable, Sendable {
     public let homepageLinks: HomepageLinksDTO?
     public let pitcherDecisions: PitcherDecisionsDTO?
     public let status: GameStatusDTO
+    public let starterStatus: StarterStatusDTO?
     public let awayTeam: TeamDTO
     public let homeTeam: TeamDTO
     public let score: ScoreDTO
@@ -55,6 +56,7 @@ public struct GameDTO: Decodable, Identifiable, Sendable {
         homepageLinks: HomepageLinksDTO? = nil,
         pitcherDecisions: PitcherDecisionsDTO? = nil,
         status: GameStatusDTO,
+        starterStatus: StarterStatusDTO? = nil,
         awayTeam: TeamDTO,
         homeTeam: TeamDTO,
         score: ScoreDTO,
@@ -78,6 +80,7 @@ public struct GameDTO: Decodable, Identifiable, Sendable {
         self.homepageLinks = homepageLinks
         self.pitcherDecisions = pitcherDecisions
         self.status = status
+        self.starterStatus = starterStatus
         self.awayTeam = awayTeam
         self.homeTeam = homeTeam
         self.score = score
@@ -160,12 +163,55 @@ public struct CurrentMatchupDTO: Decodable, Sendable {
 }
 
 public struct ProbablePitchersDTO: Decodable, Sendable {
-    public let away: String?
-    public let home: String?
+    public let away: ProbablePitcherDTO?
+    public let home: ProbablePitcherDTO?
 
-    public init(away: String?, home: String?) {
+    public init(away: ProbablePitcherDTO?, home: ProbablePitcherDTO?) {
         self.away = away
         self.home = home
+    }
+}
+
+public struct ProbablePitcherDTO: Decodable, Sendable {
+    public let name: String?
+    public let record: PitcherSeasonSummaryDTO?
+
+    public init(name: String?, record: PitcherSeasonSummaryDTO? = nil) {
+        self.name = name
+        self.record = record
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case name
+        case record
+    }
+
+    public init(from decoder: Decoder) throws {
+        if let singleValue = try? decoder.singleValueContainer(),
+           singleValue.decodeNil() == false,
+           let legacyName = try? singleValue.decode(String.self) {
+            self.name = legacyName
+            self.record = nil
+            return
+        }
+
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.name = try container.decodeIfPresent(String.self, forKey: .name)
+        self.record = try container.decodeIfPresent(PitcherSeasonSummaryDTO.self, forKey: .record)
+    }
+}
+
+public struct PitcherSeasonSummaryDTO: Decodable, Sendable {
+    public let wins: Int?
+    public let losses: Int?
+    public let era: Double?
+    public let whip: Double?
+
+    public init(wins: Int?, losses: Int?, era: Double?, whip: Double?) {
+        self.wins = wins
+        self.losses = losses
+        self.era = era
+        self.whip = whip
     }
 }
 
@@ -300,6 +346,12 @@ public enum GameStatusDTO: String, Decodable, Sendable {
     case delayed
     case cancelled
     case unknown
+}
+
+public enum StarterStatusDTO: String, Decodable, Sendable {
+    case ready
+    case missing
+    case notDue
 }
 
 public enum InningHalfDTO: String, Decodable, Sendable {

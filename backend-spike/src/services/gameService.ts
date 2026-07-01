@@ -1,10 +1,10 @@
-import { fetchKboGameDate, fetchKboGameList, fetchKboScheduleList, fetchKboTeamRankDailyPage } from '../clients/kboClient.js'
+import { fetchKboTeamRankDailyPage } from '../clients/kboClient.js'
 import { makeTestLiveGame } from '../fixtures/testLiveGame.js'
-import { mapGame, mapScheduledGame } from '../mappers/gameMapper.js'
-import { mapScheduleGames } from '../mappers/scheduleMapper.js'
 import { parseKboTeamRankDaily } from '../mappers/teamRankMapper.js'
 import { listTeamSeasonRecords, upsertTeamSeasonRecords } from '../repositories/teamRecordRepository.js'
 import { enrichPreviousAtBatResult } from './liveTextEnrichment.js'
+import { loadKboMonthGameSource } from './monthScheduleSource.js'
+import { enrichProbablePitcherRecords } from './probablePitcherEnrichment.js'
 import { enrichTeamRecords, teamRecordsById } from './teamRecordEnrichment.js'
 import { toKboDate } from '../utils/date.js'
 import type { TeamRankEntry } from '../mappers/teamRankMapper.js'
@@ -107,36 +107,12 @@ async function loadTeamStandingsEntries(kboDate: string): Promise<TeamRankEntry[
 }
 
 async function loadMonthGames(kboDate: string) {
-  const [gameDate, scheduleList] = await Promise.all([
-    fetchKboGameDate(kboDate),
-    fetchKboScheduleList(kboDate.slice(0, 4), kboDate.slice(4, 6))
-  ])
-  const scheduleGames = mapScheduleGames(scheduleList)
-    .filter((game) => game.date.startsWith(kboDate.slice(0, 6)))
-  const scheduleByGameId = new Map(scheduleGames.map((game) => [game.gameId, game]))
-  const dates = [...new Set([kboDate, ...scheduleGames.map((game) => game.date)])].sort()
-  const gameLists = await Promise.all(
-    dates.map(async (date) => ({
-      date,
-      gameList: await fetchKboGameList(date)
-    }))
-  )
-
-  const gamesById = new Map<string, NormalizedGame>()
-  for (const { gameList } of gameLists) {
-    for (const game of gameList.game) {
-      gamesById.set(game.G_ID, mapGame(game, scheduleByGameId.get(game.G_ID)))
-    }
-  }
-
-  for (const scheduleGame of scheduleGames) {
-    if (!gamesById.has(scheduleGame.gameId)) {
-      gamesById.set(scheduleGame.gameId, mapScheduledGame(scheduleGame))
-    }
-  }
+  const source = await loadKboMonthGameSource(kboDate)
 
   const enrichedGames = await Promise.all(
-    [...gamesById.values()].map((game) => enrichPreviousAtBatResult(game, kboDate))
+    source.normalizedGames.map(async (game) => enrichProbablePitcherRecords(
+      await enrichPreviousAtBatResult(game, kboDate)
+    ))
   )
 
   const teamRecords = teamRecordsById(await loadTeamStandingsEntries(kboDate))
@@ -153,10 +129,7 @@ async function loadMonthGames(kboDate: string) {
     })
 
   return {
-    gameDate,
-    scheduleList,
-    scheduleGames,
-    gameLists,
+    ...source,
     games
   }
 }
@@ -249,8 +222,7 @@ export async function getTodayGamesRaw(date?: string) {
     }
   }
 
-  const { gameDate, scheduleList, scheduleGames, gameLists, games } = await loadMonthGames(kboDate)
-  const requestedGameList = gameLists.find((entry) => entry.date === kboDate)?.gameList ?? { game: [] }
+  const { gameDate, scheduleList, scheduleGames, requestedGameList, gameLists, games } = await loadMonthGames(kboDate)
 
   return {
     requestedDate: kboDate,

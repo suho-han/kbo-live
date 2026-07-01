@@ -192,7 +192,12 @@ export function upsertPitchingSeasonRecords(date: string, entries: PitchingLeade
   }
 }
 
-export function searchPlayers(query: string, season?: number, db: DatabaseSync = getDatabase()): PlayerSearchResult[] {
+export function searchPlayers(query: string, season?: number, db?: DatabaseSync): PlayerSearchResult[] {
+  if (db == null && isDatabaseDisabled()) {
+    return []
+  }
+
+  const database = db ?? getDatabase()
   const normalizedQuery = `%${normalizeName(query)}%`
   const sql = `
     select
@@ -209,8 +214,8 @@ export function searchPlayers(query: string, season?: number, db: DatabaseSync =
     limit 30
   `
   const rows = season == null
-    ? db.prepare(sql).all(normalizedQuery)
-    : db.prepare(sql).all(normalizedQuery, season)
+    ? database.prepare(sql).all(normalizedQuery)
+    : database.prepare(sql).all(normalizedQuery, season)
   return rows as unknown as PlayerSearchResult[]
 }
 
@@ -218,9 +223,14 @@ export function getPlayerSeasonRecord(
   playerId: string,
   season: number,
   date?: string,
-  db: DatabaseSync = getDatabase()
+  db?: DatabaseSync
 ): PlayerSeasonRecordResult | null {
-  const player = db.prepare('select id as playerId, name as playerName from players where id = ?')
+  if (db == null && isDatabaseDisabled()) {
+    return null
+  }
+
+  const database = db ?? getDatabase()
+  const player = database.prepare('select id as playerId, name as playerName from players where id = ?')
     .get(playerId) as { playerId: string, playerName: string } | undefined
   if (!player) {
     return null
@@ -229,13 +239,13 @@ export function getPlayerSeasonRecord(
   const datePredicate = date == null ? '' : 'and date <= ?'
   const battingArgs = date == null ? [season, playerId] : [season, playerId, date]
   const pitchingArgs = date == null ? [season, playerId] : [season, playerId, date]
-  const batting = db.prepare(`
+  const batting = database.prepare(`
     select * from player_batting_season_records
     where season = ? and player_id = ? ${datePredicate}
     order by date desc
     limit 1
   `).get(...battingArgs) as Record<string, unknown> | undefined
-  const pitching = db.prepare(`
+  const pitching = database.prepare(`
     select * from player_pitching_season_records
     where season = ? and player_id = ? ${datePredicate}
     order by date desc
@@ -251,4 +261,3 @@ export function getPlayerSeasonRecord(
     pitching: pitching ?? null
   }
 }
-

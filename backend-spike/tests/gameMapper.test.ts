@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { mapGame } from '../src/mappers/gameMapper.js'
+import { mapGame, mapScheduledGame } from '../src/mappers/gameMapper.js'
 import type { RawKboGame } from '../src/dto/kboGameList.dto.js'
 
 const baseRawGame: RawKboGame = {
@@ -207,5 +207,50 @@ describe('mapGame recentPlay', () => {
       loss: '문동주',
       save: '유영찬'
     })
+  })
+
+  it('marks scheduled starter availability ready when both starter names are present', () => {
+    const game = mapGame({
+      ...baseRawGame,
+      G_DT: '20260701',
+      GAME_STATE_SC: '1',
+      T_PIT_P_NM: '김건우',
+      B_PIT_P_NM: '올러'
+    }, undefined, { now: new Date('2026-06-30T15:00:00Z') })
+
+    expect(game.starterStatus).toBe('ready')
+    expect(game.probablePitchers.away.name).toBe('김건우')
+    expect(game.probablePitchers.home.name).toBe('올러')
+  })
+
+  it('marks scheduled starter availability missing only inside the KST today/tomorrow window', () => {
+    const tomorrow = mapGame({
+      ...baseRawGame,
+      G_ID: '20260702HHLG0',
+      G_DT: '20260702',
+      GAME_STATE_SC: '1',
+      T_PIT_P_NM: '',
+      B_PIT_P_NM: ''
+    }, undefined, { now: new Date('2026-07-01T00:30:00+09:00') })
+    const later = mapScheduledGame({
+      gameId: '20260708LGSS0',
+      date: '20260708',
+      awayTeam: { id: 'LG', name: 'LG' },
+      homeTeam: { id: 'SS', name: '삼성' },
+      startTime: '20260708T18:30:00+09:00',
+      venue: '대구',
+      broadcastChannels: [],
+      note: null,
+      links: {
+        gameCenter: null,
+        preview: null,
+        review: null,
+        highlight: null
+      },
+      statusHint: null
+    }, { now: new Date('2026-07-01T00:30:00+09:00') })
+
+    expect(tomorrow.starterStatus).toBe('missing')
+    expect(later.starterStatus).toBe('notDue')
   })
 })

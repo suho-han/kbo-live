@@ -30,6 +30,7 @@ function makeGame(overrides: Partial<NormalizedGame> = {}): NormalizedGame {
       save: null
     },
     status: 'live',
+    starterStatus: 'ready',
     awayTeam: {
       id: 'HT',
       name: 'KIA'
@@ -61,8 +62,14 @@ function makeGame(overrides: Partial<NormalizedGame> = {}): NormalizedGame {
       pitcher: '시라카와'
     },
     probablePitchers: {
-      away: null,
-      home: null
+      away: {
+        name: null,
+        record: null
+      },
+      home: {
+        name: null,
+        record: null
+      }
     },
     recentPlay: null,
     teamRecords: null,

@@ -9,9 +9,10 @@ public enum GameDTOMapper {
         let count = suppressPregameLiveState ? nil : dto.count.map { CountState(balls: $0.balls, strikes: $0.strikes, outs: $0.outs) }
         let bases = suppressPregameLiveState ? nil : dto.bases.map { BasesState(first: $0.first, second: $0.second, third: $0.third) }
         let probablePitchers = ProbablePitchers(
-            away: nilIfBlank(dto.probablePitchers.away),
-            home: nilIfBlank(dto.probablePitchers.home)
+            away: mapProbablePitcher(dto.probablePitchers.away),
+            home: mapProbablePitcher(dto.probablePitchers.home)
         )
+        let starterStatus = mapStarterStatus(dto.starterStatus, probablePitchers: probablePitchers)
         let current = suppressPregameLiveState ? nil : mapCurrentMatchup(dto.current)
         let recentPlay = suppressPregameLiveState
             ? nil
@@ -26,6 +27,7 @@ public enum GameDTOMapper {
             homepageLinks: mapHomepageLinks(dto.homepageLinks),
             pitcherDecisions: mapPitcherDecisions(dto.pitcherDecisions),
             status: status,
+            starterStatus: starterStatus,
             awayTeam: Team(id: dto.awayTeam.id, name: dto.awayTeam.name),
             homeTeam: Team(id: dto.homeTeam.id, name: dto.homeTeam.name),
             score: Score(away: dto.score.away, home: dto.score.home),
@@ -56,6 +58,42 @@ public enum GameDTOMapper {
             batter: nilIfBlank(dto.batter),
             pitcher: nilIfBlank(dto.pitcher)
         )
+    }
+
+    static func mapProbablePitcher(_ dto: ProbablePitcherDTO?) -> ProbablePitcher {
+        ProbablePitcher(
+            name: nilIfBlank(dto?.name),
+            record: mapPitcherSeasonSummary(dto?.record)
+        )
+    }
+
+    static func mapPitcherSeasonSummary(_ dto: PitcherSeasonSummaryDTO?) -> PitcherSeasonSummary? {
+        guard let dto else { return nil }
+        let summary = PitcherSeasonSummary(
+            wins: dto.wins,
+            losses: dto.losses,
+            era: dto.era,
+            whip: dto.whip
+        )
+        guard summary.wins != nil || summary.losses != nil || summary.era != nil || summary.whip != nil else {
+            return nil
+        }
+        return summary
+    }
+
+    static func mapStarterStatus(_ dto: StarterStatusDTO?, probablePitchers: ProbablePitchers) -> StarterStatus {
+        guard let dto else {
+            return probablePitchers.away.name != nil && probablePitchers.home.name != nil ? .ready : .notDue
+        }
+
+        switch dto {
+        case .ready:
+            return .ready
+        case .missing:
+            return .missing
+        case .notDue:
+            return .notDue
+        }
     }
 
     static func normalizedStatus(_ dtoStatus: GameStatusDTO, startTime: Date?, now: Date) -> GameStatus {

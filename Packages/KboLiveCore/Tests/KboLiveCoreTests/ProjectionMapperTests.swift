@@ -150,7 +150,7 @@ struct ProjectionMapperTests {
             count: CountState(balls: 1, strikes: 2, outs: 2),
             bases: BasesState(first: true, second: false, third: false),
             current: nil,
-            probablePitchers: ProbablePitchers(away: nil, home: nil),
+            probablePitchers: ProbablePitchers(away: ProbablePitcher(name: nil), home: ProbablePitcher(name: nil)),
             recentPlay: nil,
             sourceMeta: SourceMeta(rawStatusCode: nil, rawTopBottomCode: nil, fetchedAt: "2026-06-10T10:05:00.000Z")
         )
@@ -172,7 +172,7 @@ struct ProjectionMapperTests {
             count: nil,
             bases: nil,
             current: nil,
-            probablePitchers: ProbablePitchers(away: nil, home: nil),
+            probablePitchers: ProbablePitchers(away: ProbablePitcher(name: nil), home: ProbablePitcher(name: nil)),
             recentPlay: nil,
             sourceMeta: SourceMeta(rawStatusCode: nil, rawTopBottomCode: nil, fetchedAt: "2026-06-10T10:05:00.000Z")
         )
@@ -199,7 +199,7 @@ struct ProjectionMapperTests {
             count: CountState(balls: 1, strikes: 2, outs: 2),
             bases: BasesState(first: true, second: true, third: false),
             current: CurrentMatchup(batter: "오스틴", pitcher: "박치국"),
-            probablePitchers: ProbablePitchers(away: nil, home: nil),
+            probablePitchers: ProbablePitchers(away: ProbablePitcher(name: nil), home: ProbablePitcher(name: nil)),
             recentPlay: recentPlay,
             sourceMeta: SourceMeta(rawStatusCode: nil, rawTopBottomCode: nil, fetchedAt: "2026-06-10T10:05:00.000Z")
         )

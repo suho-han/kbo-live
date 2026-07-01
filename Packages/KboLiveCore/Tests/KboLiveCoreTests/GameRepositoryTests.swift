@@ -17,7 +17,13 @@ struct GameRepositoryTests {
             count: CountDTO(balls: 1, strikes: 2, outs: 2),
             bases: BasesDTO(first: true, second: false, third: true),
             current: CurrentMatchupDTO(batter: "최원준", pitcher: "김서현"),
-            probablePitchers: ProbablePitchersDTO(away: "네일", home: "문동주"),
+            probablePitchers: ProbablePitchersDTO(
+                away: ProbablePitcherDTO(name: "네일"),
+                home: ProbablePitcherDTO(
+                    name: "문동주",
+                    record: PitcherSeasonSummaryDTO(wins: 8, losses: 3, era: 2.91, whip: 1.09)
+                )
+            ),
             recentPlay: "좌전 적시타",
             sourceMeta: SourceMetaDTO(rawStatusCode: "2", rawTopBottomCode: "B", fetchedAt: "2026-06-10T10:05:00.000Z")
         )
@@ -52,6 +58,7 @@ struct GameRepositoryTests {
         #expect(result.games.count == 1)
         #expect(result.games[0].status == .live)
         #expect(result.games[0].current?.batter == "최원준")
+        #expect(result.games[0].probablePitchers.home.record == PitcherSeasonSummary(wins: 8, losses: 3, era: 2.91, whip: 1.09))
     }
 
     @Test func repositoryMapsTeamStandingsIntoDomain() async throws {

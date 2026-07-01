@@ -14,6 +14,7 @@
     "test": "vitest run",
     "poll": "tsx scripts/poll-live-games.ts",
     "dump": "tsx scripts/dump-kbo-response.ts",
+    "collect:probable-pitchers": "tsx scripts/collect-probable-pitcher-records.ts",
     "validate:data": "tsx scripts/validate-data-quality.ts",
     "collect:source": "tsx scripts/collect-source-data.ts",
     "extract:league-records": "tsx scripts/extract-league-record-data.ts",

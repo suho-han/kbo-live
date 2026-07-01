@@ -93,6 +93,21 @@ function normalizeStartTime(date: string, timeText: string | null | undefined): 
   return `${date}T${time[1].padStart(2, '0')}:${time[2]}:00+09:00`
 }
 
+function parseDateCell(
+  value: string | null | undefined,
+  contextDate: string | null,
+  seasonId?: string
+): string | null {
+  const date = /(\d{2})\.(\d{2})/.exec(stripHtml(value))
+  const year = seasonId ?? contextDate?.slice(0, 4)
+
+  if (!date || !year) {
+    return null
+  }
+
+  return `${year}${date[1]}${date[2]}`
+}
+
 function firstNonEmpty(values: Array<string | null | undefined>): string | null {
   for (const value of values) {
     const normalized = emptyToNull(value)
@@ -172,13 +187,15 @@ function inferGameId(
 
 function parseScheduleRow(
   cells: RawKboScheduleListResponse['rows'][number]['row'],
-  fallbackDate: string | null
+  fallbackDate: string | null,
+  seasonId?: string
 ): ScheduleGameInfo | null {
   const linkCells = cells
     .map((cell, index) => ({ index, links: parseGameCenterLinks(cell.Text) }))
     .filter((cell) => cell.links.length > 0)
 
   const primaryLink = linkCells[0]?.links[0]
+  const dayCell = cells.find((cell) => cell.Class === 'day')
   const timeCell = cells.find((cell) => cell.Class === 'time')
   const playIndex = cells.findIndex((cell) => cell.Class === 'play')
   const playCell = playIndex >= 0 ? cells[playIndex] : undefined
@@ -189,8 +206,9 @@ function parseScheduleRow(
   const linkBySection = new Map(links.map((link) => [link.section, link.href]))
   const note = emptyToNull(afterLinks.at(-1)?.Text)
   const teamNames = parseTeamNames(playCell?.Text)
-  const gameId = primaryLink?.gameId ?? inferGameId(fallbackDate, teamNames)
-  const date = primaryLink?.gameDate ?? fallbackDate
+  const rowDate = parseDateCell(dayCell?.Text, primaryLink?.gameDate ?? fallbackDate, seasonId)
+  const date = primaryLink?.gameDate ?? rowDate ?? fallbackDate
+  const gameId = primaryLink?.gameId ?? inferGameId(date, teamNames)
 
   if (!gameId || !date) {
     return null
@@ -223,12 +241,12 @@ function parseScheduleRow(
   }
 }
 
-export function mapScheduleGames(scheduleList: RawKboScheduleListResponse): ScheduleGameInfo[] {
+export function mapScheduleGames(scheduleList: RawKboScheduleListResponse, seasonId?: string): ScheduleGameInfo[] {
   const games: ScheduleGameInfo[] = []
   let currentDate: string | null = null
 
   for (const row of scheduleList.rows) {
-    const game = parseScheduleRow(row.row, currentDate)
+    const game = parseScheduleRow(row.row, currentDate, seasonId)
     if (game) {
       currentDate = game.date
       games.push(game)
@@ -238,6 +256,6 @@ export function mapScheduleGames(scheduleList: RawKboScheduleListResponse): Sche
   return games
 }
 
-export function indexScheduleGames(scheduleList: RawKboScheduleListResponse): Map<string, ScheduleGameInfo> {
-  return new Map(mapScheduleGames(scheduleList).map((game) => [game.gameId, game]))
+export function indexScheduleGames(scheduleList: RawKboScheduleListResponse, seasonId?: string): Map<string, ScheduleGameInfo> {
+  return new Map(mapScheduleGames(scheduleList, seasonId).map((game) => [game.gameId, game]))
 }
