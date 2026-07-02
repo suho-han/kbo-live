@@ -1,5 +1,0 @@
-
-> baseball-live-kr-backend-spike@0.1.0 build
-> tsc -p tsconfig.build.json
-
-Packaged backend: /Users/suhohan/.codex/worktrees/361b/kbo-live/.build/baseball-live-kr-backend-macos

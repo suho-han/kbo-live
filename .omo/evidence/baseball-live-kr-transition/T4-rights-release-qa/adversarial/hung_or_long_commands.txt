@@ -1,2 +1,0 @@
-xcodebuild_macOS_debug: completed after first 30s poll; see green/xcodebuild-macos-debug.txt for full log and BUILD SUCCEEDED.
-No timeout kill was required; command exited successfully on second poll.

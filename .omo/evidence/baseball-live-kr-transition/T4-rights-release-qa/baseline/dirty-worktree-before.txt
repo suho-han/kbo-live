@@ -1,4 +1,0 @@
-## HEAD (no branch)
- D PROJECT_CONTEXT/baseball-live-kr-branding-and-release-plan.md
-?? .gjc/
-?? baseball-live-kr-deployment-plan.md

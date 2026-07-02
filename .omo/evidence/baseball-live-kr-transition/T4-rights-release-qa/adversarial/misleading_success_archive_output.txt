@@ -1,4 +1,0 @@
-.omo/evidence/baseball-live-kr-transition/T4-rights-release-qa/adversarial/misleading_success_archive_probe/fake-runtime.tar.gz:./Fake.app/Contents/Resources/TeamLogos/
-.omo/evidence/baseball-live-kr-transition/T4-rights-release-qa/adversarial/misleading_success_archive_probe/fake-runtime.tar.gz:./Fake.app/Contents/Resources/TeamLogos/HH.png
-Official visual asset risk found in release/staged artifacts.
-exit_code=1

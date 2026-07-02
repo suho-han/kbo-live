@@ -1,6 +1,0 @@
-Malformed-input probe
-
-The migration test `malformedNewEnvironmentFallsBackToValidLegacyValue` in Packages/KboLiveCore/Tests/KboLiveCoreTests/RuntimeStringSettingMigrationTests.swift covers invalid new env input with a valid legacy fallback.
-
-Evidence:
-- GREEN_swift_test_KboLiveCore.txt includes `malformedNewEnvironmentFallsBackToValidLegacyValue() passed`.

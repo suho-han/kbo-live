@@ -1,6 +1,0 @@
-Wed Jul  1 16:31:54 UTC 2026
-misleading_success_output probe: commands are recorded with shell exit status, not success text alone.
-
-## false-positive text without zero exit
-BUILD SUCCEEDED text-only probe
-exit_status=7

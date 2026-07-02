@@ -1,1 +1,0 @@
-No official visual asset filenames found in release/staged artifacts.

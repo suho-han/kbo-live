@@ -1,6 +1,0 @@
-23:          - TeamLogos/**
-24:          - TeamWordmarks/**
-25:          - TeamBrandAssets/**
-45:          - TeamLogos/**
-46:          - TeamWordmarks/**
-47:          - TeamBrandAssets/**

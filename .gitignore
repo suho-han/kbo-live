@@ -16,7 +16,7 @@ backend-spike/logs/polling/
 
 # Build outputs & tool caches
 /.xcode/
-/.omo/
+.omo/
 /dist/
 *.tar.gz
 

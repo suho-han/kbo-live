@@ -1,2 +1,0 @@
-command=git diff --check 43b4445^
-exit_code=0

@@ -1,2 +1,0 @@
-command=rg stale active doc names
-exit=1

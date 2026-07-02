@@ -1,6 +1,0 @@
-Residual legacy-token search; only migration-compat test/source references are allowed.
-Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/App/BaseballLiveKREnvironment.swift:12:    public static let legacyBackendBaseURLEnvironmentName = "KBO_LIVE_BASE_URL"
-Packages/BaseballLiveKRCore/Tests/BaseballLiveKRCoreTests/RuntimeStringSettingMigrationTests.swift:87:            legacyName: "KBO_LIVE_BASE_URL",
-Packages/BaseballLiveKRCore/Tests/BaseballLiveKRCoreTests/RuntimeStringSettingMigrationTests.swift:90:                "KBO_LIVE_BASE_URL": "http://127.0.0.1:17361"
-Packages/BaseballLiveKRCore/Tests/BaseballLiveKRCoreTests/RuntimeStringSettingMigrationTests.swift:101:            legacyName: "KBO_LIVE_BASE_URL",
-Packages/BaseballLiveKRCore/Tests/BaseballLiveKRCoreTests/RuntimeStringSettingMigrationTests.swift:104:                "KBO_LIVE_BASE_URL": "http://127.0.0.1:17361"

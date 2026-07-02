@@ -1,4 +1,0 @@
-command=.omo/evidence/baseball-live-kr-transition/T4-rights-release-qa/adversarial/default_zero_roots_probe/scripts/verify-release-assets.sh
-No release/staged artifact roots exist to inspect.
-exit_code=2
-probe_removed=yes

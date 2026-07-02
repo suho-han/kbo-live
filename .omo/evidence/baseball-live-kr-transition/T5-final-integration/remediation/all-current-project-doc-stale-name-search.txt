@@ -1,2 +1,0 @@
-command=rg -n KboLiveApp\.xcodeproj|KboLivemacOS|KboLiveiOS|KboLiveWidgetExtension|KboLiveCore|KboLiveDesignSystem|KboLiveFeatures|KBO_LIVE_BASE_URL|KBO Live PROJECT_CONTEXT/*.md DESIGN.md
-exit=1

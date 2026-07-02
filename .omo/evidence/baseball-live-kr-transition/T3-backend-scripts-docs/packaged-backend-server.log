@@ -1,6 +1,0 @@
-{"level":30,"time":1782923284788,"pid":26018,"hostname":"Suhoui-MacBookAir.local","msg":"Server listening at http://127.0.0.1:17379"}
-{"level":30,"time":1782923284788,"pid":26018,"hostname":"Suhoui-MacBookAir.local","msg":"Server listening at http://172.30.1.24:17379"}
-{"level":30,"time":1782923284788,"pid":26018,"hostname":"Suhoui-MacBookAir.local","msg":"Server listening at http://100.73.225.85:17379"}
-{"level":30,"time":1782923284788,"pid":26018,"hostname":"Suhoui-MacBookAir.local","port":17379,"host":"0.0.0.0","version":"0.1.0","msg":"backend-spike server started"}
-{"level":30,"time":1782923285219,"pid":26018,"hostname":"Suhoui-MacBookAir.local","reqId":"req-1","req":{"method":"GET","url":"/health","host":"127.0.0.1:17379","remoteAddress":"127.0.0.1","remotePort":58718},"msg":"incoming request"}
-{"level":30,"time":1782923285227,"pid":26018,"hostname":"Suhoui-MacBookAir.local","reqId":"req-1","res":{"statusCode":200},"responseTime":6.948290999978781,"msg":"request completed"}

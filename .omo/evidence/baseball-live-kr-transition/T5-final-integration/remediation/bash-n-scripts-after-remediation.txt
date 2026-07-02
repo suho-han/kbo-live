@@ -1,2 +1,0 @@
-command=bash -n touched scripts
-exit=0

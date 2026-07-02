@@ -1,2 +1,0 @@
-command=git diff --check 932cf72f201dfb06549f5b613a30b320d6574bc4
-exit=0

@@ -1,2 +1,0 @@
-command=rg -n KboLiveApp\.xcodeproj|KboLivemacOS|KboLiveiOS|KboLiveWidgetExtension|KboLiveCore|KboLiveDesignSystem|KboLiveFeatures|KBO_LIVE_BASE_URL|KBO Live PROJECT_CONTEXT/README.md PROJECT_CONTEXT/xcode-project-structure.md PROJECT_CONTEXT/live-activity-verification.md PROJECT_CONTEXT/production-backend-strategy.md PROJECT_CONTEXT/widget-live-activity-personalization-plan.md DESIGN.md
-exit=1

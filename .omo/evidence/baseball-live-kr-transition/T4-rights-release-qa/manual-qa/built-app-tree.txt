@@ -1,8 +1,0 @@
-.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app
-.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents
-.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/Info.plist
-.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/MacOS
-.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/MacOS/BaseballLiveKR
-.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/MacOS/BaseballLiveKR.debug.dylib
-.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/MacOS/__preview.dylib
-.xcode/DerivedData/Build/Products/Debug/BaseballLiveKR.app/Contents/PkgInfo

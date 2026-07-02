@@ -1,3 +1,0 @@
-command=(temporary copied script from empty directory) ./verify-release-assets.sh
-No release/staged artifact roots exist to inspect.
-exit=2
