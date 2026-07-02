@@ -91,7 +91,7 @@ All spacing derives from a 4pt base.
 - Variants: normal and highlighted.
 - Spacing: `KboSpacingToken.small` horizontal/inline spacing, 6pt vertical compact padding.
 - States: normal and highlighted differ by fill opacity and stroke width.
-- Accessibility: token glyph fill and outline use two team/logo colors while the token background stays white; K-shaped tokens use a custom vector K so the outline does not cover the letter.
+- Accessibility: token glyph color matches the token border color, and the glyph outline matches the token interior color; all tokens render as centered text for consistent shape balance.
 - Motion: no intrinsic motion.
 
 ### KboGlassPanel
