@@ -111,7 +111,7 @@ public struct TeamLogoTokenView: View {
             }
             .overlay {
                 RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .stroke(style.stroke, lineWidth: borderWidth)
+                    .stroke(style.fill, lineWidth: borderWidth)
             }
         }
         .aspectRatio(1, contentMode: .fit)
@@ -119,16 +119,7 @@ public struct TeamLogoTokenView: View {
 
     @ViewBuilder
     private func tokenGlyph(style: TeamColorResolver.LogoTokenStyle, side: CGFloat) -> some View {
-        if style.letter == "K" {
-            StylizedK()
-                .stroke(style.stroke, style: StrokeStyle(lineWidth: max(1.2, side * 0.075), lineCap: .round, lineJoin: .round))
-                .overlay {
-                    StylizedK()
-                        .stroke(style.fill, style: StrokeStyle(lineWidth: max(0.8, side * 0.048), lineCap: .round, lineJoin: .round))
-                }
-        } else {
-            outlinedText(style: style, side: side)
-        }
+        outlinedText(style: style, side: side)
     }
 
     private func outlinedText(style: TeamColorResolver.LogoTokenStyle, side: CGFloat) -> some View {
@@ -137,30 +128,10 @@ public struct TeamLogoTokenView: View {
             .foregroundStyle(style.fill)
             .lineLimit(1)
             .minimumScaleFactor(0.55)
-            .shadow(color: style.stroke, radius: 0, x: 1, y: 0)
-            .shadow(color: style.stroke, radius: 0, x: -1, y: 0)
-            .shadow(color: style.stroke, radius: 0, x: 0, y: 1)
-            .shadow(color: style.stroke, radius: 0, x: 0, y: -1)
+            .shadow(color: style.background, radius: 0, x: 1, y: 0)
+            .shadow(color: style.background, radius: 0, x: -1, y: 0)
+            .shadow(color: style.background, radius: 0, x: 0, y: 1)
+            .shadow(color: style.background, radius: 0, x: 0, y: -1)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-    }
-}
-
-private struct StylizedK: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        let leftX = rect.minX + rect.width * 0.25
-        let centerX = rect.minX + rect.width * 0.48
-        let rightX = rect.minX + rect.width * 0.78
-        let topY = rect.minY + rect.height * 0.08
-        let midY = rect.midY
-        let bottomY = rect.minY + rect.height * 0.92
-
-        path.move(to: CGPoint(x: leftX, y: topY))
-        path.addLine(to: CGPoint(x: leftX, y: bottomY))
-        path.move(to: CGPoint(x: rightX, y: topY))
-        path.addLine(to: CGPoint(x: centerX, y: midY))
-        path.addLine(to: CGPoint(x: rightX, y: bottomY))
-
-        return path
     }
 }

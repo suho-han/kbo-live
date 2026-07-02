@@ -123,7 +123,7 @@ public enum TeamColorResolver {
                 background: .white
             )
         case "SK", "SSG":
-            return LogoTokenStyle(letter: letter, fill: .white, stroke: TeamColorPalette.ssgLandersPrimary, background: .white)
+            return LogoTokenStyle(letter: letter, fill: TeamColorPalette.ssgLandersPrimary, stroke: .white, background: .white)
         case "HH", "HANWHA":
             return LogoTokenStyle(letter: letter, fill: .black, stroke: TeamColorPalette.hanwhaEaglesPrimary, background: .white)
         case "NC":
