@@ -2,7 +2,7 @@
 
 작성일: 2026-06-12
 상태: Working v0.1
-기준 상태: backend spike 동작 확인, `KboLiveCore` networking/repository/polling 계층 구현 및 테스트 통과
+기준 상태: backend spike 동작 확인, `BaseballLiveKRCore` networking/repository/polling 계층 구현 및 테스트 통과
 
 ## 1. 현재 기준선
 
@@ -14,20 +14,20 @@
 - `/debug/source/today`
 - KBO 원천 응답 fetch 및 normalized JSON 변환
 - polling/dump script scaffold
-- `KboLiveCore` DTO/domain/mapper/projection scaffold
-- `KboLiveCore` API client, repository, polling service
-- `KboLiveDesignSystem` token/theme/primitive scaffold
+- `BaseballLiveKRCore` DTO/domain/mapper/projection scaffold
+- `BaseballLiveKRCore` API client, repository, polling service
+- `BaseballLiveKRDesignSystem` token/theme/primitive scaffold
 - 프로젝트 응답 규칙용 `AGENTS.md`
 
 검증 완료:
 - `backend-spike`: `npm run typecheck`, `npm test`, `npm run build`
-- `KboLiveCore`: `swift test --disable-sandbox --manifest-cache local --cache-path .build/cache --config-path .build/config --security-path .build/security`
+- `BaseballLiveKRCore`: `swift test --disable-sandbox --manifest-cache local --cache-path .build/cache --config-path .build/config --security-path .build/security`
 
 주요 공백:
 - 실제 Xcode workspace/app targets 없음
 - iOS/macOS/Widget/Live Activity 타깃 없음
 - Swift 앱 state/view model/facade 없음
-- `KboLiveDesignSystem` package build 검증 필요
+- `BaseballLiveKRDesignSystem` package build 검증 필요
 - `recentPlay` 백엔드 매핑 미구현
 - live 경기 중 polling fixture 추가 필요
 
@@ -36,8 +36,8 @@
 다음 단계의 목표는 "실제 Apple app target에서 백엔드 데이터를 화면에 붙일 수 있는 최소 경로"를 만드는 것이다.
 
 작업 순서:
-1. `KboLiveDesignSystem` build 검증
-2. `KboLiveCore` app-facing facade 추가
+1. `BaseballLiveKRDesignSystem` build 검증
+2. `BaseballLiveKRCore` app-facing facade 추가
 3. Xcode workspace/app target 생성
 4. iOS Home 화면 mock/live 연결
 5. Widget/Menu Bar/Live Activity projection 연결
@@ -46,11 +46,11 @@
 ## 3. Task A: DesignSystem 검증
 
 목표:
-- `KboLiveDesignSystem`이 현재 Swift toolchain에서 실제로 build 되는지 확인한다.
+- `BaseballLiveKRDesignSystem`이 현재 Swift toolchain에서 실제로 build 되는지 확인한다.
 
 명령:
 ```bash
-cd Packages/KboLiveDesignSystem
+cd Packages/BaseballLiveKRDesignSystem
 swift build --disable-sandbox --manifest-cache local --cache-path .build/cache --config-path .build/config --security-path .build/security
 ```
 
@@ -70,9 +70,9 @@ swift build --disable-sandbox --manifest-cache local --cache-path .build/cache -
 - 앱 타깃이 repository를 직접 조립하지 않아도 되는 얇은 facade를 만든다.
 
 추가 후보:
-- `Packages/KboLiveCore/Sources/KboLiveCore/App/KboLiveEnvironment.swift`
-- `Packages/KboLiveCore/Sources/KboLiveCore/App/GameFeedClient.swift`
-- `Packages/KboLiveCore/Sources/KboLiveCore/Mocks/MockGameRepository.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/App/KboLiveEnvironment.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/App/GameFeedClient.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mocks/MockGameRepository.swift`
 
 권장 API:
 ```swift
@@ -86,7 +86,7 @@ public struct GameFeedClient: Sendable {
 완료 기준:
 - app에서 `baseURL`만 넣으면 live client 구성 가능
 - preview/test에서 mock repository 주입 가능
-- `KboLiveCore` 테스트 추가 및 통과
+- `BaseballLiveKRCore` 테스트 추가 및 통과
 
 ## 5. Task C: Xcode Workspace And Targets
 
@@ -95,15 +95,15 @@ public struct GameFeedClient: Sendable {
 
 생성 후보:
 - `KboLive.xcworkspace`
-- `KboLiveApp/KboLiveApp.xcodeproj`
-- `KboLiveApp/KboLiveiOS`
-- `KboLiveApp/KboLivemacOS`
-- `KboLiveApp/KboLiveWidgetExtension`
-- `KboLiveApp/KboLiveActivityExtension`
+- `BaseballLiveKRApp/BaseballLiveKRApp.xcodeproj`
+- `BaseballLiveKRApp/BaseballLiveKRiOS`
+- `BaseballLiveKRApp/BaseballLiveKRmacOS`
+- `BaseballLiveKRApp/BaseballLiveKRWidgetExtension`
+- `BaseballLiveKRApp/KboLiveActivityExtension`
 
 초기 방침:
 - 앱 타깃은 Xcode에서 생성하고, 생성 산출물을 repo에 반영한다.
-- package dependency는 `KboLiveCore`, `KboLiveDesignSystem`만 먼저 연결한다.
+- package dependency는 `BaseballLiveKRCore`, `BaseballLiveKRDesignSystem`만 먼저 연결한다.
 - signing/capability는 최소로 시작하고 Widget/Activity는 build 가능한 skeleton을 우선한다.
 
 완료 기준:
@@ -169,7 +169,7 @@ public struct GameFeedClient: Sendable {
 ## 9. 권장 다음 작업
 
 가장 먼저 할 작업:
-1. `KboLiveDesignSystem` build 검증
+1. `BaseballLiveKRDesignSystem` build 검증
 2. `GameFeedClient` facade 추가
 3. Xcode workspace/app target 생성
 

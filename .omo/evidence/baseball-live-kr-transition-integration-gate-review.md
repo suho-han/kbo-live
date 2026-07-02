@@ -45,7 +45,7 @@ Output: no output.
 Command:
 
 ```bash
-rg -n 'KboLiveApp\.xcodeproj|KboLivemacOS|KboLiveiOS|KboLiveWidgetExtension|KboLiveCore|KboLiveDesignSystem|KboLiveFeatures|KBO_LIVE_BASE_URL|KBO Live' PROJECT_CONTEXT/*.md DESIGN.md
+rg -n 'KboLiveApp|KboLivemacOS|KboLiveiOS|KboLiveWidgetExtension|KboLiveCore|KboLiveDesignSystem|KboLiveFeatures|KBO_LIVE_BASE_URL|KBO Live' PROJECT_CONTEXT/*.md DESIGN.md
 ```
 
 Exit: `1`

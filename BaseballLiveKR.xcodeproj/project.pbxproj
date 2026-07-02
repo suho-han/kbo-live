@@ -328,7 +328,7 @@
 				2DEE9D6528FB9D1F6F8DA1C3 /* Info.plist */,
 			);
 			name = iOS;
-			path = KboLiveApp/iOS;
+			path = BaseballLiveKRApp/iOS;
 			sourceTree = "<group>";
 		};
 		20625E306A3B766C319F44A3 /* Widget */ = {
@@ -341,7 +341,7 @@
 				ADE2C3A3C954100A71A79A4E /* TodayGameWidget.swift */,
 			);
 			name = Widget;
-			path = KboLiveApp/Widget;
+			path = BaseballLiveKRApp/Widget;
 			sourceTree = "<group>";
 		};
 		29AAD8BBEA6C92DB22DC7EF1 /* Shared */ = {
@@ -361,7 +361,7 @@
 				4164E6343A3C752556E9AF57 /* WidgetGameSnapshotStore.swift */,
 			);
 			name = Shared;
-			path = KboLiveApp/Shared;
+			path = BaseballLiveKRApp/Shared;
 			sourceTree = "<group>";
 		};
 		5060F5C821AD276705E72DA9 /* Mocks */ = {
@@ -484,7 +484,7 @@
 				4029E390E7C3CB2E90A5B026 /* SettingsView.swift */,
 			);
 			name = macOS;
-			path = KboLiveApp/macOS;
+			path = BaseballLiveKRApp/macOS;
 			sourceTree = "<group>";
 		};
 		9E49DE19C99AE4A160C6017F /* Projections */ = {
@@ -941,10 +941,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = KboLiveApp/iOS/BaseballLiveKRiOS.entitlements;
+				CODE_SIGN_ENTITLEMENTS = BaseballLiveKRApp/iOS/BaseballLiveKRiOS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = KboLiveApp/iOS/Info.plist;
+				INFOPLIST_FILE = BaseballLiveKRApp/iOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1021,7 +1021,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = KboLiveApp/macOS/Info.plist;
+				INFOPLIST_FILE = BaseballLiveKRApp/macOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1102,10 +1102,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = KboLiveApp/iOS/BaseballLiveKRiOS.entitlements;
+				CODE_SIGN_ENTITLEMENTS = BaseballLiveKRApp/iOS/BaseballLiveKRiOS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = KboLiveApp/iOS/Info.plist;
+				INFOPLIST_FILE = BaseballLiveKRApp/iOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1123,7 +1123,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = KboLiveApp/macOS/Info.plist;
+				INFOPLIST_FILE = BaseballLiveKRApp/macOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1137,9 +1137,9 @@
 		EB057BFE2317CEEA006798C1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = KboLiveApp/Widget/BaseballLiveKRWidget.entitlements;
+				CODE_SIGN_ENTITLEMENTS = BaseballLiveKRApp/Widget/BaseballLiveKRWidget.entitlements;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = KboLiveApp/Widget/Info.plist;
+				INFOPLIST_FILE = BaseballLiveKRApp/Widget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1156,9 +1156,9 @@
 		F566F3EFFA722DCB4D18B97F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = KboLiveApp/Widget/BaseballLiveKRWidget.entitlements;
+				CODE_SIGN_ENTITLEMENTS = BaseballLiveKRApp/Widget/BaseballLiveKRWidget.entitlements;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = KboLiveApp/Widget/Info.plist;
+				INFOPLIST_FILE = BaseballLiveKRApp/Widget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

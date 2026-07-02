@@ -20,7 +20,7 @@
 
 현재 저장소 상태:
 - `/home/suhohan/kbo-live` 는 현재 git repo임
-- `backend-spike/` 와 `Packages/KboLiveCore`, `Packages/KboLiveDesignSystem` 초안이 이미 존재함
+- `backend-spike/` 와 `Packages/BaseballLiveKRCore`, `Packages/BaseballLiveKRDesignSystem` 초안이 이미 존재함
 - Xcode project / 실제 Apple target은 아직 없음
 - 현재 Linux 호스트에는 Swift toolchain이 없어 Apple 타깃 build 검증은 Mac에서 진행해야 함
 
@@ -32,7 +32,7 @@
 
 **Files:**
 - Create: `KboLive.xcworkspace`
-- Create: `KboLiveApp/KboLiveApp.xcodeproj`
+- Create: `BaseballLiveKRApp/BaseballLiveKRApp.xcodeproj`
 - Create: `PROJECT_CONTEXT/`
 - Create: `.gitignore`
 - Create: `README.md`
@@ -47,7 +47,7 @@
 
 **Step 3: Xcode workspace / project 생성**
 - `KboLive.xcworkspace`
-- `KboLiveApp.xcodeproj`
+- `BaseballLiveKRApp.xcodeproj`
 
 **Step 4: 기본 ignore 설정 추가**
 포함 예시:
@@ -69,10 +69,10 @@
 **Objective:** iOS, Widget, Live Activity, macOS 메뉴바 타깃을 생성한다.
 
 **Files:**
-- Create: `KboLiveApp/KboLiveiOS/*`
-- Create: `KboLiveApp/KboLiveWidgetExtension/*`
-- Create: `KboLiveApp/KboLiveActivityExtension/*`
-- Create: `KboLiveApp/KboLivemacOS/*`
+- Create: `BaseballLiveKRApp/BaseballLiveKRiOS/*`
+- Create: `BaseballLiveKRApp/BaseballLiveKRWidgetExtension/*`
+- Create: `BaseballLiveKRApp/KboLiveActivityExtension/*`
+- Create: `BaseballLiveKRApp/BaseballLiveKRmacOS/*`
 
 **Step 1: iOS App target 생성**
 - SwiftUI App lifecycle 사용
@@ -103,15 +103,15 @@
 **Objective:** 공용 로직을 담을 Swift Package를 만든다.
 
 **Files:**
-- Create: `Packages/KboLiveCore/Package.swift`
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/`
-- Create: `Packages/KboLiveDesignSystem/Package.swift`
-- Create: `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/`
+- Create: `Packages/BaseballLiveKRCore/Package.swift`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/`
+- Create: `Packages/BaseballLiveKRDesignSystem/Package.swift`
+- Create: `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/`
 
-**Step 1: `KboLiveCore` package 생성**
+**Step 1: `BaseballLiveKRCore` package 생성**
 - domain/api/repository/services/formatting 폴더 틀 생성
 
-**Step 2: `KboLiveDesignSystem` package 생성**
+**Step 2: `BaseballLiveKRDesignSystem` package 생성**
 - tokens/components/theme 폴더 틀 생성
 
 **Step 3: Xcode workspace에 package 연결**
@@ -130,14 +130,14 @@
 **Objective:** MVP에 필요한 최소 도메인 모델을 정의한다.
 
 **Files:**
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/Domain/Team.swift`
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/Domain/Game.swift`
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/Domain/Score.swift`
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/Domain/GameStatus.swift`
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/Domain/InningState.swift`
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/Domain/BasesState.swift`
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/Domain/RecentPlay.swift`
-- Test: `Packages/KboLiveCore/Tests/KboLiveCoreTests/Domain/`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Domain/Team.swift`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Domain/Game.swift`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Domain/Score.swift`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Domain/GameStatus.swift`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Domain/InningState.swift`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Domain/BasesState.swift`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Domain/RecentPlay.swift`
+- Test: `Packages/BaseballLiveKRCore/Tests/BaseballLiveKRCoreTests/Domain/`
 
 **Step 1: Team 모델 작성**
 **Step 2: Game/Score/GameStatus 모델 작성**
@@ -158,10 +158,10 @@
 **Objective:** KBO 스타일 UI에 필요한 디자인 토큰을 정의한다.
 
 **Files:**
-- Create: `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Tokens/KboColorToken.swift`
-- Create: `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Tokens/KboTypographyToken.swift`
-- Create: `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Tokens/KboSpacingToken.swift`
-- Create: `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Tokens/TeamColorPalette.swift`
+- Create: `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboColorToken.swift`
+- Create: `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboTypographyToken.swift`
+- Create: `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboSpacingToken.swift`
+- Create: `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/TeamColorPalette.swift`
 
 **Step 1: 다크 배경/텍스트 토큰 작성**
 **Step 2: 상태 색상 토큰 작성**
@@ -181,12 +181,12 @@
 **Objective:** 재사용 가능한 KBO 핵심 UI primitive를 만든다.
 
 **Files:**
-- Create: `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/TeamBadgeView.swift`
-- Create: `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/ScoreDigitsView.swift`
-- Create: `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/LiveBadgeView.swift`
-- Create: `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/OutCountView.swift`
-- Create: `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/BaseDiamondView.swift`
-- Create: `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/RecentPlayTickerView.swift`
+- Create: `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/TeamBadgeView.swift`
+- Create: `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/ScoreDigitsView.swift`
+- Create: `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/LiveBadgeView.swift`
+- Create: `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/OutCountView.swift`
+- Create: `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/BaseDiamondView.swift`
+- Create: `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/RecentPlayTickerView.swift`
 
 **Step 1: TeamBadgeView 구현**
 **Step 2: ScoreDigitsView 구현**
@@ -208,9 +208,9 @@
 **Objective:** 로컬 Mac에서 실제 API 없이 UI를 빠르게 확인할 mock 데이터를 만든다.
 
 **Files:**
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/Mocks/MockTeamFactory.swift`
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/Mocks/MockGameFactory.swift`
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/Mocks/MockRecentPlayFactory.swift`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mocks/MockTeamFactory.swift`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mocks/MockGameFactory.swift`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mocks/MockRecentPlayFactory.swift`
 
 **Step 1: 예정 경기 mock 작성**
 **Step 2: LIVE 경기 mock 작성**
@@ -231,9 +231,9 @@
 **Objective:** 전광판형/방송중계형 홈 경기 카드를 구현한다.
 
 **Files:**
-- Create: `KboLiveApp/KboLiveiOS/Features/Home/Components/HomeGameCardA.swift`
-- Create: `KboLiveApp/KboLiveiOS/Features/Home/Components/HomeGameCardB.swift`
-- Create: `KboLiveApp/KboLiveiOS/Features/Home/HomePreviewGallery.swift`
+- Create: `BaseballLiveKRApp/BaseballLiveKRiOS/Features/Home/Components/HomeGameCardA.swift`
+- Create: `BaseballLiveKRApp/BaseballLiveKRiOS/Features/Home/Components/HomeGameCardB.swift`
+- Create: `BaseballLiveKRApp/BaseballLiveKRiOS/Features/Home/HomePreviewGallery.swift`
 
 **Step 1: HomeGameCardA 구현**
 **Step 2: HomeGameCardB 구현**
@@ -252,8 +252,8 @@
 **Objective:** 상세 상단 헤더의 A/B 레이아웃을 만든다.
 
 **Files:**
-- Create: `KboLiveApp/KboLiveiOS/Features/GameDetail/Components/GameDetailHeaderA.swift`
-- Create: `KboLiveApp/KboLiveiOS/Features/GameDetail/Components/GameDetailHeaderB.swift`
+- Create: `BaseballLiveKRApp/BaseballLiveKRiOS/Features/GameDetail/Components/GameDetailHeaderA.swift`
+- Create: `BaseballLiveKRApp/BaseballLiveKRiOS/Features/GameDetail/Components/GameDetailHeaderB.swift`
 
 **Step 1: 전광판형 상세 헤더 구현**
 **Step 2: 방송중계형 상세 헤더 구현**
@@ -272,10 +272,10 @@
 **Objective:** Small/Medium 위젯의 기본 프로토타입을 만든다.
 
 **Files:**
-- Create: `KboLiveApp/KboLiveWidgetExtension/Views/SmallGameWidgetA.swift`
-- Create: `KboLiveApp/KboLiveWidgetExtension/Views/SmallGameWidgetB.swift`
-- Create: `KboLiveApp/KboLiveWidgetExtension/Views/MediumGameWidgetA.swift`
-- Create: `KboLiveApp/KboLiveWidgetExtension/Views/MediumGameWidgetB.swift`
+- Create: `BaseballLiveKRApp/BaseballLiveKRWidgetExtension/Views/SmallGameWidgetA.swift`
+- Create: `BaseballLiveKRApp/BaseballLiveKRWidgetExtension/Views/SmallGameWidgetB.swift`
+- Create: `BaseballLiveKRApp/BaseballLiveKRWidgetExtension/Views/MediumGameWidgetA.swift`
+- Create: `BaseballLiveKRApp/BaseballLiveKRWidgetExtension/Views/MediumGameWidgetB.swift`
 
 **Step 1: Small A/B 구현**
 **Step 2: Medium A/B 구현**
@@ -294,12 +294,12 @@
 **Objective:** Lock Screen과 Dynamic Island의 기본 프로토타입을 만든다.
 
 **Files:**
-- Create: `KboLiveApp/KboLiveActivityExtension/KboLiveActivityAttributes.swift`
-- Create: `KboLiveApp/KboLiveActivityExtension/Models/ActivityGameState.swift`
-- Create: `KboLiveApp/KboLiveActivityExtension/Views/LockScreenGameViewA.swift`
-- Create: `KboLiveApp/KboLiveActivityExtension/Views/LockScreenGameViewB.swift`
-- Create: `KboLiveApp/KboLiveActivityExtension/Views/DynamicIslandCompactView.swift`
-- Create: `KboLiveApp/KboLiveActivityExtension/Views/DynamicIslandExpandedView.swift`
+- Create: `BaseballLiveKRApp/KboLiveActivityExtension/KboLiveActivityAttributes.swift`
+- Create: `BaseballLiveKRApp/KboLiveActivityExtension/Models/ActivityGameState.swift`
+- Create: `BaseballLiveKRApp/KboLiveActivityExtension/Views/LockScreenGameViewA.swift`
+- Create: `BaseballLiveKRApp/KboLiveActivityExtension/Views/LockScreenGameViewB.swift`
+- Create: `BaseballLiveKRApp/KboLiveActivityExtension/Views/DynamicIslandCompactView.swift`
+- Create: `BaseballLiveKRApp/KboLiveActivityExtension/Views/DynamicIslandExpandedView.swift`
 
 **Step 1: Activity attributes 정의**
 **Step 2: 경량 Activity state 모델 정의**
@@ -319,10 +319,10 @@
 **Objective:** 맥 메뉴바에서 현재 경기 한 줄과 드롭다운을 표시한다.
 
 **Files:**
-- Create: `KboLiveApp/KboLivemacOS/MenuBar/MenuBarRoot.swift`
-- Create: `KboLiveApp/KboLivemacOS/MenuBar/MenuBarLabelView.swift`
-- Create: `KboLiveApp/KboLivemacOS/MenuBar/MenuBarDropdownView.swift`
-- Create: `KboLiveApp/KboLivemacOS/MenuBar/MenuBarGameRow.swift`
+- Create: `BaseballLiveKRApp/BaseballLiveKRmacOS/MenuBar/MenuBarRoot.swift`
+- Create: `BaseballLiveKRApp/BaseballLiveKRmacOS/MenuBar/MenuBarLabelView.swift`
+- Create: `BaseballLiveKRApp/BaseballLiveKRmacOS/MenuBar/MenuBarDropdownView.swift`
+- Create: `BaseballLiveKRApp/BaseballLiveKRmacOS/MenuBar/MenuBarGameRow.swift`
 
 **Step 1: MenuBarExtra 엔트리 생성**
 **Step 2: 기본 ticker label 구현**
@@ -370,10 +370,10 @@
 **Objective:** mock에서 실제 KBO 데이터 연결로 넘어가기 위한 추상화를 만든다.
 
 **Files:**
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/API/KboAPIClient.swift`
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/API/KboRequestBuilder.swift`
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/API/KboDataSource.swift`
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/Repository/GameRepository.swift`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/API/KboAPIClient.swift`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/API/KboRequestBuilder.swift`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/API/KboDataSource.swift`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Repository/GameRepository.swift`
 
 **Step 1: DataSource 프로토콜 정의**
 **Step 2: MockDataSource 구현**
@@ -393,10 +393,10 @@
 **Objective:** 공식 KBO 소스에서 경기 목록과 기본 상태를 가져온다.
 
 **Files:**
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/DTO/KboGameListResponseDTO.swift`
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/DTO/KboScheduleListResponseDTO.swift`
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/API/OfficialKboAPIClient.swift`
-- Test: `Packages/KboLiveCore/Tests/KboLiveCoreTests/API/OfficialKboAPIClientTests.swift`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/DTO/KboGameListResponseDTO.swift`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/DTO/KboScheduleListResponseDTO.swift`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/API/OfficialKboAPIClient.swift`
+- Test: `Packages/BaseballLiveKRCore/Tests/BaseballLiveKRCoreTests/API/OfficialKboAPIClientTests.swift`
 
 **Step 1: `GetKboGameDate` 응답 DTO 작성**
 **Step 2: `GetKboGameList` 응답 DTO 작성**
@@ -417,9 +417,9 @@
 **Objective:** 앱 foreground에서 일정 주기로 경기 상태를 갱신한다.
 
 **Files:**
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/Services/LiveGamePollingService.swift`
-- Modify: `KboLiveApp/KboLiveiOS/Features/Home/HomeViewModel.swift`
-- Modify: `KboLiveApp/KboLivemacOS/MenuBar/MenuBarRoot.swift`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Services/LiveGamePollingService.swift`
+- Modify: `BaseballLiveKRApp/BaseballLiveKRiOS/Features/Home/HomeViewModel.swift`
+- Modify: `BaseballLiveKRApp/BaseballLiveKRmacOS/MenuBar/MenuBarRoot.swift`
 
 **Step 1: polling service 작성**
 **Step 2: foreground refresh interval 연결**
@@ -439,9 +439,9 @@
 **Objective:** 도메인 모델을 Widget/Activity용 경량 뷰 데이터로 변환한다.
 
 **Files:**
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/Formatting/WidgetGameFormatter.swift`
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/Formatting/ActivityGameFormatter.swift`
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/Formatting/MenuBarFormatter.swift`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Formatting/WidgetGameFormatter.swift`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Formatting/ActivityGameFormatter.swift`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Formatting/MenuBarFormatter.swift`
 
 **Step 1: widget formatter 작성**
 **Step 2: activity formatter 작성**
@@ -461,10 +461,10 @@
 **Objective:** 팀 즐겨찾기와 기본 표시 설정을 저장한다.
 
 **Files:**
-- Create: `KboLiveApp/KboLiveiOS/Features/Favorites/`
-- Create: `KboLiveApp/KboLiveiOS/Features/Settings/`
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/Domain/FavoriteTeam.swift`
-- Create: `Packages/KboLiveCore/Sources/KboLiveCore/Repository/PreferencesRepository.swift`
+- Create: `BaseballLiveKRApp/BaseballLiveKRiOS/Features/Favorites/`
+- Create: `BaseballLiveKRApp/BaseballLiveKRiOS/Features/Settings/`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Domain/FavoriteTeam.swift`
+- Create: `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Repository/PreferencesRepository.swift`
 
 **Step 1: favorite team 저장 모델 작성**
 **Step 2: SwiftData 또는 lightweight persistence 연결**

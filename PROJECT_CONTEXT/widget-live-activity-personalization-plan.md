@@ -16,10 +16,10 @@ KBO-9는 실제 iPhone에서 Live Activity start/stop과 Lock Screen/Dynamic Isl
 
 Widget extension의 홈 화면 위젯은 다음 파일에 있다.
 
-- `KboLiveApp/Widget/BaseballLiveKRWidgetBundle.swift`
+- `BaseballLiveKRApp/Widget/BaseballLiveKRWidgetBundle.swift`
   - Widget extension entry point.
   - `TodayGameWidget()`과 `LiveGameActivityWidget()`을 함께 등록한다.
-- `KboLiveApp/Widget/TodayGameWidget.swift`
+- `BaseballLiveKRApp/Widget/TodayGameWidget.swift`
   - 홈 화면/잠금 화면용 Today widget UI.
   - 현재 `StaticConfiguration` + `TodayGameProvider` 구조다.
   - 현재 preview/timeline은 `SampleGameFactory.widgetSnapshot`을 사용한다.
@@ -32,16 +32,16 @@ Widget extension의 홈 화면 위젯은 다음 파일에 있다.
 
 Live Activity는 Widget extension 안의 ActivityKit widget과 iOS app의 controller가 나뉘어 있다.
 
-- `KboLiveApp/Widget/LiveGameActivityWidget.swift`
+- `BaseballLiveKRApp/Widget/LiveGameActivityWidget.swift`
   - Lock Screen, Dynamic Island compact/minimal/expanded UI.
   - `ActivityConfiguration(for: LiveGameActivityAttributes.self)`가 실제 ActivityKit UI entry point다.
-- `KboLiveApp/Shared/LiveGameActivityAttributes.swift`
+- `BaseballLiveKRApp/Shared/LiveGameActivityAttributes.swift`
   - iOS app과 Widget extension이 공유하는 Activity attributes/content state.
   - content state는 `ActivityGameState`만 들고 간다.
-- `KboLiveApp/Shared/LiveGameActivityController.swift`
+- `BaseballLiveKRApp/Shared/LiveGameActivityController.swift`
   - iOS app 쪽 start/stop/update/end 제어.
   - 진행 중 경기만 시작 가능하게 제한한다.
-- `KboLiveApp/Shared/BaseballLiveKRHomeRootView.swift`
+- `BaseballLiveKRApp/Shared/BaseballLiveKRHomeRootView.swift`
   - Today 화면에서 `LiveGameActivityController`를 만들고 live activity toggle을 연결한다.
 - `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Projections/ActivityGameState.swift`
   - Live Activity에 전달하는 축약 content state.

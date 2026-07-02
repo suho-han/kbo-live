@@ -3,7 +3,7 @@
 - This project is often used through the Discord connector.
 - Do not use clickable local file links in responses.
 - When referring to local files, mention plain filenames or repository-relative paths only.
-- Example: use `Packages/KboLiveCore/Package.swift`, not markdown file links.
+- Example: use `Packages/BaseballLiveKRCore/Package.swift`, not markdown file links.
 
 ## Discord Completion Notification
 

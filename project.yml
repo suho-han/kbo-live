@@ -18,19 +18,19 @@ targets:
       - path: Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore
       - path: Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem
       - path: Packages/BaseballLiveKRFeatures/Sources/BaseballLiveKRFeatures
-      - path: KboLiveApp/Shared
+      - path: BaseballLiveKRApp/Shared
         excludes:
           - TeamLogos/**
           - TeamWordmarks/**
           - TeamBrandAssets/**
-      - path: KboLiveApp/iOS
+      - path: BaseballLiveKRApp/iOS
     dependencies:
       - target: BaseballLiveKRWidgetExtension
     settings:
       base:
         GENERATE_INFOPLIST_FILE: NO
-        INFOPLIST_FILE: KboLiveApp/iOS/Info.plist
-        CODE_SIGN_ENTITLEMENTS: KboLiveApp/iOS/BaseballLiveKRiOS.entitlements
+        INFOPLIST_FILE: BaseballLiveKRApp/iOS/Info.plist
+        CODE_SIGN_ENTITLEMENTS: BaseballLiveKRApp/iOS/BaseballLiveKRiOS.entitlements
         PRODUCT_BUNDLE_IDENTIFIER: kr.suhohan.baseballlivekr.ios
         PRODUCT_NAME: BaseballLiveKR
   BaseballLiveKRmacOS:
@@ -40,33 +40,33 @@ targets:
       - path: Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore
       - path: Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem
       - path: Packages/BaseballLiveKRFeatures/Sources/BaseballLiveKRFeatures
-      - path: KboLiveApp/Shared
+      - path: BaseballLiveKRApp/Shared
         excludes:
           - TeamLogos/**
           - TeamWordmarks/**
           - TeamBrandAssets/**
-      - path: KboLiveApp/macOS
+      - path: BaseballLiveKRApp/macOS
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: kr.suhohan.baseballlivekr.macos
         PRODUCT_NAME: BaseballLiveKR
         GENERATE_INFOPLIST_FILE: NO
-        INFOPLIST_FILE: KboLiveApp/macOS/Info.plist
+        INFOPLIST_FILE: BaseballLiveKRApp/macOS/Info.plist
   BaseballLiveKRWidgetExtension:
     type: app-extension
     platform: iOS
     sources:
       - path: Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore
       - path: Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem
-      - path: KboLiveApp/Shared/LiveGameActivityAttributes.swift
-      - path: KboLiveApp/Shared/SampleGameFactory.swift
-      - path: KboLiveApp/Shared/WidgetGameSnapshotStore.swift
-      - path: KboLiveApp/Widget
+      - path: BaseballLiveKRApp/Shared/LiveGameActivityAttributes.swift
+      - path: BaseballLiveKRApp/Shared/SampleGameFactory.swift
+      - path: BaseballLiveKRApp/Shared/WidgetGameSnapshotStore.swift
+      - path: BaseballLiveKRApp/Widget
     settings:
       base:
         GENERATE_INFOPLIST_FILE: NO
-        INFOPLIST_FILE: KboLiveApp/Widget/Info.plist
-        CODE_SIGN_ENTITLEMENTS: KboLiveApp/Widget/BaseballLiveKRWidget.entitlements
+        INFOPLIST_FILE: BaseballLiveKRApp/Widget/Info.plist
+        CODE_SIGN_ENTITLEMENTS: BaseballLiveKRApp/Widget/BaseballLiveKRWidget.entitlements
         PRODUCT_BUNDLE_IDENTIFIER: kr.suhohan.baseballlivekr.ios.widget
         PRODUCT_NAME: BaseballLiveKRWidget
         SKIP_INSTALL: YES

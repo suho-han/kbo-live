@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-OUT_DIR="${ROOT_DIR}/KboLiveApp/Shared/TeamBrandAssets"
+OUT_DIR="${ROOT_DIR}/BaseballLiveKRApp/Shared/TeamBrandAssets"
 MANIFEST="${OUT_DIR}/manifest.json"
 USER_AGENT="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36"
 

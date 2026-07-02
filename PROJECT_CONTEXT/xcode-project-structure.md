@@ -20,7 +20,7 @@
 AGENTS.md
 README.md
 project.yml
-KboLiveApp/
+BaseballLiveKRApp/
 BaseballLiveKR.xcodeproj/
 BaseballLiveKR.xcworkspace/
 Packages/
@@ -33,7 +33,7 @@ scripts/
 
 - `project.yml`
   - XcodeGen으로 실제 프로젝트를 생성하는 단일 정의 파일
-- `KboLiveApp/`
+- `BaseballLiveKRApp/`
   - iOS, macOS, Widget 타깃용 앱 소스
 - `BaseballLiveKR.xcodeproj/`
   - 현재 빌드 검증에 사용한 실제 프로젝트
@@ -67,7 +67,7 @@ BaseballLiveKRDesignSystem
 BaseballLiveKRFeatures
   -> screen-level UI and view model
 
-KboLiveApp targets
+BaseballLiveKRApp targets
   -> compose Core + DesignSystem + Features + platform entrypoints
 ```
 
@@ -101,10 +101,10 @@ KboLiveApp targets
 - `MARKETING_VERSION = 0.1.0`
 - `CURRENT_PROJECT_VERSION = 1`
 
-## 5. KboLiveApp 구조
+## 5. BaseballLiveKRApp 구조
 
 ```text
-KboLiveApp/
+BaseballLiveKRApp/
   Shared/
   iOS/
   macOS/
@@ -113,15 +113,15 @@ KboLiveApp/
 
 주요 파일:
 
-- `KboLiveApp/Shared/AppRuntime.swift`
-- `KboLiveApp/Shared/BaseballLiveKRHomeRootView.swift`
-- `KboLiveApp/Shared/SampleGameFactory.swift`
-- `KboLiveApp/iOS/BaseballLiveKRiOSApp.swift`
-- `KboLiveApp/macOS/BaseballLiveKRmacOSApp.swift`
-- `KboLiveApp/macOS/MenuBarDashboardView.swift`
-- `KboLiveApp/Widget/BaseballLiveKRWidgetBundle.swift`
-- `KboLiveApp/Widget/TodayGameWidget.swift`
-- `KboLiveApp/Widget/LiveGameActivityWidget.swift`
+- `BaseballLiveKRApp/Shared/AppRuntime.swift`
+- `BaseballLiveKRApp/Shared/BaseballLiveKRHomeRootView.swift`
+- `BaseballLiveKRApp/Shared/SampleGameFactory.swift`
+- `BaseballLiveKRApp/iOS/BaseballLiveKRiOSApp.swift`
+- `BaseballLiveKRApp/macOS/BaseballLiveKRmacOSApp.swift`
+- `BaseballLiveKRApp/macOS/MenuBarDashboardView.swift`
+- `BaseballLiveKRApp/Widget/BaseballLiveKRWidgetBundle.swift`
+- `BaseballLiveKRApp/Widget/TodayGameWidget.swift`
+- `BaseballLiveKRApp/Widget/LiveGameActivityWidget.swift`
 
 ## 6. Swift Packages
 

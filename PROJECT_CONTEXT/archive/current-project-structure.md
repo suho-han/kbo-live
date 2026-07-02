@@ -16,8 +16,8 @@
 AGENTS.md
 README.md
 project.yml
-KboLiveApp/
-KboLiveApp.xcodeproj/
+BaseballLiveKRApp/
+BaseballLiveKRApp.xcodeproj/
 KboLive.xcworkspace/
 Packages/
 PROJECT_CONTEXT/
@@ -33,9 +33,9 @@ scripts/
   - 빠른 시작, 빌드 진입점, 상위 문서 링크를 제공한다.
 - `project.yml`
   - XcodeGen으로 실제 Xcode 프로젝트를 생성하는 단일 정의 파일이다.
-- `KboLiveApp/`
+- `BaseballLiveKRApp/`
   - iOS, macOS, Widget 타깃이 공유하는 앱 소스 트리다.
-- `KboLiveApp.xcodeproj/`
+- `BaseballLiveKRApp.xcodeproj/`
   - 현재 빌드 검증에 사용한 실제 Xcode 프로젝트다.
 - `KboLive.xcworkspace/`
   - 루트 워크스페이스 파일이다. 현재 샌드박스에서는 `xcodebuild -workspace` 검증이 안정적이지 않다.
@@ -61,16 +61,16 @@ scripts/
 의존 방향:
 
 ```text
-KboLiveCore
+BaseballLiveKRCore
   -> domain / dto / mapper / repository / polling / projections
 
-KboLiveDesignSystem
+BaseballLiveKRDesignSystem
   -> reusable SwiftUI token / theme / primitive component
 
-KboLiveFeatures
+BaseballLiveKRFeatures
   -> screen-level feature UI and view model
 
-KboLiveApp targets
+BaseballLiveKRApp targets
   -> compose Core + DesignSystem + Features + platform entrypoints
 ```
 
@@ -78,17 +78,17 @@ KboLiveApp targets
 
 `project.yml`에서 정의한 현재 타깃:
 
-- `KboLiveiOS`
+- `BaseballLiveKRiOS`
   - iOS application target
-  - product name: `KboLiveiOS`
+  - product name: `BaseballLiveKRiOS`
   - bundle id: `com.suhohan.kbo-live.ios`
   - Live Activities 활성화
-- `KboLivemacOS`
+- `BaseballLiveKRmacOS`
   - macOS application target
-  - product name: `KboLiveApp`
+  - product name: `BaseballLiveKRApp`
   - bundle id: `com.suhohan.kbo-live.macos`
   - Menu Bar 앱 진입점 포함
-- `KboLiveWidgetExtension`
+- `BaseballLiveKRWidgetExtension`
   - iOS widget extension target
   - bundle id: `com.suhohan.kbo-live.ios.widget`
   - Today widget + Live Activity widget 포함
@@ -104,10 +104,10 @@ KboLiveApp targets
 - `MARKETING_VERSION = 0.1.0`
 - `CURRENT_PROJECT_VERSION = 1`
 
-## KboLiveApp 디렉터리
+## BaseballLiveKRApp 디렉터리
 
 ```text
-KboLiveApp/
+BaseballLiveKRApp/
   Shared/
   iOS/
   macOS/
@@ -116,30 +116,30 @@ KboLiveApp/
 
 세부 역할:
 
-- `KboLiveApp/Shared/AppRuntime.swift`
+- `BaseballLiveKRApp/Shared/AppRuntime.swift`
   - 앱 전반에서 사용할 환경/주입 지점을 담는 런타임 진입점이다.
-- `KboLiveApp/Shared/KboLiveHomeRootView.swift`
+- `BaseballLiveKRApp/Shared/KboLiveHomeRootView.swift`
   - 현재 홈 루트 화면이다.
   - `TodayGamesViewModel`을 주입받아 공통 홈 UI를 구성한다.
-- `KboLiveApp/Shared/SampleGameFactory.swift`
+- `BaseballLiveKRApp/Shared/SampleGameFactory.swift`
   - 앱, 메뉴바, 위젯 프리뷰/샘플 렌더링용 경기 데이터를 만든다.
-- `KboLiveApp/iOS/KboLiveiOSApp.swift`
+- `BaseballLiveKRApp/iOS/BaseballLiveKRiOSApp.swift`
   - iOS 앱 엔트리 포인트다.
-- `KboLiveApp/macOS/KboLivemacOSApp.swift`
+- `BaseballLiveKRApp/macOS/BaseballLiveKRmacOSApp.swift`
   - macOS 앱 엔트리 포인트다.
   - `MenuBarExtra` 기반 진입을 포함한다.
-- `KboLiveApp/macOS/MenuBarDashboardView.swift`
+- `BaseballLiveKRApp/macOS/MenuBarDashboardView.swift`
   - 메뉴바 팝오버/대시보드용 SwiftUI 화면이다.
-- `KboLiveApp/Widget/KboLiveWidgetBundle.swift`
+- `BaseballLiveKRApp/Widget/KboLiveWidgetBundle.swift`
   - 위젯 번들 엔트리다.
-- `KboLiveApp/Widget/TodayGameWidget.swift`
+- `BaseballLiveKRApp/Widget/TodayGameWidget.swift`
   - 오늘 경기용 홈 위젯이다.
-- `KboLiveApp/Widget/LiveGameActivityWidget.swift`
+- `BaseballLiveKRApp/Widget/LiveGameActivityWidget.swift`
   - Live Activity용 위젯 정의다.
 
 ## Swift Packages 구성
 
-### Packages/KboLiveCore
+### Packages/BaseballLiveKRCore
 
 역할:
 
@@ -153,24 +153,24 @@ KboLiveApp/
 
 주요 소스:
 
-- `Packages/KboLiveCore/Sources/KboLiveCore/API/KboLiveAPIClient.swift`
-- `Packages/KboLiveCore/Sources/KboLiveCore/App/GameFeedClient.swift`
-- `Packages/KboLiveCore/Sources/KboLiveCore/App/KboLiveEnvironment.swift`
-- `Packages/KboLiveCore/Sources/KboLiveCore/App/TodayGamesList.swift`
-- `Packages/KboLiveCore/Sources/KboLiveCore/DTO/GameDTO.swift`
-- `Packages/KboLiveCore/Sources/KboLiveCore/Domain/Game.swift`
-- `Packages/KboLiveCore/Sources/KboLiveCore/Domain/GameFeed.swift`
-- `Packages/KboLiveCore/Sources/KboLiveCore/Formatting/GameProjectionFormatter.swift`
-- `Packages/KboLiveCore/Sources/KboLiveCore/Mappers/ActivityGameStateMapper.swift`
-- `Packages/KboLiveCore/Sources/KboLiveCore/Mappers/GameDTOMapper.swift`
-- `Packages/KboLiveCore/Sources/KboLiveCore/Mappers/MenuBarGameSummaryMapper.swift`
-- `Packages/KboLiveCore/Sources/KboLiveCore/Mappers/WidgetGameSnapshotMapper.swift`
-- `Packages/KboLiveCore/Sources/KboLiveCore/Mocks/MockGameRepository.swift`
-- `Packages/KboLiveCore/Sources/KboLiveCore/Projections/ActivityGameState.swift`
-- `Packages/KboLiveCore/Sources/KboLiveCore/Projections/MenuBarGameSummary.swift`
-- `Packages/KboLiveCore/Sources/KboLiveCore/Projections/WidgetGameSnapshot.swift`
-- `Packages/KboLiveCore/Sources/KboLiveCore/Repository/GameRepository.swift`
-- `Packages/KboLiveCore/Sources/KboLiveCore/Services/LiveGamePollingService.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/API/KboLiveAPIClient.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/App/GameFeedClient.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/App/KboLiveEnvironment.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/App/TodayGamesList.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/DTO/GameDTO.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Domain/Game.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Domain/GameFeed.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Formatting/GameProjectionFormatter.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mappers/ActivityGameStateMapper.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mappers/GameDTOMapper.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mappers/MenuBarGameSummaryMapper.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mappers/WidgetGameSnapshotMapper.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Mocks/MockGameRepository.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Projections/ActivityGameState.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Projections/MenuBarGameSummary.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Projections/WidgetGameSnapshot.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Repository/GameRepository.swift`
+- `Packages/BaseballLiveKRCore/Sources/BaseballLiveKRCore/Services/LiveGamePollingService.swift`
 
 현재 핵심 포인트:
 
@@ -182,7 +182,7 @@ KboLiveApp/
 
 - API / repository / polling / projection / DTO / today list 정렬 테스트가 존재한다.
 
-### Packages/KboLiveDesignSystem
+### Packages/BaseballLiveKRDesignSystem
 
 역할:
 
@@ -192,23 +192,23 @@ KboLiveApp/
 
 주요 소스:
 
-- `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/BaseDiamondView.swift`
-- `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/InningStateView.swift`
-- `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/LiveBadgeView.swift`
-- `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/OutCountView.swift`
-- `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/PitchCountView.swift`
-- `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/ScoreDigitsView.swift`
-- `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Components/TeamBadgeView.swift`
-- `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Helpers/TeamColorResolver.swift`
-- `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Theme/KboTheme.swift`
-- `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Theme/TeamColorPalette.swift`
-- `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Tokens/KboColorToken.swift`
-- `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Tokens/KboRadiusToken.swift`
-- `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Tokens/KboShadowToken.swift`
-- `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Tokens/KboSpacingToken.swift`
-- `Packages/KboLiveDesignSystem/Sources/KboLiveDesignSystem/Tokens/KboTypographyToken.swift`
+- `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/BaseDiamondView.swift`
+- `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/InningStateView.swift`
+- `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/LiveBadgeView.swift`
+- `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/OutCountView.swift`
+- `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/PitchCountView.swift`
+- `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/ScoreDigitsView.swift`
+- `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Components/TeamBadgeView.swift`
+- `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Helpers/TeamColorResolver.swift`
+- `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Theme/KboTheme.swift`
+- `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Theme/TeamColorPalette.swift`
+- `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboColorToken.swift`
+- `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboRadiusToken.swift`
+- `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboShadowToken.swift`
+- `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboSpacingToken.swift`
+- `Packages/BaseballLiveKRDesignSystem/Sources/BaseballLiveKRDesignSystem/Tokens/KboTypographyToken.swift`
 
-### Packages/KboLiveFeatures
+### Packages/BaseballLiveKRFeatures
 
 역할:
 
@@ -222,18 +222,18 @@ KboLiveApp/
 
 주요 소스:
 
-- `Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/TodayGamesView.swift`
-- `Packages/KboLiveFeatures/Sources/KboLiveFeatures/TodayGames/TodayGamesViewModel.swift`
+- `Packages/BaseballLiveKRFeatures/Sources/BaseballLiveKRFeatures/TodayGames/TodayGamesView.swift`
+- `Packages/BaseballLiveKRFeatures/Sources/BaseballLiveKRFeatures/TodayGames/TodayGamesViewModel.swift`
 
 현재 핵심 포인트:
 
 - `TodayGamesViewModel`은 `ObservableObject` + `@Published` 기반이다.
 - 로딩, 리프레시, 에러, 필터 변경 상태를 관리한다.
-- 경기 정렬은 `KboLiveCore`의 공용 규칙을 재사용한다.
+- 경기 정렬은 `BaseballLiveKRCore`의 공용 규칙을 재사용한다.
 
 테스트:
 
-- `Packages/KboLiveFeatures/Tests/KboLiveFeaturesTests/TodayGamesViewModelTests.swift`
+- `Packages/BaseballLiveKRFeatures/Tests/BaseballLiveKRFeaturesTests/TodayGamesViewModelTests.swift`
 
 ## backend-spike 구성
 
@@ -266,7 +266,7 @@ KboLiveApp/
 현재 가장 신뢰할 수 있는 진입점:
 
 1. `project.yml`을 기준으로 Xcode 프로젝트를 재생성한다.
-2. `KboLiveApp.xcodeproj`를 연다.
+2. `BaseballLiveKRApp.xcodeproj`를 연다.
 3. 필요한 스킴을 선택해 빌드한다.
 
 프로젝트 재생성:
@@ -278,34 +278,34 @@ KboLiveApp/
 권장 오픈 대상:
 
 ```bash
-open KboLiveApp.xcodeproj
+open BaseballLiveKRApp.xcodeproj
 ```
 
 현재 검증된 빌드 명령:
 
 ```bash
 env HOME=$PWD/.xcode/home CFFIXED_USER_HOME=$PWD/.xcode/home XDG_CACHE_HOME=$PWD/.xcode/home/Library/Caches \
-  xcodebuild -scheme KboLivemacOS -project KboLiveApp.xcodeproj -destination 'platform=macOS' -derivedDataPath .xcode/DerivedData build
+  xcodebuild -scheme BaseballLiveKRmacOS -project BaseballLiveKRApp.xcodeproj -destination 'platform=macOS' -derivedDataPath .xcode/DerivedData build
 
 env HOME=$PWD/.xcode/home CFFIXED_USER_HOME=$PWD/.xcode/home XDG_CACHE_HOME=$PWD/.xcode/home/Library/Caches \
-  xcodebuild -scheme KboLiveiOS -project KboLiveApp.xcodeproj -destination 'generic/platform=iOS' -derivedDataPath .xcode/DerivedData CODE_SIGNING_ALLOWED=NO build
+  xcodebuild -scheme BaseballLiveKRiOS -project BaseballLiveKRApp.xcodeproj -destination 'generic/platform=iOS' -derivedDataPath .xcode/DerivedData CODE_SIGNING_ALLOWED=NO build
 
 env HOME=$PWD/.xcode/home CFFIXED_USER_HOME=$PWD/.xcode/home XDG_CACHE_HOME=$PWD/.xcode/home/Library/Caches \
-  xcodebuild -scheme KboLiveWidgetExtension -project KboLiveApp.xcodeproj -destination 'generic/platform=iOS' -derivedDataPath .xcode/DerivedData CODE_SIGNING_ALLOWED=NO build
+  xcodebuild -scheme BaseballLiveKRWidgetExtension -project BaseballLiveKRApp.xcodeproj -destination 'generic/platform=iOS' -derivedDataPath .xcode/DerivedData CODE_SIGNING_ALLOWED=NO build
 ```
 
 최근 확인 상태:
 
-- `KboLivemacOS`: build succeeded
-- `KboLiveiOS`: build succeeded
-- `KboLiveWidgetExtension`: build succeeded
+- `BaseballLiveKRmacOS`: build succeeded
+- `BaseballLiveKRiOS`: build succeeded
+- `BaseballLiveKRWidgetExtension`: build succeeded
 
 ## 현재 제약과 주의사항
 
 - 루트 `KboLive.xcworkspace`는 파일로 존재하지만, 현재 샌드박스에서는 `xcodebuild -workspace KboLive.xcworkspace` 검증이 안정적이지 않았다.
-- 따라서 실제 개발 진입점은 현재 기준 `KboLiveApp.xcodeproj`가 더 안전하다.
+- 따라서 실제 개발 진입점은 현재 기준 `BaseballLiveKRApp.xcodeproj`가 더 안전하다.
 - app target은 package dependency 방식이 아니라 소스 직접 포함 방식이라, 나중에 패키지 재구성 시 `project.yml` 수정이 필요하다.
-- `KboLiveFeatures`는 현재 Today Games 중심의 최소 기능만 포함한다.
+- `BaseballLiveKRFeatures`는 현재 Today Games 중심의 최소 기능만 포함한다.
 - 실제 네트워크 연결, 데이터 persistence, 상세 화면, 위젯 timeline 전략은 아직 확장 여지가 크다.
 
 ## 다음 확장 후보

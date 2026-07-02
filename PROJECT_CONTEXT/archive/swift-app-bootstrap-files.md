@@ -5,11 +5,11 @@
 개발 환경: 로컬 Mac + Xcode 16 이상 가정
 
 업데이트 메모 (2026-06-10):
-- `Packages/KboLiveCore` 최소 DTO/domain/mapper/test scaffold 생성 완료
+- `Packages/BaseballLiveKRCore` 최소 DTO/domain/mapper/test scaffold 생성 완료
 - `TodayGamesResponseDTO`, `GameDetailResponseDTO`, `GameDTO` 및 하위 DTO 초안 코드 작성 완료
 - `GameDTO -> Game` mapper 초안 작성 완료
 - widget / live activity / menu bar용 shared projection(`WidgetGameSnapshot`, `ActivityGameState`, `MenuBarGameSummary`) 및 mapper 초안 추가 완료
-- `Packages/KboLiveDesignSystem` package 및 token/theme/primitive scaffold 추가 완료
+- `Packages/BaseballLiveKRDesignSystem` package 및 token/theme/primitive scaffold 추가 완료
 - fixture 기반 decode/mapper/projection 테스트 파일 추가 완료
 - 단, 현재 Linux 호스트에는 Swift toolchain이 없어 `swift test` 실행 검증은 아직 미완료
 
@@ -34,14 +34,14 @@ MVP 1차 범위:
 - Live Activity Extension
 - macOS Menu Bar App
 - Shared Swift Package 2개
-  - `KboLiveCore`
-  - `KboLiveDesignSystem`
+  - `BaseballLiveKRCore`
+  - `BaseballLiveKRDesignSystem`
 
 초기에는 아래 원칙을 유지한다.
 - feature package 분리는 하지 않음
 - app target은 얇게 유지
-- domain / DTO / networking / repository는 `KboLiveCore`로 집중
-- UI 토큰 / primitive는 `KboLiveDesignSystem`로 집중
+- domain / DTO / networking / repository는 `BaseballLiveKRCore`로 집중
+- UI 토큰 / primitive는 `BaseballLiveKRDesignSystem`로 집중
 
 ---
 
@@ -50,15 +50,15 @@ MVP 1차 범위:
 ```text
 kbo-live/
 ├── KboLive.xcworkspace
-├── KboLiveApp/
-│   ├── KboLiveApp.xcodeproj
-│   ├── KboLiveiOS/
-│   ├── KboLivemacOS/
-│   ├── KboLiveWidgetExtension/
+├── BaseballLiveKRApp/
+│   ├── BaseballLiveKRApp.xcodeproj
+│   ├── BaseballLiveKRiOS/
+│   ├── BaseballLiveKRmacOS/
+│   ├── BaseballLiveKRWidgetExtension/
 │   └── KboLiveActivityExtension/
 ├── Packages/
-│   ├── KboLiveCore/
-│   └── KboLiveDesignSystem/
+│   ├── BaseballLiveKRCore/
+│   └── BaseballLiveKRDesignSystem/
 ├── backend-spike/
 └── PROJECT_CONTEXT/
 ```
@@ -71,16 +71,16 @@ kbo-live/
 - `KboLive.xcworkspace`
 
 ### Step 2. App project
-- `KboLiveApp/KboLiveApp.xcodeproj`
+- `BaseballLiveKRApp/BaseballLiveKRApp.xcodeproj`
 
 ### Step 3. iOS app target
-- target name: `KboLiveiOS`
+- target name: `BaseballLiveKRiOS`
 - interface: SwiftUI
 - lifecycle: SwiftUI App
 - tests: 기본 unit test target 생성
 
 ### Step 4. Widget extension
-- target name: `KboLiveWidgetExtension`
+- target name: `BaseballLiveKRWidgetExtension`
 - widget kind는 추후 분리 가능하지만 초기엔 하나의 bundle로 시작
 
 ### Step 5. Live Activity extension
@@ -88,22 +88,22 @@ kbo-live/
 - ActivityKit / WidgetKit 기반
 
 ### Step 6. macOS target
-- target name: `KboLivemacOS`
+- target name: `BaseballLiveKRmacOS`
 - SwiftUI App
 - `MenuBarExtra` 사용
 
 ### Step 7. Swift Packages 연결
-- local package: `Packages/KboLiveCore`
-- local package: `Packages/KboLiveDesignSystem`
+- local package: `Packages/BaseballLiveKRCore`
+- local package: `Packages/BaseballLiveKRDesignSystem`
 
 ---
 
 ## 5. iOS App 초기 파일 세트
 
 ```text
-KboLiveApp/KboLiveiOS/
+BaseballLiveKRApp/BaseballLiveKRiOS/
 ├── App/
-│   ├── KboLiveiOSApp.swift
+│   ├── BaseballLiveKRiOSApp.swift
 │   ├── AppContainer.swift
 │   ├── AppRouter.swift
 │   └── AppScenePhaseHandler.swift
@@ -140,7 +140,7 @@ KboLiveApp/KboLiveiOS/
 ```
 
 ### 파일 책임
-- `KboLiveiOSApp.swift`
+- `BaseballLiveKRiOSApp.swift`
   - 앱 entry point
   - 루트 scene만 선언
 - `AppContainer.swift`
@@ -161,9 +161,9 @@ KboLiveApp/KboLiveiOS/
 ## 6. macOS App 초기 파일 세트
 
 ```text
-KboLiveApp/KboLivemacOS/
+BaseballLiveKRApp/BaseballLiveKRmacOS/
 ├── App/
-│   ├── KboLivemacOSApp.swift
+│   ├── BaseballLiveKRmacOSApp.swift
 │   └── MacAppContainer.swift
 ├── MenuBar/
 │   ├── MenuBarRoot.swift
@@ -193,7 +193,7 @@ KboLiveApp/KboLivemacOS/
 ## 7. Widget Extension 초기 파일 세트
 
 ```text
-KboLiveApp/KboLiveWidgetExtension/
+BaseballLiveKRApp/BaseballLiveKRWidgetExtension/
 ├── KboLiveWidgetBundle.swift
 ├── Providers/
 │   ├── FavoriteGameTimelineProvider.swift
@@ -226,7 +226,7 @@ KboLiveApp/KboLiveWidgetExtension/
 ## 8. Live Activity Extension 초기 파일 세트
 
 ```text
-KboLiveApp/KboLiveActivityExtension/
+BaseballLiveKRApp/KboLiveActivityExtension/
 ├── KboLiveActivityAttributes.swift
 ├── KboLiveActivityWidget.swift
 ├── Models/
@@ -255,13 +255,13 @@ KboLiveApp/KboLiveActivityExtension/
 
 ---
 
-## 9. KboLiveCore 초기 파일 세트
+## 9. BaseballLiveKRCore 초기 파일 세트
 
 ```text
-Packages/KboLiveCore/
+Packages/BaseballLiveKRCore/
 ├── Package.swift
 ├── Sources/
-│   └── KboLiveCore/
+│   └── BaseballLiveKRCore/
 │       ├── Config/
 │       │   ├── AppEnvironment.swift
 │       │   ├── APIEnvironment.swift
@@ -312,7 +312,7 @@ Packages/KboLiveCore/
 │           ├── DateFormatting.swift
 │           └── ISO8601KSTParser.swift
 └── Tests/
-    └── KboLiveCoreTests/
+    └── BaseballLiveKRCoreTests/
         ├── DTO/
         ├── Mappers/
         ├── Repository/
@@ -334,13 +334,13 @@ Packages/KboLiveCore/
 
 ---
 
-## 10. KboLiveDesignSystem 초기 파일 세트
+## 10. BaseballLiveKRDesignSystem 초기 파일 세트
 
 ```text
-Packages/KboLiveDesignSystem/
+Packages/BaseballLiveKRDesignSystem/
 ├── Package.swift
 ├── Sources/
-│   └── KboLiveDesignSystem/
+│   └── BaseballLiveKRDesignSystem/
 │       ├── Tokens/
 │       │   ├── KboColorToken.swift
 │       │   ├── KboSpacingToken.swift
@@ -361,7 +361,7 @@ Packages/KboLiveDesignSystem/
 │       └── Helpers/
 │           └── TeamColorResolver.swift
 └── Tests/
-    └── KboLiveDesignSystemTests/
+    └── BaseballLiveKRDesignSystemTests/
 ```
 
 ---
@@ -397,7 +397,7 @@ Packages/KboLiveDesignSystem/
 - Widget placeholder 표시 가능
 - Live Activity preview 표시 가능
 - macOS MenuBarExtra placeholder 표시 가능
-- `KboLiveCore`에서 mock `TodayGamesResponseDTO` decode 테스트 1개 통과
+- `BaseballLiveKRCore`에서 mock `TodayGamesResponseDTO` decode 테스트 1개 통과
 
 ---
 
@@ -405,8 +405,8 @@ Packages/KboLiveDesignSystem/
 
 처음부터 feature를 세밀하게 쪼개기보다:
 - **app targets는 얇은 shell**
-- **KboLiveCore는 데이터/도메인 중심**
-- **KboLiveDesignSystem은 표현 중심**
+- **BaseballLiveKRCore는 데이터/도메인 중심**
+- **BaseballLiveKRDesignSystem은 표현 중심**
 으로 나누는 것이 가장 안전하다.
 
 초기 1~2일은 실제 기능 구현보다,

@@ -73,8 +73,8 @@ KBO 경기를 Apple 플랫폼에서 실시간으로 확인할 수 있는 앱을 
 - **언어**: Swift 6 유지
 - **UI**: 전면 SwiftUI
 - **아키텍처**: MVVM + Observation + AppContainer 조합
-- **공유 로직 위치**: `Packages/KboLiveCore`
-- **공통 UI 위치**: `Packages/KboLiveDesignSystem`
+- **공유 로직 위치**: `Packages/BaseballLiveKRCore`
+- **공통 UI 위치**: `Packages/BaseballLiveKRDesignSystem`
 - **데이터 공급**: 초기엔 `backend-spike` 같은 BFF를 표준 공급원으로 간주
 - **실시간 전략**: MVP는 polling, 이후 APNs Live Activity push 확장
 - **저장소 역할**: SwiftData는 즐겨찾기/설정/최근 선택 저장 위주, live game source of truth로는 쓰지 않음
@@ -547,7 +547,7 @@ MVP는 polling 기반으로 시작하고, 데이터 안정화 뒤 push로 확장
 KBO source
 → backend-spike / future BFF
 → normalized JSON contract
-→ KboLiveCore DTO
+→ BaseballLiveKRCore DTO
 → domain Game
 → target-specific projection
    ├─ WidgetGameSnapshot
